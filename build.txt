@@ -1,0 +1,4 @@
+author = Jamz & Terramon Team
+version = 0.2
+displayName = Terramon Mod
+homepage = https://discord.gg/9euZqd8
