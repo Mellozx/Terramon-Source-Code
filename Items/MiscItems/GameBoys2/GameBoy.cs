@@ -1,19 +1,16 @@
-using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.MiscItems.Gameboys
+namespace Terramon.Items.MiscItems.Gameboys
 {
-	public class GameBoyTurquoise : ModItem
-	{
+	public class GameBoy : ModItem
+	{	
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Game Boy (Turquoise)");
+			DisplayName.SetDefault("Game Boy (Gray)");
 			Tooltip.SetDefault("It's an 8-bit handheld console."
 				+ "\n[c/33ceff:Equip this to listen to music from Pokémon Fire Red!]"
-					+ "\n[c/FFFF66:Soundtrack: Trainer Battle]");
+					+ "\n[c/FFFF66:Soundtrack: Title Screen]");
 		} 
 		public override void SetDefaults()
 		{
@@ -31,7 +28,7 @@ namespace Terramon.MiscItems.Gameboys
 			item.autoReuse = false;
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual) {
-			Main.musicBox2 = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/GB_TrainerBattle");
+			Main.musicBox2 = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/GB_TitleScreen");
 		}
 	}
 }

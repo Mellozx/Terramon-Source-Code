@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.MiscItems.Gameboys
+namespace Terramon.Items.MiscItems.Gameboys
 {
 	public class GameBoyPurple : ModItem
 	{
