@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
+using Terramon.Players;
 
 namespace Terramon.Commands
 {
@@ -34,7 +35,7 @@ namespace Terramon.Commands
         public override void Action(CommandCaller caller, string input, string[] args)
         {
 			TerramonPlayer TerramonPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-			if (TerramonPlayer.starterHasBeenChosen)
+			if (TerramonPlayer.StarterChosen)
 			{
 				if (args.Length == 0)
 				{
@@ -45,19 +46,19 @@ namespace Terramon.Commands
 				if (args[0].ToLower() == "bulbasaur")
 				{
 					Main.NewText("You chose [c/33FF33:Bulbasaur, the Seed Pokémon.] Great choice!");
-					TerramonPlayer.starterHasBeenChosen = false;
+					TerramonPlayer.StarterChosen = false;
 					Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("BulbasaurBall"));
 				}
 				if (args[0].ToLower() == "squirtle")
 				{
 					Main.NewText("You chose [c/00FFFF:Squirtle, the Tiny Turtle Pokémon.] Great choice!");
-					TerramonPlayer.starterHasBeenChosen = false;
+					TerramonPlayer.StarterChosen = false;
 					Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("SquirtleBall"));
 				}
 				if (args[0].ToLower() == "charmander")
 				{
 					Main.NewText("You chose [c/FF8C00:Charmander, the Fire Lizard Pokémon.] Great choice!");
-					TerramonPlayer.starterHasBeenChosen = false;
+					TerramonPlayer.StarterChosen = false;
 					Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("CharmanderBall"));
 				}
 			}

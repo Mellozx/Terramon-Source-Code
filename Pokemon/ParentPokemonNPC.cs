@@ -9,8 +9,8 @@ namespace Terramon.Pokemon
 {
     public abstract class ParentPokemonNPC : ModNPC
     {
-        private readonly string[] ballProjectiles = Terramon.GetBallProjectiles();
-        private readonly float[][] catchChances = Terramon.GetCatchChances();
+        private readonly string[] ballProjectiles = TerramonMod.GetBallProjectiles();
+        private readonly float[][] catchChances = TerramonMod.GetCatchChances();
         private readonly string nameMatcher = "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))";
 
         public abstract Type HomeClass();

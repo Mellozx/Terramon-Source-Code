@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terramon.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -102,9 +103,9 @@ namespace Terramon.UI
             TerramonPlayer TerramonPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             Player player = Main.LocalPlayer;
             Mod achLib = ModLoader.GetMod("AchievementLib");
-            Mod mod = ModContent.GetInstance<Terramon>();
+            Mod mod = ModContent.GetInstance<TerramonMod>();
             Main.PlaySound(SoundID.Coins);
-            TerramonPlayer.starterHasBeenChosen = true;
+            TerramonPlayer.StarterChosen = true;
             Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("BulbasaurBall"));
             Main.NewText("You chose [c/33FF33:Bulbasaur, the Seed Pokemon.] Great choice!");
             achLib.Call("UnlockLocal", "Terramon", "Just the Beginning", player);
@@ -116,9 +117,9 @@ namespace Terramon.UI
             TerramonPlayer TerramonPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             Player player = Main.LocalPlayer;
             Mod achLib = ModLoader.GetMod("AchievementLib");
-            Mod mod = ModContent.GetInstance<Terramon>();
+            Mod mod = ModContent.GetInstance<TerramonMod>();
             Main.PlaySound(SoundID.Coins);
-            TerramonPlayer.starterHasBeenChosen = true;
+            TerramonPlayer.StarterChosen = true;
             Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("CharmanderBall"));
             Main.NewText("You chose [c/FF8C00:Charmander, the Fire Lizard Pokemon.] Great choice!");
             achLib.Call("UnlockLocal", "Terramon", "Just the Beginning", player);
@@ -130,9 +131,9 @@ namespace Terramon.UI
             TerramonPlayer TerramonPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             Player player = Main.LocalPlayer;
             Mod achLib = ModLoader.GetMod("AchievementLib");
-            Mod mod = ModContent.GetInstance<Terramon>();
+            Mod mod = ModContent.GetInstance<TerramonMod>();
             Main.PlaySound(SoundID.Coins);
-            TerramonPlayer.starterHasBeenChosen = true;
+            TerramonPlayer.StarterChosen = true;
             Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("SquirtleBall"));
             Main.NewText("You chose [c/00FFFF:Squirtle, the Tiny Turtle Pokemon.] Great choice!");
             achLib.Call("UnlockLocal", "Terramon", "Just the Beginning", player);

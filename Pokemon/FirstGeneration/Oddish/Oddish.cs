@@ -1,3 +1,4 @@
+using Terramon.Players;
 using Terraria;
 
 namespace Terramon.Pokemon.Oddish

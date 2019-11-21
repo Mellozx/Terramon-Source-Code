@@ -1,3 +1,4 @@
+using Terramon.Players;
 using Terramon.UI;
 using Terraria;
 using Terraria.ID;
@@ -34,13 +35,13 @@ namespace Terramon.Items.MiscItems
         public override bool CanUseItem(Player player)
         {
             TerramonPlayer TerramonPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-            return !TerramonPlayer.starterHasBeenChosen;
+            return !TerramonPlayer.StarterChosen;
         }
 
         public override bool UseItem(Player player)
         {
             TerramonPlayer TerramonPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-            if (TerramonPlayer.starterHasBeenChosen == false)
+            if (TerramonPlayer.StarterChosen == false)
             {
                 ChooseStarter.Visible = true;
             }

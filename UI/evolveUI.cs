@@ -41,7 +41,7 @@ namespace Terramon.UI
             starterselectmenu.Height.Set(1, 0f);
             mainPanel.Append(starterselectmenu);
 
-            Mod mod = ModContent.GetInstance<Terramon>();
+            Mod mod = ModContent.GetInstance<TerramonMod>();
 
             //item slots..?
 

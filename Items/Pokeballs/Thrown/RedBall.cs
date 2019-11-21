@@ -1,12 +1,13 @@
 using System;
 using Microsoft.Xna.Framework;
+using Terramon.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Thrown // This projectile is thrown by Red, the Pokemon Trainer NPC.
 {
-    class RedBall : ModProjectile
+    public class RedBall : TerramonProjectile
     {
 
         bool collide = true;

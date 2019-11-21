@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Thrown
 {
-    class PokeballProjectile : ModProjectile
+    public class PokeballProjectile : BasePokeballProjectile
     {
 
         bool collide = true;
