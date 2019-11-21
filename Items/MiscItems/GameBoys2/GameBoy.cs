@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Items.MiscItems.Gameboys
+namespace Terramon.Items.MiscItems.GameBoys2
 {
 	public class GameBoy : ModItem
 	{	
