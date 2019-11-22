@@ -1,37 +1,32 @@
-﻿using System;
-using AchievementLib.Elements;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria.Achievements;
 
 namespace Terramon.Achievements
 {
-    public abstract class TerramonAchievement : ModAchievement
+    public abstract class TerramonAchievement
     {
-        private readonly string _name, _description;
-        private readonly AchievementCategory _category;
-
-
         protected TerramonAchievement(string name, string description, AchievementCategory category)
         {
-            _name = name;
-            _description = description;
-            _category = category;
+            Name = name;
+            Description = description;
 
             TextureName = this.GetType().Name;
+
+            LockedTexture = TerramonMod.Instance.GetTexture($"Achievements/{TextureName}Locked");
+            UnlockedTexture = TerramonMod.Instance.GetTexture($"Achievements/{TextureName}Unlocked");
+
+            Category = category;
         }
 
 
-        public override void SetDefaults()
-        {
-            Name = _name;
-            Description = _description;
-
-            Category = _category;
-
-            LockedTexture = mod.GetTexture($"{TextureName}Locked");
-            UnlockedTexture = mod.GetTexture($"{TextureName}Unlocked");
-        }
-
+        public string Name { get; }
+        public string Description { get; }
 
         public string TextureName { get; }
+
+        public Texture2D LockedTexture { get; }
+        public Texture2D UnlockedTexture { get; }
+
+        public AchievementCategory Category { get; }
     }
 }

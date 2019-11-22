@@ -4,7 +4,6 @@ using Terramon.ModCompatibilities;
 using Terramon.UI;
 using Terraria;
 // using Terraria.ID;
-using Terraria.Achievements;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -160,7 +159,7 @@ namespace Terramon
 
         public static TerramonMod Instance { get; private set; }
 
-        public static AchievementLibCompatibility AchievementLibCompatibility { get; private set; }
-        public static bool AchievementLibLoaded => AchievementLibCompatibility != null;
+        public AchievementLibCompatibility AchievementLibCompatibility { get; private set; }
+        public bool AchievementLibLoaded => AchievementLibCompatibility != null;
     }
 }

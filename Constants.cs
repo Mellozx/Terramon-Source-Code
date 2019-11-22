@@ -2,6 +2,14 @@
 {
     public static class Constants
     {
+        public static class Achievements
+        {
+            public static class Names
+            {
+
+            }
+        }
+
         public static class Pokeballs
         {
             public static class UnlocalizedNames

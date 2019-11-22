@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terramon.Players;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Terraria.ID;
 using WebmilioCommons.Managers;
 
 namespace Terramon.Items.Pokeballs.Inventory

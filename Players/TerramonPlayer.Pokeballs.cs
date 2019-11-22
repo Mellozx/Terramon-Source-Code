@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Terramon.Items.Pokeballs.Inventory;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace Terramon.Players
@@ -20,7 +15,7 @@ namespace Terramon.Players
         #region Thrown Pokeballs
 
         public void IncrementThrownPokeballs(BasePokeballItem pokeball) => IncrementThrownPokeballs(pokeball.UnlocalizedName);
-        public int IncrementThrownPokeballs(string unlocalizedName) => ++ThrownPokeballs[unlocalizedName];
+        public int IncrementThrownPokeballs(string unlocalizedName) => ThrownPokeballs[unlocalizedName] = GetOrCreateThrownPokeballs(unlocalizedName) + 1;
 
         public int GetThrownPokeballsCount(BasePokeballItem pokeball) => GetThrownPokeballsCount(pokeball.UnlocalizedName);
         public int GetThrownPokeballsCount(string unlocalizedName) => GetOrCreateThrownPokeballs(unlocalizedName);

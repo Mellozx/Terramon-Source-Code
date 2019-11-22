@@ -1,7 +1,6 @@
 using Terramon.Items.Pokeballs.Thrown;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {

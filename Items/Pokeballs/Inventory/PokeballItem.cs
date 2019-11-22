@@ -1,11 +1,9 @@
-using AchievementLib.Elements;
-using Microsoft.Xna.Framework;
 using Terramon.Achievements;
 using Terramon.Items.Pokeballs.Thrown;
+using Terramon.ModCompatibilities;
 using Terramon.Players;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
@@ -22,12 +20,12 @@ namespace Terramon.Items.Pokeballs.Inventory
         }
 
 
-        protected override void OnCheckShootAchievements(TerramonPlayer terramonPlayer, Mod achievementsLib, int thrownPokeballsCount)
+        protected override void OnCheckShootAchievements(TerramonPlayer terramonPlayer, AchievementLibCompatibility compatibility, int thrownPokeballsCount)
         {
-            ModAchievement.UnlockLocal<FirstTossAchievement>(terramonPlayer.player);
+            compatibility.GrantAchievementLocal<FirstTossAchievement>(terramonPlayer.player);
             
             if (thrownPokeballsCount >= 25)
-                ModAchievement.UnlockLocal<ALotOfTossesAchievement>(terramonPlayer.player);
+                compatibility.GrantAchievementLocal<ALotOfTossesAchievement>(terramonPlayer.player);
         }
     }
 }
