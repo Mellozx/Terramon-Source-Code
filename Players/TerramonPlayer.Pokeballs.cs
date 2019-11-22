@@ -38,12 +38,20 @@ namespace Terramon.Players
 
         private void SavePokeballs(TagCompound tag)
         {
-            tag.Add(nameof(ThrownPokeballs), ThrownPokeballs);
+            TagCompound thrownPokeballs = new TagCompound();
+
+            foreach (KeyValuePair<string, int> kvp in ThrownPokeballs)
+                thrownPokeballs.Add(kvp.Key, kvp.Value);
+
+            tag.Add(nameof(ThrownPokeballs), thrownPokeballs);
         }
 
         private void LoadPokeballs(TagCompound tag)
         {
-            ThrownPokeballs = tag.Get<Dictionary<string, int>>(nameof(ThrownPokeballs));
+            ThrownPokeballs = new Dictionary<string, int>();
+
+            foreach (KeyValuePair<string, object> kvp in tag.GetCompound(nameof(ThrownPokeballs)))
+                ThrownPokeballs.Add(kvp.Key, int.Parse(kvp.Value.ToString()));
         }
 
 

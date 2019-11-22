@@ -10,11 +10,6 @@ namespace Terramon.Achievements
         private readonly AchievementCategory _category;
 
 
-        private TerramonAchievement()
-        {
-            throw new Exception("Autist tried calling a private constructor?");
-        }
-
         protected TerramonAchievement(string name, string description, AchievementCategory category)
         {
             _name = name;

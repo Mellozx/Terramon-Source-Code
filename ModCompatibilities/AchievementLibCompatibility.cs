@@ -1,6 +1,6 @@
-﻿using FargowiltasSouls.ModCompatibilities;
-using Terraria.Achievements;
+﻿using Terraria.Achievements;
 using Terraria.ModLoader;
+using WebmilioCommons.ModCompatibilities;
 
 namespace Terramon.ModCompatibilities
 {
