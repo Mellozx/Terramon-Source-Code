@@ -1,7 +1,7 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.Charmeleon
+namespace Terramon.Pokemon.FirstGeneration.Charmeleon
 {
     public class Charmeleon : ParentPokemon
     {

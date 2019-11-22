@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Oddish
+namespace Terramon.Pokemon.FirstGeneration.Oddish
 {
     public class OddishBall : ModItem
     {

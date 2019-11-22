@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Bulbasaur
+namespace Terramon.Pokemon.FirstGeneration.Bulbasaur
 {
     public class BulbasaurNPC : ParentPokemonNPC
     {

@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Gengar
+namespace Terramon.Pokemon.FirstGeneration.Gengar
 {
     public class GengarBall : ModItem
     {

@@ -1,7 +1,7 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.Haunter
+namespace Terramon.Pokemon.FirstGeneration.Haunter
 {
     public class Haunter : ParentPokemon
     {

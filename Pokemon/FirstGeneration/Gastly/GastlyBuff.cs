@@ -2,7 +2,7 @@ using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Gastly
+namespace Terramon.Pokemon.FirstGeneration.Gastly
 {
     public class GastlyBuff : ModBuff
     {

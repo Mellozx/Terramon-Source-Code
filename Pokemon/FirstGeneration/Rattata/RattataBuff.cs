@@ -2,7 +2,7 @@ using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Rattata
+namespace Terramon.Pokemon.FirstGeneration.Rattata
 {
     public class RattataBuff : ModBuff
     {

@@ -1,7 +1,7 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.Bulbasaur
+namespace Terramon.Pokemon.FirstGeneration.Bulbasaur
 {
     public class Bulbasaur : ParentPokemon
     {

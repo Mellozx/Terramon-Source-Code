@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Ivysaur
+namespace Terramon.Pokemon.FirstGeneration.Ivysaur
 {
     public class IvysaurBall : ModItem
     {

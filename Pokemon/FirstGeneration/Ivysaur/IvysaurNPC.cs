@@ -1,6 +1,6 @@
 using System;
 
-namespace Terramon.Pokemon.Ivysaur
+namespace Terramon.Pokemon.FirstGeneration.Ivysaur
 {
     public class IvysaurNPC : ParentPokemonNPC
     {

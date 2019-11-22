@@ -2,7 +2,7 @@ using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Oddish
+namespace Terramon.Pokemon.FirstGeneration.Oddish
 {
     public class OddishBuff : ModBuff
     {

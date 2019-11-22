@@ -1,7 +1,7 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.Rattata
+namespace Terramon.Pokemon.FirstGeneration.Rattata
 {
     public class Rattata : ParentPokemon
     {

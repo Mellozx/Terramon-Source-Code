@@ -2,7 +2,7 @@ using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Charmeleon
+namespace Terramon.Pokemon.FirstGeneration.Charmeleon
 {
     public class CharmeleonBuff : ModBuff
     {

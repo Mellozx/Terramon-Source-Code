@@ -1,7 +1,7 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.Charmander
+namespace Terramon.Pokemon.FirstGeneration.Charmander
 {
     public class Charmander : ParentPokemon
     {

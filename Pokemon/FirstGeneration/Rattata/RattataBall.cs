@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Rattata
+namespace Terramon.Pokemon.FirstGeneration.Rattata
 {
     public class RattataBall : ModItem
     {

@@ -2,7 +2,7 @@ using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Bulbasaur
+namespace Terramon.Pokemon.FirstGeneration.Bulbasaur
 {
     public class BulbasaurBuff : ModBuff
     {

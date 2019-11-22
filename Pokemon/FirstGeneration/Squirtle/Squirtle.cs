@@ -1,7 +1,7 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.Squirtle
+namespace Terramon.Pokemon.FirstGeneration.Squirtle
 {
     public class Squirtle : ParentPokemon
     {

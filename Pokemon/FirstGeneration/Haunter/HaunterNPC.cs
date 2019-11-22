@@ -2,7 +2,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 
-namespace Terramon.Pokemon.Haunter
+namespace Terramon.Pokemon.FirstGeneration.Haunter
 {
     public class HaunterNPC : ParentPokemonNPCNight
     {

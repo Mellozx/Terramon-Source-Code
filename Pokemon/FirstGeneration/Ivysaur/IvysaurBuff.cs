@@ -2,7 +2,7 @@ using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Ivysaur
+namespace Terramon.Pokemon.FirstGeneration.Ivysaur
 {
     public class IvysaurBuff : ModBuff
     {

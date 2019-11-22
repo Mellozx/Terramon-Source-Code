@@ -1,6 +1,6 @@
 using System;
 
-namespace Terramon.Pokemon.Squirtle
+namespace Terramon.Pokemon.FirstGeneration.Squirtle
 {
     public class SquirtleNPC : ParentPokemonNPC
     {

@@ -2,7 +2,7 @@ using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Gengar
+namespace Terramon.Pokemon.FirstGeneration.Gengar
 {
     public class GengarBuff : ModBuff
     {

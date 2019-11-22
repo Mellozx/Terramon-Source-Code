@@ -2,7 +2,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 
-namespace Terramon.Pokemon.Gastly
+namespace Terramon.Pokemon.FirstGeneration.Gastly
 {
     public class GastlyNPC : ParentPokemonNPCNight
     {

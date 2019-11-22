@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Squirtle
+namespace Terramon.Pokemon.FirstGeneration.Squirtle
 {
     public class SquirtleBall : ModItem
     {

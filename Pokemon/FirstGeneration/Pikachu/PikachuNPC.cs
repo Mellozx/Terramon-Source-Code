@@ -1,6 +1,6 @@
 using System;
 
-namespace Terramon.Pokemon.Pikachu
+namespace Terramon.Pokemon.FirstGeneration.Pikachu
 {
     public class PikachuNPC : ParentPokemonNPC
     {

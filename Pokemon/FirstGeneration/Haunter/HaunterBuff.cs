@@ -2,7 +2,7 @@ using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Haunter
+namespace Terramon.Pokemon.FirstGeneration.Haunter
 {
     public class HaunterBuff : ModBuff
     {

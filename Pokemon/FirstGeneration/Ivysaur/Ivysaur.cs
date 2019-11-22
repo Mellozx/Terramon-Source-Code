@@ -1,7 +1,7 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.Ivysaur
+namespace Terramon.Pokemon.FirstGeneration.Ivysaur
 {
     public class Ivysaur : ParentPokemon
     {

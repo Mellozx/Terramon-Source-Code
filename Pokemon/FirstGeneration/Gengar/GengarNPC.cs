@@ -2,7 +2,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 
-namespace Terramon.Pokemon.Gengar
+namespace Terramon.Pokemon.FirstGeneration.Gengar
 {
     public class GengarNPC : ParentPokemonNPCNight
     {

@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Caterpie
+namespace Terramon.Pokemon.FirstGeneration.Caterpie
 {
     public class CaterpieBall : ModItem
     {

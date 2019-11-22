@@ -1,6 +1,6 @@
 using System;
 
-namespace Terramon.Pokemon.Charmeleon
+namespace Terramon.Pokemon.FirstGeneration.Charmeleon
 {
     public class CharmeleonNPC : ParentPokemonNPC
     {

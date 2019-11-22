@@ -1,7 +1,7 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.Gengar
+namespace Terramon.Pokemon.FirstGeneration.Gengar
 {
     public class Gengar : ParentPokemon
     {

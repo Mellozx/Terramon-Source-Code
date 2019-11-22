@@ -2,7 +2,7 @@ using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Pikachu
+namespace Terramon.Pokemon.FirstGeneration.Pikachu
 {
     public class PikachuBuff : ModBuff
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Terramon.Pokemon.Charmander
+namespace Terramon.Pokemon.FirstGeneration.Charmander
 {
     public class CharmanderNPC : ParentPokemonNPC
     {

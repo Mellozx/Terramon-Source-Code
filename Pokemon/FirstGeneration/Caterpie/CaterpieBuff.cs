@@ -2,7 +2,7 @@ using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Caterpie
+namespace Terramon.Pokemon.FirstGeneration.Caterpie
 {
     public class CaterpieBuff : ModBuff
     {

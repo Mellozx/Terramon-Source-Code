@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Haunter
+namespace Terramon.Pokemon.FirstGeneration.Haunter
 {
     public class HaunterBall : ModItem
     {

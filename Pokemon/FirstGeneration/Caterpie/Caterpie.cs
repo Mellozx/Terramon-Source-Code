@@ -1,7 +1,7 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.Caterpie
+namespace Terramon.Pokemon.FirstGeneration.Caterpie
 {
     public class Caterpie : ParentPokemon
     {

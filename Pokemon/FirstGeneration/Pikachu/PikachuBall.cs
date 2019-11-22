@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Pikachu
+namespace Terramon.Pokemon.FirstGeneration.Pikachu
 {
     public class PikachuBall : ModItem
     {

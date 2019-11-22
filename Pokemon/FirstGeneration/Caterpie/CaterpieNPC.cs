@@ -1,6 +1,6 @@
 using System;
 
-namespace Terramon.Pokemon.Caterpie
+namespace Terramon.Pokemon.FirstGeneration.Caterpie
 {
     public class CaterpieNPC : ParentPokemonNPC
     {

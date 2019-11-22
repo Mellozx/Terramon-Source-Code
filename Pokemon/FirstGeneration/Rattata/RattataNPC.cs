@@ -1,6 +1,6 @@
 using System;
 
-namespace Terramon.Pokemon.Rattata
+namespace Terramon.Pokemon.FirstGeneration.Rattata
 {
     public class RattataNPC : ParentPokemonNPC
     {

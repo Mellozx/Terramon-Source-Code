@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Gastly
+namespace Terramon.Pokemon.FirstGeneration.Gastly
 {
     public class GastlyBall : ModItem
     {

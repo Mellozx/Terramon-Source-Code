@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.Charmander
+namespace Terramon.Pokemon.FirstGeneration.Charmander
 {
     public class CharmanderBall : ModItem
     {
