@@ -1,0 +1,21 @@
+using System;
+
+namespace Terramon.Pokemon.FirstGeneration.Normal.Oddish
+{
+    public class OddishNPC : ParentPokemonNPC
+    {
+        public override Type HomeClass() => typeof(Oddish);
+
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            npc.width = 20;
+            npc.height = 20;
+        }
+
+        public override void NPCLoot()
+        {
+            
+        }
+    }
+}
