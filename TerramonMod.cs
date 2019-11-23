@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Terramon.ModCompatibilities;
 using Terramon.UI;
 using Terraria;
 // using Terraria.ID;
@@ -63,8 +62,6 @@ namespace Terramon
 
         public override void Load()
         {
-            AchievementLibCompatibility = new AchievementLibCompatibility(this).TryLoad() as AchievementLibCompatibility;
-
             ChooseStarter = new ChooseStarter();
             ChooseStarter.Activate();
             PokegearUI = new PokegearUI();
@@ -158,8 +155,5 @@ namespace Terramon
 
 
         public static TerramonMod Instance { get; private set; }
-
-        public AchievementLibCompatibility AchievementLibCompatibility { get; private set; }
-        public bool AchievementLibLoaded => AchievementLibCompatibility != null;
     }
 }

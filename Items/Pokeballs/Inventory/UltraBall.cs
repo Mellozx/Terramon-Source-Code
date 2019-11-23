@@ -1,6 +1,5 @@
 using Terramon.Achievements;
 using Terramon.Items.Pokeballs.Thrown;
-using Terramon.ModCompatibilities;
 using Terramon.Players;
 using Terraria;
 using Terraria.ID;
@@ -18,12 +17,12 @@ namespace Terramon.Items.Pokeballs.Inventory
         }
 
 
-        protected override void OnCheckShootAchievements(TerramonPlayer terramonPlayer, AchievementLibCompatibility compatibility, int thrownPokeballsCount)
+        protected override void PostPokeballThrown(TerramonPlayer terramonPlayer, int thrownPokeballsCount)
         {
-            compatibility.GrantAchievementLocal<UltraTossAchievement>(terramonPlayer.player);
+            /*compatibility.GrantAchievementLocal<UltraTossAchievement>(terramonPlayer.player);
 
             if (thrownPokeballsCount >= 25)
-                compatibility.GrantAchievementLocal<ALotOfUltraTossesAchievement>(terramonPlayer.player);
+                compatibility.GrantAchievementLocal<ALotOfUltraTossesAchievement>(terramonPlayer.player);*/
         }
     }
 }

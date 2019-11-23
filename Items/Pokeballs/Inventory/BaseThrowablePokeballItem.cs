@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Terramon.Items.Pokeballs.Thrown;
-using Terramon.ModCompatibilities;
 using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
@@ -34,15 +33,13 @@ namespace Terramon.Items.Pokeballs.Inventory
             TerramonPlayer terramonPlayer = TerramonPlayer.Get(player);
 
             OnPokeballThrown(terramonPlayer);
-
-            if (TerramonMod.Instance.AchievementLibLoaded)
-                OnCheckShootAchievements(terramonPlayer, TerramonMod.Instance.AchievementLibCompatibility, terramonPlayer.GetThrownPokeballsCount(this));
+            PostPokeballThrown(terramonPlayer, terramonPlayer.GetThrownPokeballsCount(this));
 
             return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
         protected virtual void OnPokeballThrown(TerramonPlayer terramonPlayer) => terramonPlayer.IncrementThrownPokeballs(this);
 
-        protected virtual void OnCheckShootAchievements(TerramonPlayer terramonPlayer, AchievementLibCompatibility compatibility, int thrownPokeballsCount) { }
+        protected virtual void PostPokeballThrown(TerramonPlayer terramonPlayer, int thrownPokeballsCount) { }
     }
 }

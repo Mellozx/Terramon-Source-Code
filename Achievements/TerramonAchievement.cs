@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Terraria.Achievements;
+﻿using Terraria.Achievements;
 using WebmilioCommons.Achievements;
 
 namespace Terramon.Achievements
