@@ -2,5 +2,5 @@ author = Jamz & Terramon Team
 version = 0.1.2
 displayName = Terramon Mod
 homepage = https://discord.gg/9euZqd8
-buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Pokemon\FirstGenerationShiny\*, Minisprites\*
-modReferences = WebmilioCommons@0.1.7.10
+buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Pokemon\FirstGenerationShiny\* Minisprites\*
+modReferences = WebmilioCommons@0.1.8.4
