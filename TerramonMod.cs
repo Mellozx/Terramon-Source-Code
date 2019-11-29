@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
 using Terramon.UI;
 using Terraria;
 // using Terraria.ID;
@@ -78,6 +79,14 @@ namespace Terramon
             _exampleUserInterfaceNew.SetState(PokegearUI); // Pokegear Main Menu
             PokegearUserInterfaceNew.SetState(PokegearUIEvents); // Pokegear Events Menu
             evolveUserInterfaceNew.SetState(evolveUI); // evolve lmao menu lmao
+
+            if (Main.dedServ)
+                return;
+
+            FirstPKMAbility = this.RegisterHotKey("First Pokémon Ability", Keys.Z.ToString());
+            SecondPKMAbility = this.RegisterHotKey("Second Pokémon Ability", Keys.X.ToString());
+            ThirdPKMAbility = this.RegisterHotKey("Third Pokémon Ability", Keys.C.ToString());
+            FourthPKMAbility = this.RegisterHotKey("Fourth Pokémon Ability", Keys.V.ToString());
         }
 
         public override void Unload()
@@ -123,7 +132,7 @@ namespace Terramon
             if (mouseTextIndex != -1)
             {
                 layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-                    "ExampleMod: Coins Per Minute",
+                    "Terramon: Pokemon Interfaces",
                     delegate
                     {
                         if (ChooseStarter.Visible)
@@ -152,6 +161,16 @@ namespace Terramon
 
 
         // END UI STUFF
+
+
+        #region HotKeys
+
+        public ModHotKey FirstPKMAbility { get; private set; }
+        public ModHotKey SecondPKMAbility { get; private set; }
+        public ModHotKey ThirdPKMAbility { get; private set; }
+        public ModHotKey FourthPKMAbility { get; private set; }
+
+        #endregion
 
 
         public static TerramonMod Instance { get; private set; }
