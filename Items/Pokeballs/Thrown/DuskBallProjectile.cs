@@ -12,6 +12,7 @@ namespace Terramon.Items.Pokeballs.Thrown
         bool collide = true;
         public override void SetDefaults()
         {
+			projectile.damage = 1;
             projectile.width = 9;
             projectile.height = 10;
             projectile.friendly = true;
