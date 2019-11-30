@@ -21,6 +21,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.useAnimation = item.useTime;
             item.UseSound = SoundID.Item1;
+			item.damage = 10;
 
             item.scale = 0.6f;
             item.maxStack = 99;

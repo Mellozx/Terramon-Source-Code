@@ -13,8 +13,8 @@ namespace Terramon.Items.Pokeballs.Thrown
         public override void SetDefaults()
         {
 			projectile.damage = 1;
-            projectile.width = 9;
-            projectile.height = 10;
+            projectile.width = 16;
+            projectile.height = 16;
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.damage = 30;

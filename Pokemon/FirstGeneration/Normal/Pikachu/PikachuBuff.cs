@@ -8,7 +8,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Pikachu
     {
         public override void SetDefaults()
         {
-            DisplayName.SetDefault("Pichu");
+            DisplayName.SetDefault("Pikachu");
             Description.SetDefault("A Pikachu is following you around!");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
