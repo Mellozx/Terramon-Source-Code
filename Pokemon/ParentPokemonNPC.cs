@@ -109,7 +109,7 @@ namespace Terramon.Pokemon
                 }
             }
 
-            Main.NewText("Miss...", Color.White);
+            CombatText.NewText(npc.Hitbox, Color.White, "Miss...", true, false);
 
             if (projectile.type == ModContent.ProjectileType<PokeballProjectile>()) // Special Condition
             {
@@ -146,13 +146,14 @@ namespace Terramon.Pokemon
         }
 
         private void CatchPokemon(ref Projectile proj, ref bool crit, ref int dmg)
-        {
+        {	
+			var PokeNam = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
             proj.ai[1] = 2;
             crit = false;
             dmg = npc.lifeMax;
             CreateDust(4);
             Item.NewItem(npc.getRect(), mod.ItemType(HomeClass().Name + "Ball"));
-            Main.NewText(PokeName() + " was caught!", 255, 178, 102);
+			CombatText.NewText(npc.Hitbox, Color.Orange, $"{PokeNam} was caught!", true, false);
         }
 
         private void CreateDust(int counter)

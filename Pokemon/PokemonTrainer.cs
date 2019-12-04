@@ -79,20 +79,20 @@ namespace Terramon.Pokemon
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            shop.item[nextSlot].SetDefaults(mod.ItemType("Pokeball"));
+            shop.item[nextSlot].SetDefaults(mod.ItemType("PokeballItem"));
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("GreatBall"));
+            shop.item[nextSlot].SetDefaults(mod.ItemType("GreatBallItem"));
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("UltraBall"));
+            shop.item[nextSlot].SetDefaults(mod.ItemType("UltraBallItem"));
             nextSlot++;
             if (!Main.dayTime)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("DuskBall"));
+                shop.item[nextSlot].SetDefaults(mod.ItemType("DuskBallItem"));
                 nextSlot++;
             }
             if (NPC.downedBoss1)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoy"));
+                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyGray"));
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyBlue"));
                 nextSlot++;

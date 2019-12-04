@@ -12,8 +12,9 @@ namespace Terramon.Items.Pokeballs.Thrown
             projectile.width = 16;
             projectile.height = 16;
             projectile.friendly = true;
-            projectile.penetrate = 0;
+            projectile.penetrate = 1;
             projectile.timeLeft = 300;
+			projectile.light = 1f;
         }
     }
 }

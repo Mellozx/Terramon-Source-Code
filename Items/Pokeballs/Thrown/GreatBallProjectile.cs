@@ -63,11 +63,7 @@ namespace Terramon.Items.Pokeballs.Thrown
 
                 if (Main.rand.Next(3) == 0)
                 {
-                    int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0f, 0f, 100, default(Color), 0.5f);
-                    Main.dust[dustIndex].scale = 0.1f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[dustIndex].fadeIn = 1.5f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[dustIndex].noGravity = true;
-                    Main.dust[dustIndex].position = projectile.Center + new Vector2(0f, (float)(-(float)projectile.height / 2)).RotatedBy((double)projectile.rotation, default(Vector2)) * 1.1f;
+                    
                 }
             }
             projectile.ai[0] += 1f;

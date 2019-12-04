@@ -19,6 +19,7 @@ namespace Terramon.Items.Pokeballs.Thrown // This projectile is thrown by Red, t
             projectile.penetrate = 1;
             projectile.timeLeft = 300;
             projectile.damage = 30;
+			projectile.light = 1f;
             collide = true;
         }
 
@@ -60,7 +61,7 @@ namespace Terramon.Items.Pokeballs.Thrown // This projectile is thrown by Red, t
 
             if (projectile.owner == Main.myPlayer && projectile.timeLeft <= 3)
             {
-                Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 0f, 0f, 0, default(Color), 1f);
+                
                 projectile.tileCollide = false;
 
                 projectile.alpha = 255;
