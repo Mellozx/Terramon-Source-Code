@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Text.RegularExpressions;
+using Terramon.Items.Pokeballs.Inventory;
+using Terramon.Items.Pokeballs.Thrown;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebmilioCommons.NPCs;
 
 namespace Terramon.Pokemon
 {
@@ -34,11 +37,11 @@ namespace Terramon.Pokemon
             npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/capturepokemon");
 
             npc.aiStyle = 7;
-			aiType = NPCID.Bunny;
-            
+            aiType = NPCID.Bunny;
+
             animationType = NPCID.Bunny;
 
-            
+
         }
 
         public override bool? CanBeHitByItem(Player player, Item item) => false;
@@ -107,37 +110,36 @@ namespace Terramon.Pokemon
             }
 
             Main.NewText("Miss...", Color.White);
-			for (int i = 0; i < ballProjectiles.Length; i++)
+
+            if (projectile.type == ModContent.ProjectileType<PokeballProjectile>()) // Special Condition
             {
-		if (projectile.type == mod.ProjectileType("PokeballProjectile")) // Special Condition
-			{
-			if (Main.rand.Next(3) == 0)
-			{
-				Item.NewItem(npc.getRect(), mod.ItemType("Pokeball"));
-			}
-			}
-		if (projectile.type == mod.ProjectileType("GreatBallProjectile")) // Special Condition
-			{
-			if (Main.rand.Next(3) == 0)
-			{
-				Item.NewItem(npc.getRect(), mod.ItemType("GreatBall"));
-			}
-			}
-		if (projectile.type == mod.ProjectileType("UltraBallProjectile")) // Special Condition
-			{
-			if (Main.rand.Next(3) == 0)
-			{
-				Item.NewItem(npc.getRect(), mod.ItemType("UltraBall"));
-			}
-			}
-		if (projectile.type == mod.ProjectileType("DuskBallProjectile")) // Special Condition
-			{
-			if (Main.rand.Next(3) == 0)
-			{
-				Item.NewItem(npc.getRect(), mod.ItemType("DuskBall"));
-			}
-			}
-			}
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<PokeballItem>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<GreatBallProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<GreatBallItem>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<UltraBallProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<UltraBallItem>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<DuskBallProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<DuskBallItem>());
+                }
+            }
+
             damage = 0;
             npc.life = npc.lifeMax + 1;
             projectile.ai[1] = 0;

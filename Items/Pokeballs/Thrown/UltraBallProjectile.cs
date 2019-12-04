@@ -9,19 +9,6 @@ namespace Terramon.Items.Pokeballs.Thrown
     public class UltraBallProjectile : BasePokeballProjectile
     {
 
-        bool collide = true;
-        public override void SetDefaults()
-        {
-			projectile.damage = 1;
-            projectile.width = 16;
-            projectile.height = 16;
-            projectile.friendly = true;
-            projectile.penetrate = 1;
-            projectile.damage = 30;
-            projectile.timeLeft = 300;
-            collide = true;
-        }
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (projectile.ai[1] == 2)

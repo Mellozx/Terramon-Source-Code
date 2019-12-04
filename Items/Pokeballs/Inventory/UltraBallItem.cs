@@ -6,13 +6,13 @@ using Terraria.ID;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
-    public class UltraBall : BaseThrowablePokeballItem<UltraBallProjectile>
+    public class UltraBallItem : BaseThrowablePokeballItem<UltraBallProjectile>
     {
         public const string TOOLTIP = "It's an ultra-performance Ball." +
                                       "\nProvides a higher Pokémon catch rate than a Great Ball.";
 
 
-        public UltraBall() : base(Constants.Pokeballs.UnlocalizedNames.ULTRA_BALL, "Ultra Ball", TOOLTIP, Item.sellPrice(gold: 7, silver: 75), ItemRarityID.Orange, Constants.Pokeballs.CatchRates.ULTRA_BALL)
+        public UltraBallItem() : base(Constants.Pokeballs.UnlocalizedNames.ULTRA_BALL, "Ultra Ball", TOOLTIP, Item.sellPrice(gold: 7, silver: 75), ItemRarityID.Orange, Constants.Pokeballs.CatchRates.ULTRA_BALL)
         {
         }
 
