@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using Terramon.Items.MiscItems;
 using Terramon.Items.Pokeballs.Inventory;
+using Terramon.Pokemon;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+
 
 namespace Terramon.Players
 {
@@ -14,6 +16,7 @@ namespace Terramon.Players
         //
 
         public int deletepokecase = 0;
+		public int premierBallRewardCounter = 0;
 
         //
         // Pokemon PET variables
@@ -46,6 +49,13 @@ namespace Terramon.Players
         public int greatBallsThrown = 0;
         public int ultraBallsThrown = 0;
         public int pkmnCaught = 0;
+
+        //
+        // Config
+        //
+
+        public int Language = 1;
+        public int ItemNameColors = 1;
 
 
         public static TerramonPlayer Get() => Get(Main.LocalPlayer);
@@ -96,6 +106,20 @@ namespace Terramon.Players
 
             items.Add(item);
         }
+		
+		public override void PostBuyItem(NPC vendor, Item[] shop, Item item)
+		{
+			if (vendor.type == ModContent.NPCType<PokemonTrainer>() && item.type == ModContent.ItemType<GreatBallItem>())
+			{
+				TerramonPlayer p = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+				p.premierBallRewardCounter++;
+				if (p.premierBallRewardCounter == 10)
+				{
+					p.premierBallRewardCounter = 0;
+					player.QuickSpawnItem(ModContent.ItemType<UltraBallItem>());
+				}
+			}
+		}
 
 
         public override TagCompound Save()
@@ -120,6 +144,8 @@ namespace Terramon.Players
 
         /// <summary>true if the starter pokemon has been chosen; otherwise false.</summary>
         public bool StarterChosen { get; set; }
+
+        
         public bool StarterPackageBought { get; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Terraria.ID;
 using WebmilioCommons.Managers;
+using Terramon.Players;
+using Terraria;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
@@ -11,7 +13,6 @@ namespace Terramon.Items.Pokeballs.Inventory
 
             CatchRate = catchRate;
         }
-
 
         public override void SetDefaults()
         {
