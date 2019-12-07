@@ -49,7 +49,7 @@ namespace Terramon.Items.MiscItems
             }
             if (Timer == 4)
             {
-                Main.NewText("[c/33FF33:Professor Oak:] I packed you twelve [c/FF3333:Poké Balls] that I hope you will or have used wisely. [c/C0C0C0:(Click to proceed)]");
+                Main.NewText("[c/33FF33:Professor Oak:] I packed you 8 [c/FF3333:Poké Balls] that I hope you will or have used wisely. [c/C0C0C0:(Click to proceed)]");
             }
             if (Timer == 5)
             {

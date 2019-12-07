@@ -90,7 +90,7 @@ namespace Terramon.Items.Pokeballs.Thrown
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(SoundID.Item10, projectile.position);
-            Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 60);
+            Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 63);
             Vector2 usePos = projectile.position;
 
             Vector2 rotVector =
@@ -99,7 +99,7 @@ namespace Terramon.Items.Pokeballs.Thrown
 
             for (int i = 0; i < 20; i++)
             {
-                Dust dust = Dust.NewDustDirect(usePos, projectile.width, projectile.height, 60);
+                Dust dust = Dust.NewDustDirect(usePos, projectile.width, projectile.height, 63);
                 dust.position = (dust.position + projectile.Center) / 2f;
                 dust.velocity += rotVector * 2f;
                 dust.velocity *= 0.5f;

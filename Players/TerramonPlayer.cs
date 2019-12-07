@@ -109,14 +109,14 @@ namespace Terramon.Players
 		
 		public override void PostBuyItem(NPC vendor, Item[] shop, Item item)
 		{
-			if (vendor.type == ModContent.NPCType<PokemonTrainer>() && item.type == ModContent.ItemType<GreatBallItem>())
+			if (vendor.type == ModContent.NPCType<PokemonTrainer>() && item.type == ModContent.ItemType<PokeballItem>())
 			{
 				TerramonPlayer p = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
 				p.premierBallRewardCounter++;
 				if (p.premierBallRewardCounter == 10)
 				{
 					p.premierBallRewardCounter = 0;
-					player.QuickSpawnItem(ModContent.ItemType<UltraBallItem>());
+					player.QuickSpawnItem(ModContent.ItemType<PremierBallItem>());
 				}
 			}
 		}

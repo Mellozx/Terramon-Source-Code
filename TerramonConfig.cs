@@ -24,13 +24,9 @@ namespace Terramon
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
         [DefaultValue(1)]
-        [Label("Item Name Colors")]
-        [Tooltip("Set to 1 for default (two colors in one, colored based on sprite base color)\nSet to 2 for no multicolored item names\nSet to 3 for blank white item names")]
-        public int ItemNameColors;
-
-        [DefaultValue(1)]
         [Label("Language Configuration")]
-        [Tooltip("1 = English (Default)")]
+        [BackgroundColor(251, 255, 125)]
+        [Tooltip("[c/7DFF93:1 = English (Default)]\n2 = French Translation")]
         public int Language;
     }
 }

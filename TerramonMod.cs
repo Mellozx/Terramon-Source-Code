@@ -37,7 +37,8 @@ namespace Terramon
         private readonly static string[] balls = { "Pokeball",
                                                    "GreatBall",
                                                    "UltraBall",
-                                                   "DuskBall" };
+                                                   "DuskBall",
+                                                    "PremierBall"};
 
         // catch chance of the ball refers to the same index as the ball
         private readonly static float[][] catchChances = {
@@ -45,7 +46,8 @@ namespace Terramon
             new float[] { .1785f },
             new float[] { .2380f },
             new float[] { .2380f,
-                          .1190f }
+                          .1190f },
+            new float[] { .1190f }
         };
 
         public static string[] GetBalls() => balls;

@@ -139,6 +139,13 @@ namespace Terramon.Pokemon
                     Item.NewItem(npc.getRect(), ModContent.ItemType<DuskBallItem>());
                 }
             }
+            if (projectile.type == ModContent.ProjectileType<PremierBallProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<PremierBallItem>());
+                }
+            }
 
             damage = 0;
             npc.life = npc.lifeMax + 1;

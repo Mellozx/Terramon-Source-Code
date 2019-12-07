@@ -2,6 +2,8 @@
 using WebmilioCommons.Managers;
 using Terramon.Players;
 using Terraria;
+using Terraria.ModLoader;
+using System.Collections.Generic;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
@@ -22,7 +24,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.useAnimation = item.useTime;
             item.UseSound = SoundID.Item1;
-			item.damage = 10;
+			item.damage = 1;
 
             item.scale = 0.6f;
             item.maxStack = 99;
@@ -32,5 +34,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         public string UnlocalizedName { get; }
 
         public float CatchRate { get; }
+
+        
     }
 }

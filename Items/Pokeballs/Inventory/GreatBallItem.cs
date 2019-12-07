@@ -1,8 +1,11 @@
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terramon.Achievements;
 using Terramon.Items.Pokeballs.Thrown;
 using Terramon.Players;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace Terramon.Items.Pokeballs.Inventory
@@ -12,13 +15,16 @@ namespace Terramon.Items.Pokeballs.Inventory
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-
-            if (GetInstance<TerramonConfig>().ItemNameColors == 1 || GetInstance<TerramonConfig>().ItemNameColors == 2)
+            if (GetInstance<TerramonConfig>().Language == 1)
             {
-                DisplayName.SetDefault("[c/59b7ff:Great Ball]");
+                
+            } else if (GetInstance<TerramonConfig>().Language == 2)
+            {
+                Tooltip.SetDefault("Un bon Ball très performant." +
+                                    "\nFournit un taux de capture de Pokémon supérieur à celui d'une Poké Ball.");
+        
+                DisplayName.SetDefault("Super Ball");
             }
-            else DisplayName.SetDefault("Poké Ball");
-
         }
 
         public const string TOOLTIP =
@@ -26,7 +32,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             "\nProvides a higher Pokémon catch rate than a Poké Ball.";
 
 
-        public GreatBallItem() : base(Constants.Pokeballs.UnlocalizedNames.GREAT_BALL, "[c/59b7ff:Great Ball]", TOOLTIP, Item.sellPrice(gold: 3, silver: 25), 
+        public GreatBallItem() : base(Constants.Pokeballs.UnlocalizedNames.GREAT_BALL, "Great Ball", TOOLTIP, Item.sellPrice(gold: 3, silver: 25), 
             ItemRarityID.White, Constants.Pokeballs.CatchRates.POKE_BALL)
         {
         }
@@ -38,6 +44,23 @@ namespace Terramon.Items.Pokeballs.Inventory
 
             if (thrownPokeballsCount >= 25)
                 compatibility.GrantAchievementLocal<ALotOfGreatTossesAchievement>(terramonPlayer.player);*/
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.RemoveAll(l => l.Name == "Damage");
+            tooltips.RemoveAll(l => l.Name == "CritChance");
+            tooltips.RemoveAll(l => l.Name == "Speed");
+            tooltips.RemoveAll(l => l.Name == "Knockback");
+            
+                foreach (TooltipLine line2 in tooltips)
+                {
+                    if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                    {
+                        line2.overrideColor = new Color(89, 183, 255);
+                    }
+                }
+            
         }
     }
 }
