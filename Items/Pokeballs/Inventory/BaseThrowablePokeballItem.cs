@@ -1,15 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terramon.Items.Pokeballs.Thrown;
 using Terramon.Players;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
     public abstract class BaseThrowablePokeballItem<T> : BasePokeballItem where T : BasePokeballProjectile
     {
-        protected BaseThrowablePokeballItem(string unlocalizedName, string displayName, string tooltip, int value, int rarity, float catchRate) : 
-            base(unlocalizedName, displayName, tooltip, value, rarity, catchRate)
+        protected BaseThrowablePokeballItem(string unlocalizedName, Dictionary<GameCulture, string> displayNames, Dictionary<GameCulture, string> tooltips, int value, int rarity, float catchRate, Color? nameColorOverride = null) : 
+            base(unlocalizedName, displayNames, tooltips, value, rarity, catchRate, nameColorOverride)
         {
         }
 

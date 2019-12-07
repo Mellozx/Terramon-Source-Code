@@ -3,4 +3,4 @@ version = 0.1.2
 displayName = Terramon Mod
 homepage = https://discord.gg/9euZqd8
 buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Pokemon\FirstGeneration\Shiny\*, Minisprites\*
-modReferences = WebmilioCommons@0.1.8.4
+modReferences = WebmilioCommons@0.1.8.13
