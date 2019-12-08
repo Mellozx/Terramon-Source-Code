@@ -11,6 +11,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Ivysaur
             base.SetDefaults();
             npc.width = 20;
             npc.height = 20;
+			npc.scale = 1.2f;
         }
     }
 }

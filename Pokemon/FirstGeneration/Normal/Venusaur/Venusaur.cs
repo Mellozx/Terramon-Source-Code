@@ -1,17 +1,18 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal.Charmeleon
+namespace Terramon.Pokemon.FirstGeneration.Normal.Venusaur
 {
-    public class Charmeleon : ParentPokemon
+    public class Venusaur : ParentPokemon
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            projectile.width = 22;
-            projectile.height = 20;
-            drawOriginOffsetY = -1;
+            projectile.width = 48;
+            projectile.height = 40;
+			projectile.scale = 1.2f;
+            // drawOriginOffsetY = -1;
         }
 
         public override void AI()
@@ -20,9 +21,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmeleon
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             if (player.dead)
             {
-                modPlayer.charmeleonPet = false;
+                modPlayer.venusaurPet = false;
             }
-            if (modPlayer.charmeleonPet)
+            if (modPlayer.venusaurPet)
             {
                 projectile.timeLeft = 2;
             }

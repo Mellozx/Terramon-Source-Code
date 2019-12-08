@@ -9,8 +9,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
         {
             base.SetDefaults();
 
-            projectile.width = 35;
-            projectile.height = 40;
+            projectile.width = 34; //-6
+            projectile.height = 24; //-4
             //drawOriginOffsetY = -1;
         }
 

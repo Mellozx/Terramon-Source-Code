@@ -9,8 +9,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
         {
             base.SetDefaults();
 
-            projectile.width = 35;
-            projectile.height = 40;
+            projectile.width = 34;
+            projectile.height = 26;
             drawOriginOffsetY = -1;
         }
 
