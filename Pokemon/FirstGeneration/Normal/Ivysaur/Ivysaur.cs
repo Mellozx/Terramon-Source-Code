@@ -9,8 +9,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Ivysaur
         {
             base.SetDefaults();
 
-            projectile.width = 42;
-            projectile.height = 40;
+            projectile.width = 36;
+            projectile.height = 28;
+			projectile.scale = 1.2f;
             // drawOriginOffsetY = -1;
         }
 
