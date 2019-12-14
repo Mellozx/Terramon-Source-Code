@@ -52,8 +52,6 @@ namespace Terramon
             new float[] { .1190f }
         };
 
-        public static string[] GetBalls() => balls;
-
         public static string[] GetBallProjectiles()
         {
             string[] ballProjectiles = new string[balls.Length];

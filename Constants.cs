@@ -21,7 +21,9 @@
                     MASTER_BALL = "masterBall",
                
                     DUSK_BALL = "duskBall",
-                    PREMIER_BALL = "premierBall";
+                    PREMIER_BALL = "premierBall",
+                    
+                    QUICK_BALL = "quickBall";
             }
 
             public static class CatchRates
@@ -31,9 +33,11 @@
                     GREAT_BALL = 1.5f,
                     ULTRA_BALL = 2f,
                     MASTER_BALL = 1000f,
+
+                    DUSK_BALL = 2f,
                     PREMIER_BALL = 1f,
 
-                    DUSK_BALL = 2f;
+                    QUICK_BALL = 1f;
             }
         }
     }
