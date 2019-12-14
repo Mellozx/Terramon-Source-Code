@@ -9,8 +9,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Caterpie
         {
             base.SetDefaults();
 
-            projectile.width = 38;
-            projectile.height = 38;
+            projectile.width = 32;
+            projectile.height = 32;
             drawOriginOffsetY = -1;
         }
 

@@ -11,11 +11,13 @@
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
   </Target>
   <ItemGroup>
-    <Folder Include="Pokemon\FirstGenerationShiny\" />
+    <Compile Remove="Pokemon\FirstGenerationShiny\**" />
+    <EmbeddedResource Remove="Pokemon\FirstGenerationShiny\**" />
+    <None Remove="Pokemon\FirstGenerationShiny\**" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="WebmilioCommons">
-      <HintPath>..\WebmilioCommons-Releases\WebmilioCommons.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Downloads\WebmilioCommons.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

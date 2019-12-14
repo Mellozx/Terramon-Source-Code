@@ -6,6 +6,8 @@ using Terraria;
 // using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.World.Generation;
+using Terraria.GameContent.Generation;
 
 namespace Terramon
 {
@@ -159,8 +161,6 @@ namespace Terramon
                 );
             }
         }
-
-
 
         // END UI STUFF
 

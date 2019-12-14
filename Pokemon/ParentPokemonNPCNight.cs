@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Text.RegularExpressions;
+using Terramon.Items.Pokeballs.Inventory;
+using Terramon.Items.Pokeballs.Thrown;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -104,7 +106,43 @@ namespace Terramon.Pokemon
                 }
             }
 
-            Main.NewText("Miss...", Color.White);
+            CombatText.NewText(npc.Hitbox, Color.White, "Miss...", true, false);
+
+            if (projectile.type == ModContent.ProjectileType<PokeballProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<PokeballItem>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<GreatBallProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<GreatBallItem>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<UltraBallProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<UltraBallItem>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<DuskBallProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<DuskBallItem>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<PremierBallProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<PremierBallItem>());
+                }
+            }
             damage = 0;
             npc.life = npc.lifeMax + 1;
             projectile.ai[1] = 0;
@@ -112,12 +150,13 @@ namespace Terramon.Pokemon
 
         private void CatchPokemon(ref Projectile proj, ref bool crit, ref int dmg)
         {
+            var PokeNam = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
             proj.ai[1] = 2;
             crit = false;
             dmg = npc.lifeMax;
             CreateDust(4);
             Item.NewItem(npc.getRect(), mod.ItemType(HomeClass().Name + "Ball"));
-            Main.NewText(PokeName() + " was caught!", 255, 178, 102);
+            CombatText.NewText(npc.Hitbox, Color.Orange, $"{PokeNam} was caught!", true, false);
         }
 
         private void CreateDust(int counter)
