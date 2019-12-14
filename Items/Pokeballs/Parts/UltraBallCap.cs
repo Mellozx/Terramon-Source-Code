@@ -11,15 +11,15 @@ using static Terraria.ModLoader.ModContent;
 
 namespace Terramon.Items.Pokeballs.Parts
 {
-    public class GreatBallCap : ModItem
+    public class UltraBallCap : ModItem
     {
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Great Ball Cap");
-            Tooltip.SetDefault("Crafted from iron and Blue & Red Apricorns."
-                + "\nCombine it with a button and a base to create a [c/59b7ff:Great Ball.]");
+            DisplayName.SetDefault("Ultra Ball Cap");
+            Tooltip.SetDefault("Crafted from iron and Black & Yellow Apricorns."
+                + "\nCombine it with a button and a base to create an [c/f5da53:Ultra Ball.]");
         }
         public override void SetDefaults()
         {
@@ -32,9 +32,9 @@ namespace Terramon.Items.Pokeballs.Parts
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("IronBar", 3);
-            recipe.AddIngredient(mod.ItemType("RedApricorn"));
-            recipe.AddIngredient(mod.ItemType("BlueApricorn"), 2);
+            recipe.AddRecipeGroup("IronBar", 4);
+            recipe.AddIngredient(mod.ItemType("YellowApricorn"));
+            recipe.AddIngredient(mod.ItemType("BlackApricorn"), 2);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
