@@ -23,8 +23,7 @@ namespace Terramon.Items.Pokeballs.Inventory
                 { GameCulture.English, "A rare Ball made in commemoration of some event.\nObtained after buying 10 regular Poké Balls at once." },
                 { GameCulture.French, "Un Ball rare fait en commémoration d'un événement.\nObtenu après l'achat de 10 Poké Balls réguliers à la fois." }
             }, 
-            Item.sellPrice(copper: 0),
-            ItemRarityID.White, Constants.Pokeballs.CatchRates.PREMIER_BALL, null)
+            Item.sellPrice(copper: 0), ItemRarityID.Blue, Constants.Pokeballs.CatchRates.PREMIER_BALL, null)
         {
         }
         public override void AddRecipes()
