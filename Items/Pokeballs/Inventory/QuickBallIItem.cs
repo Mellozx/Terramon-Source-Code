@@ -9,9 +9,9 @@ using Terraria.Localization;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
-    public sealed class QuickBallIItem : BasePokeballItem
+    public sealed class QuickBallItem : BasePokeballItem
     {
-        public QuickBallIItem() : base(Constants.Pokeballs.UnlocalizedNames.QUICK_BALL,
+        public QuickBallItem() : base(Constants.Pokeballs.UnlocalizedNames.QUICK_BALL,
             new Dictionary<GameCulture, string>()
             {
                 { GameCulture.English, "Quick Ball" },
