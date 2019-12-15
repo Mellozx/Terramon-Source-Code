@@ -25,5 +25,14 @@ namespace Terramon.Items.Pokeballs.Inventory
             Item.sellPrice(gold: 2, silver: 20), ItemRarityID.White, Constants.Pokeballs.CatchRates.DUSK_BALL, new Color(130, 224, 99))
         {
         }
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("DuskBallCap"));
+            recipe.AddIngredient(mod.ItemType("Button"));
+            recipe.AddIngredient(mod.ItemType("PokeballBase"));
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

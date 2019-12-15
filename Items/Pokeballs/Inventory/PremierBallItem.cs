@@ -27,5 +27,14 @@ namespace Terramon.Items.Pokeballs.Inventory
             ItemRarityID.White, Constants.Pokeballs.CatchRates.PREMIER_BALL, null)
         {
         }
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("PremierBallCap"));
+            recipe.AddIngredient(mod.ItemType("Button"));
+            recipe.AddIngredient(mod.ItemType("PokeballBase"));
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

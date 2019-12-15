@@ -107,7 +107,6 @@ namespace Terramon.UI
             TerramonPlayer.StarterChosen = true;
             Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("BulbasaurBall"));
             Main.NewText("You chose [c/33FF33:Bulbasaur, the Seed Pokemon.] Great choice!");
-            achLib.Call("UnlockLocal", "Terramon", "Just the Beginning", player);
             Visible = false;
         }
 
@@ -121,7 +120,6 @@ namespace Terramon.UI
             TerramonPlayer.StarterChosen = true;
             Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("CharmanderBall"));
             Main.NewText("You chose [c/FF8C00:Charmander, the Fire Lizard Pokemon.] Great choice!");
-            achLib.Call("UnlockLocal", "Terramon", "Just the Beginning", player);
             Visible = false;
         }
 
@@ -135,7 +133,6 @@ namespace Terramon.UI
             TerramonPlayer.StarterChosen = true;
             Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("SquirtleBall"));
             Main.NewText("You chose [c/00FFFF:Squirtle, the Tiny Turtle Pokemon.] Great choice!");
-            achLib.Call("UnlockLocal", "Terramon", "Just the Beginning", player);
             Visible = false;
         }
 

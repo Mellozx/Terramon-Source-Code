@@ -28,6 +28,16 @@ namespace Terramon.Items.Pokeballs.Inventory
         {
         }
 
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("GreatBallCap"));
+            recipe.AddIngredient(mod.ItemType("Button"));
+            recipe.AddIngredient(mod.ItemType("PokeballBase"));
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+
 
         protected override void PostPokeballThrown(TerramonPlayer terramonPlayer, int thrownPokeballsCount)
         {

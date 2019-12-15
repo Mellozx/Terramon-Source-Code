@@ -27,6 +27,15 @@ namespace Terramon.Items.Pokeballs.Inventory
             Item.sellPrice(gold: 7, silver: 75), ItemRarityID.White, Constants.Pokeballs.CatchRates.ULTRA_BALL, new Color(245, 218, 83))
         {
         }
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("UltraBallCap"));
+            recipe.AddIngredient(mod.ItemType("Button"));
+            recipe.AddIngredient(mod.ItemType("PokeballBase"));
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
 
 
         protected override void PostPokeballThrown(TerramonPlayer terramonPlayer, int thrownPokeballsCount)
