@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Terramon.Items.MiscItems;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon;
+using Terramon.UI.SidebarParty;
+using Terramon.UI.Starter;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -9,8 +11,10 @@ using Terraria.ModLoader.IO;
 
 namespace Terramon.Players
 {
+
     public sealed partial class TerramonPlayer : ModPlayer
     {
+
         //
         // Misc/Reg variables
         //
@@ -100,6 +104,22 @@ namespace Terramon.Players
             AddStartItem(ref items, ModContent.ItemType<PokeballItem>(), 8);
             AddStartItem(ref items, ModContent.ItemType<Pokedex>());
             AddStartItem(ref items, ModContent.ItemType<Suitcase>());
+        }
+
+        public static bool MyUIStateActive(Player player)
+        {
+            return ChooseStarter.Visible;
+        }
+
+        public override void OnEnterWorld(Player player)
+        {
+            // Starting the Starter Selection screen!
+            if (StarterChosen == false)
+            {
+                ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarter());
+                ChooseStarter.Visible = true;
+            }
+            UISidebar.Visible = true;
         }
 
 

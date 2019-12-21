@@ -1,5 +1,6 @@
 using Terramon.Players;
-using Terramon.UI;
+using Terramon.UI.SidebarParty;
+using Terramon.UI.Starter;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,7 +44,7 @@ namespace Terramon.Items.MiscItems
             TerramonPlayer TerramonPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (TerramonPlayer.StarterChosen == false)
             {
-                ChooseStarter.Visible = true;
+                UISidebar.Visible = true;
             }
             return false;
         }

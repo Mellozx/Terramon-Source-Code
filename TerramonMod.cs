@@ -6,21 +6,31 @@ using Terraria;
 // using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Terraria.World.Generation;
-using Terraria.GameContent.Generation;
+using Terramon.UI.Starter;
+using Terramon.UI.SidebarParty;
 
 namespace Terramon
 {
     public class TerramonMod : Mod
     {
         internal ChooseStarter ChooseStarter;
+        internal ChooseStarterBulbasaur ChooseStarterBulbasaur;
+        internal ChooseStarterCharmander ChooseStarterCharmander;
+        internal ChooseStarterSquirtle ChooseStarterSquirtle;
+
+        // UI SIDEBAR //
+        internal UISidebar UISidebar;
+        public UserInterface _uiSidebar;
+        // UI SIDEBAR //
+
         internal PokegearUI PokegearUI;
         internal PokegearUIEvents PokegearUIEvents;
         internal evolveUI evolveUI;
-        private UserInterface _exampleUserInterface; // Choose Starter
+        public UserInterface _exampleUserInterface; // Choose Starter
         private UserInterface _exampleUserInterfaceNew; // Pokegear Main Menu
         private UserInterface PokegearUserInterfaceNew;
         private UserInterface evolveUserInterfaceNew;// Pokegear Events Menu
+        //starters
 
 
         public TerramonMod()
@@ -67,6 +77,12 @@ namespace Terramon
         {
             ChooseStarter = new ChooseStarter();
             ChooseStarter.Activate();
+            ChooseStarterBulbasaur = new ChooseStarterBulbasaur();
+            ChooseStarterBulbasaur.Activate();
+            ChooseStarterCharmander = new ChooseStarterCharmander();
+            ChooseStarterCharmander.Activate();
+            ChooseStarterSquirtle = new ChooseStarterSquirtle();
+            ChooseStarterSquirtle.Activate();
             PokegearUI = new PokegearUI();
             PokegearUI.Activate();
             PokegearUIEvents = new PokegearUIEvents();
@@ -77,10 +93,20 @@ namespace Terramon
             _exampleUserInterfaceNew = new UserInterface();
             PokegearUserInterfaceNew = new UserInterface();
             evolveUserInterfaceNew = new UserInterface();
+
             _exampleUserInterface.SetState(ChooseStarter); // Choose Starter
             _exampleUserInterfaceNew.SetState(PokegearUI); // Pokegear Main Menu
             PokegearUserInterfaceNew.SetState(PokegearUIEvents); // Pokegear Events Menu
-            evolveUserInterfaceNew.SetState(evolveUI); // evolve lmao menu lmao
+            evolveUserInterfaceNew.SetState(evolveUI);
+
+            // sidebar interface
+
+            _uiSidebar = new UserInterface();
+            _uiSidebar.SetState(UISidebar);
+            UISidebar = new UISidebar();
+            UISidebar.Activate();
+
+
 
             if (Main.dedServ)
                 return;
@@ -126,11 +152,29 @@ namespace Terramon
             {
                 evolveUserInterfaceNew?.Update(gameTime);
             }
+            //starters
+            if (ChooseStarterBulbasaur.Visible)
+            {
+                _exampleUserInterface?.Update(gameTime);
+            }
+            if (ChooseStarterCharmander.Visible)
+            {
+                _exampleUserInterface?.Update(gameTime);
+            }
+            if (ChooseStarterSquirtle.Visible)
+            {
+                _exampleUserInterface?.Update(gameTime);
+            }
+            if (UISidebar.Visible)
+            {
+                _uiSidebar?.Update(gameTime);
+            }
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+            int StarterSelectionLayer = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Interface Logic 1"));
             if (mouseTextIndex != -1)
             {
                 layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
@@ -153,10 +197,45 @@ namespace Terramon
                         {
                             evolveUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
                         }
+                        if (ChooseStarterBulbasaur.Visible)
+                        {
+                            _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
+                        }
+                        if (ChooseStarterCharmander.Visible)
+                        {
+                            _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
+                        }
+                        if (ChooseStarterSquirtle.Visible)
+                        {
+                            _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
+                        }
+                        if (UISidebar.Visible)
+                        {
+                            _uiSidebar.Draw(Main.spriteBatch, new GameTime());
+                        }
                         return true;
                     },
                     InterfaceScaleType.UI)
                 );
+
+            }
+            
+        }
+        public static bool MyUIStateActive(Player player)
+        {
+            return ChooseStarter.Visible;
+        }
+
+        public override void UpdateMusic(ref int music, ref MusicPriority priority)
+        {
+            if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active)
+            {
+                return;
+            }
+
+            if (MyUIStateActive(Main.LocalPlayer))
+            {
+                music = GetSoundSlot(SoundType.Music, null);
             }
         }
 
