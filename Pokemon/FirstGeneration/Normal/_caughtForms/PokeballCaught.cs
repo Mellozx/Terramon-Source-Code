@@ -20,6 +20,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
         public int PokemonNPC;
         public string PokemonName;
         public string SmallSpritePath;
+        public int PartySlotNumber;
         public override bool CloneNewInstances => true;
 
         public override void SetStaticDefaults()
@@ -72,6 +73,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
                 [nameof(PokemonNPC)] = PokemonNPC,
                 [nameof(PokemonName)] = PokemonName,
                 [nameof(SmallSpritePath)] = SmallSpritePath,
+
+                [nameof(SmallSpritePath)] = SmallSpritePath, // what do i do here
             };
         }
         public override void Load(TagCompound tag)
@@ -79,6 +82,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
             PokemonNPC = tag.GetInt(nameof(PokemonNPC));
             PokemonName = tag.GetString(nameof(PokemonName));
             SmallSpritePath = tag.GetString(nameof(SmallSpritePath));
+            PartySlotNumber = tag.GetInt(nameof(PartySlotNumber));
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -86,6 +90,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
             writer.Write(PokemonNPC);
             writer.Write(PokemonName);
             writer.Write(SmallSpritePath);
+            writer.Write(PartySlotNumber);
         }
 
         public override void NetRecieve(BinaryReader reader)
@@ -93,6 +98,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
             PokemonNPC = reader.ReadInt32();
             PokemonName = reader.ReadString();
             SmallSpritePath = reader.ReadString();
+            PartySlotNumber = reader.ReadInt32();
         }
     }
 }

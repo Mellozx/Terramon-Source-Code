@@ -16,5 +16,8 @@ We're aiming to make this mod a smashing success with Pokémon fans all over the
 -daimgamer (Spriter)
 -cat (Spriter)
 
+- Example Mod for learning purposes
+- Jopojelly, AbsoluteAquarian and more in the tModLoader Discord
+
 Credits to [c/ff3b3b:Nintendo and The Pokémon Company.] We do not own the rights to anything that is part of the Pokémon franchise.
 

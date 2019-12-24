@@ -18,9 +18,15 @@ namespace Terramon
         internal ChooseStarterCharmander ChooseStarterCharmander;
         internal ChooseStarterSquirtle ChooseStarterSquirtle;
 
+        public static bool PartyUITheme = true;
+        public static bool PartyUIAutoMode = false;
+        public static bool PartyUIReverseAutoMode = false;
+        public int PartyUIThemeChanged = 0;
+
         // UI SIDEBAR //
         internal UISidebar UISidebar;
-        public UserInterface _uiSidebar;
+        public PartySlots PartySlots { get; private set; }
+
         // UI SIDEBAR //
 
         internal PokegearUI PokegearUI;
@@ -30,6 +36,8 @@ namespace Terramon
         private UserInterface _exampleUserInterfaceNew; // Pokegear Main Menu
         private UserInterface PokegearUserInterfaceNew;
         private UserInterface evolveUserInterfaceNew;// Pokegear Events Menu
+        private UserInterface _uiSidebar;
+        private UserInterface _partySlots;
         //starters
 
 
@@ -89,22 +97,23 @@ namespace Terramon
             PokegearUIEvents.Activate();
             evolveUI = new evolveUI();
             evolveUI.Activate();
+            UISidebar = new UISidebar();
+            UISidebar.Activate();
+            PartySlots = new PartySlots();
+            PartySlots.Activate();
             _exampleUserInterface = new UserInterface();
             _exampleUserInterfaceNew = new UserInterface();
             PokegearUserInterfaceNew = new UserInterface();
             evolveUserInterfaceNew = new UserInterface();
+            _uiSidebar = new UserInterface();
+            _partySlots = new UserInterface();
 
             _exampleUserInterface.SetState(ChooseStarter); // Choose Starter
             _exampleUserInterfaceNew.SetState(PokegearUI); // Pokegear Main Menu
             PokegearUserInterfaceNew.SetState(PokegearUIEvents); // Pokegear Events Menu
             evolveUserInterfaceNew.SetState(evolveUI);
-
-            // sidebar interface
-
-            _uiSidebar = new UserInterface();
             _uiSidebar.SetState(UISidebar);
-            UISidebar = new UISidebar();
-            UISidebar.Activate();
+            _partySlots.SetState(PartySlots);
 
 
 
@@ -169,6 +178,10 @@ namespace Terramon
             {
                 _uiSidebar?.Update(gameTime);
             }
+            if (PartySlots.Visible)
+            {
+                _partySlots?.Update(gameTime);
+            }
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -213,6 +226,10 @@ namespace Terramon
                         {
                             _uiSidebar.Draw(Main.spriteBatch, new GameTime());
                         }
+                        if (PartySlots.Visible)
+                        {
+                            _partySlots.Draw(Main.spriteBatch, new GameTime());
+                        }
                         return true;
                     },
                     InterfaceScaleType.UI)
@@ -253,5 +270,6 @@ namespace Terramon
 
 
         public static TerramonMod Instance { get; private set; }
+
     }
 }

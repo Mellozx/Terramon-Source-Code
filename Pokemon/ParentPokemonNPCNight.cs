@@ -3,6 +3,7 @@ using System;
 using System.Text.RegularExpressions;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Items.Pokeballs.Thrown;
+using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,8 +38,15 @@ namespace Terramon.Pokemon
 
             npc.aiStyle = 7;
             aiType = NPCID.Bunny;
+
             animationType = NPCID.Bunny;
 
+
+        }
+
+        private string GetSmallSpritePath(NPC npc)
+        {
+            return "Terramon/Minisprites/Regular/mini" + npc.TypeName;
         }
 
         public override bool? CanBeHitByItem(Player player, Item item) => false;
@@ -62,7 +70,7 @@ namespace Terramon.Pokemon
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.ZoneOverworldHeight && !Main.dayTime)
+            if (spawnInfo.player.ZoneOverworldHeight)
             {
                 return 0.1f;
             }
@@ -87,7 +95,7 @@ namespace Terramon.Pokemon
                         if ((!Main.dayTime && Main.rand.NextFloat() < catchChances[i][0]) ||
                             (Main.dayTime && Main.rand.NextFloat() < catchChances[i][1]))
                         {
-                            CatchPokemon(ref projectile, ref crit, ref damage);
+                            CatchPokemonDuskBall(ref projectile, ref crit, ref damage);
                             return;
                         }
                     }
@@ -97,7 +105,22 @@ namespace Terramon.Pokemon
                         {
                             if (Main.rand.NextFloat() < catchChances[i][j])
                             {
-                                CatchPokemon(ref projectile, ref crit, ref damage);
+                                if (projectile.type == ModContent.ProjectileType<PokeballProjectile>()) // Special Condition
+                                {
+                                    CatchPokemonPokeball(ref projectile, ref crit, ref damage);
+                                }
+                                if (projectile.type == ModContent.ProjectileType<GreatBallProjectile>()) // Special Condition
+                                {
+                                    CatchPokemonGreatBall(ref projectile, ref crit, ref damage);
+                                }
+                                if (projectile.type == ModContent.ProjectileType<UltraBallProjectile>()) // Special Condition
+                                {
+                                    CatchPokemonUltraBall(ref projectile, ref crit, ref damage);
+                                }
+                                if (projectile.type == ModContent.ProjectileType<PremierBallProjectile>()) // Special Condition
+                                {
+                                    CatchPokemonPremierBall(ref projectile, ref crit, ref damage);
+                                }
                                 return;
                             }
                         }
@@ -143,20 +166,92 @@ namespace Terramon.Pokemon
                     Item.NewItem(npc.getRect(), ModContent.ItemType<PremierBallItem>());
                 }
             }
+
             damage = 0;
             npc.life = npc.lifeMax + 1;
             projectile.ai[1] = 0;
         }
 
-        private void CatchPokemon(ref Projectile proj, ref bool crit, ref int dmg)
+        private void CatchPokemonPokeball(ref Projectile proj, ref bool crit, ref int dmg)
         {
             var PokeNam = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
             proj.ai[1] = 2;
             crit = false;
             dmg = npc.lifeMax;
             CreateDust(4);
-            Item.NewItem(npc.getRect(), mod.ItemType(HomeClass().Name + "Ball"));
             CombatText.NewText(npc.Hitbox, Color.Orange, $"{PokeNam} was caught!", true, false);
+            int index = Item.NewItem(npc.getRect(), ModContent.ItemType<PokeballCaught>());
+            if (index >= 400)
+                return;
+            (Main.item[index].modItem as PokeballCaught).PokemonNPC = npc.type;
+            (Main.item[index].modItem as PokeballCaught).PokemonName = npc.TypeName;
+            (Main.item[index].modItem as PokeballCaught).SmallSpritePath = GetSmallSpritePath(npc);
+
+        }
+        private void CatchPokemonGreatBall(ref Projectile proj, ref bool crit, ref int dmg)
+        {
+            var PokeNam = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
+            proj.ai[1] = 2;
+            crit = false;
+            dmg = npc.lifeMax;
+            CreateDust(4);
+            CombatText.NewText(npc.Hitbox, Color.Orange, $"{PokeNam} was caught!", true, false);
+            int index = Item.NewItem(npc.getRect(), ModContent.ItemType<GreatBallCaught>());
+            if (index >= 400)
+                return;
+            (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = npc.type;
+            (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = npc.TypeName;
+            (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = GetSmallSpritePath(npc);
+
+        }
+
+        private void CatchPokemonUltraBall(ref Projectile proj, ref bool crit, ref int dmg)
+        {
+            var PokeNam = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
+            proj.ai[1] = 2;
+            crit = false;
+            dmg = npc.lifeMax;
+            CreateDust(4);
+            CombatText.NewText(npc.Hitbox, Color.Orange, $"{PokeNam} was caught!", true, false);
+            int index = Item.NewItem(npc.getRect(), ModContent.ItemType<UltraBallCaught>());
+            if (index >= 400)
+                return;
+            (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = npc.type;
+            (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = npc.TypeName;
+            (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = GetSmallSpritePath(npc);
+
+        }
+        private void CatchPokemonDuskBall(ref Projectile proj, ref bool crit, ref int dmg)
+        {
+            var PokeNam = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
+            proj.ai[1] = 2;
+            crit = false;
+            dmg = npc.lifeMax;
+            CreateDust(4);
+            CombatText.NewText(npc.Hitbox, Color.Orange, $"{PokeNam} was caught!", true, false);
+            int index = Item.NewItem(npc.getRect(), ModContent.ItemType<DuskBallCaught>());
+            if (index >= 400)
+                return;
+            (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = npc.type;
+            (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = npc.TypeName;
+            (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = GetSmallSpritePath(npc);
+
+        }
+        private void CatchPokemonPremierBall(ref Projectile proj, ref bool crit, ref int dmg)
+        {
+            var PokeNam = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
+            proj.ai[1] = 2;
+            crit = false;
+            dmg = npc.lifeMax;
+            CreateDust(4);
+            CombatText.NewText(npc.Hitbox, Color.Orange, $"{PokeNam} was caught!", true, false);
+            int index = Item.NewItem(npc.getRect(), ModContent.ItemType<PremierBallCaught>());
+            if (index >= 400)
+                return;
+            (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = npc.type;
+            (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = npc.TypeName;
+            (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = GetSmallSpritePath(npc);
+
         }
 
         private void CreateDust(int counter)

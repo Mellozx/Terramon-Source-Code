@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Terramon.Items.MiscItems;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon;
+using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terramon.UI.SidebarParty;
 using Terramon.UI.Starter;
 using Terraria;
@@ -14,6 +16,8 @@ namespace Terramon.Players
 
     public sealed partial class TerramonPlayer : ModPlayer
     {
+        
+
 
         //
         // Misc/Reg variables
@@ -119,7 +123,23 @@ namespace Terramon.Players
                 ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarter());
                 ChooseStarter.Visible = true;
             }
-            UISidebar.Visible = true;
+            else
+            {
+                UISidebar.Visible = true;
+            }
+        }
+        public override void PreUpdate()
+        {
+            if (Main.playerInventory)
+            {
+                UISidebar.Visible = false;
+                PartySlots.Visible = true;
+            }
+            else
+            {
+                UISidebar.Visible = true;
+                PartySlots.Visible = false;
+            }
         }
 
 
@@ -146,22 +166,59 @@ namespace Terramon.Players
 				}
 			}
 		}
+        public override void PreSavePlayer()
+        {
+            
+        }
 
 
         public override TagCompound Save()
         {
+            List<Item> list = new List<Item>();
+            list.Add(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item);
+            list.Add(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item);
+            list.Add(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item);
+            list.Add(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item);
+            list.Add(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item);
+            list.Add(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item);
+
             TagCompound tag = new TagCompound()
             {
+                ["PartySlotList"] = list,
                 [nameof(StarterChosen)] = StarterChosen
             };
 
             SavePokeballs(tag);
 
             return tag;
+            //ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem
         }
 
         public override void Load(TagCompound tag)
         {
+            List<Item> loadList = new List<Item>();
+            try
+            {
+                loadList = tag.Get<List<Item>>("PartySlotList");
+            }
+            catch(Exception) { }
+
+            if (loadList.Count == 0)
+                return;
+
+            if (loadList[0].type > 0)
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item = loadList[0];
+            if (loadList[1].type > 0)
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item = loadList[1];
+            if (loadList[2].type > 0)
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item = loadList[2];
+            if (loadList[3].type > 0)
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item = loadList[3];
+            if (loadList[4].type > 0)
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item = loadList[4];
+            if (loadList[5].type > 0)
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item = loadList[5];
+
             StarterChosen = tag.GetBool(nameof(StarterChosen));
 
             LoadPokeballs(tag);

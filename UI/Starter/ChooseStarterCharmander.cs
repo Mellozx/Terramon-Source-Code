@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terramon.Players;
+using Terramon.UI.SidebarParty;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
@@ -134,6 +135,7 @@ namespace Terramon.UI.Starter
             Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("CharmanderBall"));
             Main.NewText("You chose [c/FF8C00:Charmander, the Fire Lizard Pokemon.] Great choice!");
             ChooseStarter.Visible = false;
+            UISidebar.Visible = true;
         }
 
 
