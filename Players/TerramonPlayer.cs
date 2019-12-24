@@ -206,17 +206,17 @@ namespace Terramon.Players
             if (loadList.Count == 0)
                 return;
 
-            if (loadList[0].type > 0)
+            if (loadList[0]?.modItem is PokeballCaught || loadList[0]?.modItem is GreatBallCaught || loadList[0]?.modItem is UltraBallCaught || loadList[0]?.modItem is DuskBallCaught || loadList[0]?.modItem is DuskBallCaught)
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item = loadList[0];
-            if (loadList[1].type > 0)
+            if (loadList[1]?.modItem is PokeballCaught || loadList[1]?.modItem is GreatBallCaught || loadList[1]?.modItem is UltraBallCaught || loadList[1]?.modItem is DuskBallCaught || loadList[1]?.modItem is DuskBallCaught)
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item = loadList[1];
-            if (loadList[2].type > 0)
+            if (loadList[2]?.modItem is PokeballCaught || loadList[2]?.modItem is GreatBallCaught || loadList[2]?.modItem is UltraBallCaught || loadList[2]?.modItem is DuskBallCaught || loadList[2]?.modItem is DuskBallCaught)
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item = loadList[2];
-            if (loadList[3].type > 0)
+            if (loadList[3]?.modItem is PokeballCaught || loadList[3]?.modItem is GreatBallCaught || loadList[3]?.modItem is UltraBallCaught || loadList[3]?.modItem is DuskBallCaught || loadList[3]?.modItem is DuskBallCaught)
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item = loadList[3];
-            if (loadList[4].type > 0)
+            if (loadList[4]?.modItem is PokeballCaught || loadList[4]?.modItem is GreatBallCaught || loadList[4]?.modItem is UltraBallCaught || loadList[4]?.modItem is DuskBallCaught || loadList[4]?.modItem is DuskBallCaught)
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item = loadList[4];
-            if (loadList[5].type > 0)
+            if (loadList[5]?.modItem is PokeballCaught || loadList[5]?.modItem is GreatBallCaught || loadList[5]?.modItem is UltraBallCaught || loadList[5]?.modItem is DuskBallCaught || loadList[5]?.modItem is DuskBallCaught)
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item = loadList[5];
 
             StarterChosen = tag.GetBool(nameof(StarterChosen));
