@@ -49,19 +49,19 @@ namespace Terramon.Players
                 return;
 
             TagCompound partyTag = terramonTag.GetCompound(PKM_PARTY_SLOTS_TAG);
+            VanillaItemSlotWrapper[] slots = TerramonMod.Instance.PartySlots.Slots;
 
-            foreach (VanillaItemSlotWrapper slot in TerramonMod.Instance.PartySlots.Slots)
-                slot.Item.TurnToAir();
-
-            foreach (KeyValuePair<string, object> kvpSlot in partyTag)
+            for (int i = 0; i < slots.Length; i++)
             {
-                if (!kvpSlot.Key.StartsWith(PKM_PARTY_SLOT_TAG))
-                    continue;
+                if (!partyTag.ContainsKey(PKM_PARTY_SLOT_TAG + i))
+                    slots[i].Item.TurnToAir();
+                else
+                {
+                    TagCompound slotTag = partyTag.GetCompound(PKM_PARTY_SLOT_TAG + i);
+                    int slotIndex = slotTag.GetInt(PKM_PARTY_SLOT_INDEX);
 
-                TagCompound slotTag = (TagCompound) kvpSlot.Value;
-                int slotIndex = slotTag.GetInt(PKM_PARTY_SLOT_INDEX);
-
-                TerramonMod.Instance.PartySlots.Slots[slotIndex].Item = slotTag.Get<Item>(PKM_PARTY_CAUGHT_POKEBALL);
+                    slots[slotIndex].Item = slotTag.Get<Item>(PKM_PARTY_CAUGHT_POKEBALL);
+                }
             }
         }
     }
