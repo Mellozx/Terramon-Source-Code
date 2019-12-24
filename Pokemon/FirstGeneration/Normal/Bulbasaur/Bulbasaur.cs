@@ -11,7 +11,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
 
             projectile.width = 34; //-6
             projectile.height = 24; //-4
-            //drawOriginOffsetY = -1;
+            drawOriginOffsetY = -6;
         }
 
         public override void AI()
