@@ -15,7 +15,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
 {
-    public class PremierBallCaught : BasePokeballCaught
+    public class PremierBallCaught : ModItem
     {
         public int PokemonNPCPremier;
         public string PokemonNamePremier;

@@ -15,7 +15,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
 {
-    public class PokeballCaught : BasePokeballCaught
+    public class PokeballCaught : ModItem
     {
         public int PokemonNPC;
         public string PokemonName;

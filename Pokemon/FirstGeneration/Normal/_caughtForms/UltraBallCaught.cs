@@ -15,7 +15,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
 {
-    public class UltraBallCaught : BasePokeballCaught
+    public class UltraBallCaught : ModItem
     {
         public int PokemonNPCUltra;
         public string PokemonNameUltra;
