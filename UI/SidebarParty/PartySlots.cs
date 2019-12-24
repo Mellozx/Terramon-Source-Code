@@ -110,11 +110,22 @@ namespace Terramon.UI.SidebarParty
 
             Append(mainPanel);
 
-
+            Slots = new VanillaItemSlotWrapper[]
+            {
+                partyslot1,
+                partyslot2,
+                partyslot3,
+                partyslot4,
+                partyslot5,
+                partyslot6
+            };
 
             // As a recap, ExampleUI is a UIState, meaning it covers the whole screen. We attach mainPanel to ExampleUI some distance from the top left corner.
             // We then place playButton, closeButton, and moneyDiplay onto mainPanel so we can easily place these UIElements relative to mainPanel.
             // Since mainPanel will move, this proper organization will move playButton, closeButton, and moneyDiplay properly when mainPanel moves.
         }
+
+
+        public VanillaItemSlotWrapper[] Slots { get; private set; }
     }
 }
