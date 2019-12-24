@@ -37,7 +37,7 @@ namespace Terramon
         private UserInterface PokegearUserInterfaceNew;
         private UserInterface evolveUserInterfaceNew;// Pokegear Events Menu
         private UserInterface _uiSidebar;
-        public UserInterface _partySlots;
+        private UserInterface _partySlots;
         //starters
 
 
