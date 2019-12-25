@@ -29,7 +29,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
             DisplayName.SetDefault("Poké Ball");
             Tooltip.SetDefault("Contains %PokemonName"
                 + "\nLeft click to send out this Pokémon."
-                + "\nRight click to add to your party.");
+                + "\nRight click to add or remove from your party.");
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
@@ -41,6 +41,61 @@ namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
             spriteBatch.Draw(itemTexture, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0);
             spriteBatch.Draw(pokemonTexture, position + itemTexture.Size() * Main.inventoryScale - new Vector2(5, 5), pokemonTexture.Frame(), drawColor, 0f, pokemonTexture.Size() / 2f, Main.inventoryScale, SpriteEffects.None, 0);
             return false;
+        }
+        public override bool CanRightClick()
+        {
+            if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir && !ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir && !ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir && !ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir && !ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir && !ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
+            {
+                return false;
+            }
+            return true;
+        }
+        public override void RightClick(Player player)
+        {
+            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir)
+            {
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item = item.Clone();
+                item.TurnToAir();
+            }
+            else
+
+            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
+            {
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item = item.Clone();
+                item.TurnToAir();
+            }
+            else
+
+            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
+            {
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item = item.Clone();
+                item.TurnToAir();
+            }
+            else
+
+            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
+            {
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item = item.Clone();
+                item.TurnToAir();
+            }
+            else
+
+            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
+            {
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item = item.Clone();
+                item.TurnToAir();
+            }
+            else
+
+            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
+            {
+                ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item = item.Clone();
+                item.TurnToAir();
+            }
+            else
+            {
+                Main.NewText("All Party Slots are full", 255, 240, 20, false);
+            }
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

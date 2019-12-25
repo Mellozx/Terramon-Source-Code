@@ -37,7 +37,7 @@ namespace Terramon
         private UserInterface PokegearUserInterfaceNew;
         private UserInterface evolveUserInterfaceNew;// Pokegear Events Menu
         private UserInterface _uiSidebar;
-        private UserInterface _partySlots;
+        public UserInterface _partySlots;
         //starters
 
 
@@ -129,7 +129,15 @@ namespace Terramon
         public override void Unload()
         {
             Instance = null;
+            _exampleUserInterface.SetState(null); // Choose Starter
+            _exampleUserInterfaceNew.SetState(null); // Pokegear Main Menu
+            PokegearUserInterfaceNew.SetState(null); // Pokegear Events Menu
+            evolveUserInterfaceNew.SetState(null);
+            _uiSidebar.SetState(null);
+            _partySlots.SetState(null);
         }
+
+        //ModContent.GetInstance<TerramonMod>(). (grab instance)
 
 
         public static float[][] GetCatchChances() => catchChances;

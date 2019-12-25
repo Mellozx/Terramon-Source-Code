@@ -70,14 +70,18 @@ namespace Terramon.Pokemon
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.ZoneOverworldHeight)
+            if (!Main.dayTime)
             {
-                return 0.1f;
+                if (spawnInfo.player.ZoneOverworldHeight)
+                {
+                    return 0.1f;
+                }
+                else
+                {
+                    return 0f;
+                }
             }
-            else
-            {
-                return 0f;
-            }
+            return 0f;
         }
 
         // this method will be improved later
