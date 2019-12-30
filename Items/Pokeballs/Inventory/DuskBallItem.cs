@@ -22,7 +22,7 @@ namespace Terramon.Items.Pokeballs.Inventory
                 { GameCulture.English, "A somewhat different Poké Ball.\nIt makes it easier to catch wild Pokémon at night." },
                 { GameCulture.French, "Un Poké Ball quelque peu différent.\nIl est plus facile d'attraper les Pokémon pendant la nuit." }
             }, 
-            Item.sellPrice(gold: 2, silver: 20), ItemRarityID.Orange, Constants.Pokeballs.CatchRates.DUSK_BALL, new Color(130, 224, 99))
+            Item.sellPrice(gold: 2, silver: 20), ItemRarityID.White, Constants.Pokeballs.CatchRates.DUSK_BALL, new Color(130, 224, 99))
         {
         }
         public override void AddRecipes()
@@ -33,6 +33,13 @@ namespace Terramon.Items.Pokeballs.Inventory
             recipe.AddIngredient(mod.ItemType("PokeballBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();
+        }
+
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+
+            item.value = 60000;
         }
     }
 }

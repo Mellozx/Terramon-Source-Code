@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terramon.Players;
+using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
+using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
 using Terramon.UI.SidebarParty;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -49,6 +51,42 @@ namespace Terramon.UI.Starter
             starterselectmenu.Width.Set(1, 0);
             starterselectmenu.Height.Set(1, 0);
             mainPanel.Append(starterselectmenu);
+
+            Texture2D bottomleftcornertexture = ModContent.GetTexture("Terramon/UI/Starter/BottomLeftCorner");
+            UIImagez bottomleftcorner = new UIImagez(bottomleftcornertexture);
+            bottomleftcorner.HAlign = 0f;
+            bottomleftcorner.VAlign = 1f;
+            bottomleftcorner.Top.Set(0, 0);
+            bottomleftcorner.Width.Set(64, 0);
+            bottomleftcorner.Height.Set(64, 0);
+            mainPanel.Append(bottomleftcorner);
+
+            Texture2D topleftcornertexture = ModContent.GetTexture("Terramon/UI/Starter/TopLeftCorner");
+            UIImagez topleftcorner = new UIImagez(topleftcornertexture);
+            topleftcorner.HAlign = 0f;
+            topleftcorner.VAlign = 0f;
+            topleftcorner.Top.Set(0, 0);
+            topleftcorner.Width.Set(64, 0);
+            topleftcorner.Height.Set(64, 0);
+            mainPanel.Append(topleftcorner);
+
+            Texture2D bottomrightcornertexture = ModContent.GetTexture("Terramon/UI/Starter/BottomRightCorner");
+            UIImagez bottomrightcorner = new UIImagez(bottomrightcornertexture);
+            bottomrightcorner.HAlign = 1f;
+            bottomrightcorner.VAlign = 1f;
+            bottomrightcorner.Top.Set(0, 0);
+            bottomrightcorner.Width.Set(64, 0);
+            bottomrightcorner.Height.Set(64, 0);
+            mainPanel.Append(bottomrightcorner);
+
+            Texture2D toprightcornertexture = ModContent.GetTexture("Terramon/UI/Starter/TopRightCorner");
+            UIImagez toprightcorner = new UIImagez(toprightcornertexture);
+            toprightcorner.HAlign = 1f;
+            toprightcorner.VAlign = 0f;
+            toprightcorner.Top.Set(0, 0);
+            toprightcorner.Width.Set(64, 0);
+            toprightcorner.Height.Set(64, 0);
+            mainPanel.Append(toprightcorner);
 
             Texture2D test = ModContent.GetTexture("Terramon/UI/PossibleAssets/Text");
              UIImagez testmenu = new UIImagez(test);
@@ -132,7 +170,12 @@ namespace Terramon.UI.Starter
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
             Main.PlaySound(SoundID.Coins);
             TerramonPlayer.StarterChosen = true;
-            Item.NewItem(Main.LocalPlayer.getRect(), mod.ItemType("BulbasaurBall"));
+            int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+            if (index >= 400)
+                return;
+            (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<BulbasaurNPC>();
+            (Main.item[index].modItem as PokeballCaught).PokemonName = "Bulbasaur";
+            (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBulbasaur";
             Main.NewText("You chose [c/33FF33:Bulbasaur, the Seed Pokemon.] Great choice!");
             ChooseStarter.Visible = false;
             UISidebar.Visible = true;

@@ -1,8 +1,10 @@
 using System;
 using Microsoft.Xna.Framework;
+using Terramon.Items.Pokeballs.Inventory;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terramon.Items.Pokeballs.Thrown;
 
 namespace Terramon.Items.Pokeballs.Thrown
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Terramon.Items.Pokeballs.Parts;
 using Terramon.Projectiles;
 using Terraria;
 using Terraria.ModLoader;
@@ -8,6 +9,7 @@ namespace Terramon.Items.Pokeballs.Thrown
 {
     public abstract class BasePokeballProjectile : TerramonProjectile
     {
+        
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -25,6 +27,7 @@ namespace Terramon.Items.Pokeballs.Thrown
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+
             if (projectile.ai[0] == 2)
                 return true;
 
@@ -42,6 +45,57 @@ namespace Terramon.Items.Pokeballs.Thrown
             if (projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
             {
                 projectile.velocity.Y = oldVelocity.Y * -0.4f;
+            }
+
+            if (projectile.type == ModContent.ProjectileType<PokeballProjectile>())
+            {
+                if (Main.rand.Next(12) == 0)
+                {
+                    projectile.timeLeft = 0;
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballCap>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<GreatBallProjectile>())
+            {
+                if (Main.rand.Next(12) == 0)
+                {
+                    projectile.timeLeft = 0;
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<GreatBallCap>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<UltraBallProjectile>())
+            {
+                if (Main.rand.Next(12) == 0)
+                {
+                    projectile.timeLeft = 0;
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<UltraBallCap>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<DuskBallProjectile>())
+            {
+                if (Main.rand.Next(12) == 0)
+                {
+                    projectile.timeLeft = 0;
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<DuskBallCap>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType < PremierBallProjectile>())
+            {
+                if (Main.rand.Next(12) == 0)
+                {
+                    projectile.timeLeft = 0;
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PremierBallCap>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
+                }
             }
 
             return false;

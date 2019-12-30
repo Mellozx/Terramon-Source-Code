@@ -11,7 +11,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Caterpie
 
             projectile.width = 32;
             projectile.height = 32;
-            drawOriginOffsetY = -1;
+            drawOriginOffsetY = -14;
         }
 
         public override void AI()

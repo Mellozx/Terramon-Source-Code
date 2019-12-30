@@ -9,9 +9,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Venusaur
         public override void SetDefaults()
         {
             base.SetDefaults();
-            npc.width = 35;
-            npc.height = 35;
-			npc.scale = 1.2f;
+            npc.width = 24;
+            npc.height = 24;
+			npc.scale = 1f;
         }
     }
 }

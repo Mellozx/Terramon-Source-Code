@@ -24,7 +24,7 @@ namespace Terramon.Items.Pokeballs.Inventory
                 { GameCulture.English, "It's an ultra-performance Ball.\nProvides a higher Pokémon catch rate than a Great Ball." },
                 { GameCulture.French, "C'est une balle ultra-performante.\nFournit un taux de capture de Pokémon supérieur à celui d'une Super Ball." }
             }, 
-            Item.sellPrice(gold: 7, silver: 75), ItemRarityID.Orange, Constants.Pokeballs.CatchRates.ULTRA_BALL, new Color(245, 218, 83))
+            Item.sellPrice(gold: 7, silver: 75), ItemRarityID.White, Constants.Pokeballs.CatchRates.ULTRA_BALL, new Color(245, 218, 83))
         {
         }
         public override void AddRecipes()
@@ -37,6 +37,11 @@ namespace Terramon.Items.Pokeballs.Inventory
             recipe.AddRecipe();
         }
 
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            item.value = 80000;
+        }
 
         protected override void PostPokeballThrown(TerramonPlayer terramonPlayer, int thrownPokeballsCount)
         {

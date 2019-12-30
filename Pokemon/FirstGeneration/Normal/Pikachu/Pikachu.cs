@@ -9,9 +9,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Pikachu
         {
             base.SetDefaults();
 
-            projectile.width = 45;
-            projectile.height = 45;
-            drawOriginOffsetY = -5;
+            projectile.width = 35;
+            projectile.height = 35;
+            drawOriginOffsetY = -11;
         }
 
         public override void AI()

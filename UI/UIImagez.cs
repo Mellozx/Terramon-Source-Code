@@ -9,7 +9,12 @@ namespace Terramon.UI
     // We've added some code to allow the Button to show a text tooltip while hovered. 
     internal class UIImagez : UIImage
     {
-        internal Texture2D test;
+        public Texture2D test1;
+        public Texture2D test2;
+        public Texture2D test3;
+        public Texture2D test4;
+        public Texture2D test5;
+        public Texture2D test6;
 
         public UIImagez(Texture2D texture) : base(texture)
         {

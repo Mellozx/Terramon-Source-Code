@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gengar
 
             projectile.width = 38;
             projectile.height = 40;
-            drawOriginOffsetY = -13;
+            drawOriginOffsetY = -11;
         }
 
         public override void AI()

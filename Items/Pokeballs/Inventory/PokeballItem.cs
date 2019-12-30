@@ -38,6 +38,13 @@ namespace Terramon.Items.Pokeballs.Inventory
             recipe.AddRecipe();
         }
 
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+
+            item.value = 30000;
+        }
+
 
         protected override void PostPokeballThrown(TerramonPlayer terramonPlayer, int thrownPokeballsCount)
         {

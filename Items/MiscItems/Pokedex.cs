@@ -11,9 +11,7 @@ namespace Terramon.Items.MiscItems
         {
             DisplayName.SetDefault("Pokédex");
             Tooltip.SetDefault("It's a digital encyclopedia created by [c/33FF33:Professor Oak] as an invaluable tool to Trainers."
-                + "\n[c/FFFF66:Use it to communicate with the Professor!]"
-                    + "\nWhile this item is in your inventory, use [c/FF3333:/pokedex] to open the dex menu."
-                        + "\n[c/33FF33:The Professor may have new things to say once in a while.]"
+                    + "\nUse it to open the dex user interface and keep track of your Pokémon data."
                             + "\nOh, and you probably shouldn't get rid of it.");
         }
         public override void SetDefaults()
@@ -34,32 +32,7 @@ namespace Terramon.Items.MiscItems
 
         public override bool UseItem(Player player)
         {
-            Timer++;
-            if (Timer == 1)
-            {
-                Main.NewText("[c/FFFF66:Calling the Professor...] [c/C0C0C0:(Click to proceed)]");
-            }
-            if (Timer == 2)
-            {
-                Main.NewText("[c/33FF33:Professor Oak:] Hey there, Trainer! I'm assuming you've safely arrived in the land of Terraria. [c/C0C0C0:(Click to proceed)]");
-            }
-            if (Timer == 3)
-            {
-                Main.NewText("[c/33FF33:Professor Oak:] Many subregions are waiting to be discovered, and I need you to catch every last Pokémon so I can finally complete my research! [c/C0C0C0:(Click to proceed)]");
-            }
-            if (Timer == 4)
-            {
-                Main.NewText("[c/33FF33:Professor Oak:] I packed you 8 [c/FF3333:Poké Balls] that I hope you will or have used wisely. [c/C0C0C0:(Click to proceed)]");
-            }
-            if (Timer == 5)
-            {
-                Main.NewText("[c/33FF33:Professor Oak:] Lastly, use [c/FF3333:/choose] to pick your starting Pokémon. Good luck on your journey! [c/C0C0C0:(Click to proceed)]");
-            }
-            if (Timer == 6)
-            {
-                Main.NewText("[c/FFFF66:Call ended.]");
-                Timer = 0;
-            }
+            Main.NewText("This feature has been removed, and will be readded and revamped in a future update. Thanks for your patience.");
             return true;
         }
     }

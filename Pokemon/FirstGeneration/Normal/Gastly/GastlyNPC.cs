@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Gastly
@@ -13,9 +15,10 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gastly
             npc.height = 20;
         }
 
-        public override void NPCLoot()
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            
+            npc.gfxOffY = -4;
+            return true;
         }
     }
 }

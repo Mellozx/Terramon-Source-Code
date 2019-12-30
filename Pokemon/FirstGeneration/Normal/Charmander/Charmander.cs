@@ -11,7 +11,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
 
             projectile.width = 34;
             projectile.height = 26;
-            drawOriginOffsetY = -1;
+            drawOriginOffsetY = -14;
         }
 
         public override void AI()

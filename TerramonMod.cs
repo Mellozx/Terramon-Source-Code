@@ -21,6 +21,8 @@ namespace Terramon
         public static bool PartyUITheme = true;
         public static bool PartyUIAutoMode = false;
         public static bool PartyUIReverseAutoMode = false;
+        public static bool ShowHelpButton = true;
+        public static bool HelpButtonInitialize = true;
         public int PartyUIThemeChanged = 0;
 
         // UI SIDEBAR //
@@ -135,6 +137,7 @@ namespace Terramon
             evolveUserInterfaceNew.SetState(null);
             _uiSidebar.SetState(null);
             _partySlots.SetState(null);
+            PartySlots = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)

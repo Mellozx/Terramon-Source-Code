@@ -19,7 +19,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             },
             new Dictionary<GameCulture, string>()
             {
-                { GameCulture.English, "A somewhat different Poké Ball that provides a better catch rate if it is used at the start of a wild encounter." }
+                { GameCulture.English, "A somewhat different Poké Ball that provides a better catch rate" + "\nif it is used at the start of a wild encounter." + "\n(Unimplemented)" }
             },
             Item.sellPrice(copper: 0), ItemRarityID.Orange, Constants.Pokeballs.CatchRates.QUICK_BALL)
         {

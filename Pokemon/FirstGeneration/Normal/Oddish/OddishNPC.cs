@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Oddish
@@ -13,9 +15,10 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Oddish
             npc.height = 20;
         }
 
-        public override void NPCLoot()
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            
+            npc.gfxOffY = 6;
+            return true;
         }
     }
 }

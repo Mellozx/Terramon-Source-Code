@@ -35,9 +35,7 @@ namespace Terramon.Items.MiscItems.GameBoys
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             base.UpdateAccessory(player, hideVisual);
-
-            if (!hideVisual)
-                Main.musicBox2 = mod.GetSoundSlot(SoundType.Music, $"Sounds/Music/GB_{MusicPath}");
+            Main.musicBox2 = mod.GetSoundSlot(SoundType.Music, $"Sounds/Music/GB_{MusicPath}");
         }
 
 

@@ -11,7 +11,6 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Rattata
 
             projectile.width = 35;
             projectile.height = 40;
-            drawOriginOffsetY = -3;
         }
 
         public override void AI()

@@ -28,8 +28,53 @@ namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
             base.SetStaticDefaults();
             DisplayName.SetDefault("Poké Ball");
             Tooltip.SetDefault("Contains %PokemonName"
-                + "\nLeft click to send out this Pokémon."
-                + "\nRight click to add or remove from your party.");
+                + "\nLeft click to send out this Pokémon (or return it to this ball)."
+                + "\nRight click to add to your party.");
+        }
+
+        public override void SetDefaults()
+        {
+
+            item.damage = 0;
+
+            item.width = 24;
+            item.height = 24;
+
+            item.useTime = 20;
+            item.useStyle = 1;
+            item.useAnimation = 20;
+
+            item.UseSound = SoundID.Item2;
+            item.accessory = false;
+            item.shoot = 10;
+
+            item.noMelee = true;
+
+            item.rare = 0;
+        }
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            if (player.HasBuff(mod.BuffType(PokemonName + "Buff")))
+            {
+                player.ClearBuff(mod.BuffType(PokemonName + "Buff"));
+                switch (Main.rand.Next(3))
+                {
+                    case 0:
+                        CombatText.NewText(player.Hitbox, Color.White, PokemonName + ", switch out!\nCome back!", true, false);
+                        break;
+                    case 1:
+                        CombatText.NewText(player.Hitbox, Color.White, PokemonName + ", return!", true, false);
+                        break;
+                    default:
+                        CombatText.NewText(player.Hitbox, Color.White, "That's enough for now, " + PokemonName + "!", true, false);
+                        break;
+                }
+                return true;
+            }
+            else
+            player.AddBuff(mod.BuffType(PokemonName + "Buff"), 2);
+            CombatText.NewText(player.Hitbox, Color.White, "Go! " + PokemonName + "!", true, false);
+            return true;
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)

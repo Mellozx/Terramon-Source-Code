@@ -24,7 +24,7 @@ namespace Terramon.Items.Pokeballs.Inventory
                 { GameCulture.English, "A good, high-performance Ball.\nProvides a higher Pokémon catch rate than a Poké Ball." },
                 { GameCulture.French, "Un bon Ball très performant.\nFournit un taux de capture de Pokémon supérieur à celui d'une Poké Ball." }
             },
-            Item.sellPrice(gold: 3, silver: 25), ItemRarityID.Blue, Constants.Pokeballs.CatchRates.POKE_BALL, new Color(89, 183, 255))
+            Item.sellPrice(gold: 3, silver: 25), ItemRarityID.White, Constants.Pokeballs.CatchRates.POKE_BALL, new Color(89, 183, 255))
         {
         }
 
@@ -36,6 +36,13 @@ namespace Terramon.Items.Pokeballs.Inventory
             recipe.AddIngredient(mod.ItemType("PokeballBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();
+        }
+
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+
+            item.value = 50000;
         }
 
 

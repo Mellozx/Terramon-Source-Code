@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Terramon.Items.Pokeballs.Inventory;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

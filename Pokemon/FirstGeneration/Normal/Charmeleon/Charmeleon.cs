@@ -11,7 +11,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmeleon
 
             projectile.width = 22;
             projectile.height = 20;
-            drawOriginOffsetY = -17;
+            drawOriginOffsetY = -30;
         }
 
         public override void AI()

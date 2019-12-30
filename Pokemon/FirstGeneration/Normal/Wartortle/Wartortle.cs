@@ -11,7 +11,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Wartortle
 
             projectile.width = 35;
             projectile.height = 40;
-            drawOriginOffsetY = -1;
+            drawOriginOffsetY = -8;
         }
 
         public override void AI()

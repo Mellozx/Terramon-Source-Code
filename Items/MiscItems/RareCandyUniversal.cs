@@ -13,7 +13,7 @@ namespace Terramon.Items.MiscItems
             if (Main.rand.Next(100) < 3)
                 Item.NewItem(npc.getRect(), mod.ItemType("RareCandy"));
             if (Main.rand.Next(100) < 2 && Main.hardMode == true)
-                Item.NewItem(npc.getRect(), mod.ItemType("SuperCandy"));
+                Item.NewItem(npc.getRect(), mod.ItemType("RareCandy"));
             if (npc.type == NPCID.KingSlime)
                 Item.NewItem(npc.getRect(), mod.ItemType("RareCandy"), 6);
             if (npc.type == NPCID.QueenBee)
