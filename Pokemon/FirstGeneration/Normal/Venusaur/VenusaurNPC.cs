@@ -2,7 +2,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Venusaur
 {
-    public class VenusaurNPC : ParentPokemonNPC
+    public class VenusaurNPC : NotCatchablePKMN
     {
         public override Type HomeClass() => typeof(Venusaur);
 

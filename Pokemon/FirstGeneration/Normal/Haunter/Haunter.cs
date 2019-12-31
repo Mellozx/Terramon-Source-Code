@@ -3,7 +3,7 @@ using Terraria;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
 {
-    public class Haunter : ParentPokemon
+    public class Haunter : ParentPokemonGastly
     {
         public override void SetStaticDefaults()
         {
@@ -18,6 +18,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
             projectile.width = 38;
             projectile.height = 40;
             drawOriginOffsetY = -36;
+            projectile.alpha = 95;
         }
 
         public override void AI()

@@ -3,7 +3,7 @@ using Terraria;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Gastly
 {
-    public class Gastly : ParentPokemon
+    public class Gastly : ParentPokemonGastly
     {
         public override void SetStaticDefaults()
         {
@@ -17,6 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gastly
 
             projectile.width = 38;
             projectile.height = 40;
+            projectile.alpha = 75;
             drawOriginOffsetY = -36;
         }
 

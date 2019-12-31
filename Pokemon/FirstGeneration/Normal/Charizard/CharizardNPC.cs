@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Charizard
 {
-    public class CharizardNPC : ParentPokemonNPC
+    public class CharizardNPC : NotCatchablePKMN
     {
         public override Type HomeClass() => typeof(Charizard);
 

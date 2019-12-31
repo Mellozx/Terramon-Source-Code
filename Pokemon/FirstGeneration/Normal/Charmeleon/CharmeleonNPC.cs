@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Charmeleon
 {
-    public class CharmeleonNPC : ParentPokemonNPC
+    public class CharmeleonNPC : ParentPokemonNPC_Charmeleon
     {
         public override Type HomeClass() => typeof(Charmeleon);
 

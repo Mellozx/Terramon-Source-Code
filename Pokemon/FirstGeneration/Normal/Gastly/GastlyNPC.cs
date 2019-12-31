@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Gastly
 {
-    public class GastlyNPC : ParentPokemonNPCNight
+    public class GastlyNPC : ParentPokemonNPC_Gastly
     {
         public override Type HomeClass() => typeof(Gastly);
 
@@ -13,6 +13,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gastly
             base.SetDefaults();
             npc.width = 20;
             npc.height = 20;
+            npc.alpha = 75;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)

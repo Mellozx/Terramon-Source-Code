@@ -1,10 +1,10 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Gengar
 {
-    public class GengarNPC : ParentPokemonNPCNight
+    public class GengarNPC : NotCatchablePKMN
     {
         public override Type HomeClass() => typeof(Gengar);
 

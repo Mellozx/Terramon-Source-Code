@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Eevee
 {
-    public class EeveeNPC : ParentPokemonNPC
+    public class EeveeNPC : ParentPokemonNPC_Eevee
     {
         public override Type HomeClass() => typeof(Eevee);
 

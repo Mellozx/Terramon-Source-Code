@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
 {
-    public class BulbasaurNPC : ParentPokemonNPC
+    public class BulbasaurNPC : ParentPokemonNPC_Bulbasaur
     {
         public override Type HomeClass() => typeof(Bulbasaur);
 

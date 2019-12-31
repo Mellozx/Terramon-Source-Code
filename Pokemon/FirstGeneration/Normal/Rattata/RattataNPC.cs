@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Rattata
 {
-    public class RattataNPC : ParentPokemonNPC
+    public class RattataNPC : ParentPokemonNPC_Caterpie
     {
         public override Type HomeClass() => typeof(Rattata);
 

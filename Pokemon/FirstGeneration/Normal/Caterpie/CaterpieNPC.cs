@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Caterpie
 {
-    public class CaterpieNPC : ParentPokemonNPC
+    public class CaterpieNPC : ParentPokemonNPC_Caterpie
     {
         public override Type HomeClass() => typeof(Caterpie);
 

@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Squirtle
 {
-    public class SquirtleNPC : ParentPokemonNPC
+    public class SquirtleNPC : ParentPokemonNPC_Squirtle
     {
         public override Type HomeClass() => typeof(Squirtle);
 

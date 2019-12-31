@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
 {
-    public class HaunterNPC : ParentPokemonNPCNight
+    public class HaunterNPC : ParentPokemonNPC_Haunter
     {
         public override Type HomeClass() => typeof(Haunter);
 
@@ -13,6 +13,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
             base.SetDefaults();
             npc.width = 20;
             npc.height = 28;
+            npc.alpha = 95;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)

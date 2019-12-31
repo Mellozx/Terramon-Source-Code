@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Wartortle
 {
-    public class WartortleNPC : ParentPokemonNPC
+    public class WartortleNPC : ParentPokemonNPC_Wartortle
     {
         public override Type HomeClass() => typeof(Wartortle);
 

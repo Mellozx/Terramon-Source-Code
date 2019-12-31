@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Oddish
 {
-    public class OddishNPC : ParentPokemonNPC
+    public class OddishNPC : ParentPokemonNPC_Oddish
     {
         public override Type HomeClass() => typeof(Oddish);
 

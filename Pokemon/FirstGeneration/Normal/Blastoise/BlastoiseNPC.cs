@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Blastoise
 {
-    public class BlastoiseNPC : ParentPokemonNPC
+    public class BlastoiseNPC : NotCatchablePKMN
     {
         public override Type HomeClass() => typeof(Blastoise);
 

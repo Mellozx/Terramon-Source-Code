@@ -4,7 +4,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Pikachu
 {
-    public class PikachuNPC : ParentPokemonNPC
+    public class PikachuNPC : ParentPokemonNPC_Eevee
     {
         public override Type HomeClass() => typeof(Pikachu);
 

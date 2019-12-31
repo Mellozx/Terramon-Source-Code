@@ -2,7 +2,7 @@ using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Ivysaur
 {
-    public class IvysaurNPC : ParentPokemonNPC
+    public class IvysaurNPC : ParentPokemonNPC_Ivysaur
     {
         public override Type HomeClass() => typeof(Ivysaur);
 
