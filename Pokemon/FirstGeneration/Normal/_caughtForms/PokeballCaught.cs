@@ -165,7 +165,6 @@ namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
             tooltips.Find(x => x.Name == "Tooltip0").text = tooltipText;
             base.ModifyTooltips(tooltips);
         }
-
         public override TagCompound Save()
         {
             return new TagCompound

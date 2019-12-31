@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terramon.Players;
+using Terramon.UI;
+using Terramon.UI.SidebarParty;
 
 namespace Terramon.Pokemon
 {
@@ -26,7 +28,7 @@ namespace Terramon.Pokemon
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Pokémon Trainer");
-            Main.npcFrameCount[npc.type] = 26;
+            Main.npcFrameCount[npc.type] = 52;
             NPCID.Sets.ExtraFramesCount[npc.type] = 9;
             NPCID.Sets.AttackFrameCount[npc.type] = 4;
             NPCID.Sets.DangerDetectRange[npc.type] = 700;
@@ -54,23 +56,13 @@ namespace Terramon.Pokemon
 
         public override string TownNPCName()
         {
-            switch (WorldGen.genRand.Next(4))
+            switch (WorldGen.genRand.Next(2))
             {
                 case 0:
-                    return "Red";
-                case 1:
-                    return "Red";
-                case 2:
                     return "Red";
                 default:
                     return "Red";
             }
-        }
-
-        public override void FindFrame(int frameHeight)
-        {
-            npc.frame.Width = 40;
-                npc.frame.X = 0;
         }
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money)
@@ -122,7 +114,7 @@ namespace Terramon.Pokemon
                     case 2:
                         return "Pokemon are sorted into different tiers. If you trigger a tier upgrade, Pokémon in a higher tier may start appearing!";
                     case 3:
-                        return "While carrying your Pokédex, '/pokedex' will open it up!";
+                        return "Evolution is amazing. I cna ";
                     case 4:
                         return "Pokémon will appear in their respective biomes. To encounter rock types, go to the Desert.";
                     case 5:
@@ -141,6 +133,7 @@ namespace Terramon.Pokemon
         public override void SetChatButtons(ref string button, ref string button2)
         {
             button = Language.GetTextValue("LegacyInterface.28");
+            button2 = "Evolution";
             //button2 = "Evolve";
         }
 
@@ -150,17 +143,17 @@ namespace Terramon.Pokemon
             {
                 shop = true;
             }
-            //else 
-            //{
-                //Main.playerInventory = true;
-                //Main.npcChatText = "";
-                //evolveUI.Visible = true;
-            //}
+            else 
+            {
+                Main.playerInventory = true;
+                Main.npcChatText = "";
+                EvolveUI.Visible = true;
+            }
         }
 
         public override void TownNPCAttackStrength(ref int damage, ref float knockback)
         {
-            damage = 5;
+            damage = 8;
             knockback = 4f;
         }
 

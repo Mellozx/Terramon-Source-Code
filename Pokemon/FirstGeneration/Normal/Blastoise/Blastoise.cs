@@ -1,9 +1,9 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal.Venusaur
+namespace Terramon.Pokemon.FirstGeneration.Normal.Blastoise
 {
-    public class Venusaur : ParentPokemon
+    public class Blastoise : ParentPokemon
     {
         public override void SetDefaults()
         {
@@ -12,7 +12,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Venusaur
             projectile.width = 48;
             projectile.height = 40;
 			projectile.scale = 1f;
-            // drawOriginOffsetY = -1;
+            drawOriginOffsetY = -14;
         }
 
         public override void AI()
@@ -21,9 +21,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Venusaur
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             if (player.dead)
             {
-                modPlayer.venusaurPet = false;
+                modPlayer.blastoisePet = false;
             }
-            if (modPlayer.venusaurPet)
+            if (modPlayer.blastoisePet)
             {
                 projectile.timeLeft = 2;
             }

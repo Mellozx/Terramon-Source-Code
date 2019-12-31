@@ -157,7 +157,7 @@ namespace Terramon.Players
             {
                 if (Main.playerInventory)
                 {
-                    if (player.chest != -1 || Main.npcShop != 0)
+                    if (player.chest != -1 || Main.npcShop != 0 || EvolveUI.Visible)
                     {
                         PartySlots.Visible = false;
                     }
@@ -169,6 +169,7 @@ namespace Terramon.Players
                 }
                 else
                 {
+                    EvolveUI.Visible = false;
                     UISidebar.Visible = true;
                     PartySlots.Visible = false;
                     if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir)
@@ -200,6 +201,18 @@ namespace Terramon.Players
                     {
                         Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.stack);
                         ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.TurnToAir();
+                    }
+                    
+
+                    if (!ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.IsAir)
+                    {
+                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item, ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.stack);
+                        ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.TurnToAir();
+                    }
+                    if (!ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.IsAir)
+                    {
+                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item, ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.stack);
+                        ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.TurnToAir();
                     }
                 }
             }

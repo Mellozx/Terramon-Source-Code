@@ -33,14 +33,15 @@ namespace Terramon
 
         internal PokegearUI PokegearUI;
         internal PokegearUIEvents PokegearUIEvents;
-        internal evolveUI evolveUI;
+        internal EvolveUI evolveUI;
         public UserInterface _exampleUserInterface; // Choose Starter
         private UserInterface _exampleUserInterfaceNew; // Pokegear Main Menu
         private UserInterface PokegearUserInterfaceNew;
         private UserInterface evolveUserInterfaceNew;// Pokegear Events Menu
         private UserInterface _uiSidebar;
         public UserInterface _partySlots;
-        //starters
+
+        //evolution
 
 
         public TerramonMod()
@@ -97,7 +98,7 @@ namespace Terramon
             PokegearUI.Activate();
             PokegearUIEvents = new PokegearUIEvents();
             PokegearUIEvents.Activate();
-            evolveUI = new evolveUI();
+            evolveUI = new EvolveUI();
             evolveUI.Activate();
             UISidebar = new UISidebar();
             UISidebar.Activate();
@@ -168,7 +169,7 @@ namespace Terramon
             {
                 PokegearUserInterfaceNew?.Update(gameTime);
             }
-            if (evolveUI.Visible)
+            if (EvolveUI.Visible)
             {
                 evolveUserInterfaceNew?.Update(gameTime);
             }
@@ -217,7 +218,7 @@ namespace Terramon
                         {
                             PokegearUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
                         }
-                        if (evolveUI.Visible)
+                        if (EvolveUI.Visible)
                         {
                             evolveUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
                         }

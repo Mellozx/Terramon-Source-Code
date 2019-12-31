@@ -11,7 +11,7 @@ namespace Terramon
             var player = Main.player[Main.myPlayer];
             if (Main.netMode != 1 && !WorldGen.noTileActions && !WorldGen.gen)
             {
-                if (type == TileID.Trees && Main.tile[i, j + 1].type == TileID.Grass)
+                if (type == TileID.Trees && Main.tile[i, j + 1].type == TileID.Grass || type == TileID.Trees && Main.tile[i, j + 1].type == TileID.HallowedGrass)
                 {
                         switch (Main.rand.Next(7))
                         {

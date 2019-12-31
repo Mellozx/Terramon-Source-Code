@@ -61,7 +61,7 @@ namespace Terramon.UI.SidebarParty
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             mainPanel.HAlign = 0f - 0.01f;
             mainPanel.VAlign = 0.6f;
-            mainPanel.Width.Set(80, 0f);
+            mainPanel.Width.Set(95, 0f);
             mainPanel.Height.Set(385f, 0f);
             mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
 

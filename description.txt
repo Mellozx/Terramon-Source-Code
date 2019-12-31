@@ -1,4 +1,4 @@
-﻿Terramon is a cross between Terraria and the awesome Pokémon franchise. The mod adds many catchable Pokémon and your mission is to befriend them all!
+﻿Terramon is a cross between Terraria and the awesome Pokémon franchise. The mod adds many new Pokémon and your mission is to catch 'em all!
 Have fun with...
 -Throwable Pokéballs that can be used to catch 'mons or hurt bad guys!
 -A Pokémon Trainer Town NPC that can move in as soon as you start the game! He will sell you Pokéballs and evolve your Pokémon.
@@ -10,7 +10,7 @@ We're aiming to make this mod a smashing success with Pokémon fans all over the
 [c/a3a3a3:// Credits]
 
 -Ichor (Main Developer and Mod Owner)
--Webmilio (Secondary Developer)
+-Webmilio (Ex-Developer)
 -Chen (Ex-Developer)
 -InfinaMii (Side-Developer and Spriter)
 -daimgamer (Spriter)
