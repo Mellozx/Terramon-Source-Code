@@ -1,6 +1,6 @@
 author = Jamz & Terramon Team
-version = 0.2.1
+version = 0.2.1.2
 displayName = Terramon Mod
-homepage = https://discord.gg/9euZqd8
-buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd
+homepage = https://discord.gg/ezMgrtX
+buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*
 modReferences = WebmilioCommons@0.1.9.7

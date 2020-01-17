@@ -41,6 +41,8 @@ namespace Terramon
         private UserInterface _uiSidebar;
         public UserInterface _partySlots;
 
+        public static ModHotKey PartyCycle;
+
         //evolution
 
 
@@ -127,6 +129,8 @@ namespace Terramon
             SecondPKMAbility = this.RegisterHotKey("Second Pokémon Ability", Keys.X.ToString());
             ThirdPKMAbility = this.RegisterHotKey("Third Pokémon Ability", Keys.C.ToString());
             FourthPKMAbility = this.RegisterHotKey("Fourth Pokémon Ability", Keys.V.ToString());
+
+            PartyCycle = RegisterHotKey("Quick Spawn First Party Pokémon", Keys.RightAlt.ToString());
         }
 
         public override void Unload()

@@ -38,6 +38,7 @@ namespace Terramon.Pokemon
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/capturepokemon");
 
+            npc.noGravity = true;
             npc.aiStyle = 65;
             aiType = NPCID.Firefly;
 

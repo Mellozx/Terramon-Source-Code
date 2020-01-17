@@ -39,6 +39,8 @@ namespace Terramon.UI.SidebarParty
         public Texture2D sixthpkmntexture;
         public SidebarClass sixthpkmn;
 
+        public int CycleIndex;
+
         // In OnInitialize, we place various UIElements onto our UIState (this class).
         // UIState classes have width and height equal to the full screen, because of this, usually we first define a UIElement that will act as the container for our UI.
         // We then place various other UIElement onto that container UIElement positioned relative to the container UIElement.

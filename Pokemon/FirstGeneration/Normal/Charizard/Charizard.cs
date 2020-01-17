@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terramon.Players;
 using Terraria;
 
@@ -26,6 +27,10 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charizard
             if (modPlayer.charizardPet)
             {
                 projectile.timeLeft = 2;
+            }
+            if (Main.rand.Next(9) == 0)
+            {
+                Dust.NewDust(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 100, new Color(255, 148, 41), 1f);
             }
         }
     }

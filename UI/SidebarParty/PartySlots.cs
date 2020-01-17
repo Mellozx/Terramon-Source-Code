@@ -136,7 +136,17 @@ namespace Terramon.UI.SidebarParty
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             Main.PlaySound(SoundID.MenuOpen);
+            ModContent.GetInstance<TerramonMod>().UISidebar.CycleIndex = 0;
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+            Mod mod = ModContent.GetInstance<TerramonMod>();
+            Player player = Main.LocalPlayer;
+            // clear buffs
+            player.ClearBuff(mod.BuffType(modPlayer.firstslotname + "Buff"));
+            player.ClearBuff(mod.BuffType(modPlayer.secondslotname + "Buff"));
+            player.ClearBuff(mod.BuffType(modPlayer.thirdslotname + "Buff"));
+            player.ClearBuff(mod.BuffType(modPlayer.fourthslotname + "Buff"));
+            player.ClearBuff(mod.BuffType(modPlayer.fifthslotname + "Buff"));
+            player.ClearBuff(mod.BuffType(modPlayer.sixthslotname + "Buff"));
             if (partyslot1.Item.IsAir)
             {
                 modPlayer.firstslotname = "*";
@@ -185,8 +195,18 @@ namespace Terramon.UI.SidebarParty
         private void SaveButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             Main.PlaySound(SoundID.MenuOpen);
-
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+            ModContent.GetInstance<TerramonMod>().UISidebar.CycleIndex = 0;
+            Mod mod = ModContent.GetInstance<TerramonMod>();
+            Player player = Main.LocalPlayer;
+            modPlayer.CatchIndex = 0;
+            // clear buffs
+            player.ClearBuff(mod.BuffType(modPlayer.firstslotname + "Buff"));
+            player.ClearBuff(mod.BuffType(modPlayer.secondslotname + "Buff"));
+            player.ClearBuff(mod.BuffType(modPlayer.thirdslotname + "Buff"));
+            player.ClearBuff(mod.BuffType(modPlayer.fourthslotname + "Buff"));
+            player.ClearBuff(mod.BuffType(modPlayer.fifthslotname + "Buff"));
+            player.ClearBuff(mod.BuffType(modPlayer.sixthslotname + "Buff"));
             if (partyslot1.Item.IsAir)
             {
                 modPlayer.firstslotname = "*";

@@ -28,7 +28,6 @@ namespace Terramon.Pokemon
 
         public override void SetDefaults()
         {
-            npc.CloneDefaults(NPCID.Firefly);
             npc.defense = 0;
             npc.lifeMax = 1;
             npc.knockBackResist = 0.5f;
@@ -38,6 +37,7 @@ namespace Terramon.Pokemon
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/capturepokemon");
 
+            npc.noGravity = true;
             npc.aiStyle = 65;
             aiType = NPCID.Firefly;
 

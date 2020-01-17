@@ -114,7 +114,7 @@ namespace Terramon.Pokemon
                     case 2:
                         return "Pokemon are sorted into different tiers. If you trigger a tier upgrade, Pokémon in a higher tier may start appearing!";
                     case 3:
-                        return "Evolution is amazing. I cna ";
+                        return "Evolution is amazing. I can help you out with evolving your Pokémon.. but first get your hands on a handful of Rare Candies.";
                     case 4:
                         return "Pokémon will appear in their respective biomes. To encounter rock types, go to the Desert.";
                     case 5:

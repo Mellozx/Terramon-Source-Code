@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon
 {
-    public abstract class ParentPokemonNPC_Caterpie : ModNPC // also followed by Rattata
+    public abstract class ParentPokemonNPC_Caterpie : ModNPC // also followed by Rattata + Pidgey
     {
         private readonly string[] ballProjectiles = TerramonMod.GetBallProjectiles();
         private readonly float[][] catchChances = TerramonMod.GetCatchChances();

@@ -7,9 +7,13 @@ using Terramon.Pokemon.FirstGeneration.Normal.Blastoise;
 using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
 using Terramon.Pokemon.FirstGeneration.Normal.Charizard;
 using Terramon.Pokemon.FirstGeneration.Normal.Charmeleon;
+using Terramon.Pokemon.FirstGeneration.Normal.Dragonair;
+using Terramon.Pokemon.FirstGeneration.Normal.Dragonite;
 using Terramon.Pokemon.FirstGeneration.Normal.Gengar;
 using Terramon.Pokemon.FirstGeneration.Normal.Haunter;
 using Terramon.Pokemon.FirstGeneration.Normal.Ivysaur;
+using Terramon.Pokemon.FirstGeneration.Normal.Pidgeot;
+using Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto;
 using Terramon.Pokemon.FirstGeneration.Normal.Venusaur;
 using Terramon.Pokemon.FirstGeneration.Normal.Wartortle;
 using Terraria;
@@ -177,6 +181,34 @@ namespace Terramon.UI.SidebarParty
                             mainPanel.RemoveChild(SaveButton);
                         }
                     }
+                    else if (pokeball.PokemonName == "Pidgey")
+                    {
+                        PokemonGoesHere.SetText("Place 13 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 13)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (pokeball.PokemonName == "Pidgeotto")
+                    {
+                        PokemonGoesHere.SetText("Place 18 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 18)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
                     else if (pokeball.PokemonName == "Gastly")
                     {
                         PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
@@ -196,6 +228,34 @@ namespace Terramon.UI.SidebarParty
                         PokemonGoesHere.SetText("Place 10 Rare Candies in the second slot.");
                         mainPanel.Append(partyslot2);
                         if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 10)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (pokeball.PokemonName == "Dratini")
+                    {
+                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (pokeball.PokemonName == "Dragonair")
+                    {
+                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
                         {
                             PokemonGoesHere.SetText("Great! Press the evolve button!");
                             mainPanel.Append(SaveButton);
@@ -254,6 +314,34 @@ namespace Terramon.UI.SidebarParty
                             mainPanel.RemoveChild(SaveButton);
                         }
                     }
+                    else if (greatball.PokemonNameGreat == "Pidgey")
+                    {
+                        PokemonGoesHere.SetText("Place 13 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 13)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (greatball.PokemonNameGreat == "Pidgeotto")
+                    {
+                        PokemonGoesHere.SetText("Place 18 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 18)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
                     else if (greatball.PokemonNameGreat == "Gastly")
                     {
                         PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
@@ -273,6 +361,34 @@ namespace Terramon.UI.SidebarParty
                         PokemonGoesHere.SetText("Place 10 Rare Candies in the second slot.");
                         mainPanel.Append(partyslot2);
                         if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 10)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (greatball.PokemonNameGreat == "Dratini")
+                    {
+                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (greatball.PokemonNameGreat == "Dragonair")
+                    {
+                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
                         {
                             PokemonGoesHere.SetText("Great! Press the evolve button!");
                             mainPanel.Append(SaveButton);
@@ -331,6 +447,34 @@ namespace Terramon.UI.SidebarParty
                             mainPanel.RemoveChild(SaveButton);
                         }
                     }
+                    else if (ultraball.PokemonNameUltra == "Pidgey")
+                    {
+                        PokemonGoesHere.SetText("Place 13 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 13)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (ultraball.PokemonNameUltra == "Pidgeotto")
+                    {
+                        PokemonGoesHere.SetText("Place 18 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 18)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
                     else if (ultraball.PokemonNameUltra == "Gastly")
                     {
                         PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
@@ -350,6 +494,34 @@ namespace Terramon.UI.SidebarParty
                         PokemonGoesHere.SetText("Place 10 Rare Candies in the second slot.");
                         mainPanel.Append(partyslot2);
                         if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 10)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (ultraball.PokemonNameUltra == "Dratini")
+                    {
+                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (ultraball.PokemonNameUltra == "Dragonair")
+                    {
+                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
                         {
                             PokemonGoesHere.SetText("Great! Press the evolve button!");
                             mainPanel.Append(SaveButton);
@@ -408,6 +580,34 @@ namespace Terramon.UI.SidebarParty
                             mainPanel.RemoveChild(SaveButton);
                         }
                     }
+                    else if (duskball.PokemonNameDusk == "Pidgey")
+                    {
+                        PokemonGoesHere.SetText("Place 13 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 13)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (duskball.PokemonNameDusk == "Pidgeotto")
+                    {
+                        PokemonGoesHere.SetText("Place 18 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 18)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
                     else if (duskball.PokemonNameDusk == "Gastly")
                     {
                         PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
@@ -427,6 +627,34 @@ namespace Terramon.UI.SidebarParty
                         PokemonGoesHere.SetText("Place 10 Rare Candies in the second slot.");
                         mainPanel.Append(partyslot2);
                         if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 10)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (duskball.PokemonNameDusk == "Dratini")
+                    {
+                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (duskball.PokemonNameDusk == "Dragonair")
+                    {
+                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
                         {
                             PokemonGoesHere.SetText("Great! Press the evolve button!");
                             mainPanel.Append(SaveButton);
@@ -485,6 +713,34 @@ namespace Terramon.UI.SidebarParty
                             mainPanel.RemoveChild(SaveButton);
                         }
                     }
+                    else if (premierball.PokemonNamePremier == "Pidgey")
+                    {
+                        PokemonGoesHere.SetText("Place 13 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 13)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (premierball.PokemonNamePremier == "Pidgeotto")
+                    {
+                        PokemonGoesHere.SetText("Place 18 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 18)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
                     else if (premierball.PokemonNamePremier == "Gastly")
                     {
                         PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
@@ -504,6 +760,34 @@ namespace Terramon.UI.SidebarParty
                         PokemonGoesHere.SetText("Place 10 Rare Candies in the second slot.");
                         mainPanel.Append(partyslot2);
                         if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 10)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (premierball.PokemonNamePremier == "Dratini")
+                    {
+                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (premierball.PokemonNamePremier == "Dragonair")
+                    {
+                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
                         {
                             PokemonGoesHere.SetText("Great! Press the evolve button!");
                             mainPanel.Append(SaveButton);
@@ -602,6 +886,32 @@ namespace Terramon.UI.SidebarParty
                     Main.NewText("Your Wartortle evolved into Blastoise!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
+                if (pokeball.PokemonName == "Pidgey")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<PidgeottoNPC>();
+                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Pidgeotto";
+                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Pidgey evolved into Pidgeotto!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (pokeball.PokemonName == "Pidgeotto")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<PidgeotNPC>();
+                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Pidgeot";
+                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Pidgeotto evolved into Pidgeot!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
                 if (pokeball.PokemonName == "Gastly")
                 {
                     Player player = Main.LocalPlayer;
@@ -626,6 +936,32 @@ namespace Terramon.UI.SidebarParty
                     (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
                     Main.playerInventory = false;
                     Main.NewText("Your Haunter evolved into Gengar!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (pokeball.PokemonName == "Dratini")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<DragonairNPC>();
+                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Dragonair";
+                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Dratini evolved into Dragonair!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (pokeball.PokemonName == "Dragonair")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<DragoniteNPC>();
+                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Dragonite";
+                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Dragonair evolved into Dragonite!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
             }
@@ -670,6 +1006,71 @@ namespace Terramon.UI.SidebarParty
                     Main.NewText("Your Squirtle evolved into Wartortle!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
+                if (greatball.PokemonNameGreat == "Ivysaur")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<VenusaurNPC>();
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Venusaur";
+                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Ivysaur evolved into Venusaur!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (greatball.PokemonNameGreat == "Charmeleon")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<CharizardNPC>();
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Charizard";
+                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Charmeleon evolved into Charizard!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (greatball.PokemonNameGreat == "Wartortle")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<BlastoiseNPC>();
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Blastoise";
+                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Wartortle evolved into Blastoise!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (greatball.PokemonNameGreat == "Pidgey")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<PidgeottoNPC>();
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Pidgeotto";
+                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Pidgey evolved into Pidgeotto!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (greatball.PokemonNameGreat == "Pidgeotto")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<PidgeotNPC>();
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Pidgeot";
+                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Pidgeotto evolved into Pidgeot!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
                 if (greatball.PokemonNameGreat == "Gastly")
                 {
                     Player player = Main.LocalPlayer;
@@ -694,6 +1095,32 @@ namespace Terramon.UI.SidebarParty
                     (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
                     Main.playerInventory = false;
                     Main.NewText("Your Haunter evolved into Gengar!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (greatball.PokemonNameGreat == "Dratini")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<DragonairNPC>();
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Dragonair";
+                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Dratini evolved into Dragonair!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (greatball.PokemonNameGreat == "Dragonair")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<DragoniteNPC>();
+                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Dragonite";
+                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Dragonair evolved into Dragonite!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
             }
@@ -777,6 +1204,32 @@ namespace Terramon.UI.SidebarParty
                     Main.NewText("Your Wartortle evolved into Blastoise!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
+                if (ultraball.PokemonNameUltra == "Pidgey")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<PidgeottoNPC>();
+                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Pidgeotto";
+                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Pidgey evolved into Pidgeotto!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (ultraball.PokemonNameUltra == "Pidgeotto")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<PidgeotNPC>();
+                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Pidgeot";
+                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Pidgeotto evolved into Pidgeot!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
                 if (ultraball.PokemonNameUltra == "Gastly")
                 {
                     Player player = Main.LocalPlayer;
@@ -801,6 +1254,32 @@ namespace Terramon.UI.SidebarParty
                     (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
                     Main.playerInventory = false;
                     Main.NewText("Your Haunter evolved into Gengar!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (ultraball.PokemonNameUltra == "Dratini")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<DragonairNPC>();
+                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Dragonair";
+                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Dratini evolved into Dragonair!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (ultraball.PokemonNameUltra == "Dragonair")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<DragoniteNPC>();
+                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Dragonite";
+                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Dragonair evolved into Dragonite!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
             }
@@ -884,6 +1363,32 @@ namespace Terramon.UI.SidebarParty
                     Main.NewText("Your Wartortle evolved into Blastoise!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
+                if (duskball.PokemonNameDusk == "Pidgey")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<PidgeottoNPC>();
+                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Pidgeotto";
+                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Pidgey evolved into Pidgeotto!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (duskball.PokemonNameDusk == "Pidgeotto")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<PidgeotNPC>();
+                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Pidgeot";
+                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Pidgeotto evolved into Pidgeot!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
                 if (duskball.PokemonNameDusk == "Gastly")
                 {
                     Player player = Main.LocalPlayer;
@@ -908,6 +1413,32 @@ namespace Terramon.UI.SidebarParty
                     (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
                     Main.playerInventory = false;
                     Main.NewText("Your Haunter evolved into Gengar!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (duskball.PokemonNameDusk == "Dratini")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<DragonairNPC>();
+                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Dragonair";
+                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Dratini evolved into Dragonair!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (duskball.PokemonNameDusk == "Dragonair")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<DragoniteNPC>();
+                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Dragonite";
+                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Dragonair evolved into Dragonite!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
             }
@@ -991,6 +1522,32 @@ namespace Terramon.UI.SidebarParty
                     Main.NewText("Your Wartortle evolved into Blastoise!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
+                if (premierball.PokemonNamePremier == "Pidgey")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<PidgeottoNPC>();
+                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Pidgeotto";
+                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Pidgey evolved into Pidgeotto!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (premierball.PokemonNamePremier == "Pidgeotto")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<PidgeotNPC>();
+                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Pidgeot";
+                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Pidgeotto evolved into Pidgeot!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
                 if (premierball.PokemonNamePremier == "Gastly")
                 {
                     Player player = Main.LocalPlayer;
@@ -1015,6 +1572,32 @@ namespace Terramon.UI.SidebarParty
                     (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
                     Main.playerInventory = false;
                     Main.NewText("Your Haunter evolved into Gengar!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (premierball.PokemonNamePremier == "Dratini")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<DragonairNPC>();
+                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Dragonair";
+                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Dratini evolved into Dragonair!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (premierball.PokemonNamePremier == "Dragonair")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
+                    if (index >= 400)
+                        return;
+                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<DragoniteNPC>();
+                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Dragonite";
+                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    Main.playerInventory = false;
+                    Main.NewText("Your Dragonair evolved into Dragonite!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
             }
