@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terramon.Items.MiscItems;
+using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Players;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terramon.Pokemon.FirstGeneration.Normal.Blastoise;
@@ -135,7 +136,7 @@ namespace Terramon.UI.SidebarParty
             }
             else
             {
-                if (partyslot1.Item.modItem is PokeballCaught pokeball)
+                if (partyslot1.Item.modItem is BaseCaughtClass pokeball)
                 {
                     if (pokeball.PokemonName == "Bulbasaur" || pokeball.PokemonName == "Charmander" || pokeball.PokemonName == "Squirtle")
                     {
@@ -270,553 +271,70 @@ namespace Terramon.UI.SidebarParty
                         PokemonGoesHere.SetText("This Pokémon cannot evolve!");
                     }
                 }
-                if (partyslot1.Item.modItem is GreatBallCaught greatball)
-                {
-                    if (greatball.PokemonNameGreat == "Bulbasaur" || greatball.PokemonNameGreat == "Charmander" || greatball.PokemonNameGreat == "Squirtle")
-                    {
-                        PokemonGoesHere.SetText("Place 11 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 11)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    if (greatball.PokemonNameGreat == "Wartortle" || greatball.PokemonNameGreat == "Charmeleon")
-                    {
-                        PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 20)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    if (greatball.PokemonNameGreat == "Ivysaur")
-                    {
-                        PokemonGoesHere.SetText("Place 16 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 16)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (greatball.PokemonNameGreat == "Pidgey")
-                    {
-                        PokemonGoesHere.SetText("Place 13 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 13)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (greatball.PokemonNameGreat == "Pidgeotto")
-                    {
-                        PokemonGoesHere.SetText("Place 18 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 18)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (greatball.PokemonNameGreat == "Gastly")
-                    {
-                        PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 20)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (greatball.PokemonNameGreat == "Haunter")
-                    {
-                        PokemonGoesHere.SetText("Place 10 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 10)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (greatball.PokemonNameGreat == "Dratini")
-                    {
-                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (greatball.PokemonNameGreat == "Dragonair")
-                    {
-                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else
-                    {
-                        PokemonGoesHere.SetText("This Pokémon cannot evolve!");
-                    }
-                }
-                if (partyslot1.Item.modItem is UltraBallCaught ultraball)
-                {
-                    if (ultraball.PokemonNameUltra == "Bulbasaur" || ultraball.PokemonNameUltra == "Charmander" || ultraball.PokemonNameUltra == "Squirtle")
-                    {
-                        PokemonGoesHere.SetText("Place 11 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 11)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    if (ultraball.PokemonNameUltra == "Wartortle" || ultraball.PokemonNameUltra == "Charmeleon")
-                    {
-                        PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 20)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    if (ultraball.PokemonNameUltra == "Ivysaur")
-                    {
-                        PokemonGoesHere.SetText("Place 16 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 16)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (ultraball.PokemonNameUltra == "Pidgey")
-                    {
-                        PokemonGoesHere.SetText("Place 13 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 13)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (ultraball.PokemonNameUltra == "Pidgeotto")
-                    {
-                        PokemonGoesHere.SetText("Place 18 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 18)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (ultraball.PokemonNameUltra == "Gastly")
-                    {
-                        PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 20)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (ultraball.PokemonNameUltra == "Haunter")
-                    {
-                        PokemonGoesHere.SetText("Place 10 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 10)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (ultraball.PokemonNameUltra == "Dratini")
-                    {
-                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (ultraball.PokemonNameUltra == "Dragonair")
-                    {
-                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else
-                    {
-                        PokemonGoesHere.SetText("This Pokémon cannot evolve!");
-                    }
-                }
-                if (partyslot1.Item.modItem is DuskBallCaught duskball)
-                {
-                    if (duskball.PokemonNameDusk == "Bulbasaur" || duskball.PokemonNameDusk == "Charmander" || duskball.PokemonNameDusk == "Squirtle")
-                    {
-                        PokemonGoesHere.SetText("Place 11 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 11)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    if (duskball.PokemonNameDusk == "Wartortle" || duskball.PokemonNameDusk == "Charmeleon")
-                    {
-                        PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 20)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    if (duskball.PokemonNameDusk == "Ivysaur")
-                    {
-                        PokemonGoesHere.SetText("Place 16 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 16)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (duskball.PokemonNameDusk == "Pidgey")
-                    {
-                        PokemonGoesHere.SetText("Place 13 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 13)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (duskball.PokemonNameDusk == "Pidgeotto")
-                    {
-                        PokemonGoesHere.SetText("Place 18 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 18)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (duskball.PokemonNameDusk == "Gastly")
-                    {
-                        PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 20)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (duskball.PokemonNameDusk == "Haunter")
-                    {
-                        PokemonGoesHere.SetText("Place 10 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 10)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (duskball.PokemonNameDusk == "Dratini")
-                    {
-                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (duskball.PokemonNameDusk == "Dragonair")
-                    {
-                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else
-                    {
-                        PokemonGoesHere.SetText("This Pokémon cannot evolve!");
-                    }
-                }
-                if (partyslot1.Item.modItem is PremierBallCaught premierball)
-                {
-                    if (premierball.PokemonNamePremier == "Bulbasaur" || premierball.PokemonNamePremier == "Charmander" || premierball.PokemonNamePremier == "Squirtle")
-                    {
-                        PokemonGoesHere.SetText("Place 11 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 11)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    if (premierball.PokemonNamePremier == "Wartortle" || premierball.PokemonNamePremier == "Charmeleon")
-                    {
-                        PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 20)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    if (premierball.PokemonNamePremier == "Ivysaur")
-                    {
-                        PokemonGoesHere.SetText("Place 16 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 16)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (premierball.PokemonNamePremier == "Pidgey")
-                    {
-                        PokemonGoesHere.SetText("Place 13 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 13)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (premierball.PokemonNamePremier == "Pidgeotto")
-                    {
-                        PokemonGoesHere.SetText("Place 18 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 18)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (premierball.PokemonNamePremier == "Gastly")
-                    {
-                        PokemonGoesHere.SetText("Place 20 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 20)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (premierball.PokemonNamePremier == "Haunter")
-                    {
-                        PokemonGoesHere.SetText("Place 10 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 10)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (premierball.PokemonNamePremier == "Dratini")
-                    {
-                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else if (premierball.PokemonNamePremier == "Dragonair")
-                    {
-                        PokemonGoesHere.SetText("Place 25 Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 25)
-                        {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
-                        }
-                        else
-                        {
-                            mainPanel.RemoveChild(SaveButton);
-                        }
-                    }
-                    else
-                    {
-                        PokemonGoesHere.SetText("This Pokémon cannot evolve!");
-                    }
-                }
             }
         }
         private void EvolveButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            if (partyslot1.Item.modItem is PokeballCaught pokeball)
+            int whicheverballtype = 0;
+            if (partyslot1.Item.modItem is PokeballCaught)
+            {
+                whicheverballtype = ModContent.ItemType<PokeballCaught>();
+            }
+            if (partyslot1.Item.modItem is GreatBallCaught)
+            {
+                whicheverballtype = ModContent.ItemType<GreatBallCaught>();
+            }
+            if (partyslot1.Item.modItem is UltraBallCaught)
+            {
+                whicheverballtype = ModContent.ItemType<UltraBallCaught>();
+            }
+            if (partyslot1.Item.modItem is DuskBallCaught)
+            {
+                whicheverballtype = ModContent.ItemType<DuskBallCaught>();
+            }
+            if (partyslot1.Item.modItem is PremierBallCaught)
+            {
+                whicheverballtype = ModContent.ItemType<PremierBallCaught>();
+            }
+            // stuff break
+            if (partyslot1.Item.modItem is BaseCaughtClass pokeball)
             {
                 if (pokeball.PokemonName == "Bulbasaur")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<IvysaurNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Ivysaur";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniIvysaur";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<IvysaurNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Ivysaur";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniIvysaur";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<IvysaurNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Ivysaur";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniIvysaur";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<IvysaurNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Ivysaur";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniIvysaur";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<IvysaurNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Ivysaur";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniIvysaur";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<IvysaurNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Ivysaur";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniIvysaur";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Bulbasaur evolved into Ivysaur!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -824,12 +342,39 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Charmander")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<CharmeleonNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Charmeleon";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmeleon";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<CharmeleonNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Charmeleon";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmeleon";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<CharmeleonNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Charmeleon";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmeleon";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<CharmeleonNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Charmeleon";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmeleon";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<CharmeleonNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Charmeleon";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmeleon";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<CharmeleonNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Charmeleon";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmeleon";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Charmander evolved into Charmeleon!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -837,12 +382,39 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Squirtle")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<WartortleNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Wartortle";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniWartortle";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<WartortleNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Wartortle";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniWartortle";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<WartortleNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Wartortle";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniWartortle";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<WartortleNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Wartortle";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniWartortle";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<WartortleNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Wartortle";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniWartortle";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<WartortleNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Wartortle";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniWartortle";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Squirtle evolved into Wartortle!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -850,12 +422,39 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Ivysaur")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<VenusaurNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Venusaur";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<VenusaurNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Venusaur";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<VenusaurNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Venusaur";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<VenusaurNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Venusaur";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<VenusaurNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Venusaur";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<VenusaurNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Venusaur";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Ivysaur evolved into Venusaur!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -863,12 +462,39 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Charmeleon")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<CharizardNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Charizard";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<CharizardNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Charizard";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<CharizardNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Charizard";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<CharizardNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Charizard";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<CharizardNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Charizard";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<CharizardNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Charizard";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Charmeleon evolved into Charizard!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -876,12 +502,39 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Wartortle")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<BlastoiseNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Blastoise";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<BlastoiseNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Blastoise";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<BlastoiseNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Blastoise";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<BlastoiseNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Blastoise";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<BlastoiseNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Blastoise";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<BlastoiseNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Blastoise";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Wartortle evolved into Blastoise!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -889,12 +542,39 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Pidgey")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<PidgeottoNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Pidgeotto";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<PidgeottoNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Pidgeotto";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<PidgeottoNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Pidgeotto";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<PidgeottoNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Pidgeotto";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<PidgeottoNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Pidgeotto";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<PidgeottoNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Pidgeotto";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Pidgey evolved into Pidgeotto!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -902,12 +582,39 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Pidgeotto")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<PidgeotNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Pidgeot";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<PidgeotNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Pidgeot";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<PidgeotNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Pidgeot";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<PidgeotNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Pidgeot";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<PidgeotNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Pidgeot";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<PidgeotNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Pidgeot";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Pidgeotto evolved into Pidgeot!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -915,12 +622,39 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Gastly")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<HaunterNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Haunter";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniHaunter";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<HaunterNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Haunter";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniHaunter";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<HaunterNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Haunter";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniHaunter";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<HaunterNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Haunter";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniHaunter";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<HaunterNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Haunter";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniHaunter";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<HaunterNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Haunter";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniHaunter";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Gastly evolved into Haunter!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -928,12 +662,39 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Haunter")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<GengarNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Gengar";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<GengarNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Gengar";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<GengarNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Gengar";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<GengarNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Gengar";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<GengarNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Gengar";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<GengarNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Gengar";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Haunter evolved into Gengar!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -941,12 +702,39 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Dratini")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<DragonairNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Dragonair";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<DragonairNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Dragonair";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<DragonairNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Dragonair";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<DragonairNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Dragonair";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<DragonairNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Dragonair";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<DragonairNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Dragonair";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Dratini evolved into Dragonair!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
@@ -954,653 +742,45 @@ namespace Terramon.UI.SidebarParty
                 if (pokeball.PokemonName == "Dragonair")
                 {
                     Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
                     if (index >= 400)
                         return;
-                    (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<DragoniteNPC>();
-                    (Main.item[index].modItem as PokeballCaught).PokemonName = "Dragonite";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<DragoniteNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Dragonite";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<DragoniteNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Dragonite";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<DragoniteNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Dragonite";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<DragoniteNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Dragonite";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<DragoniteNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Dragonite";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
+                    }
                     Main.playerInventory = false;
                     Main.NewText("Your Dragonair evolved into Dragonite!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
             }
-            if (partyslot1.Item.modItem is GreatBallCaught greatball)
-            {
-                if (greatball.PokemonNameGreat == "Bulbasaur")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<IvysaurNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Ivysaur";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniIvysaur";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Bulbasaur evolved into Ivysaur!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Charmander")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<CharmeleonNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Charmeleon";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmeleon";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Charmander evolved into Charmeleon!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Squirtle")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<WartortleNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Wartortle";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniWartortle";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Squirtle evolved into Wartortle!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Ivysaur")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<VenusaurNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Venusaur";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Ivysaur evolved into Venusaur!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Charmeleon")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<CharizardNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Charizard";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Charmeleon evolved into Charizard!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Wartortle")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<BlastoiseNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Blastoise";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Wartortle evolved into Blastoise!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Pidgey")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<PidgeottoNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Pidgeotto";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Pidgey evolved into Pidgeotto!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Pidgeotto")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<PidgeotNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Pidgeot";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Pidgeotto evolved into Pidgeot!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Gastly")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<HaunterNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Haunter";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniHaunter";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Gastly evolved into Haunter!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Haunter")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<GengarNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Gengar";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Haunter evolved into Gengar!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Dratini")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<DragonairNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Dragonair";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Dratini evolved into Dragonair!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (greatball.PokemonNameGreat == "Dragonair")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<GreatBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = ModContent.NPCType<DragoniteNPC>();
-                    (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = "Dragonite";
-                    (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Dragonair evolved into Dragonite!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-            }
-            if (partyslot1.Item.modItem is UltraBallCaught ultraball)
-            {
-                if (ultraball.PokemonNameUltra == "Bulbasaur")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<IvysaurNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Ivysaur";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniIvysaur";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Bulbasaur evolved into Ivysaur!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Charmander")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<CharmeleonNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Charmeleon";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmeleon";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Charmander evolved into Charmeleon!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Squirtle")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<WartortleNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Wartortle";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniWartortle";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Squirtle evolved into Wartortle!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Ivysaur")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<VenusaurNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Venusaur";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Ivysaur evolved into Venusaur!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Charmeleon")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<CharizardNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Charizard";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Charmeleon evolved into Charizard!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Wartortle")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<BlastoiseNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Blastoise";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Wartortle evolved into Blastoise!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Pidgey")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<PidgeottoNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Pidgeotto";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Pidgey evolved into Pidgeotto!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Pidgeotto")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<PidgeotNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Pidgeot";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Pidgeotto evolved into Pidgeot!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Gastly")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<HaunterNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Haunter";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniHaunter";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Gastly evolved into Haunter!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Haunter")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<GengarNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Gengar";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Haunter evolved into Gengar!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Dratini")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<DragonairNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Dragonair";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Dratini evolved into Dragonair!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (ultraball.PokemonNameUltra == "Dragonair")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<UltraBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = ModContent.NPCType<DragoniteNPC>();
-                    (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = "Dragonite";
-                    (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Dragonair evolved into Dragonite!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-            }
-            if (partyslot1.Item.modItem is DuskBallCaught duskball)
-            {
-                if (duskball.PokemonNameDusk == "Bulbasaur")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<IvysaurNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Ivysaur";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniIvysaur";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Bulbasaur evolved into Ivysaur!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Charmander")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<CharmeleonNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Charmeleon";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmeleon";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Charmander evolved into Charmeleon!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Squirtle")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<WartortleNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Wartortle";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniWartortle";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Squirtle evolved into Wartortle!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Ivysaur")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<VenusaurNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Venusaur";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Ivysaur evolved into Venusaur!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Charmeleon")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<CharmeleonNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Charizard";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Charmeleon evolved into Charizard!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Wartortle")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<BlastoiseNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Blastoise";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Wartortle evolved into Blastoise!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Pidgey")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<PidgeottoNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Pidgeotto";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Pidgey evolved into Pidgeotto!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Pidgeotto")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<PidgeotNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Pidgeot";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Pidgeotto evolved into Pidgeot!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Gastly")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<HaunterNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Haunter";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniHaunter";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Gastly evolved into Haunter!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Haunter")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<GengarNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Gengar";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Haunter evolved into Gengar!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Dratini")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<DragonairNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Dragonair";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Dratini evolved into Dragonair!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (duskball.PokemonNameDusk == "Dragonair")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<DuskBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = ModContent.NPCType<DragoniteNPC>();
-                    (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = "Dragonite";
-                    (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Dragonair evolved into Dragonite!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-            }
-            if (partyslot1.Item.modItem is PremierBallCaught premierball)
-            {
-                if (premierball.PokemonNamePremier == "Bulbasaur")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<IvysaurNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Ivysaur";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniIvysaur";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Bulbasaur evolved into Ivysaur!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Charmander")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<CharmeleonNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Charmeleon";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmeleon";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Charmander evolved into Charmeleon!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Squirtle")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<WartortleNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Wartortle";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniWartortle";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Squirtle evolved into Wartortle!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Ivysaur")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<VenusaurNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Venusaur";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniVenusaur";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Ivysaur evolved into Venusaur!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Charmeleon")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<CharizardNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Charizard";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharizard";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Charmeleon evolved into Charizard!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Wartortle")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<BlastoiseNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Blastoise";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBlastoise";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Wartortle evolved into Blastoise!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Pidgey")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<PidgeottoNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Pidgeotto";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeotto";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Pidgey evolved into Pidgeotto!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Pidgeotto")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<PidgeotNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Pidgeot";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniPidgeot";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Pidgeotto evolved into Pidgeot!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Gastly")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<HaunterNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Haunter";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniHaunter";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Gastly evolved into Haunter!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Haunter")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<GengarNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Gengar";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniGengar";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Haunter evolved into Gengar!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Dratini")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<DragonairNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Dragonair";
-                    (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonair";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Dratini evolved into Dragonair!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-                if (premierball.PokemonNamePremier == "Dragonair")
-                {
-                    Player player = Main.LocalPlayer;
-                    int index = Item.NewItem(player.getRect(), ModContent.ItemType<PremierBallCaught>());
-                    if (index >= 400)
-                        return;
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = ModContent.NPCType<DragoniteNPC>();
-                    (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = "Dragonite";
-                    (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniDragonite";
-                    Main.playerInventory = false;
-                    Main.NewText("Your Dragonair evolved into Dragonite!");
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
-                }
-            }
+            
             Visible = false;
             partyslot1.Item.TurnToAir();
             partyslot2.Item.TurnToAir();

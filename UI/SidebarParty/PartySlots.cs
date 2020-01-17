@@ -261,26 +261,26 @@ namespace Terramon.UI.SidebarParty
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem is GreatBallCaught)
                 {
                     var greatBallCaught1 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem;
-                    modPlayer.firstslottype = greatBallCaught1.PokemonNPCGreat;
-                    modPlayer.firstslotname = greatBallCaught1.PokemonNameGreat;
+                    modPlayer.firstslottype = greatBallCaught1.PokemonNPC;
+                    modPlayer.firstslotname = greatBallCaught1.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem is UltraBallCaught)
                 {
                     var ultraBallCaught1 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem;
-                    modPlayer.firstslottype = ultraBallCaught1.PokemonNPCUltra;
-                    modPlayer.firstslotname = ultraBallCaught1.PokemonNameUltra;
+                    modPlayer.firstslottype = ultraBallCaught1.PokemonNPC;
+                    modPlayer.firstslotname = ultraBallCaught1.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem is DuskBallCaught)
                 {
                     var duskBallCaught1 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem;
-                    modPlayer.firstslottype = duskBallCaught1.PokemonNPCDusk;
-                    modPlayer.firstslotname = duskBallCaught1.PokemonNameDusk;
+                    modPlayer.firstslottype = duskBallCaught1.PokemonNPC;
+                    modPlayer.firstslotname = duskBallCaught1.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem is PremierBallCaught)
                 {
                     var premierBallCaught1 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem;
-                    modPlayer.firstslottype = premierBallCaught1.PokemonNPCPremier;
-                    modPlayer.firstslotname = premierBallCaught1.PokemonNamePremier;
+                    modPlayer.firstslottype = premierBallCaught1.PokemonNPC;
+                    modPlayer.firstslotname = premierBallCaught1.PokemonName;
                 }
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
@@ -294,26 +294,26 @@ namespace Terramon.UI.SidebarParty
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem is GreatBallCaught)
                 {
                     var greatBallCaught2 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem;
-                    modPlayer.secondslottype = greatBallCaught2.PokemonNPCGreat;
-                    modPlayer.secondslotname = greatBallCaught2.PokemonNameGreat;
+                    modPlayer.secondslottype = greatBallCaught2.PokemonNPC;
+                    modPlayer.secondslotname = greatBallCaught2.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem is UltraBallCaught)
                 {
                     var ultraBallCaught2 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem;
-                    modPlayer.secondslottype = ultraBallCaught2.PokemonNPCUltra;
-                    modPlayer.secondslotname = ultraBallCaught2.PokemonNameUltra;
+                    modPlayer.secondslottype = ultraBallCaught2.PokemonNPC;
+                    modPlayer.secondslotname = ultraBallCaught2.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem is DuskBallCaught)
                 {
                     var duskBallCaught2 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem;
-                    modPlayer.secondslottype = duskBallCaught2.PokemonNPCDusk;
-                    modPlayer.secondslotname = duskBallCaught2.PokemonNameDusk;
+                    modPlayer.secondslottype = duskBallCaught2.PokemonNPC;
+                    modPlayer.secondslotname = duskBallCaught2.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem is PremierBallCaught)
                 {
                     var premierBallCaught2 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem;
-                    modPlayer.secondslottype = premierBallCaught2.PokemonNPCPremier;
-                    modPlayer.secondslotname = premierBallCaught2.PokemonNamePremier;
+                    modPlayer.secondslottype = premierBallCaught2.PokemonNPC;
+                    modPlayer.secondslotname = premierBallCaught2.PokemonName;
                 }
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
@@ -327,26 +327,26 @@ namespace Terramon.UI.SidebarParty
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem is GreatBallCaught)
                 {
                     var greatBallCaught3 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem;
-                    modPlayer.thirdslottype = greatBallCaught3.PokemonNPCGreat;
-                    modPlayer.thirdslotname = greatBallCaught3.PokemonNameGreat;
+                    modPlayer.thirdslottype = greatBallCaught3.PokemonNPC;
+                    modPlayer.thirdslotname = greatBallCaught3.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem is UltraBallCaught)
                 {
                     var ultraBallCaught3 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem;
-                    modPlayer.thirdslottype = ultraBallCaught3.PokemonNPCUltra;
-                    modPlayer.thirdslotname = ultraBallCaught3.PokemonNameUltra;
+                    modPlayer.thirdslottype = ultraBallCaught3.PokemonNPC;
+                    modPlayer.thirdslotname = ultraBallCaught3.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem is DuskBallCaught)
                 {
                     var duskBallCaught3 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem;
-                    modPlayer.thirdslottype = duskBallCaught3.PokemonNPCDusk;
-                    modPlayer.thirdslotname = duskBallCaught3.PokemonNameDusk;
+                    modPlayer.thirdslottype = duskBallCaught3.PokemonNPC;
+                    modPlayer.thirdslotname = duskBallCaught3.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem is PremierBallCaught)
                 {
                     var premierBallCaught3 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem;
-                    modPlayer.thirdslottype = premierBallCaught3.PokemonNPCPremier;
-                    modPlayer.thirdslotname = premierBallCaught3.PokemonNamePremier;
+                    modPlayer.thirdslottype = premierBallCaught3.PokemonNPC;
+                    modPlayer.thirdslotname = premierBallCaught3.PokemonName;
                 }
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
@@ -360,26 +360,26 @@ namespace Terramon.UI.SidebarParty
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem is GreatBallCaught)
                 {
                     var greatBallCaught4 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem;
-                    modPlayer.fourthslottype = greatBallCaught4.PokemonNPCGreat;
-                    modPlayer.fourthslotname = greatBallCaught4.PokemonNameGreat;
+                    modPlayer.fourthslottype = greatBallCaught4.PokemonNPC;
+                    modPlayer.fourthslotname = greatBallCaught4.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem is UltraBallCaught)
                 {
                     var ultraBallCaught4 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem;
-                    modPlayer.fourthslottype = ultraBallCaught4.PokemonNPCUltra;
-                    modPlayer.fourthslotname = ultraBallCaught4.PokemonNameUltra;
+                    modPlayer.fourthslottype = ultraBallCaught4.PokemonNPC;
+                    modPlayer.fourthslotname = ultraBallCaught4.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem is DuskBallCaught)
                 {
                     var duskBallCaught4 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem;
-                    modPlayer.fourthslottype = duskBallCaught4.PokemonNPCDusk;
-                    modPlayer.fourthslotname = duskBallCaught4.PokemonNameDusk;
+                    modPlayer.fourthslottype = duskBallCaught4.PokemonNPC;
+                    modPlayer.fourthslotname = duskBallCaught4.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem is PremierBallCaught)
                 {
                     var premierBallCaught4 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem;
-                    modPlayer.fourthslottype = premierBallCaught4.PokemonNPCPremier;
-                    modPlayer.fourthslotname = premierBallCaught4.PokemonNamePremier;
+                    modPlayer.fourthslottype = premierBallCaught4.PokemonNPC;
+                    modPlayer.fourthslotname = premierBallCaught4.PokemonName;
                 }
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
@@ -393,26 +393,26 @@ namespace Terramon.UI.SidebarParty
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem is GreatBallCaught)
                 {
                     var greatBallCaught5 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem;
-                    modPlayer.fifthslottype = greatBallCaught5.PokemonNPCGreat;
-                    modPlayer.fifthslotname = greatBallCaught5.PokemonNameGreat;
+                    modPlayer.fifthslottype = greatBallCaught5.PokemonNPC;
+                    modPlayer.fifthslotname = greatBallCaught5.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem is UltraBallCaught)
                 {
                     var ultraBallCaught5 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem;
-                    modPlayer.fifthslottype = ultraBallCaught5.PokemonNPCUltra;
-                    modPlayer.fifthslotname = ultraBallCaught5.PokemonNameUltra;
+                    modPlayer.fifthslottype = ultraBallCaught5.PokemonNPC;
+                    modPlayer.fifthslotname = ultraBallCaught5.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem is DuskBallCaught)
                 {
                     var duskBallCaught5 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem;
-                    modPlayer.fifthslottype = duskBallCaught5.PokemonNPCDusk;
-                    modPlayer.fifthslotname = duskBallCaught5.PokemonNameDusk;
+                    modPlayer.fifthslottype = duskBallCaught5.PokemonNPC;
+                    modPlayer.fifthslotname = duskBallCaught5.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem is PremierBallCaught)
                 {
                     var premierBallCaught5 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem;
-                    modPlayer.fifthslottype = premierBallCaught5.PokemonNPCPremier;
-                    modPlayer.fifthslotname = premierBallCaught5.PokemonNamePremier;
+                    modPlayer.fifthslottype = premierBallCaught5.PokemonNPC;
+                    modPlayer.fifthslotname = premierBallCaught5.PokemonName;
                 }
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
@@ -426,26 +426,26 @@ namespace Terramon.UI.SidebarParty
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem is GreatBallCaught)
                 {
                     var greatBallCaught6 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem;
-                    modPlayer.sixthslottype = greatBallCaught6.PokemonNPCGreat;
-                    modPlayer.sixthslotname = greatBallCaught6.PokemonNameGreat;
+                    modPlayer.sixthslottype = greatBallCaught6.PokemonNPC;
+                    modPlayer.sixthslotname = greatBallCaught6.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem is UltraBallCaught)
                 {
                     var ultraBallCaught6 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem;
-                    modPlayer.sixthslottype = ultraBallCaught6.PokemonNPCUltra;
-                    modPlayer.sixthslotname = ultraBallCaught6.PokemonNameUltra;
+                    modPlayer.sixthslottype = ultraBallCaught6.PokemonNPC;
+                    modPlayer.sixthslotname = ultraBallCaught6.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem is DuskBallCaught)
                 {
                     var duskBallCaught6 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem;
-                    modPlayer.sixthslottype = duskBallCaught6.PokemonNPCDusk;
-                    modPlayer.sixthslotname = duskBallCaught6.PokemonNameDusk;
+                    modPlayer.sixthslottype = duskBallCaught6.PokemonNPC;
+                    modPlayer.sixthslotname = duskBallCaught6.PokemonName;
                 }
                 if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem is PremierBallCaught)
                 {
                     var premierBallCaught6 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem;
-                    modPlayer.sixthslottype = premierBallCaught6.PokemonNPCPremier;
-                    modPlayer.sixthslotname = premierBallCaught6.PokemonNamePremier;
+                    modPlayer.sixthslottype = premierBallCaught6.PokemonNPC;
+                    modPlayer.sixthslotname = premierBallCaught6.PokemonName;
                 }
             }
 

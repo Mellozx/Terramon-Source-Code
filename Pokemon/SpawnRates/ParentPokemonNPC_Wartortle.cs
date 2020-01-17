@@ -90,25 +90,25 @@ namespace Terramon.Pokemon
                     for (int i = 0; i < greatballCaught.Length; i++)
                     {
                         GreatBallCaught greatball = (greatballCaught[i].modItem as GreatBallCaught);
-                        if (greatball.PokemonNameGreat == "Blastoise")
+                        if (greatball.PokemonName == "Blastoise")
                             return 0.035f;
                     }
                     for (int i = 0; i < ultraballCaught.Length; i++)
                     {
                         UltraBallCaught ultraball = (pokeballCaught[i].modItem as UltraBallCaught);
-                        if (ultraball.PokemonNameUltra == "Blastoise")
+                        if (ultraball.PokemonName == "Blastoise")
                             return 0.035f;
                     }
                     for (int i = 0; i < duskballCaught.Length; i++)
                     {
                         DuskBallCaught duskball = (pokeballCaught[i].modItem as DuskBallCaught);
-                        if (duskball.PokemonNameDusk == "Blastoise")
+                        if (duskball.PokemonName == "Blastoise")
                             return 0.035f;
                     }
                     for (int i = 0; i < premierballCaught.Length; i++)
                     {
                         PremierBallCaught premierball = (pokeballCaught[i].modItem as PremierBallCaught);
-                        if (premierball.PokemonNamePremier == "Blastoise")
+                        if (premierball.PokemonName == "Blastoise")
                             return 0.035f;
                     }
                 }
@@ -239,8 +239,8 @@ namespace Terramon.Pokemon
             int index = Item.NewItem(npc.getRect(), ModContent.ItemType<GreatBallCaught>());
             if (index >= 400)
                 return;
-            (Main.item[index].modItem as GreatBallCaught).PokemonNPCGreat = npc.type;
-            (Main.item[index].modItem as GreatBallCaught).PokemonNameGreat = npc.TypeName;
+            (Main.item[index].modItem as GreatBallCaught).PokemonNPC = npc.type;
+            (Main.item[index].modItem as GreatBallCaught).PokemonName = npc.TypeName;
             (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = GetSmallSpritePath(npc);
 
         }
@@ -256,8 +256,8 @@ namespace Terramon.Pokemon
             int index = Item.NewItem(npc.getRect(), ModContent.ItemType<UltraBallCaught>());
             if (index >= 400)
                 return;
-            (Main.item[index].modItem as UltraBallCaught).PokemonNPCUltra = npc.type;
-            (Main.item[index].modItem as UltraBallCaught).PokemonNameUltra = npc.TypeName;
+            (Main.item[index].modItem as UltraBallCaught).PokemonNPC = npc.type;
+            (Main.item[index].modItem as UltraBallCaught).PokemonName = npc.TypeName;
             (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = GetSmallSpritePath(npc);
 
         }
@@ -272,8 +272,8 @@ namespace Terramon.Pokemon
             int index = Item.NewItem(npc.getRect(), ModContent.ItemType<DuskBallCaught>());
             if (index >= 400)
                 return;
-            (Main.item[index].modItem as DuskBallCaught).PokemonNPCDusk = npc.type;
-            (Main.item[index].modItem as DuskBallCaught).PokemonNameDusk = npc.TypeName;
+            (Main.item[index].modItem as DuskBallCaught).PokemonNPC = npc.type;
+            (Main.item[index].modItem as DuskBallCaught).PokemonName = npc.TypeName;
             (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = GetSmallSpritePath(npc);
 
         }
@@ -288,8 +288,8 @@ namespace Terramon.Pokemon
             int index = Item.NewItem(npc.getRect(), ModContent.ItemType<PremierBallCaught>());
             if (index >= 400)
                 return;
-            (Main.item[index].modItem as PremierBallCaught).PokemonNPCPremier = npc.type;
-            (Main.item[index].modItem as PremierBallCaught).PokemonNamePremier = npc.TypeName;
+            (Main.item[index].modItem as PremierBallCaught).PokemonNPC = npc.type;
+            (Main.item[index].modItem as PremierBallCaught).PokemonName = npc.TypeName;
             (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = GetSmallSpritePath(npc);
 
         }
