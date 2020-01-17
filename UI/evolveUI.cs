@@ -6,6 +6,7 @@ using Terramon.Players;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terramon.Pokemon.FirstGeneration.Normal.Blastoise;
 using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
+using Terramon.Pokemon.FirstGeneration.Normal.Butterfree;
 using Terramon.Pokemon.FirstGeneration.Normal.Charizard;
 using Terramon.Pokemon.FirstGeneration.Normal.Charmeleon;
 using Terramon.Pokemon.FirstGeneration.Normal.Dragonair;
@@ -13,6 +14,7 @@ using Terramon.Pokemon.FirstGeneration.Normal.Dragonite;
 using Terramon.Pokemon.FirstGeneration.Normal.Gengar;
 using Terramon.Pokemon.FirstGeneration.Normal.Haunter;
 using Terramon.Pokemon.FirstGeneration.Normal.Ivysaur;
+using Terramon.Pokemon.FirstGeneration.Normal.Metapod;
 using Terramon.Pokemon.FirstGeneration.Normal.Pidgeot;
 using Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto;
 using Terramon.Pokemon.FirstGeneration.Normal.Venusaur;
@@ -173,6 +175,34 @@ namespace Terramon.UI.SidebarParty
                         PokemonGoesHere.SetText("Place 16 Rare Candies in the second slot.");
                         mainPanel.Append(partyslot2);
                         if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 16)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (pokeball.PokemonName == "Caterpie")
+                    {
+                        PokemonGoesHere.SetText("Place 2 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 2)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (pokeball.PokemonName == "Metapod")
+                    {
+                        PokemonGoesHere.SetText("Place 3 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 3)
                         {
                             PokemonGoesHere.SetText("Great! Press the evolve button!");
                             mainPanel.Append(SaveButton);
@@ -537,6 +567,86 @@ namespace Terramon.UI.SidebarParty
                     }
                     Main.playerInventory = false;
                     Main.NewText("Your Wartortle evolved into Blastoise!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (pokeball.PokemonName == "Caterpie")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
+                    if (index >= 400)
+                        return;
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<MetapodNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Metapod";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniMetapod";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<MetapodNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Metapod";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniMetapod";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<MetapodNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Metapod";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniMetapod";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<MetapodNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Metapod";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniMetapod";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<MetapodNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Metapod";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniMetapod";
+                    }
+                    Main.playerInventory = false;
+                    Main.NewText("Your Caterpie evolved into Metapod!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (pokeball.PokemonName == "Metapod")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
+                    if (index >= 400)
+                        return;
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<ButterfreeNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Butterfree";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniButterfree";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<ButterfreeNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Butterfree";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniButterfree";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<ButterfreeNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Butterfree";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniButterfree";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<ButterfreeNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Butterfree";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniButterfree";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<ButterfreeNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Butterfree";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniButterfree";
+                    }
+                    Main.playerInventory = false;
+                    Main.NewText("Your Caterpie evolved into Butterfree!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
                 if (pokeball.PokemonName == "Pidgey")

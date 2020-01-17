@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon
 {
-    public abstract class ParentPokemonNPC_Haunter : ModNPC
+    public abstract class ParentPokemonNPC_Metapod : ModNPC // also followed by Rattata + Pidgey
     {
         private readonly string[] ballProjectiles = TerramonMod.GetBallProjectiles();
         private readonly float[][] catchChances = TerramonMod.GetCatchChances();
@@ -28,19 +28,16 @@ namespace Terramon.Pokemon
 
         public override void SetDefaults()
         {
-            npc.CloneDefaults(NPCID.Firefly);
             npc.defense = 0;
             npc.lifeMax = 1;
             npc.knockBackResist = 0.5f;
 
             npc.value = 0f;
-            npc.scale = 1.2f;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/capturepokemon");
 
-            npc.noGravity = true;
-            npc.aiStyle = 65;
-            aiType = NPCID.Firefly;
+            npc.aiStyle = 7;
+            aiType = NPCID.Bunny;
 
             animationType = NPCID.Bunny;
 
@@ -73,8 +70,7 @@ namespace Terramon.Pokemon
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
-            if (spawnInfo.player.ZoneDungeon)
+            if (spawnInfo.player.ZoneOverworldHeight && spawnInfo.player.ZoneJungle)
             {
                 return 0.05f;
             }

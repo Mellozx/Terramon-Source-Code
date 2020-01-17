@@ -30,6 +30,11 @@ namespace Terramon.Players
         public bool ivysaurPet = false;
 		public bool venusaurPet = false;
         public bool caterpiePet = false;
+        public bool metapodPet = false;
+        public bool butterfreePet = false;
+        public bool weedlePet = false;
+        public bool kakunaPet = false;
+        public bool beedrillPet = false;
         public bool rattataPet = false;
         public bool pidgeyPet = false;
         public bool pidgeottoPet = false;
@@ -101,6 +106,11 @@ namespace Terramon.Players
             charmeleonPet = false;
 			charizardPet = false;
             caterpiePet = false;
+            metapodPet = false;
+            butterfreePet = false;
+            weedlePet = false;
+            kakunaPet = false;
+            beedrillPet = false;
             rattataPet = false;
             pidgeyPet = false;
             pidgeottoPet = false;
