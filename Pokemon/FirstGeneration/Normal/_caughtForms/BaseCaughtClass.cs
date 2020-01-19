@@ -39,6 +39,18 @@ namespace Terramon.Items.Pokeballs.Inventory
             item.noMelee = true;
 
             item.rare = 0;
+
+
+            //Detour handle
+            if (Main.netMode != NetmodeID.Server || det_PokemonName == null)
+                return;
+
+            PokemonNPC = det_PokemonNPC;
+            det_PokemonNPC = 0;
+            PokemonName = det_PokemonName;
+            det_PokemonName = null;
+            SmallSpritePath = det_SmallSpritePath;
+            det_SmallSpritePath = null;
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
@@ -153,15 +165,45 @@ namespace Terramon.Items.Pokeballs.Inventory
         public override void NetSend(BinaryWriter writer)
         {
             writer.Write(PokemonNPC);
-            writer.Write(PokemonName);
-            writer.Write(SmallSpritePath);
+            if (PokemonName != null)
+            {
+                writer.Write(true);
+                writer.Write(PokemonName);
+            }
+            else
+                writer.Write(false);
+
+            if (SmallSpritePath != null)
+            {
+                writer.Write(true);
+                writer.Write(SmallSpritePath);
+            }
+            else
+                writer.Write(false);
         }
 
         public override void NetRecieve(BinaryReader reader)
         {
             PokemonNPC = reader.ReadInt32();
-            PokemonName = reader.ReadString();
-            SmallSpritePath = reader.ReadString();
+            if(reader.ReadBoolean())
+                PokemonName = reader.ReadString();
+            if(reader.ReadBoolean())
+                SmallSpritePath = reader.ReadString();
         }
+
+        //TODO: Take rid with it
+        #region Temp Server Detour
+
+        internal static void writeDetour(int id, string name, string icon)
+        {
+            det_PokemonNPC = id;
+            det_PokemonName = name;
+            det_SmallSpritePath = icon;
+        }
+        internal static int det_PokemonNPC;
+        internal static string det_PokemonName;
+        internal static string det_SmallSpritePath;
+        #endregion
+
     }
 }

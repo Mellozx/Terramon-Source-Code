@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Terramon.UI;
@@ -8,6 +9,10 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terramon.UI.Starter;
 using Terramon.UI.SidebarParty;
+using Terraria.ID;
+using System.IO;
+using Terramon.Network.Catching;
+using Terramon.Network.Starter;
 
 namespace Terramon
 {
@@ -88,38 +93,42 @@ namespace Terramon
 
         public override void Load()
         {
-            ChooseStarter = new ChooseStarter();
-            ChooseStarter.Activate();
-            ChooseStarterBulbasaur = new ChooseStarterBulbasaur();
-            ChooseStarterBulbasaur.Activate();
-            ChooseStarterCharmander = new ChooseStarterCharmander();
-            ChooseStarterCharmander.Activate();
-            ChooseStarterSquirtle = new ChooseStarterSquirtle();
-            ChooseStarterSquirtle.Activate();
-            PokegearUI = new PokegearUI();
-            PokegearUI.Activate();
-            PokegearUIEvents = new PokegearUIEvents();
-            PokegearUIEvents.Activate();
-            evolveUI = new EvolveUI();
-            evolveUI.Activate();
-            UISidebar = new UISidebar();
-            UISidebar.Activate();
-            PartySlots = new PartySlots();
-            PartySlots.Activate();
-            _exampleUserInterface = new UserInterface();
-            _exampleUserInterfaceNew = new UserInterface();
-            PokegearUserInterfaceNew = new UserInterface();
-            evolveUserInterfaceNew = new UserInterface();
-            _uiSidebar = new UserInterface();
-            _partySlots = new UserInterface();
+            if (Main.netMode != NetmodeID.Server)
+            {
+                ChooseStarter = new ChooseStarter();
+                ChooseStarter.Activate();
+                ChooseStarterBulbasaur = new ChooseStarterBulbasaur();
+                ChooseStarterBulbasaur.Activate();
+                ChooseStarterCharmander = new ChooseStarterCharmander();
+                ChooseStarterCharmander.Activate();
+                ChooseStarterSquirtle = new ChooseStarterSquirtle();
+                ChooseStarterSquirtle.Activate();
+                PokegearUI = new PokegearUI();
+                PokegearUI.Activate();
+                PokegearUIEvents = new PokegearUIEvents();
+                PokegearUIEvents.Activate();
+                evolveUI = new EvolveUI();
+                evolveUI.Activate();
+                UISidebar = new UISidebar();
+                UISidebar.Activate();
+                PartySlots = new PartySlots();
+                PartySlots.Activate();
+                _exampleUserInterface = new UserInterface();
+                _exampleUserInterfaceNew = new UserInterface();
+                PokegearUserInterfaceNew = new UserInterface();
+                evolveUserInterfaceNew = new UserInterface();
+                _uiSidebar = new UserInterface();
+                _partySlots = new UserInterface();
+            
 
-            _exampleUserInterface.SetState(ChooseStarter); // Choose Starter
-            _exampleUserInterfaceNew.SetState(PokegearUI); // Pokegear Main Menu
-            PokegearUserInterfaceNew.SetState(PokegearUIEvents); // Pokegear Events Menu
-            evolveUserInterfaceNew.SetState(evolveUI);
-            _uiSidebar.SetState(UISidebar);
-            _partySlots.SetState(PartySlots);
 
+                _exampleUserInterface.SetState(ChooseStarter); // Choose Starter
+                _exampleUserInterfaceNew.SetState(PokegearUI); // Pokegear Main Menu
+                PokegearUserInterfaceNew.SetState(PokegearUIEvents); // Pokegear Events Menu
+                evolveUserInterfaceNew.SetState(evolveUI);
+                _uiSidebar.SetState(UISidebar);
+                _partySlots.SetState(PartySlots);
+            }
 
 
             if (Main.dedServ)
@@ -284,6 +293,40 @@ namespace Terramon
 
         #endregion
 
+        public override void HandlePacket(BinaryReader reader, int whoAmI)
+        {
+            //In case i f*ck the code
+            try
+            {
+                string type = reader.ReadString();
+                switch (type)
+                {
+                    case SpawnStarterPacket.NAME:
+                    {
+                        //Server can't have any UI
+                        if (whoAmI == 256)
+                            return;
+                        SpawnStarterPacket packet = new SpawnStarterPacket();
+                        packet.HandleFromClient(reader, whoAmI);
+                    }
+                        break;
+                    case BaseCatchPacket.NAME:
+                    {
+                        //Server should handle it from client
+                        if (whoAmI == 256)
+                            return;
+                        BaseCatchPacket packet = new BaseCatchPacket();
+                        packet.HandleFromClient(reader, whoAmI);
+                    }
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorFormat("Exception appear in HandlePacket. Please, contact mod devs with folowing stacktrace:\n\n{0}\n\n{1}", e.Message, e.StackTrace);
+            }
+
+        }
 
         public static TerramonMod Instance { get; private set; }
 

@@ -14,7 +14,8 @@ namespace Terramon.Items.Pokeballs.Thrown
         {
             if (projectile.ai[0] == 0)
             {
-                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/throwball").WithVolume(.7f));
+                if (Main.netMode != NetmodeID.Server)
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/throwball").WithVolume(.7f));
                 projectile.ai[0] = 1;
                 projectile.ai[1] = 1;
 
@@ -70,7 +71,8 @@ namespace Terramon.Items.Pokeballs.Thrown
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item10, projectile.position);
+            if (Main.netMode != NetmodeID.Server)
+                Main.PlaySound(SoundID.Item10, projectile.position);
             Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 64);
             Vector2 usePos = projectile.position;
 
