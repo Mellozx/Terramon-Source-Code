@@ -1,23 +1,30 @@
-﻿Terramon is a cross between Terraria and the awesome Pokémon franchise. The mod adds many new Pokémon and your mission is to catch 'em all!
-Have fun with...
--Throwable Pokéballs that can be used to catch 'mons or hurt enemies.
--A Pokémon Trainer Town NPC that can move in as soon as you start the game! He will sell you Pokéballs and evolve your Pokémon.
--20+ different Pokémon to discover and catch!
--An interactive Pokédex that can be used to call Professor Oak!
+﻿[c/ff7857:== New update, v0.2.1.4! ==]
 
-We're aiming to make this mod a smashing success with Pokémon fans all over the Terraria community. Give the mod a try and tell us what you think of it over at our Discord Server (homepage)!
+✧ Terramon is a mod that adds Pokémon to Terraria! It also adds many aspects and mechanics of the Pokémon games as well, including Pokémon themselves, Poké Balls, your very own Pokémon party and much more. Terramon is constantly being improved to match the Pokémon games as much as possible, so remember to update often for new features weekly.
 
-[c/a3a3a3:// Credits]
+✧ The mod is designed to be as immersive as possible, with non-linear game play and different objectives/quests to complete.
 
--Ichor (Main Developer and Mod Owner)
--Webmilio (Ex-Developer)
--Chen (Ex-Developer)
--InfinaMii (Side-Developer and Spriter)
--daimgamer (Spriter)
--cat (Spriter)
+✧ Currently in the mod, there's...
+• More than 30 Pokémon!
+• New UI and mechanics!
+• 43 new items
+• 31 buffs
 
-- Example Mod for learning purposes
-- Jopojelly, AbsoluteAquarian and more in the tModLoader Discord
+[c/ff7857:== Credits ==]
+✧ Current Team
+Jamz#0003 / Head Developer and Founder
+InfinaMii#7043 / Developer, Spriter
+Requias#9017 / Developer
+KindRed-Sand#2340 / Developer, Mod Networking
+daimgamer#6490 / Spriter
+Potat#3929 / Spriter
 
-Credits to [c/ff3b3b:Nintendo and The Pokémon Company.] We do not own the rights to anything that is part of the Pokémon franchise.
+✧ Special Thanks
+Webmilio / Retired Developer
+Chen / Retired Developer
+Piers / Retired Developer
+
+~ [c/ffff5e:Gotta catch 'em all!]
+
+
 

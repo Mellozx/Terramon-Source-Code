@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using Terramon.Items.MiscItems;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon;
+using Terramon.Pokemon.FirstGeneration.Fishing;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terramon.UI.SidebarParty;
 using Terramon.UI.Starter;
 using Terraria;
 using Terraria.GameInput;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using static Terraria.ModLoader.ModContent;
 
 
 namespace Terramon.Players
@@ -51,6 +54,10 @@ namespace Terramon.Players
         public bool gastlyPet = false;
         public bool haunterPet = false;
         public bool gengarPet = false;
+        public bool goldeenPet = false;
+        public bool horseaPet = false;
+        public bool magikarpPet = false;
+        public bool gyaradosPet = false;
         public bool dratiniPet = false;
         public bool dragonairPet = false;
         public bool dragonitePet = false;
@@ -121,6 +128,10 @@ namespace Terramon.Players
             gastlyPet = false;
             gengarPet = false;
             haunterPet = false;
+            goldeenPet = false;
+            horseaPet = false;
+            magikarpPet = false;
+            gyaradosPet = false;
             dratiniPet = false;
             dragonairPet = false;
             dragonitePet = false;
@@ -187,6 +198,26 @@ namespace Terramon.Players
             else
             {
                 UISidebar.Visible = true;
+            }
+        }
+        //fishing for pokemon
+        public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
+        {
+            if (junk)
+            {
+                return;
+            }
+            if (liquidType == 0 && player.ZoneBeach && Main.rand.NextBool(6)) //16.7% chance from fishing
+            {
+                caughtType = ItemType<MagikarpFish>();
+            }
+            if (liquidType == 0 && player.ZoneBeach && Main.rand.NextBool(12)) //8.3% chance from fishing
+            {
+                caughtType = Main.rand.Next(new int[] { ItemType<GoldeenFish>(), ItemType<HorseaFish>() });
+            }
+            if (liquidType == 0 && Main.rand.NextBool(100)) //1% chance from fishing
+            {
+                caughtType = ItemType<MagikarpFish>();
             }
         }
 

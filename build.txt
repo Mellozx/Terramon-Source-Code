@@ -1,6 +1,6 @@
 author = Jamz & Terramon Team
-version = 0.2.1.2
-displayName = Terramon Mod
-homepage = https://discord.gg/ezMgrtX
+version = 0.2.1.4
+displayName = Terramon
+homepage = https://terrariamods.gamepedia.com/Terramon
 buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*
-modReferences = WebmilioCommons@0.1.9.7
+modReferences = WebmilioCommons@0.1.9.10

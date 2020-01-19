@@ -132,6 +132,7 @@ namespace Terramon.Items.Pokeballs.Inventory
                 Main.NewText("All Party Slots are full", 255, 240, 20, false);
             }
         }
+
         public override TagCompound Save()
         {
             return new TagCompound

@@ -4,6 +4,7 @@ using Terramon.Items.MiscItems;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Players;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
+using Terramon.Pokemon.FirstGeneration.Normal.Beedrill;
 using Terramon.Pokemon.FirstGeneration.Normal.Blastoise;
 using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
 using Terramon.Pokemon.FirstGeneration.Normal.Butterfree;
@@ -14,6 +15,7 @@ using Terramon.Pokemon.FirstGeneration.Normal.Dragonite;
 using Terramon.Pokemon.FirstGeneration.Normal.Gengar;
 using Terramon.Pokemon.FirstGeneration.Normal.Haunter;
 using Terramon.Pokemon.FirstGeneration.Normal.Ivysaur;
+using Terramon.Pokemon.FirstGeneration.Normal.Kakuna;
 using Terramon.Pokemon.FirstGeneration.Normal.Metapod;
 using Terramon.Pokemon.FirstGeneration.Normal.Pidgeot;
 using Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto;
@@ -199,6 +201,34 @@ namespace Terramon.UI.SidebarParty
                         }
                     }
                     else if (pokeball.PokemonName == "Metapod")
+                    {
+                        PokemonGoesHere.SetText("Place 3 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 3)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (pokeball.PokemonName == "Weedle")
+                    {
+                        PokemonGoesHere.SetText("Place 2 Rare Candies in the second slot.");
+                        mainPanel.Append(partyslot2);
+                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == 2)
+                        {
+                            PokemonGoesHere.SetText("Great! Press the evolve button!");
+                            mainPanel.Append(SaveButton);
+                        }
+                        else
+                        {
+                            mainPanel.RemoveChild(SaveButton);
+                        }
+                    }
+                    else if (pokeball.PokemonName == "Beedrill")
                     {
                         PokemonGoesHere.SetText("Place 3 Rare Candies in the second slot.");
                         mainPanel.Append(partyslot2);
@@ -646,7 +676,87 @@ namespace Terramon.UI.SidebarParty
                         (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniButterfree";
                     }
                     Main.playerInventory = false;
-                    Main.NewText("Your Caterpie evolved into Butterfree!");
+                    Main.NewText("Your Metapod evolved into Butterfree!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (pokeball.PokemonName == "Weedle")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
+                    if (index >= 400)
+                        return;
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<KakunaNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Kakuna";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniKakuna";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<KakunaNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Kakuna";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniKakuna";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<KakunaNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Kakuna";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniKakuna";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<KakunaNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Kakuna";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniKakuna";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<KakunaNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Kakuna";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniKakuna";
+                    }
+                    Main.playerInventory = false;
+                    Main.NewText("Your Weedle evolved into Kakuna!");
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
+                }
+                if (pokeball.PokemonName == "Kakuna")
+                {
+                    Player player = Main.LocalPlayer;
+                    int index = Item.NewItem(player.getRect(), whicheverballtype);
+                    if (index >= 400)
+                        return;
+                    if (whicheverballtype == ModContent.ItemType<PokeballCaught>())
+                    {
+                        (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<BeedrillNPC>();
+                        (Main.item[index].modItem as PokeballCaught).PokemonName = "Beedrill";
+                        (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBeedrill";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<GreatBallCaught>())
+                    {
+                        (Main.item[index].modItem as GreatBallCaught).PokemonNPC = ModContent.NPCType<BeedrillNPC>();
+                        (Main.item[index].modItem as GreatBallCaught).PokemonName = "Beedrill";
+                        (Main.item[index].modItem as GreatBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBeedrill";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<UltraBallCaught>())
+                    {
+                        (Main.item[index].modItem as UltraBallCaught).PokemonNPC = ModContent.NPCType<BeedrillNPC>();
+                        (Main.item[index].modItem as UltraBallCaught).PokemonName = "Beedrill";
+                        (Main.item[index].modItem as UltraBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBeedrill";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<DuskBallCaught>())
+                    {
+                        (Main.item[index].modItem as DuskBallCaught).PokemonNPC = ModContent.NPCType<BeedrillNPC>();
+                        (Main.item[index].modItem as DuskBallCaught).PokemonName = "Beedrill";
+                        (Main.item[index].modItem as DuskBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBeedrill";
+                    }
+                    if (whicheverballtype == ModContent.ItemType<PremierBallCaught>())
+                    {
+                        (Main.item[index].modItem as PremierBallCaught).PokemonNPC = ModContent.NPCType<BeedrillNPC>();
+                        (Main.item[index].modItem as PremierBallCaught).PokemonName = "Beedrill";
+                        (Main.item[index].modItem as PremierBallCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBeedrill";
+                    }
+                    Main.playerInventory = false;
+                    Main.NewText("Your Kakuna evolved into Beedrill!");
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/evolve"));
                 }
                 if (pokeball.PokemonName == "Pidgey")
