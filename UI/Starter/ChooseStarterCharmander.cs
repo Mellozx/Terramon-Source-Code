@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Terramon.Network.Starter;
 using Terramon.Players;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
@@ -171,12 +172,20 @@ namespace Terramon.UI.Starter
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
             Main.PlaySound(SoundID.Coins);
             TerramonPlayer.StarterChosen = true;
-            int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
-            if (index >= 400)
-                return;
-            (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<CharmanderNPC>();
-            (Main.item[index].modItem as PokeballCaught).PokemonName = "Charmander";
-            (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmander";
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                SpawnStarterPacket packet = new SpawnStarterPacket();
+                packet.Send((TerramonMod)mod, SpawnStarterPacket.CHARMANDER);
+            }
+            else
+            {
+                int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                if (index >= 400)
+                    return;
+                (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<CharmanderNPC>();
+                (Main.item[index].modItem as PokeballCaught).PokemonName = "Charmander";
+                (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmander";
+            }
             Main.NewText("You chose [c/FF8C00:Charmander, the Fire Lizard Pokemon.] Great choice!");
             ChooseStarter.Visible = false;
             UISidebar.Visible = true;

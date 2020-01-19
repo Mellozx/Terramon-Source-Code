@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terramon.Items.Pokeballs.Parts;
 using Terramon.Projectiles;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Thrown
@@ -33,7 +34,8 @@ namespace Terramon.Items.Pokeballs.Thrown
 
             if (projectile.soundDelay == 0)
             {
-                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/ballbounce").WithVolume(.7f));
+                if (Main.netMode != NetmodeID.Server)
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/ballbounce").WithVolume(.7f));
             }
             projectile.soundDelay = 10;
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Terramon.Network.Starter;
 using Terramon.Players;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
@@ -170,12 +171,20 @@ namespace Terramon.UI.Starter
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
             Main.PlaySound(SoundID.Coins);
             TerramonPlayer.StarterChosen = true;
-            int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
-            if (index >= 400)
-                return;
-            (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<BulbasaurNPC>();
-            (Main.item[index].modItem as PokeballCaught).PokemonName = "Bulbasaur";
-            (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBulbasaur";
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                SpawnStarterPacket packet = new SpawnStarterPacket();
+                packet.Send((TerramonMod)mod, SpawnStarterPacket.BULBASAUR);
+            }
+            else
+            {
+                int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                if (index >= 400)
+                    return;
+                (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<BulbasaurNPC>();
+                (Main.item[index].modItem as PokeballCaught).PokemonName = "Bulbasaur";
+                (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniBulbasaur";
+            }
             Main.NewText("You chose [c/33FF33:Bulbasaur, the Seed Pokemon.] Great choice!");
             ChooseStarter.Visible = false;
             UISidebar.Visible = true;

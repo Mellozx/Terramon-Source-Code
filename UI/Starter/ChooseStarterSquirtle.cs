@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Terramon.Network.Starter;
 using Terramon.Players;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terramon.Pokemon.FirstGeneration.Normal.Squirtle;
@@ -154,12 +155,21 @@ namespace Terramon.UI.Starter
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
             Main.PlaySound(SoundID.Coins);
             TerramonPlayer.StarterChosen = true;
-            int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
-            if (index >= 400)
-                return;
-            (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<SquirtleNPC>();
-            (Main.item[index].modItem as PokeballCaught).PokemonName = "Squirtle";
-            (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniSquirtle";
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                SpawnStarterPacket packet = new SpawnStarterPacket();
+                packet.Send((TerramonMod) mod, SpawnStarterPacket.SQUIRTLE);
+            }
+            else
+            {
+                int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
+                if (index >= 400)
+                    return;
+                (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<SquirtleNPC>();
+                (Main.item[index].modItem as PokeballCaught).PokemonName = "Squirtle";
+                (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniSquirtle";
+            }
+
             Main.NewText("You chose [c/00FFFF:Squirtle, the Tiny Turtle Pokemon.] Great choice!");
             ChooseStarter.Visible = false;
             UISidebar.Visible = true;

@@ -30,7 +30,7 @@ namespace Terramon.Items.Pokeballs.Thrown // This projectile is thrown by Red, t
                 return true;
             }
 
-            if (projectile.soundDelay == 0)
+            if (Main.netMode != NetmodeID.Server && projectile.soundDelay == 0)
             {
                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/ballbounce").WithVolume(.7f));
             }
