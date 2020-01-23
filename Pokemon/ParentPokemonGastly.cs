@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon
 {
-    public abstract class ParentPokemonGastly : ModProjectile
+    public abstract class ParentPokemonGastly : ParentPokemon
     {
         public override void SetStaticDefaults()
         {

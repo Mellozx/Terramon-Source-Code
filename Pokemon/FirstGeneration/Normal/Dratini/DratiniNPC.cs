@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Dratini
 {
-    public class DratiniNPC : ParentPokemonNPC_Dratini
+    public class DratiniNPC : ParentPokemonNPC
     {
         public override Type HomeClass() => typeof(Dratini);
 
@@ -19,6 +21,18 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Dratini
         {
             npc.gfxOffY = 6;
             return true;
+        }
+
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        {
+            if (spawnInfo.player.ZoneSkyHeight && Main.hardMode)
+            {
+                return 0.03f;
+            }
+            else
+            {
+                return 0f;
+            }
         }
     }
 }

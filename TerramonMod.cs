@@ -11,8 +11,10 @@ using Terramon.UI.Starter;
 using Terramon.UI.SidebarParty;
 using Terraria.ID;
 using System.IO;
+using System.Reflection;
 using Terramon.Network.Catching;
 using Terramon.Network.Starter;
+using Terramon.Pokemon;
 
 namespace Terramon
 {
@@ -93,6 +95,9 @@ namespace Terramon
 
         public override void Load()
         {
+            //Load all mons to a store
+            LoadPokemons();
+
             if (Main.netMode != NetmodeID.Server)
             {
                 ChooseStarter = new ChooseStarter();
@@ -152,6 +157,7 @@ namespace Terramon
             _uiSidebar.SetState(null);
             _partySlots.SetState(null);
             PartySlots = null;
+            pokemonStore = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)
@@ -330,5 +336,60 @@ namespace Terramon
 
         public static TerramonMod Instance { get; private set; }
 
+        public static ParentPokemon GetPokemon(string monName)
+        {
+            if (monName == null)
+            {
+                return null;
+            }
+            if (Instance.pokemonStore != null && Instance.pokemonStore.ContainsKey(monName))
+            {
+                return Instance.pokemonStore[monName];
+            }
+            return null;
+        }
+
+        private Dictionary<string, ParentPokemon> pokemonStore;
+        private void LoadPokemons()
+        {
+            pokemonStore = new Dictionary<string, ParentPokemon>();
+
+            foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
+            {
+                if (it.IsAbstract)
+                    continue;
+                bool valid = false;
+                if (it.BaseType == typeof(ParentPokemon))
+                    valid = true;
+                else
+                {
+                    //Recurrent seek for our class
+                    var baseType = it.BaseType;
+                    while (baseType != null && baseType != typeof(object) )
+                    {
+                        if (baseType == typeof(ParentPokemon))
+                        {
+                            valid = true;
+                            break;
+                        }
+                        baseType = baseType.BaseType;
+                    }
+                }
+
+                if(valid)
+                    try
+                    {
+                        pokemonStore.Add(it.Name, (ParentPokemon) Activator.CreateInstance(it));
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error(
+                            "Exception caught in Events register loop. Report mod author with related stacktrace: \n" +
+                            $"{e.Message}\n" +
+                            $"{e.StackTrace}\n");
+                    }
+            }
+
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Terramon.Players;
 using Terraria;
 
@@ -5,6 +6,10 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
 {
     public class Haunter : ParentPokemonGastly
     {
+        public override int EvolveCost => 10;
+
+        public override Type EvolveTo => typeof(Gengar.Gengar);
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();

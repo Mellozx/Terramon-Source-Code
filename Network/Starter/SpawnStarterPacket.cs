@@ -30,7 +30,7 @@ namespace Terramon.Network.Starter
             packet.Send(256);
         }
 
-        public void HandleFromClient(BinaryReader reader, int whoAmI)
+        public override void HandleFromClient(BinaryReader reader, int whoAmI)
         {
             var data = reader.ReadString();
             switch (data)
@@ -40,42 +40,26 @@ namespace Terramon.Network.Starter
                     if (!Main.player[whoAmI].active)
                         return;
 
-                    PokeballCaught.det_PokemonNPC = ModContent.NPCType<SquirtleNPC>();
-                    PokeballCaught.det_PokemonName = "Squirtle";
-                    PokeballCaught.det_SmallSpritePath = "Terramon/Minisprites/Regular/miniSquirtle";
+                    PokeballCaught.writeDetour(nameof(Squirtle), "Squirtle", "Terramon/Minisprites/Regular/miniSquirtle");
                     int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
                     if (index >= 400 || !(Main.item[index].modItem is PokeballCaught modItem))
                         return;
-
-                    
                 }
                     break;
                 case CHARMANDER:
                 {
-                    PokeballCaught.det_PokemonNPC = ModContent.NPCType<CharmanderNPC>();
-                    PokeballCaught.det_PokemonName = "Charmander";
-                    PokeballCaught.det_SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmander";
-                        int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
+                    PokeballCaught.writeDetour(nameof(Charmander), "Charmander", "Terramon/Minisprites/Regular/miniCharmander");
+                    int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
                     if (index >= 400 || !(Main.item[index].modItem is PokeballCaught modItem))
                         return;
-
-                    //modItem.PokemonNPC = ModContent.NPCType<CharmanderNPC>();
-                    //modItem.PokemonName = "Charmander";
-                    //modItem.SmallSpritePath = "Terramon/Minisprites/Regular/miniCharmander";
                 }
                     break;
                 case BULBASAUR:
                 {
-                    PokeballCaught.det_PokemonNPC = ModContent.NPCType<BulbasaurNPC>();
-                    PokeballCaught.det_PokemonName = "Bulbasaur";
-                    PokeballCaught.det_SmallSpritePath = "Terramon/Minisprites/Regular/miniBulbasaur";
-                        int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
+                    PokeballCaught.writeDetour(nameof(Bulbasaur), "Bulbasaur", "Terramon/Minisprites/Regular/miniBulbasaur");
+                    int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
                     if (index >= 400 || !(Main.item[index].modItem is PokeballCaught modItem))
                         return;
-
-                    //modItem.PokemonNPC = ModContent.NPCType<BulbasaurNPC>();
-                    //modItem.PokemonName = "Bulbasaur";
-                    //modItem.SmallSpritePath = "Terramon/Minisprites/Regular/miniBulbasaur";
                 }
                     break;
             }

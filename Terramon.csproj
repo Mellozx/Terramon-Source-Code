@@ -11,8 +11,14 @@
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
   </Target>
   <ItemGroup>
+    <Compile Remove="Items\Apricorns\Cooked\**" />
+    <Compile Remove="Items\Food\**" />
     <Compile Remove="Pokemon\FirstGenerationShiny\**" />
+    <EmbeddedResource Remove="Items\Apricorns\Cooked\**" />
+    <EmbeddedResource Remove="Items\Food\**" />
     <EmbeddedResource Remove="Pokemon\FirstGenerationShiny\**" />
+    <None Remove="Items\Apricorns\Cooked\**" />
+    <None Remove="Items\Food\**" />
     <None Remove="Pokemon\FirstGenerationShiny\**" />
   </ItemGroup>
   <ItemGroup>
