@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon
 {
-    public abstract class ParentPokemonFlying : ModProjectile
+    public abstract class ParentPokemonFlying : ParentPokemon
     {
         public override void SetStaticDefaults()
         {

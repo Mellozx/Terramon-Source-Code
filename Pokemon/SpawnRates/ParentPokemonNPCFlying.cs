@@ -11,12 +11,13 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon
 {
-    public abstract class NotCatchablePKMNFlying : ParentPokemonNPCFlying
+    public abstract class ParentPokemonNPCFlying : ParentPokemonNPC
     {
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault(PokeName());
-            Main.npcFrameCount[npc.type] = Main.npcFrameCount[NPCID.Bunny];
+            Main.npcFrameCount[npc.type] = 2;
         }
 
         public override void SetDefaults()
@@ -30,15 +31,11 @@ namespace Terramon.Pokemon
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/capturepokemon");
 
-            npc.aiStyle = 64;
+            npc.aiStyle = 65;
             aiType = NPCID.Firefly;
 
-            animationType = NPCID.Bunny;
-        }
+            animationType = NPCID.Firefly;
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            return 0f;
         }
     }
 }

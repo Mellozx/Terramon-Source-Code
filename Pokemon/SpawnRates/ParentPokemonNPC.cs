@@ -30,7 +30,8 @@ namespace Terramon.Pokemon
         public override void SetDefaults()
         {
             npc.defense = 0;
-            npc.lifeMax = 1;
+            npc.lifeMax = 15;
+            npc.lifeRegen = 15;
             npc.knockBackResist = 0.5f;
 
             npc.value = 0f;
@@ -67,7 +68,10 @@ namespace Terramon.Pokemon
             return false;
         }
 
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit) { }
+        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+        {
+
+        }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -80,6 +84,8 @@ namespace Terramon.Pokemon
                 return 0f;
             }
         }
+
+        public override void UpdateLifeRegen(ref int damage) { npc.life = npc.lifeMax; }
 
         // this method will be improved later
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -185,12 +191,12 @@ namespace Terramon.Pokemon
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 var packet = new BaseCatchPacket();
-                packet.Send((TerramonMod)mod, npc.type, npc.TypeName, GetSmallSpritePath(npc), npc.getRect(), type);
+                packet.Send((TerramonMod)mod, HomeClass().Name, npc.TypeName, npc.getRect(), type);
             }
             else
             {
                 if (Main.netMode == NetmodeID.Server)
-                    BaseCaughtClass.writeDetour(npc.type, npc.TypeName, GetSmallSpritePath(npc));
+                    BaseCaughtClass.writeDetour(HomeClass().Name, npc.TypeName, GetSmallSpritePath(npc));
 
                 int index = Item.NewItem(npc.getRect(), type);
                 if (index >= 400)
@@ -199,9 +205,9 @@ namespace Terramon.Pokemon
                 if (Main.netMode == NetmodeID.Server)
                     return;
 
-                (Main.item[index].modItem as BaseCaughtClass).PokemonNPC = npc.type;
-                (Main.item[index].modItem as BaseCaughtClass).PokemonName = npc.TypeName;
-                (Main.item[index].modItem as BaseCaughtClass).SmallSpritePath = GetSmallSpritePath(npc);
+                if (!(Main.item[index].modItem is BaseCaughtClass item)) return;
+                item.PokemonName = npc.TypeName;
+                item.CapturedPokemon = HomeClass().Name;
             }
         }
 

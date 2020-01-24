@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Oddish
 {
-    public class OddishNPC : ParentPokemonNPC_Oddish
+    public class OddishNPC : ParentPokemonNPC
     {
         public override Type HomeClass() => typeof(Oddish);
 
@@ -19,6 +21,19 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Oddish
         {
             npc.gfxOffY = 6;
             return true;
+        }
+
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        {
+            Player player = Main.LocalPlayer;
+            if (spawnInfo.player.ZoneOverworldHeight && spawnInfo.player.ZoneJungle)
+            {
+                return 0.065f;
+            }
+            else
+            {
+                return 0f;
+            }
         }
     }
 }

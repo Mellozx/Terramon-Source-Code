@@ -38,6 +38,27 @@ namespace Terramon.Network.Catching
             }
         }
 
+        public void Send(TerramonMod mod, string type, string name, Rectangle rect, int pokeType)
+        {
+            try
+            {
+                var packet = GetPacket(mod);
+                packet.Write(type);
+                packet.Write(name);
+                //packet.Write("v2");
+                packet.Write(rect.X);
+                packet.Write(rect.Y);
+                packet.Write(rect.Width);
+                packet.Write(rect.Height);
+                packet.Write(pokeType);
+                packet.Send(256);
+            }
+            catch (Exception e)
+            {
+                mod.Logger.ErrorFormat("Please report this stacktrace to Terramon devs:\n\n{0}\n\n{1}", e.Message, e.StackTrace);
+            }
+        }
+
         public override void HandleFromClient(BinaryReader r, int whoAmI)
         {
             try
@@ -45,9 +66,18 @@ namespace Terramon.Network.Catching
                 if (!Main.player[whoAmI].active)
                     return;
 
-                PokeballCaught.det_PokemonNPC = r.ReadInt32();
+                string type = r.ReadString();
+                PokeballCaught.det_CapturedPokemon = type;
                 PokeballCaught.det_PokemonName = r.ReadString();
-                PokeballCaught.det_SmallSpritePath = r.ReadString();
+                //string t = r.ReadString();
+                //if(t != "v2")
+                //    PokeballCaught.det_SmallSpritePath = t;
+                //else
+                //{
+                //    var mon = TerramonMod.GetPokemon(type);
+                //    PokeballCaught.det_SmallSpritePath = mon.IconName;
+                //}
+
 
                 var rect = new Rectangle(r.ReadInt32(), r.ReadInt32(), r.ReadInt32(), r.ReadInt32());
 
