@@ -1,4 +1,4 @@
-author = Jamz & Terramon Team
+author = Jamz' Terramon Team
 version = 0.2.1.4
 displayName = Terramon
 homepage = https://terrariamods.gamepedia.com/Terramon
