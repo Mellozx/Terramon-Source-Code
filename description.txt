@@ -12,17 +12,17 @@
 
 [c/ff7857:== Credits ==]
 ✧ Current Team
-Jamz#0003 / Head Developer and Founder
-InfinaMii#7043 / Developer, Spriter
-Requias#9017 / Developer
-KindRed-Sand#2340 / Developer, Mod Networking
-daimgamer#6490 / Spriter
-Potat#3929 / Spriter
+Jamz: Head Developer and Founder
+InfinaMii: Developer, Spriter
+Requias: Developer
+KindRed-Sand: Developer, Mod Networking
+daimgamer: Spriter
+Potat: Spriter
 
 ✧ Special Thanks
-Webmilio / Retired Developer
-Chen / Retired Developer
-Piers / Retired Developer
+Webmilio: Retired Developer
+Chen: Retired Developer
+Piers: Retired Developer
 
 ~ [c/ffff5e:Gotta catch 'em all!]
 
