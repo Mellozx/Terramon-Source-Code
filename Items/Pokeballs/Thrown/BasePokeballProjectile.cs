@@ -16,13 +16,13 @@ namespace Terramon.Items.Pokeballs.Thrown
             base.SetDefaults();
 
             projectile.damage = 1;
-            projectile.width = 16;
-            projectile.height = 16;
+            projectile.width = 17;
+            projectile.height = 17;
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.timeLeft = 300;
 			projectile.light = 1f;
-			projectile.scale = 0.90f;
+			projectile.scale = 0.6f;
         }
 
 

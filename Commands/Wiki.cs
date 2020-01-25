@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
+using System;
 
 namespace Terramon.Commands
 {
@@ -27,7 +28,6 @@ namespace Terramon.Commands
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            
                 if (args.Length == 0)
                 {
                     caller.Reply("Opened Wiki...");

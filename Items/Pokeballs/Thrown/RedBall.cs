@@ -13,13 +13,14 @@ namespace Terramon.Items.Pokeballs.Thrown // This projectile is thrown by Red, t
         bool collide = true;
         public override void SetDefaults()
         {
-            projectile.width = 9;
-            projectile.height = 10;
+            projectile.width = 16;
+            projectile.height = 16;
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.timeLeft = 300;
             projectile.damage = 30;
 			projectile.light = 1f;
+            projectile.scale = 0.6f;
             collide = true;
         }
 

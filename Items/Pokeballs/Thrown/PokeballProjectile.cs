@@ -61,7 +61,7 @@ namespace Terramon.Items.Pokeballs.Thrown
                 projectile.velocity.Y = projectile.velocity.Y + 0.2f;
             }
 
-            projectile.rotation += projectile.velocity.X * 0.06f;
+            projectile.rotation += projectile.velocity.X * 0.025f;
             return;
         }
 

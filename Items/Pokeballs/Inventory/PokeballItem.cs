@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terramon.Achievements;
 using Terramon.Items.Pokeballs.Thrown;
@@ -41,10 +42,9 @@ namespace Terramon.Items.Pokeballs.Inventory
         public override void SetDefaults()
         {
             base.SetDefaults();
-
             item.value = 30000;
+            item.scale = 0.7f;
         }
-
 
         protected override void PostPokeballThrown(TerramonPlayer terramonPlayer, int thrownPokeballsCount)
         {
