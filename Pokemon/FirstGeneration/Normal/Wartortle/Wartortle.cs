@@ -1,3 +1,4 @@
+using System;
 using Terramon.Players;
 using Terraria;
 
@@ -5,6 +6,10 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Wartortle
 {
     public class Wartortle : ParentPokemon
     {
+        public override int EvolveCost => 20;
+
+        public override Type EvolveTo => typeof(Blastoise.Blastoise);
+
         public override void SetDefaults()
         {
             base.SetDefaults();

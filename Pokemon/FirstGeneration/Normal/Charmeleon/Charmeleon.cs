@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Terramon.Players;
 using Terraria;
@@ -6,6 +7,10 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmeleon
 {
     public class Charmeleon : ParentPokemon
     {
+        public override int EvolveCost => 20;
+
+        public override Type EvolveTo => typeof(Charizard.Charizard);
+
         public override void SetDefaults()
         {
             base.SetDefaults();

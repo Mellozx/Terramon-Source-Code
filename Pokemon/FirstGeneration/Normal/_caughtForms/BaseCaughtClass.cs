@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,12 +10,18 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terramon.Pokemon.FirstGeneration.Normal.Charmander;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
     public abstract class BaseCaughtClass : ModItem
     {
+        /// <summary>
+        /// I think this is not needed. I we want to store what mon are here
+        /// we better need to store a type string <see cref="nameof(Charmander)"/>
+        /// </summary>
         public int PokemonNPC;
+        public string CapturedPokemon;
         public string PokemonName;
         public string SmallSpritePath;
         public int PartySlotNumber;
@@ -43,7 +50,7 @@ namespace Terramon.Items.Pokeballs.Inventory
 
 
             //Detour handle
-            if (Main.netMode != NetmodeID.Server || det_PokemonName == null)
+            if (Main.netMode != NetmodeID.Server || det_CapturedPokemon == null)
                 return;
 
             PokemonNPC = det_PokemonNPC;
@@ -52,12 +59,20 @@ namespace Terramon.Items.Pokeballs.Inventory
             det_PokemonName = null;
             SmallSpritePath = det_SmallSpritePath;
             det_SmallSpritePath = null;
+            CapturedPokemon = det_CapturedPokemon;
+            det_CapturedPokemon = null;
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            if (SmallSpritePath == null)
-                return true;
+            if (SmallSpritePath == null )
+            {
+                var mon = TerramonMod.GetPokemon(CapturedPokemon);
+                if (mon == null)
+                    return true;
+                SmallSpritePath = mon.IconName;
+            }
+
             Texture2D pokemonTexture = ModContent.GetTexture(SmallSpritePath);
             Texture2D itemTexture = Main.itemTexture[item.type];
             spriteBatch.Draw(itemTexture, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0);
@@ -99,12 +114,12 @@ namespace Terramon.Items.Pokeballs.Inventory
 
         public override bool CanRightClick()
         {
-            if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir && !ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir && !ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir && !ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir && !ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir && !ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
-            {
-                return false;
-            }
-            return true;
+            //Just make it little clear
+            return ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir || ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir ||
+                   ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir || ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir ||
+                   ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir || ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir;
         }
+
         public override void RightClick(Player player)
         {
             if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir)
@@ -162,6 +177,8 @@ namespace Terramon.Items.Pokeballs.Inventory
                 [nameof(SmallSpritePath)] = SmallSpritePath,
 
                 [nameof(SmallSpritePath)] = SmallSpritePath, // what do i do here
+                //v2
+                [nameof(CapturedPokemon)] = CapturedPokemon,
             };
         }
         public override void Load(TagCompound tag)
@@ -169,11 +186,13 @@ namespace Terramon.Items.Pokeballs.Inventory
             PokemonNPC = tag.GetInt(nameof(PokemonNPC));
             PokemonName = tag.GetString(nameof(PokemonName));
             SmallSpritePath = tag.GetString(nameof(SmallSpritePath));
+            //v2
+            CapturedPokemon = tag.ContainsKey(nameof(CapturedPokemon)) ? tag.GetString(nameof(CapturedPokemon)) : PokemonName;
         }
 
         public override void NetSend(BinaryWriter writer)
         {
-            writer.Write(PokemonNPC);
+            //writer.Write(PokemonNPC);
             if (PokemonName != null)
             {
                 writer.Write(true);
@@ -189,26 +208,46 @@ namespace Terramon.Items.Pokeballs.Inventory
             }
             else
                 writer.Write(false);
+
+            //v2 
+            if (CapturedPokemon != null)
+            {
+                writer.Write(true);
+                writer.Write(CapturedPokemon);
+            }
+            else
+                writer.Write(false);
         }
 
         public override void NetRecieve(BinaryReader reader)
         {
-            PokemonNPC = reader.ReadInt32();
+            //PokemonNPC = reader.ReadInt32();
             if(reader.ReadBoolean())
                 PokemonName = reader.ReadString();
             if(reader.ReadBoolean())
                 SmallSpritePath = reader.ReadString();
+            if (reader.ReadBoolean())
+                CapturedPokemon = reader.ReadString();
         }
 
         //TODO: Take rid with it
         #region Temp Server Detour
-
-        internal static void writeDetour(int id, string name, string icon)
+        [Obsolete]
+        internal static void writeDetour_old(int id, string name, string icon)
         {
             det_PokemonNPC = id;
             det_PokemonName = name;
             det_SmallSpritePath = icon;
         }
+
+        internal static void writeDetour(string type, string name, string icon)
+        {
+            det_CapturedPokemon = type;
+            det_PokemonName = name;
+            det_SmallSpritePath = icon;
+        }
+
+        internal static string det_CapturedPokemon;
         internal static int det_PokemonNPC;
         internal static string det_PokemonName;
         internal static string det_SmallSpritePath;

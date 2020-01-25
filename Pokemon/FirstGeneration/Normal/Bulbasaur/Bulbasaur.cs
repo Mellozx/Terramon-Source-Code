@@ -1,3 +1,4 @@
+using System;
 using Terramon.Players;
 using Terraria;
 
@@ -5,6 +6,10 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
 {
     public class Bulbasaur : ParentPokemon
     {
+        public override int EvolveCost => 11;
+
+        public override Type EvolveTo => typeof(Ivysaur.Ivysaur);
+
         public override void SetDefaults()
         {
             base.SetDefaults();
