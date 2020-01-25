@@ -29,6 +29,7 @@ namespace Terramon.Players
 		public int premierBallRewardCounter = 0;
 
         public bool pikachuPet = false;
+        public bool raichuPet = false;
         public bool bulbasaurPet = false;
         public bool ivysaurPet = false;
 		public bool venusaurPet = false;
