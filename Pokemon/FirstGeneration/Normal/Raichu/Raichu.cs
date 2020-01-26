@@ -1,7 +1,7 @@
 using Terramon.Players;
 using Terraria;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal.
+namespace Terramon.Pokemon.FirstGeneration.Normal.Raichu
 
 {
     public class Raichu : ParentPokemon
@@ -21,9 +21,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             if (player.dead)
             {
-                modPlayer.RaichuPet = false;
+                modPlayer.raichuPet = false;
             }
-            if (modPlayer.RaichuPet)
+            if (modPlayer.raichuPet)
             {
                 projectile.timeLeft = 2;
             }

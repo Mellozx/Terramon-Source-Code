@@ -20,7 +20,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Raichu
 
             player.buffTime[buffIndex] = 40000;
             TerramonPlayer modPlayer = (TerramonPlayer)player.GetModPlayer(mod, "TerramonPlayer");
-            modPlayer.RaichuPet = true;
+            modPlayer.raichuPet = true;
             bool petProjectileNotSpawned = true;
             if (player.ownedProjectileCounts[mod.ProjectileType("Raichu")] > 0)
             {
