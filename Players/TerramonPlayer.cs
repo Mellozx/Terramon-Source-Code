@@ -63,7 +63,8 @@ namespace Terramon.Players
         public bool dragonairPet = false;
         public bool dragonitePet = false;
         public bool shinyMewPet = false;  
-        public bool shinyEeveePet = false;  
+        public bool shinyEeveePet = false;
+        public bool baPet1 = false;
         public bool piersPet = false;
 
         public int pkBallsThrown = 0;
