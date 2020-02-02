@@ -158,6 +158,7 @@ namespace Terramon
             _partySlots.SetState(null);
             PartySlots = null;
             pokemonStore = null;
+            wildPokemonStore = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)
@@ -349,11 +350,24 @@ namespace Terramon
             return null;
         }
 
+        public static ParentPokemonNPC GetWildPokemon(string monName)
+        {
+            if (monName == null)
+            {
+                return null;
+            }
+            if (Instance.pokemonStore != null && Instance.pokemonStore.ContainsKey(monName))
+            {
+                return Instance.wildPokemonStore[monName];
+            }
+            return null;
+        }
+
         private Dictionary<string, ParentPokemon> pokemonStore;
+        private Dictionary<string, ParentPokemonNPC> wildPokemonStore;
         private void LoadPokemons()
         {
             pokemonStore = new Dictionary<string, ParentPokemon>();
-
             foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
             {
                 if (it.IsAbstract)
@@ -380,6 +394,45 @@ namespace Terramon
                     try
                     {
                         pokemonStore.Add(it.Name, (ParentPokemon) Activator.CreateInstance(it));
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error(
+                            "Exception caught in Events register loop. Report mod author with related stacktrace: \n" +
+                            $"{e.Message}\n" +
+                            $"{e.StackTrace}\n");
+                    }
+            }
+
+            wildPokemonStore = new Dictionary<string, ParentPokemonNPC>();
+            foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
+            {
+                if (it.IsAbstract)
+                    continue;
+                bool valid = false;
+                if (it.BaseType == typeof(ParentPokemonNPC))
+                    valid = true;
+                else
+                {
+                    //Recurrent seek for our class
+                    var baseType = it.BaseType;
+                    while (baseType != null && baseType != typeof(object))
+                    {
+                        if (baseType == typeof(ParentPokemonNPC))
+                        {
+                            valid = true;
+                            break;
+                        }
+                        baseType = baseType.BaseType;
+                    }
+                }
+
+                if (valid)
+                    try
+                    {
+                        //We register wild mon and captured mon with same name
+                        var inst = (ParentPokemonNPC) Activator.CreateInstance(it);
+                        wildPokemonStore.Add(inst.HomeClass().Name, inst);
                     }
                     catch (Exception e)
                     {
