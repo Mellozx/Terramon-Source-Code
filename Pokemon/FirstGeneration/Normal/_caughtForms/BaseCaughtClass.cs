@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using log4net.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terramon.Items.Pokeballs.Thrown;
@@ -11,13 +12,14 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terramon.Pokemon.FirstGeneration.Normal.Charmander;
+using Terramon.Pokemon.Moves;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
     public abstract class BaseCaughtClass : ModItem
     {
         /// <summary>
-        /// I think this is not needed. I we want to store what mon are here
+        /// I think this is not needed. I want  to store what mon are here
         /// we better need to store a type string <see cref="nameof(Charmander)"/>
         /// </summary>
         public int PokemonNPC;
@@ -25,6 +27,10 @@ namespace Terramon.Items.Pokeballs.Inventory
         public string PokemonName;
         public string SmallSpritePath;
         public int PartySlotNumber;
+        public int Level = 1;
+        public int Exp = 0;
+
+        public List<BaseMove> Moves;
 
         public override bool CloneNewInstances => true;
 
@@ -48,6 +54,8 @@ namespace Terramon.Items.Pokeballs.Inventory
 
             item.rare = 0;
 
+            //I'l made a moves registry like i do it with mons after we done
+            Moves = new List<BaseMove>(4);
 
             //Detour handle
             if (Main.netMode != NetmodeID.Server || det_CapturedPokemon == null)
@@ -179,6 +187,8 @@ namespace Terramon.Items.Pokeballs.Inventory
                 [nameof(SmallSpritePath)] = SmallSpritePath, // what do i do here
                 //v2
                 [nameof(CapturedPokemon)] = CapturedPokemon,
+                [nameof(Level)] = Level,
+                [nameof(Exp)] = Exp,
             };
         }
         public override void Load(TagCompound tag)
@@ -188,6 +198,8 @@ namespace Terramon.Items.Pokeballs.Inventory
             SmallSpritePath = tag.GetString(nameof(SmallSpritePath));
             //v2
             CapturedPokemon = tag.ContainsKey(nameof(CapturedPokemon)) ? tag.GetString(nameof(CapturedPokemon)) : PokemonName;
+            Level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
+            Exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -217,6 +229,8 @@ namespace Terramon.Items.Pokeballs.Inventory
             }
             else
                 writer.Write(false);
+            writer.Write(Level);
+            writer.Write(Exp);
         }
 
         public override void NetRecieve(BinaryReader reader)
@@ -227,7 +241,12 @@ namespace Terramon.Items.Pokeballs.Inventory
             if(reader.ReadBoolean())
                 SmallSpritePath = reader.ReadString();
             if (reader.ReadBoolean())
+            {
                 CapturedPokemon = reader.ReadString();
+            }
+
+            Level = reader.ReadInt32();
+            Exp = reader.ReadInt32();
         }
 
         //TODO: Take rid with it
@@ -240,17 +259,20 @@ namespace Terramon.Items.Pokeballs.Inventory
             det_SmallSpritePath = icon;
         }
 
-        internal static void writeDetour(string type, string name, string icon)
+        internal static void writeDetour(string type, string name, string icon, int lvl = 1)
         {
             det_CapturedPokemon = type;
             det_PokemonName = name;
             det_SmallSpritePath = icon;
+            det_Lvl = lvl;
         }
 
         internal static string det_CapturedPokemon;
         internal static int det_PokemonNPC;
         internal static string det_PokemonName;
         internal static string det_SmallSpritePath;
+        internal static int det_Lvl;
+
         #endregion
 
     }
