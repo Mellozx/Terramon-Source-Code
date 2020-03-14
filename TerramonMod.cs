@@ -16,6 +16,7 @@ using Terramon.Network.Catching;
 using Terramon.Network.Starter;
 using Terramon.Pokemon;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
+using Terramon.UI.Moveset;
 
 namespace Terramon
 {
@@ -35,6 +36,7 @@ namespace Terramon
 
         // UI SIDEBAR //
         internal UISidebar UISidebar;
+        internal Moves Moves;
         public PartySlots PartySlots { get; private set; }
 
         // UI SIDEBAR //
@@ -47,6 +49,7 @@ namespace Terramon
         private UserInterface PokegearUserInterfaceNew;
         private UserInterface evolveUserInterfaceNew;// Pokegear Events Menu
         private UserInterface _uiSidebar;
+        private UserInterface _moves;
         public UserInterface _partySlots;
 
         public static ModHotKey PartyCycle;
@@ -117,6 +120,8 @@ namespace Terramon
                 evolveUI.Activate();
                 UISidebar = new UISidebar();
                 UISidebar.Activate();
+                Moves = new Moves();
+                Moves.Activate();
                 PartySlots = new PartySlots();
                 PartySlots.Activate();
                 _exampleUserInterface = new UserInterface();
@@ -124,6 +129,7 @@ namespace Terramon
                 PokegearUserInterfaceNew = new UserInterface();
                 evolveUserInterfaceNew = new UserInterface();
                 _uiSidebar = new UserInterface();
+                _moves = new UserInterface();
                 _partySlots = new UserInterface();
             
 
@@ -133,6 +139,7 @@ namespace Terramon
                 PokegearUserInterfaceNew.SetState(PokegearUIEvents); // Pokegear Events Menu
                 evolveUserInterfaceNew.SetState(evolveUI);
                 _uiSidebar.SetState(UISidebar);
+                _moves.SetState(Moves);
                 _partySlots.SetState(PartySlots);
             }
 
@@ -140,10 +147,10 @@ namespace Terramon
             if (Main.dedServ)
                 return;
 
-            FirstPKMAbility = this.RegisterHotKey("First Pokémon Ability", Keys.Z.ToString());
-            SecondPKMAbility = this.RegisterHotKey("Second Pokémon Ability", Keys.X.ToString());
-            ThirdPKMAbility = this.RegisterHotKey("Third Pokémon Ability", Keys.C.ToString());
-            FourthPKMAbility = this.RegisterHotKey("Fourth Pokémon Ability", Keys.V.ToString());
+            FirstPKMAbility = this.RegisterHotKey("First Pokémon Move", Keys.Z.ToString());
+            SecondPKMAbility = this.RegisterHotKey("Second Pokémon Move", Keys.X.ToString());
+            ThirdPKMAbility = this.RegisterHotKey("Third Pokémon Move", Keys.C.ToString());
+            FourthPKMAbility = this.RegisterHotKey("Fourth Pokémon Move", Keys.V.ToString());
 
             PartyCycle = RegisterHotKey("Quick Spawn First Party Pokémon", Keys.RightAlt.ToString());
         }
@@ -157,6 +164,7 @@ namespace Terramon
             evolveUserInterfaceNew.SetState(null);
             _uiSidebar.SetState(null);
             _partySlots.SetState(null);
+            _moves.SetState(null);
             PartySlots = null;
             pokemonStore = null;
             wildPokemonStore = null;
@@ -211,6 +219,10 @@ namespace Terramon
             {
                 _uiSidebar?.Update(gameTime);
             }
+            if (Moves.Visible)
+            {
+                _moves?.Update(gameTime);
+            }
             if (PartySlots.Visible)
             {
                 _partySlots?.Update(gameTime);
@@ -258,6 +270,10 @@ namespace Terramon
                         if (UISidebar.Visible)
                         {
                             _uiSidebar.Draw(Main.spriteBatch, new GameTime());
+                        }
+                        if (Moves.Visible)
+                        {
+                            _moves.Draw(Main.spriteBatch, new GameTime());
                         }
                         if (PartySlots.Visible)
                         {
