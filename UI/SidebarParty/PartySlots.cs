@@ -130,10 +130,69 @@ namespace Terramon.UI.SidebarParty
 
 
 
-            // As a recap, ExampleUI is a UIState, meaning it covers the whole screen. We attach mainPanel to ExampleUI some distance from the top left corner.
-            // We then place playButton, closeButton, and moneyDiplay onto mainPanel so we can easily place these UIElements relative to mainPanel.
-            // Since mainPanel will move, this proper organization will move playButton, closeButton, and moneyDiplay properly when mainPanel moves.
+
         }
+
+        private string  old_1 = "*", old_2 = "*", old_3 = "*", old_4 = "*", old_5 = "*", old_6 = "*";
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (partyslot1.Item.IsAir && old_1 != "*")
+            {
+                SaveButtonClicked(null, null);
+            }
+            else if (partyslot1.Item.modItem != null && ((BaseCaughtClass)partyslot1.Item.modItem).PokemonName != old_1)
+            {
+                 SaveButtonClicked(null, null);
+            }
+
+            if (partyslot2.Item.IsAir && old_2 != "*")
+            {
+                SaveButtonClicked(null, null);
+            }
+            else if (partyslot2.Item.modItem != null && ((BaseCaughtClass)partyslot2.Item.modItem).PokemonName != old_2)
+            {
+                SaveButtonClicked(null, null);
+            }
+
+            if (partyslot3.Item.IsAir && old_3 != "*")
+            {
+                SaveButtonClicked(null, null);
+            }
+            else if (partyslot3.Item.modItem != null && ((BaseCaughtClass)partyslot3.Item.modItem).PokemonName != old_3)
+            {
+                SaveButtonClicked(null, null);
+            }
+
+            if (partyslot4.Item.IsAir && old_4 != "*")
+            {
+                SaveButtonClicked(null, null);
+            }
+            else if (partyslot4.Item.modItem != null && ((BaseCaughtClass)partyslot4.Item.modItem).PokemonName != old_4)
+            {
+                SaveButtonClicked(null, null);
+            }
+
+            if (partyslot5.Item.IsAir && old_5 != "*")
+            {
+                SaveButtonClicked(null, null);
+            }
+            else if (partyslot5.Item.modItem != null && ((BaseCaughtClass)partyslot5.Item.modItem).PokemonName != old_5)
+            {
+                SaveButtonClicked(null, null);
+            }
+
+            if (partyslot6.Item.IsAir && old_6 != "*")
+            {
+                SaveButtonClicked(null, null);
+            }
+            else if (partyslot6.Item.modItem != null && ((BaseCaughtClass)partyslot6.Item.modItem).PokemonName != old_6)
+            {
+                SaveButtonClicked(null, null);
+            }
+        }
+
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             Main.PlaySound(SoundID.MenuOpen);
@@ -151,6 +210,7 @@ namespace Terramon.UI.SidebarParty
             if (partyslot1.Item.IsAir)
             {
                 modPlayer.firstslotname = "*";
+                modPlayer.PartySlot1 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn.Recalculate();
@@ -158,6 +218,7 @@ namespace Terramon.UI.SidebarParty
             if (partyslot2.Item.IsAir)
             {
                 modPlayer.secondslotname = "*";
+                modPlayer.PartySlot2 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn.Recalculate();
@@ -165,6 +226,7 @@ namespace Terramon.UI.SidebarParty
             if (partyslot3.Item.IsAir)
             {
                 modPlayer.thirdslotname = "*";
+                modPlayer.PartySlot3 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn.Recalculate();
@@ -172,6 +234,7 @@ namespace Terramon.UI.SidebarParty
             if (partyslot4.Item.IsAir)
             {
                 modPlayer.fourthslotname = "*";
+                modPlayer.PartySlot4 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn.Recalculate();
@@ -179,6 +242,7 @@ namespace Terramon.UI.SidebarParty
             if (partyslot5.Item.IsAir)
             {
                 modPlayer.fifthslotname = "*";
+                modPlayer.PartySlot5 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn.Recalculate();
@@ -186,6 +250,7 @@ namespace Terramon.UI.SidebarParty
             if (partyslot6.Item.IsAir)
             {
                 modPlayer.sixthslotname = "*";
+                modPlayer.PartySlot6 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.Recalculate();
@@ -211,41 +276,54 @@ namespace Terramon.UI.SidebarParty
             if (partyslot1.Item.IsAir)
             {
                 modPlayer.firstslotname = "*";
+                old_1 = "*";
+                modPlayer.PartySlot1 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn.Recalculate();
+
             }
             if (partyslot2.Item.IsAir)
             {
                 modPlayer.secondslotname = "*";
+                old_2 = "*";
+                modPlayer.PartySlot2 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn.Recalculate();
             }
             if (partyslot3.Item.IsAir)
             {
+                old_3 = "*";
                 modPlayer.thirdslotname = "*";
+                modPlayer.PartySlot3 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn.Recalculate();
             }
             if (partyslot4.Item.IsAir)
             {
+                old_4 = "*";
                 modPlayer.fourthslotname = "*";
+                modPlayer.PartySlot4 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn.Recalculate();
             }
             if (partyslot5.Item.IsAir)
             {
+                old_5 = "*";
                 modPlayer.fifthslotname = "*";
+                modPlayer.PartySlot5 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn.Recalculate();
             }
             if (partyslot6.Item.IsAir)
             {
+                old_6 = "*";
                 modPlayer.sixthslotname = "*";
+                modPlayer.PartySlot6 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.SetImage(ModContent.GetTexture("Terraria/Item_0"));
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.Recalculate();
@@ -256,76 +334,57 @@ namespace Terramon.UI.SidebarParty
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass)partyslot1.Item.modItem;
                 modPlayer.firstslottype = pokeballCaught.PokemonNPC;
+                old_1 = pokeballCaught.PokemonName ;
                 modPlayer.firstslotname = pokeballCaught.PokemonName;
+                modPlayer.PartySlot1 = pokeballCaught.Save();
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
             {
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass)partyslot2.Item.modItem;
                 modPlayer.secondslottype = pokeballCaught.PokemonNPC;
+                old_2 = pokeballCaught.PokemonName;
                 modPlayer.secondslotname = pokeballCaught.PokemonName;
+                modPlayer.PartySlot2 = pokeballCaught.Save();
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
             {
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass)partyslot3.Item.modItem;
                 modPlayer.thirdslottype = pokeballCaught.PokemonNPC;
+                old_3 = pokeballCaught.PokemonName;
                 modPlayer.thirdslotname = pokeballCaught.PokemonName;
+                modPlayer.PartySlot3 = pokeballCaught.Save();
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
             {                
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass)partyslot4.Item.modItem;
                 modPlayer.fourthslottype = pokeballCaught.PokemonNPC;
+                old_4 = pokeballCaught.PokemonName;
                 modPlayer.fourthslotname = pokeballCaught.PokemonName;
+                modPlayer.PartySlot4 = pokeballCaught.Save();
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
             {
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass)partyslot5.Item.modItem;
                 modPlayer.fifthslottype = pokeballCaught.PokemonNPC;
+                old_5 = pokeballCaught.PokemonName;
                 modPlayer.fifthslotname = pokeballCaught.PokemonName;
+                modPlayer.PartySlot5 = pokeballCaught.Save();
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
             {
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass)partyslot6.Item.modItem;
                 modPlayer.sixthslottype = pokeballCaught.PokemonNPC;
+                old_6 = pokeballCaught.PokemonName;
                 modPlayer.sixthslotname = pokeballCaught.PokemonName;
+                modPlayer.PartySlot6 = pokeballCaught.Save();
             }
 
-            Main.NewText("Party Saved!");
-            //if (!partyslot1.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot1.Item, partyslot1.Item.stack);
-            //    partyslot1.Item.TurnToAir();
-            //}
-            //if (!partyslot2.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot2.Item, partyslot2.Item.stack);
-            //    partyslot2.Item.TurnToAir();
-            //}
-            //if (!partyslot3.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot3.Item, partyslot3.Item.stack);
-            //    partyslot3.Item.TurnToAir();
-            //}
-            //if (!partyslot4.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot4.Item, partyslot4.Item.stack);
-            //    partyslot4.Item.TurnToAir();
-            //}
-            //if (!partyslot5.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot5.Item, partyslot5.Item.stack);
-            //    partyslot5.Item.TurnToAir();
-            //}
-            //if (!partyslot6.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot6.Item, partyslot6.Item.stack);
-            //    partyslot6.Item.TurnToAir();
-            //}
-
+            //Main.NewText("Party Saved!");
         }
     }
 }

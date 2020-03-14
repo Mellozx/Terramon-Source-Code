@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Players;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -182,14 +183,20 @@ namespace Terramon.UI.SidebarParty
                 firstpkmn.OnClick -= new MouseEvent(Null);
                 firstpkmn.OnClick -= new MouseEvent(SpawnPKMN1);
                 firstpkmn.OnClick += new MouseEvent(SpawnPKMN1);
-                firstpkmn.HoverText = modPlayer.firstslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" + "\nLeft click to send out!";
+                firstpkmn.HoverText = modPlayer.firstslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
+                                      $"\nLVL: {modPlayer.PartySlot1.GetInt(nameof(BaseCaughtClass.Level))}" +
+                                      $"\nEXP: {modPlayer.PartySlot1.GetInt(nameof(BaseCaughtClass.Exp))}" +
+                                      $"\nLeft click to send out!";
                 firstpkmn.Recalculate();
             }
             if (modPlayer.secondslotname != "*")
             {
                 secondpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.secondslotname));
                 secondpkmn.test2 = secondpkmntexture;
-                secondpkmn.HoverText = modPlayer.secondslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" + "\nLeft click to send out!";
+                secondpkmn.HoverText = modPlayer.secondslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
+                                       $"\nLVL: {modPlayer.PartySlot2.GetInt(nameof(BaseCaughtClass.Level))}" +
+                                       $"\nEXP: {modPlayer.PartySlot2.GetInt(nameof(BaseCaughtClass.Exp))}" +
+                                       $"\nLeft click to send out!";
                 secondpkmn.OnClick -= new MouseEvent(Null);
                 secondpkmn.OnClick -= new MouseEvent(SpawnPKMN2);
                 secondpkmn.OnClick += new MouseEvent(SpawnPKMN2);
@@ -199,7 +206,10 @@ namespace Terramon.UI.SidebarParty
             {
                 thirdpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.thirdslotname));
                 thirdpkmn.test3 = thirdpkmntexture;
-                thirdpkmn.HoverText = modPlayer.thirdslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" + "\nLeft click to send out!";
+                thirdpkmn.HoverText = modPlayer.thirdslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
+                                      $"\nLVL: {modPlayer.PartySlot3.GetInt(nameof(BaseCaughtClass.Level))}" +
+                                      $"\nEXP: {modPlayer.PartySlot3.GetInt(nameof(BaseCaughtClass.Exp))}" +
+                                      $"\nLeft click to send out!";
                 thirdpkmn.OnClick -= new MouseEvent(Null);
                 thirdpkmn.OnClick -= new MouseEvent(SpawnPKMN3);
                 thirdpkmn.OnClick += new MouseEvent(SpawnPKMN3);
@@ -209,7 +219,10 @@ namespace Terramon.UI.SidebarParty
             {
                 fourthpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.fourthslotname));
                 fourthpkmn.test4 = fourthpkmntexture;
-                fourthpkmn.HoverText = modPlayer.fourthslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" + "\nLeft click to send out!";
+                fourthpkmn.HoverText = modPlayer.fourthslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
+                                       $"\nLVL: {modPlayer.PartySlot4.GetInt(nameof(BaseCaughtClass.Level))}" +
+                                       $"\nEXP: {modPlayer.PartySlot4.GetInt(nameof(BaseCaughtClass.Exp))}" +
+                                       $"\nLeft click to send out!";
                 fourthpkmn.OnClick -= new MouseEvent(Null);
                 fourthpkmn.OnClick -= new MouseEvent(SpawnPKMN4);
                 fourthpkmn.OnClick += new MouseEvent(SpawnPKMN4);
@@ -219,7 +232,10 @@ namespace Terramon.UI.SidebarParty
             {
                 fifthpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.fifthslotname));
                 fifthpkmn.test5 = fifthpkmntexture;
-                fifthpkmn.HoverText = modPlayer.fifthslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" + "\nLeft click to send out!";
+                fifthpkmn.HoverText = modPlayer.fifthslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
+                                      $"\nLVL: {modPlayer.PartySlot5.GetInt(nameof(BaseCaughtClass.Level))}" +
+                                      $"\nEXP: {modPlayer.PartySlot5.GetInt(nameof(BaseCaughtClass.Exp))}" +
+                                      $"\nLeft click to send out!"; 
                 fifthpkmn.OnClick -= new MouseEvent(Null);
                 fifthpkmn.OnClick -= new MouseEvent(SpawnPKMN5);
                 fifthpkmn.OnClick += new MouseEvent(SpawnPKMN5);
@@ -229,7 +245,10 @@ namespace Terramon.UI.SidebarParty
             {
                 sixthpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.sixthslotname));
                 sixthpkmn.test6 = sixthpkmntexture;
-                sixthpkmn.HoverText = modPlayer.sixthslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" + "\nLeft click to send out!";
+                sixthpkmn.HoverText = modPlayer.sixthslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
+                                      $"\nLVL: {modPlayer.PartySlot6.GetInt(nameof(BaseCaughtClass.Level))}" +
+                                      $"\nEXP: {modPlayer.PartySlot6.GetInt(nameof(BaseCaughtClass.Exp))}" +
+                                      $"\nLeft click to send out!";
                 sixthpkmn.OnClick -= new MouseEvent(Null);
                 sixthpkmn.OnClick -= new MouseEvent(SpawnPKMN6);
                 sixthpkmn.OnClick += new MouseEvent(SpawnPKMN6);

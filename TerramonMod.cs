@@ -301,30 +301,111 @@ namespace Terramon
 
         #endregion
 
-        public static int GetPokeballType(ModItem item)
+
+        /// <summary>
+        /// Class used to save pokeball rarity when manipulating
+        /// items data;
+        /// </summary>
+        public static class PokeballFactory
         {
-            if (item is PokeballCaught)
+            public enum Pokebals : byte
             {
-                return ModContent.ItemType<PokeballCaught>();
+                Nothing = 0,
+                Pokeball,
+                GreatBall,
+                UltraBall,
+                DuskBall,
+                PremierBall,
             }
-            if (item is GreatBallCaught)
+
+            /// <summary>
+            /// Return type id for provided pokeball.
+            /// Mostly used for loading from saves
+            /// </summary>
+            /// <param name="item">Byte enum of save pokeball</param>
+            /// <returns>Return item id or 0 if this is not a pokeball</returns>
+            public static int GetPokeballType(Pokebals item)
             {
-                return ModContent.ItemType<GreatBallCaught>();
+                switch (item)
+                {
+                    case Pokebals.Pokeball:
+                        return ModContent.ItemType<PokeballCaught>();
+                    case Pokebals.GreatBall:
+                        return ModContent.ItemType<GreatBallCaught>();
+                    case Pokebals.UltraBall:
+                        return ModContent.ItemType<UltraBallCaught>();
+                    case Pokebals.DuskBall:
+                        return ModContent.ItemType<DuskBallCaught>();
+                    case Pokebals.PremierBall:
+                        return ModContent.ItemType<PremierBallCaught>();
+                    default:
+                        return 0;
+                }
             }
-            if (item is UltraBallCaught)
+
+            /// <summary>
+            /// Return enum byte for provided item.
+            /// Mostly used for saving
+            /// </summary>
+            /// <param name="item">ModItem of item</param>
+            /// <returns>Return byte enum or <see cref="Pokebals.Nothing"/>
+            /// if provided item is not a pokeball</returns>
+            public static Pokebals GetEnum(ModItem item)
             {
-                return ModContent.ItemType<UltraBallCaught>();
+                if (item is PokeballCaught)
+                {
+                    return Pokebals.Pokeball;
+                }
+                if (item is GreatBallCaught)
+                {
+                    return Pokebals.GreatBall;
+                }
+                if (item is UltraBallCaught)
+                {
+                    return Pokebals.UltraBall;
+                }
+                if (item is DuskBallCaught)
+                {
+                    return Pokebals.DuskBall;
+                }
+                if (item is PremierBallCaught)
+                {
+                    return Pokebals.PremierBall;
+                }
+                return Pokebals.Nothing;
             }
-            if (item is DuskBallCaught)
+
+            /// <summary>
+            /// Return item type id from provided pokeball
+            /// </summary>
+            /// <param name="item">ModItem of item</param>
+            /// <returns>Return item id or 0 if this is not a pokeball</returns>
+            public static int GetPokeballType(ModItem item)
             {
-                return ModContent.ItemType<DuskBallCaught>();
+                if (item is PokeballCaught)
+                {
+                    return ModContent.ItemType<PokeballCaught>();
+                }
+                if (item is GreatBallCaught)
+                {
+                    return ModContent.ItemType<GreatBallCaught>();
+                }
+                if (item is UltraBallCaught)
+                {
+                    return ModContent.ItemType<UltraBallCaught>();
+                }
+                if (item is DuskBallCaught)
+                {
+                    return ModContent.ItemType<DuskBallCaught>();
+                }
+                if (item is PremierBallCaught)
+                {
+                    return ModContent.ItemType<PremierBallCaught>();
+                }
+                return 0;
             }
-            if (item is PremierBallCaught)
-            {
-                return ModContent.ItemType<PremierBallCaught>();
-            }
-            return 0;
         }
+
 
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)

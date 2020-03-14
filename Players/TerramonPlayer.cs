@@ -75,6 +75,150 @@ namespace Terramon.Players
         public int Language = 1;
         public int ItemNameColors = 1;
 
+        private TagCompound _partySlot1 = null;
+        private TagCompound _partySlot2 = null;
+        private TagCompound _partySlot3 = null;
+        private TagCompound _partySlot4 = null;
+        private TagCompound _partySlot5 = null;
+        private TagCompound _partySlot6 = null;
+        public TagCompound PartySlot1
+        {
+            get { return _partySlot1; }
+            set
+            {
+                _partySlot1 = value;
+                if (value == null)
+                {
+                    ((TerramonMod)mod).PartySlots.partyslot1.Item.TurnToAir();
+                    return;
+                }
+
+                if (!((TerramonMod) mod).PartySlots?.partyslot1?.Item?.IsAir ?? false)
+                {
+                    //We need to update data inside item
+                    var modItem = ((TerramonMod) mod).PartySlots.partyslot1.Item.modItem;
+                    if (modItem != null && modItem.item != null && modItem.item.active)
+                    {
+                        modItem.Load(value);
+                    }
+                }
+            }
+        }
+        public TagCompound PartySlot2
+        {
+            get { return _partySlot2; }
+            set
+            {
+                _partySlot2 = value;
+                if (value == null)
+                {
+                    ((TerramonMod)mod).PartySlots.partyslot2.Item.TurnToAir();
+                    return;
+                }
+
+                if (!((TerramonMod)mod).PartySlots?.partyslot2?.Item?.IsAir ?? false)
+                {
+                    //We need to update data inside item
+                    var modItem = ((TerramonMod)mod).PartySlots.partyslot2.Item.modItem;
+                    if (modItem != null && modItem.item != null && modItem.item.active)
+                    {
+                        modItem.Load(value);
+                    }
+                }
+            }
+        }
+        public TagCompound PartySlot3
+        {
+            get { return _partySlot3; }
+            set
+            {
+                _partySlot3 = value;
+                if (value == null)
+                {
+                    ((TerramonMod)mod).PartySlots.partyslot3.Item.TurnToAir();
+                    return;
+                }
+
+                if (!((TerramonMod)mod).PartySlots?.partyslot3?.Item?.IsAir ?? false)
+                {
+                    //We need to update data inside item
+                    var modItem = ((TerramonMod)mod).PartySlots.partyslot3.Item.modItem;
+                    if (modItem != null && modItem.item != null && modItem.item.active)
+                    {
+                        modItem.Load(value);
+                    }
+                }
+            }
+        }
+        public TagCompound PartySlot4
+        {
+            get { return _partySlot4; }
+            set
+            {
+                _partySlot4 = value;
+                if (value == null)
+                {
+                    ((TerramonMod)mod).PartySlots.partyslot4.Item.TurnToAir();
+                    return;
+                }
+
+                if (!((TerramonMod)mod).PartySlots?.partyslot4?.Item?.IsAir ?? false)
+                {
+                    //We need to update data inside item
+                    var modItem = ((TerramonMod)mod).PartySlots.partyslot4.Item.modItem;
+                    if (modItem != null && modItem.item != null && modItem.item.active)
+                    {
+                        modItem.Load(value);
+                    }
+                }
+            }
+        }
+        public TagCompound PartySlot5
+        {
+            get { return _partySlot5; }
+            set
+            {
+                _partySlot5 = value;
+                if (value == null)
+                {
+                    ((TerramonMod)mod).PartySlots.partyslot5.Item.TurnToAir();
+                    return;
+                }
+                if (!((TerramonMod)mod).PartySlots?.partyslot5?.Item?.IsAir ?? false)
+                {
+                    //We need to update data inside item
+                    var modItem = ((TerramonMod)mod).PartySlots.partyslot5.Item.modItem;
+                    if (modItem != null && modItem.item != null && modItem.item.active)
+                    {
+                        modItem.Load(value);
+                    }
+                }
+            }
+        }
+        public TagCompound PartySlot6
+        {
+            get { return _partySlot6; }
+            set
+            {
+                _partySlot6 = value;
+                if (value == null)
+                {
+                    ((TerramonMod)mod).PartySlots.partyslot6.Item.TurnToAir();
+                    return;
+                }
+                if (!((TerramonMod)mod).PartySlots?.partyslot6?.Item?.IsAir ?? false)
+                {
+                    //We need to update data inside item
+                    var modItem = ((TerramonMod)mod).PartySlots.partyslot6.Item.modItem;
+                    if (modItem != null && modItem.item != null && modItem.item.active)
+                    {
+                        modItem.Load(value);
+                    }
+                }
+            }
+        }
+
+
         public int firstslottype = 1;
         public string firstslotname = "*";    
         public int secondslottype = 1;
@@ -153,6 +297,21 @@ namespace Terramon.Players
             return ChooseStarter.Visible;
         }
 
+        private void LoadPartySlot(Item modItem, TagCompound value)
+        {
+            //var modItem = ((TerramonMod)mod).PartySlots.partyslot1.Item.modItem;
+            var en = (TerramonMod.PokeballFactory.Pokebals) value.GetByte(BaseCaughtClass.POKEBAL_PROPERTY);
+            if (en == 0)
+            {
+                modItem.TurnToAir();
+            }
+            else
+            {
+                modItem.SetDefaults(TerramonMod.PokeballFactory.GetPokeballType(en));
+                modItem.modItem.Load(value);
+            }
+        }
+
         public override void OnEnterWorld(Player player)
         {
             Mod leveledMod = ModLoader.GetMod("Leveled");
@@ -166,30 +325,24 @@ namespace Terramon.Players
                 Main.NewText("Terramon is not compatible with the 'Terraria Overhaul' mod, which is currently enabled. To prevent mod-breaking bugs, please disable one or the other.", 245, 46, 24, false);
             }
             PartySlots partySlots = ModContent.GetInstance<TerramonMod>().PartySlots;
-            //if (!partySlots.partyslot1.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot1.Item);
-            //}
-            //if (!partySlots.partyslot2.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot2.Item);
-            //}
-            //if (!partySlots.partyslot3.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot3.Item);
-            //}
-            //if (!partySlots.partyslot4.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot4.Item);
-            //}
-            //if (!partySlots.partyslot5.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot5.Item);
-            //}
-            //if (!partySlots.partyslot6.Item.IsAir)
-            //{
-            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot6.Item);
-            //}
+
+            //TODO: Override sidebarUI here
+            if(PartySlot1 != null)
+                LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot1.Item, PartySlot1);
+            if (PartySlot2 != null)
+                LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot2.Item, PartySlot2);
+            if (PartySlot3 != null)
+                LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot3.Item, PartySlot3);
+            if (PartySlot4 != null)
+                LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot4.Item, PartySlot4);
+            if (PartySlot5 != null)
+                LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot5.Item, PartySlot5);
+            if (PartySlot6 != null)
+                LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot6.Item, PartySlot6);
+
+            //Running one update to load sidebar without requiring to open inv
+            ((TerramonMod)mod)._partySlots.Update(new GameTime(TimeSpan.Zero, TimeSpan.Zero));
+
             if (StarterChosen == false)
             {
                 ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarter());
@@ -466,10 +619,35 @@ namespace Terramon.Players
             
             TagCompound tag = new TagCompound()
             {
-                [nameof(StarterChosen)] = StarterChosen
-                
+                [nameof(StarterChosen)] = StarterChosen,
             };
-            
+
+            if (PartySlot1 != null && PartySlot1.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
+            {
+                tag.Add(nameof(PartySlot1), PartySlot1);
+            }
+            if (PartySlot2 != null && PartySlot2.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
+            {
+                tag.Add(nameof(PartySlot2), PartySlot2);
+            }
+            if (PartySlot3 != null && PartySlot3.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
+            {
+                tag.Add(nameof(PartySlot3), PartySlot3);
+            }
+            if (PartySlot4 != null && PartySlot4.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
+            {
+                tag.Add(nameof(PartySlot4), PartySlot4);
+            }
+            if (PartySlot5 != null && PartySlot5.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
+            {
+                tag.Add(nameof(PartySlot5), PartySlot5);
+            }
+            if (PartySlot6 != null && PartySlot6.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
+            {
+                tag.Add(nameof(PartySlot6), PartySlot6);
+            }
+
+
 
             SavePokeballs(tag);
 
@@ -479,8 +657,12 @@ namespace Terramon.Players
         public override void Load(TagCompound tag)
         {
             StarterChosen = tag.GetBool(nameof(StarterChosen));
-            
-
+            PartySlot1 = tag.ContainsKey(nameof(PartySlot1)) ? tag.GetCompound(nameof(PartySlot1)) : null;
+            PartySlot2 = tag.ContainsKey(nameof(PartySlot2)) ? tag.GetCompound(nameof(PartySlot2)) : null;
+            PartySlot3 = tag.ContainsKey(nameof(PartySlot3)) ? tag.GetCompound(nameof(PartySlot3)) : null;
+            PartySlot4 = tag.ContainsKey(nameof(PartySlot4)) ? tag.GetCompound(nameof(PartySlot4)) : null;
+            PartySlot5 = tag.ContainsKey(nameof(PartySlot5)) ? tag.GetCompound(nameof(PartySlot5)) : null;
+            PartySlot6 = tag.ContainsKey(nameof(PartySlot6)) ? tag.GetCompound(nameof(PartySlot6)) : null;
             LoadPokeballs(tag);
         }
 

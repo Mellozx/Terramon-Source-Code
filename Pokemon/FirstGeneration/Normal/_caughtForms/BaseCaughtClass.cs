@@ -176,6 +176,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             }
         }
 
+        public const string POKEBAL_PROPERTY = "PokebalType";
         public override TagCompound Save()
         {
             return new TagCompound
@@ -189,6 +190,8 @@ namespace Terramon.Items.Pokeballs.Inventory
                 [nameof(CapturedPokemon)] = CapturedPokemon,
                 [nameof(Level)] = Level,
                 [nameof(Exp)] = Exp,
+                //Used to restore items in sidebarUI
+                [POKEBAL_PROPERTY] = (byte)TerramonMod.PokeballFactory.GetEnum(this),
             };
         }
         public override void Load(TagCompound tag)
