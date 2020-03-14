@@ -15,6 +15,7 @@ using System.Reflection;
 using Terramon.Network.Catching;
 using Terramon.Network.Starter;
 using Terramon.Pokemon;
+using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terramon.UI.Moveset;
 
 namespace Terramon
@@ -166,6 +167,7 @@ namespace Terramon
             _moves.SetState(null);
             PartySlots = null;
             pokemonStore = null;
+            wildPokemonStore = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)
@@ -315,6 +317,113 @@ namespace Terramon
 
         #endregion
 
+
+        /// <summary>
+        /// Class used to save pokeball rarity when manipulating
+        /// items data;
+        /// </summary>
+        public static class PokeballFactory
+        {
+            public enum Pokebals : byte
+            {
+                Nothing = 0,
+                Pokeball,
+                GreatBall,
+                UltraBall,
+                DuskBall,
+                PremierBall,
+            }
+
+            /// <summary>
+            /// Return type id for provided pokeball.
+            /// Mostly used for loading from saves
+            /// </summary>
+            /// <param name="item">Byte enum of save pokeball</param>
+            /// <returns>Return item id or 0 if this is not a pokeball</returns>
+            public static int GetPokeballType(Pokebals item)
+            {
+                switch (item)
+                {
+                    case Pokebals.Pokeball:
+                        return ModContent.ItemType<PokeballCaught>();
+                    case Pokebals.GreatBall:
+                        return ModContent.ItemType<GreatBallCaught>();
+                    case Pokebals.UltraBall:
+                        return ModContent.ItemType<UltraBallCaught>();
+                    case Pokebals.DuskBall:
+                        return ModContent.ItemType<DuskBallCaught>();
+                    case Pokebals.PremierBall:
+                        return ModContent.ItemType<PremierBallCaught>();
+                    default:
+                        return 0;
+                }
+            }
+
+            /// <summary>
+            /// Return enum byte for provided item.
+            /// Mostly used for saving
+            /// </summary>
+            /// <param name="item">ModItem of item</param>
+            /// <returns>Return byte enum or <see cref="Pokebals.Nothing"/>
+            /// if provided item is not a pokeball</returns>
+            public static Pokebals GetEnum(ModItem item)
+            {
+                if (item is PokeballCaught)
+                {
+                    return Pokebals.Pokeball;
+                }
+                if (item is GreatBallCaught)
+                {
+                    return Pokebals.GreatBall;
+                }
+                if (item is UltraBallCaught)
+                {
+                    return Pokebals.UltraBall;
+                }
+                if (item is DuskBallCaught)
+                {
+                    return Pokebals.DuskBall;
+                }
+                if (item is PremierBallCaught)
+                {
+                    return Pokebals.PremierBall;
+                }
+                return Pokebals.Nothing;
+            }
+
+            /// <summary>
+            /// Return item type id from provided pokeball
+            /// </summary>
+            /// <param name="item">ModItem of item</param>
+            /// <returns>Return item id or 0 if this is not a pokeball</returns>
+            public static int GetPokeballType(ModItem item)
+            {
+                if (item is PokeballCaught)
+                {
+                    return ModContent.ItemType<PokeballCaught>();
+                }
+                if (item is GreatBallCaught)
+                {
+                    return ModContent.ItemType<GreatBallCaught>();
+                }
+                if (item is UltraBallCaught)
+                {
+                    return ModContent.ItemType<UltraBallCaught>();
+                }
+                if (item is DuskBallCaught)
+                {
+                    return ModContent.ItemType<DuskBallCaught>();
+                }
+                if (item is PremierBallCaught)
+                {
+                    return ModContent.ItemType<PremierBallCaught>();
+                }
+                return 0;
+            }
+        }
+
+
+
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
             //In case i f*ck the code
@@ -365,11 +474,24 @@ namespace Terramon
             return null;
         }
 
+        public static ParentPokemonNPC GetWildPokemon(string monName)
+        {
+            if (monName == null)
+            {
+                return null;
+            }
+            if (Instance.pokemonStore != null && Instance.pokemonStore.ContainsKey(monName))
+            {
+                return Instance.wildPokemonStore[monName];
+            }
+            return null;
+        }
+
         private Dictionary<string, ParentPokemon> pokemonStore;
+        private Dictionary<string, ParentPokemonNPC> wildPokemonStore;
         private void LoadPokemons()
         {
             pokemonStore = new Dictionary<string, ParentPokemon>();
-
             foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
             {
                 if (it.IsAbstract)
@@ -396,6 +518,45 @@ namespace Terramon
                     try
                     {
                         pokemonStore.Add(it.Name, (ParentPokemon) Activator.CreateInstance(it));
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error(
+                            "Exception caught in Events register loop. Report mod author with related stacktrace: \n" +
+                            $"{e.Message}\n" +
+                            $"{e.StackTrace}\n");
+                    }
+            }
+
+            wildPokemonStore = new Dictionary<string, ParentPokemonNPC>();
+            foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
+            {
+                if (it.IsAbstract)
+                    continue;
+                bool valid = false;
+                if (it.BaseType == typeof(ParentPokemonNPC))
+                    valid = true;
+                else
+                {
+                    //Recurrent seek for our class
+                    var baseType = it.BaseType;
+                    while (baseType != null && baseType != typeof(object))
+                    {
+                        if (baseType == typeof(ParentPokemonNPC))
+                        {
+                            valid = true;
+                            break;
+                        }
+                        baseType = baseType.BaseType;
+                    }
+                }
+
+                if (valid)
+                    try
+                    {
+                        //We register wild mon and captured mon with same name
+                        var inst = (ParentPokemonNPC) Activator.CreateInstance(it);
+                        wildPokemonStore.Add(inst.HomeClass().Name, inst);
                     }
                     catch (Exception e)
                     {

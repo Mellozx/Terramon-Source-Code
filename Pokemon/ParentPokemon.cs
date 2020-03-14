@@ -23,6 +23,8 @@ namespace Terramon.Pokemon
         /// </summary>
         public bool CanEvolve => EvolveTo != null && EvolveCost != 0;
 
+        public virtual PokemonType[] PokemonTypes => new []{PokemonType.Normal};
+
         private string iconName;
         public virtual string IconName => iconName ?? (iconName = $"Terramon/Minisprites/Regular/mini{GetType().Name}");
 
@@ -45,5 +47,30 @@ namespace Terramon.Pokemon
             player.zephyrfish = false; // Relic from aiType
             return true;
         }
+    }
+
+    public enum PokemonType
+    {
+        Bug,
+        Dark,
+        Dragon,
+        Electric,
+        Fight,
+        Fire,
+        Flying,
+        Ghost,
+        Grass,
+        Ground,
+        Ice,
+        Normal,
+        Poison,
+        Psyhcic,
+        Rock,
+        Steel,
+        Water,
+        Nuclear,
+        Light,
+        Machine,
+        Sound,
     }
 }

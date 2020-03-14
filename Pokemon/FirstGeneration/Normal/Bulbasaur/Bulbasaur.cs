@@ -10,6 +10,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
 
         public override Type EvolveTo => typeof(Ivysaur.Ivysaur);
 
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass, PokemonType.Poison };
+
         public override void SetDefaults()
         {
             base.SetDefaults();
