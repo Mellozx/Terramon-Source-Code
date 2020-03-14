@@ -22,7 +22,7 @@ namespace Terramon.Items.Pokeballs.Thrown
             projectile.penetrate = 1;
             projectile.timeLeft = 300;
 			projectile.light = 1f;
-			projectile.scale = 0.6f;
+			projectile.scale = 1f;
         }
 
 

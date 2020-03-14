@@ -48,7 +48,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             item.UseSound = SoundID.Item2;
             item.accessory = false;
             item.shoot = 10;
-            item.scale = 0.7f;
+            item.scale = 1f;
 
             item.noMelee = true;
 
@@ -85,13 +85,6 @@ namespace Terramon.Items.Pokeballs.Inventory
             Texture2D itemTexture = Main.itemTexture[item.type];
             spriteBatch.Draw(itemTexture, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0);
             spriteBatch.Draw(pokemonTexture, position + itemTexture.Size() * Main.inventoryScale - new Vector2(16, 16), pokemonTexture.Frame(), drawColor, 0f, pokemonTexture.Size() / 2f, Main.inventoryScale, SpriteEffects.None, 0);
-            return false;
-        }
-
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
-        {
-            Texture2D texture = Main.itemTexture[item.type];
-            spriteBatch.Draw(texture, item.Center - Main.screenPosition, null, lightColor, 0f, texture.Size() / 2f, item.scale, SpriteEffects.None, 0);
             return false;
         }
 
