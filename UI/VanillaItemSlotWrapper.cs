@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using MonoMod.Cil;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
@@ -19,6 +20,7 @@ namespace Terramon.UI
 		private readonly int _context;
 		private readonly float _scale;
 		internal Func<Item, bool> ValidItemFunc;
+        internal Action<Item> OnItemPlaced;
 
 		public VanillaItemSlotWrapper(int context = ItemSlot.Context.InventoryItem, float scale = 1f) {
 			_context = context;
@@ -40,6 +42,7 @@ namespace Terramon.UI
 				if (ValidItemFunc == null || ValidItemFunc(Main.mouseItem)) {
 					// Handle handles all the click and hover actions based on the context.
 					ItemSlot.Handle(ref Item, _context);
+					OnItemPlaced?.Invoke(Item);
 				}
 			}
 			// Draw draws the slot itself and Item. Depending on context, the color will change, as will drawing other things like stack counts.

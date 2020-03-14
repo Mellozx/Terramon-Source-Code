@@ -173,7 +173,9 @@ namespace Terramon.Items.Pokeballs.Inventory
             else
             {
                 Main.NewText("All Party Slots are full", 255, 240, 20, false);
+                return;
             }
+            ((TerramonMod)mod).PartySlots.UpdateUI(null);
         }
 
         public const string POKEBAL_PROPERTY = "PokebalType";
