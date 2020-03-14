@@ -14,7 +14,7 @@ namespace Terramon.Pokemon.Moves
         public virtual PokemonType MoveType { get; }
 		public abstract Target Target { get; }
 
-        public virtual bool PerformInWorld(ParentPokemon mon, NPC? target) => false;
+        public virtual bool PerformInWorld(ParentPokemon mon, NPC target) => false;
         public virtual bool PerformInBattle(ParentPokemon mon, ParentPokemon target) => false;
     }
 
@@ -23,6 +23,6 @@ namespace Terramon.Pokemon.Moves
         Self,
         Opponent,
         Party,
-        OpponentnParty,
+        OpponentParty,
     }
 }

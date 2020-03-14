@@ -15,6 +15,7 @@ using System.Reflection;
 using Terramon.Network.Catching;
 using Terramon.Network.Starter;
 using Terramon.Pokemon;
+using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 
 namespace Terramon
 {
@@ -299,6 +300,32 @@ namespace Terramon
         public ModHotKey FourthPKMAbility { get; private set; }
 
         #endregion
+
+        public static int GetPokeballType(ModItem item)
+        {
+            if (item is PokeballCaught)
+            {
+                return ModContent.ItemType<PokeballCaught>();
+            }
+            if (item is GreatBallCaught)
+            {
+                return ModContent.ItemType<GreatBallCaught>();
+            }
+            if (item is UltraBallCaught)
+            {
+                return ModContent.ItemType<UltraBallCaught>();
+            }
+            if (item is DuskBallCaught)
+            {
+                return ModContent.ItemType<DuskBallCaught>();
+            }
+            if (item is PremierBallCaught)
+            {
+                return ModContent.ItemType<PremierBallCaught>();
+            }
+            return 0;
+        }
+
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {

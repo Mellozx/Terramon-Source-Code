@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Players;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terraria;
@@ -252,234 +253,79 @@ namespace Terramon.UI.SidebarParty
 
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir)
             {
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem is PokeballCaught)
-                {
-                    var pokeballCaught1 = (PokeballCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem;
-                    modPlayer.firstslottype = pokeballCaught1.PokemonNPC;
-                    modPlayer.firstslotname = pokeballCaught1.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem is GreatBallCaught)
-                {
-                    var greatBallCaught1 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem;
-                    modPlayer.firstslottype = greatBallCaught1.PokemonNPC;
-                    modPlayer.firstslotname = greatBallCaught1.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem is UltraBallCaught)
-                {
-                    var ultraBallCaught1 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem;
-                    modPlayer.firstslottype = ultraBallCaught1.PokemonNPC;
-                    modPlayer.firstslotname = ultraBallCaught1.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem is DuskBallCaught)
-                {
-                    var duskBallCaught1 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem;
-                    modPlayer.firstslottype = duskBallCaught1.PokemonNPC;
-                    modPlayer.firstslotname = duskBallCaught1.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem is PremierBallCaught)
-                {
-                    var premierBallCaught1 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.modItem;
-                    modPlayer.firstslottype = premierBallCaught1.PokemonNPC;
-                    modPlayer.firstslotname = premierBallCaught1.PokemonName;
-                }
+                //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
+                var pokeballCaught = (BaseCaughtClass)partyslot1.Item.modItem;
+                modPlayer.firstslottype = pokeballCaught.PokemonNPC;
+                modPlayer.firstslotname = pokeballCaught.PokemonName;
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
             {
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem is PokeballCaught)
-                {
-                    var pokeballCaught2 = (PokeballCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem;
-                    modPlayer.secondslottype = pokeballCaught2.PokemonNPC;
-                    modPlayer.secondslotname = pokeballCaught2.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem is GreatBallCaught)
-                {
-                    var greatBallCaught2 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem;
-                    modPlayer.secondslottype = greatBallCaught2.PokemonNPC;
-                    modPlayer.secondslotname = greatBallCaught2.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem is UltraBallCaught)
-                {
-                    var ultraBallCaught2 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem;
-                    modPlayer.secondslottype = ultraBallCaught2.PokemonNPC;
-                    modPlayer.secondslotname = ultraBallCaught2.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem is DuskBallCaught)
-                {
-                    var duskBallCaught2 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem;
-                    modPlayer.secondslottype = duskBallCaught2.PokemonNPC;
-                    modPlayer.secondslotname = duskBallCaught2.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem is PremierBallCaught)
-                {
-                    var premierBallCaught2 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.modItem;
-                    modPlayer.secondslottype = premierBallCaught2.PokemonNPC;
-                    modPlayer.secondslotname = premierBallCaught2.PokemonName;
-                }
+                //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
+                var pokeballCaught = (BaseCaughtClass)partyslot2.Item.modItem;
+                modPlayer.secondslottype = pokeballCaught.PokemonNPC;
+                modPlayer.secondslotname = pokeballCaught.PokemonName;
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
             {
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem is PokeballCaught)
-                {
-                    var pokeballCaught3 = (PokeballCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem;
-                    modPlayer.thirdslottype = pokeballCaught3.PokemonNPC;
-                    modPlayer.thirdslotname = pokeballCaught3.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem is GreatBallCaught)
-                {
-                    var greatBallCaught3 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem;
-                    modPlayer.thirdslottype = greatBallCaught3.PokemonNPC;
-                    modPlayer.thirdslotname = greatBallCaught3.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem is UltraBallCaught)
-                {
-                    var ultraBallCaught3 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem;
-                    modPlayer.thirdslottype = ultraBallCaught3.PokemonNPC;
-                    modPlayer.thirdslotname = ultraBallCaught3.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem is DuskBallCaught)
-                {
-                    var duskBallCaught3 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem;
-                    modPlayer.thirdslottype = duskBallCaught3.PokemonNPC;
-                    modPlayer.thirdslotname = duskBallCaught3.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem is PremierBallCaught)
-                {
-                    var premierBallCaught3 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.modItem;
-                    modPlayer.thirdslottype = premierBallCaught3.PokemonNPC;
-                    modPlayer.thirdslotname = premierBallCaught3.PokemonName;
-                }
+                //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
+                var pokeballCaught = (BaseCaughtClass)partyslot3.Item.modItem;
+                modPlayer.thirdslottype = pokeballCaught.PokemonNPC;
+                modPlayer.thirdslotname = pokeballCaught.PokemonName;
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
-            {
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem is PokeballCaught)
-                {
-                    var pokeballCaught4 = (PokeballCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem;
-                    modPlayer.fourthslottype = pokeballCaught4.PokemonNPC;
-                    modPlayer.fourthslotname = pokeballCaught4.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem is GreatBallCaught)
-                {
-                    var greatBallCaught4 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem;
-                    modPlayer.fourthslottype = greatBallCaught4.PokemonNPC;
-                    modPlayer.fourthslotname = greatBallCaught4.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem is UltraBallCaught)
-                {
-                    var ultraBallCaught4 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem;
-                    modPlayer.fourthslottype = ultraBallCaught4.PokemonNPC;
-                    modPlayer.fourthslotname = ultraBallCaught4.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem is DuskBallCaught)
-                {
-                    var duskBallCaught4 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem;
-                    modPlayer.fourthslottype = duskBallCaught4.PokemonNPC;
-                    modPlayer.fourthslotname = duskBallCaught4.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem is PremierBallCaught)
-                {
-                    var premierBallCaught4 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.modItem;
-                    modPlayer.fourthslottype = premierBallCaught4.PokemonNPC;
-                    modPlayer.fourthslotname = premierBallCaught4.PokemonName;
-                }
+            {                
+                //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
+                var pokeballCaught = (BaseCaughtClass)partyslot4.Item.modItem;
+                modPlayer.fourthslottype = pokeballCaught.PokemonNPC;
+                modPlayer.fourthslotname = pokeballCaught.PokemonName;
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
             {
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem is PokeballCaught)
-                {
-                    var pokeballCaught5 = (PokeballCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem;
-                    modPlayer.fifthslottype = pokeballCaught5.PokemonNPC;
-                    modPlayer.fifthslotname = pokeballCaught5.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem is GreatBallCaught)
-                {
-                    var greatBallCaught5 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem;
-                    modPlayer.fifthslottype = greatBallCaught5.PokemonNPC;
-                    modPlayer.fifthslotname = greatBallCaught5.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem is UltraBallCaught)
-                {
-                    var ultraBallCaught5 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem;
-                    modPlayer.fifthslottype = ultraBallCaught5.PokemonNPC;
-                    modPlayer.fifthslotname = ultraBallCaught5.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem is DuskBallCaught)
-                {
-                    var duskBallCaught5 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem;
-                    modPlayer.fifthslottype = duskBallCaught5.PokemonNPC;
-                    modPlayer.fifthslotname = duskBallCaught5.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem is PremierBallCaught)
-                {
-                    var premierBallCaught5 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.modItem;
-                    modPlayer.fifthslottype = premierBallCaught5.PokemonNPC;
-                    modPlayer.fifthslotname = premierBallCaught5.PokemonName;
-                }
+                //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
+                var pokeballCaught = (BaseCaughtClass)partyslot5.Item.modItem;
+                modPlayer.fifthslottype = pokeballCaught.PokemonNPC;
+                modPlayer.fifthslotname = pokeballCaught.PokemonName;
             }
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
             {
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem is PokeballCaught)
-                {
-                    var pokeballCaught6 = (PokeballCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem;
-                    modPlayer.sixthslottype = pokeballCaught6.PokemonNPC;
-                    modPlayer.sixthslotname = pokeballCaught6.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem is GreatBallCaught)
-                {
-                    var greatBallCaught6 = (GreatBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem;
-                    modPlayer.sixthslottype = greatBallCaught6.PokemonNPC;
-                    modPlayer.sixthslotname = greatBallCaught6.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem is UltraBallCaught)
-                {
-                    var ultraBallCaught6 = (UltraBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem;
-                    modPlayer.sixthslottype = ultraBallCaught6.PokemonNPC;
-                    modPlayer.sixthslotname = ultraBallCaught6.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem is DuskBallCaught)
-                {
-                    var duskBallCaught6 = (DuskBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem;
-                    modPlayer.sixthslottype = duskBallCaught6.PokemonNPC;
-                    modPlayer.sixthslotname = duskBallCaught6.PokemonName;
-                }
-                if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem is PremierBallCaught)
-                {
-                    var premierBallCaught6 = (PremierBallCaught)ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.modItem;
-                    modPlayer.sixthslottype = premierBallCaught6.PokemonNPC;
-                    modPlayer.sixthslotname = premierBallCaught6.PokemonName;
-                }
+                //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
+                var pokeballCaught = (BaseCaughtClass)partyslot6.Item.modItem;
+                modPlayer.sixthslottype = pokeballCaught.PokemonNPC;
+                modPlayer.sixthslotname = pokeballCaught.PokemonName;
             }
 
             Main.NewText("Party Saved!");
-            if (!partyslot1.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partyslot1.Item, partyslot1.Item.stack);
-                partyslot1.Item.TurnToAir();
-            }
-            if (!partyslot2.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partyslot2.Item, partyslot2.Item.stack);
-                partyslot2.Item.TurnToAir();
-            }
-            if (!partyslot3.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partyslot3.Item, partyslot3.Item.stack);
-                partyslot3.Item.TurnToAir();
-            }
-            if (!partyslot4.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partyslot4.Item, partyslot4.Item.stack);
-                partyslot4.Item.TurnToAir();
-            }
-            if (!partyslot5.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partyslot5.Item, partyslot5.Item.stack);
-                partyslot5.Item.TurnToAir();
-            }
-            if (!partyslot6.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partyslot6.Item, partyslot6.Item.stack);
-                partyslot6.Item.TurnToAir();
-            }
+            //if (!partyslot1.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot1.Item, partyslot1.Item.stack);
+            //    partyslot1.Item.TurnToAir();
+            //}
+            //if (!partyslot2.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot2.Item, partyslot2.Item.stack);
+            //    partyslot2.Item.TurnToAir();
+            //}
+            //if (!partyslot3.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot3.Item, partyslot3.Item.stack);
+            //    partyslot3.Item.TurnToAir();
+            //}
+            //if (!partyslot4.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot4.Item, partyslot4.Item.stack);
+            //    partyslot4.Item.TurnToAir();
+            //}
+            //if (!partyslot5.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot5.Item, partyslot5.Item.stack);
+            //    partyslot5.Item.TurnToAir();
+            //}
+            //if (!partyslot6.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partyslot6.Item, partyslot6.Item.stack);
+            //    partyslot6.Item.TurnToAir();
+            //}
+
         }
     }
 }

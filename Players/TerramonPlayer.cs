@@ -166,30 +166,30 @@ namespace Terramon.Players
                 Main.NewText("Terramon is not compatible with the 'Terraria Overhaul' mod, which is currently enabled. To prevent mod-breaking bugs, please disable one or the other.", 245, 46, 24, false);
             }
             PartySlots partySlots = ModContent.GetInstance<TerramonMod>().PartySlots;
-            if (!partySlots.partyslot1.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot1.Item);
-            }
-            if (!partySlots.partyslot2.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot2.Item);
-            }
-            if (!partySlots.partyslot3.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot3.Item);
-            }
-            if (!partySlots.partyslot4.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot4.Item);
-            }
-            if (!partySlots.partyslot5.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot5.Item);
-            }
-            if (!partySlots.partyslot6.Item.IsAir)
-            {
-                Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot6.Item);
-            }
+            //if (!partySlots.partyslot1.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot1.Item);
+            //}
+            //if (!partySlots.partyslot2.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot2.Item);
+            //}
+            //if (!partySlots.partyslot3.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot3.Item);
+            //}
+            //if (!partySlots.partyslot4.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot4.Item);
+            //}
+            //if (!partySlots.partyslot5.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot5.Item);
+            //}
+            //if (!partySlots.partyslot6.Item.IsAir)
+            //{
+            //    Main.LocalPlayer.QuickSpawnClonedItem(partySlots.partyslot6.Item);
+            //}
             if (StarterChosen == false)
             {
                 ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarter());
@@ -256,48 +256,48 @@ namespace Terramon.Players
                     EvolveUI.Visible = false;
                     UISidebar.Visible = true;
                     PartySlots.Visible = false;
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.TurnToAir();
-                    }
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.TurnToAir();
+                    //}
                     
 
-                    if (!ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item, ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item, ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.TurnToAir();
-                    }
+                    //if (!ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item, ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item, ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.TurnToAir();
+                    //}
                 }
             }
 
@@ -329,48 +329,48 @@ namespace Terramon.Players
                     EvolveUI.Visible = false;
                     UISidebar.Visible = true;
                     PartySlots.Visible = false;
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.TurnToAir();
-                    }
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item, ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.TurnToAir();
+                    //}
 
 
-                    if (!ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item, ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.TurnToAir();
-                    }
-                    if (!ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.IsAir)
-                    {
-                        Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item, ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.stack);
-                        ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.TurnToAir();
-                    }
+                    //if (!ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item, ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().evolveUI.partyslot1.Item.TurnToAir();
+                    //}
+                    //if (!ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.IsAir)
+                    //{
+                    //    Main.LocalPlayer.QuickSpawnClonedItem(ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item, ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.stack);
+                    //    ModContent.GetInstance<TerramonMod>().evolveUI.partyslot2.Item.TurnToAir();
+                    //}
                 }
             }
 
@@ -463,11 +463,13 @@ namespace Terramon.Players
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.Recalculate();
             }
-
+            
             TagCompound tag = new TagCompound()
             {
                 [nameof(StarterChosen)] = StarterChosen
+                
             };
+            
 
             SavePokeballs(tag);
 
