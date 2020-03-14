@@ -6,6 +6,7 @@ using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon;
 using Terramon.Pokemon.FirstGeneration.Fishing;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
+using Terramon.UI.Moveset;
 using Terramon.UI.SidebarParty;
 using Terramon.UI.Starter;
 using Terraria;
@@ -155,6 +156,7 @@ namespace Terramon.Players
 
         public override void OnEnterWorld(Player player)
         {
+            Moves.Visible = true;
             Mod leveledMod = ModLoader.GetMod("Leveled");
             Mod overhaulMod = ModLoader.GetMod("TerrariaOverhaul");
             if (leveledMod != null)

@@ -30,7 +30,7 @@ namespace Terramon.Items.Pokeballs.Inventory
 
         public override void SetDefaults()
         {
-            item.damage = 0;
+            item.damage = 20;
 
             item.width = 24;
             item.height = 24;
