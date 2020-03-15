@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terramon.Items.MiscItems;
+using Terramon.Items.MiscItems.LinkCables;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network.Catching;
 using Terramon.Players;
+using Terramon.Pokemon;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -129,17 +131,41 @@ namespace Terramon.UI.SidebarParty
                     var mon = TerramonMod.GetPokemon(pokeball.CapturedPokemon);
                     if (mon != null && mon.CanEvolve)
                     {
-                        PokemonGoesHere.SetText($"Place {mon.EvolveCost} Rare Candies in the second slot.");
-                        mainPanel.Append(partyslot2);
-                        if (!partyslot2.Item.IsAir && partyslot2.Item.stack == mon.EvolveCost)
+                        if (mon.EvolveItem == EvolveItem.RareCandy)
                         {
-                            PokemonGoesHere.SetText("Great! Press the evolve button!");
-                            mainPanel.Append(SaveButton);
+                            //Set preference to RareCandy
+                            partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is RareCandy;
+
+                            PokemonGoesHere.SetText($"Place {mon.EvolveCost} Rare Candies in the second slot.");
+                            mainPanel.Append(partyslot2);
+                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is RareCandy && partyslot2.Item.stack == mon.EvolveCost)
+                            {
+                                PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                mainPanel.Append(SaveButton);
+                            }
+                            else
+                            {
+                                mainPanel.RemoveChild(SaveButton);
+                            }
                         }
-                        else
+                        else if (mon.EvolveItem == EvolveItem.LinkCable)
                         {
-                            mainPanel.RemoveChild(SaveButton);
+                            //Set preference to LinkCable
+                            partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is LinkCable;
+
+                            PokemonGoesHere.SetText($"Place {mon.EvolveCost} Link Cable in the second slot.");
+                            mainPanel.Append(partyslot2);
+                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is LinkCable && partyslot2.Item.stack == mon.EvolveCost)
+                            {
+                                PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                mainPanel.Append(SaveButton);
+                            }
+                            else
+                            {
+                                mainPanel.RemoveChild(SaveButton);
+                            }
                         }
+
                     }
                     else
                     {
@@ -150,27 +176,8 @@ namespace Terramon.UI.SidebarParty
         }
         private void EvolveButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            int whicheverballtype = 0;
-            if (partyslot1.Item.modItem is PokeballCaught)
-            {
-                whicheverballtype = ModContent.ItemType<PokeballCaught>();
-            }
-            if (partyslot1.Item.modItem is GreatBallCaught)
-            {
-                whicheverballtype = ModContent.ItemType<GreatBallCaught>();
-            }
-            if (partyslot1.Item.modItem is UltraBallCaught)
-            {
-                whicheverballtype = ModContent.ItemType<UltraBallCaught>();
-            }
-            if (partyslot1.Item.modItem is DuskBallCaught)
-            {
-                whicheverballtype = ModContent.ItemType<DuskBallCaught>();
-            }
-            if (partyslot1.Item.modItem is PremierBallCaught)
-            {
-                whicheverballtype = ModContent.ItemType<PremierBallCaught>();
-            }
+            int whicheverballtype = TerramonMod.PokeballFactory.GetPokeballType(partyslot1.Item.modItem);
+
             // stuff break
             if (partyslot1.Item.modItem is BaseCaughtClass pokeball)
             {
