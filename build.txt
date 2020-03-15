@@ -1,5 +1,5 @@
 author = Jamz' Terramon Team
-version = 0.2.1.4
+version = 0.3
 displayName = Terramon
 homepage = https://terrariamods.gamepedia.com/Terramon
 buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*

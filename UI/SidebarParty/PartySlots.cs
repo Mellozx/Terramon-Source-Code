@@ -51,15 +51,15 @@ namespace Terramon.UI.SidebarParty
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             mainPanel.HAlign = 0.4f;
             mainPanel.VAlign = 0.65f;
-            mainPanel.Width.Set(210, 0f);
-            mainPanel.Height.Set(180f, 0f);
+            mainPanel.Width.Set(185, 0f);
+            mainPanel.Height.Set(150f, 0f);
 
             partyslot1 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 1f);
             partyslot1.SetPadding(0);
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot1.HAlign = 0.15f;
-            partyslot1.VAlign = 0.25f;
+            partyslot1.VAlign = 0.15f;
             partyslot1.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
             mainPanel.Append(partyslot1);
 
@@ -68,7 +68,7 @@ namespace Terramon.UI.SidebarParty
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot2.HAlign = 0.5f;
-            partyslot2.VAlign = 0.25f;
+            partyslot2.VAlign = 0.15f;
             partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
             mainPanel.Append(partyslot2);
 
@@ -77,7 +77,7 @@ namespace Terramon.UI.SidebarParty
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot3.HAlign = 0.85f;
-            partyslot3.VAlign = 0.25f;
+            partyslot3.VAlign = 0.15f;
             partyslot3.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
             mainPanel.Append(partyslot3);
 
@@ -107,24 +107,6 @@ namespace Terramon.UI.SidebarParty
             partyslot6.VAlign = 0.85f;
             partyslot6.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
             mainPanel.Append(partyslot6);
-
-            Texture2D buttonDeleteTexture = ModContent.GetTexture("Terraria/UI/ButtonDelete");
-            UIHoverImageButton closeButton = new UIHoverImageButton(buttonDeleteTexture, "Clear Party"); // Localized text for "Close"
-            closeButton.Left.Set(7, 0f);
-            closeButton.Top.Set(7, 0f);
-            closeButton.Width.Set(30, 0f);
-            closeButton.Height.Set(30, 0f);
-            closeButton.OnClick += new MouseEvent(CloseButtonClicked);
-            mainPanel.Append(closeButton);
-
-            Texture2D buttonSaveTexture = ModContent.GetTexture("Terraria/UI/ButtonPlay");
-            UIHoverImageButton SaveButton = new UIHoverImageButton(buttonSaveTexture, "Save Party"); // Localized text for "Close"
-            SaveButton.Left.Set(33, 0f);
-            SaveButton.Top.Set(7, 0f);
-            SaveButton.Width.Set(30, 0f);
-            SaveButton.Height.Set(30, 0f);
-            SaveButton.OnClick += new MouseEvent(SaveButtonClicked);
-            mainPanel.Append(SaveButton);
 
             Append(mainPanel);
 

@@ -33,9 +33,14 @@ namespace Terramon.Items.MiscItems.LinkCables
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = new Color(96, 255, 84);
+                    line2.overrideColor = new Color(60, 171, 70);
                 }
             }
+        }
+
+        public virtual bool CanBurnInLava()
+        {
+            return false;
         }
     }
 }

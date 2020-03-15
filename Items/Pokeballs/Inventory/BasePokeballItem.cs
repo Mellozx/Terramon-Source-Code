@@ -31,7 +31,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             item.UseSound = SoundID.Item1;
             item.damage = 1;
 
-            item.scale = 0.6f;
+            item.scale = 1f;
             item.maxStack = 99;
         }
 

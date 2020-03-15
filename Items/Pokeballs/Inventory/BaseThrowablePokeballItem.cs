@@ -30,13 +30,6 @@ namespace Terramon.Items.Pokeballs.Inventory
             item.noUseGraphic = true;
         }
 
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
-        {
-            Texture2D texture = Main.itemTexture[item.type];
-            spriteBatch.Draw(texture, item.Center - Main.screenPosition, null, lightColor, 0f, texture.Size() / 2f, item.scale, SpriteEffects.None, 0);
-            return false;
-        }
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
