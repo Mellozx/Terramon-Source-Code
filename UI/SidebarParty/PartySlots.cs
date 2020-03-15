@@ -108,24 +108,6 @@ namespace Terramon.UI.SidebarParty
             partyslot6.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
             mainPanel.Append(partyslot6);
 
-            Texture2D buttonDeleteTexture = ModContent.GetTexture("Terraria/UI/ButtonDelete");
-            UIHoverImageButton closeButton = new UIHoverImageButton(buttonDeleteTexture, "Clear Party"); // Localized text for "Close"
-            closeButton.Left.Set(7, 0f);
-            closeButton.Top.Set(7, 0f);
-            closeButton.Width.Set(30, 0f);
-            closeButton.Height.Set(30, 0f);
-            closeButton.OnClick += new MouseEvent(CloseButtonClicked);
-            mainPanel.Append(closeButton);
-
-            Texture2D buttonSaveTexture = ModContent.GetTexture("Terraria/UI/ButtonPlay");
-            UIHoverImageButton SaveButton = new UIHoverImageButton(buttonSaveTexture, "Save Party"); // Localized text for "Close"
-            SaveButton.Left.Set(33, 0f);
-            SaveButton.Top.Set(7, 0f);
-            SaveButton.Width.Set(30, 0f);
-            SaveButton.Height.Set(30, 0f);
-            SaveButton.OnClick += new MouseEvent(SaveButtonClicked);
-            mainPanel.Append(SaveButton);
-
             Append(mainPanel);
 
             partyslot1.OnItemPlaced += UpdateUI;
