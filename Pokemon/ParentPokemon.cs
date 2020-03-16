@@ -19,6 +19,11 @@ namespace Terramon.Pokemon
         public virtual int EvolveCost { get; } = 0;
 
         /// <summary>
+        /// Item what used for evolution
+        /// </summary>
+        public virtual EvolveItem EvolveItem { get; } = EvolveItem.RareCandy;
+
+        /// <summary>
         /// Just for checking if this mon can evolve or not
         /// </summary>
         public bool CanEvolve => EvolveTo != null && EvolveCost != 0;
@@ -72,5 +77,11 @@ namespace Terramon.Pokemon
         Light,
         Machine,
         Sound,
+    }
+
+    public enum EvolveItem
+    {
+        RareCandy,
+        LinkCable
     }
 }
