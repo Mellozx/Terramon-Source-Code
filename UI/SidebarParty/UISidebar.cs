@@ -19,7 +19,7 @@ namespace Terramon.UI.SidebarParty
         public static bool Visible;
         public bool lightmode = true;
 
-        public UIHoverImageButton choose;
+        public UIOpaqueButton choose;
 
         //sidebar pkmn textures
         public Texture2D firstpkmntexture;
@@ -69,7 +69,7 @@ namespace Terramon.UI.SidebarParty
             mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
 
             Texture2D chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Help");
-            choose = new UIHoverImageButton(chooseTexture, "Show Terramon Help");
+            choose = new UIOpaqueButton(chooseTexture, "Show Terramon Help");
             choose.HAlign = 0.007f; // 1
             choose.VAlign = 0.98f; // 1
             choose.Width.Set(20, 0);
