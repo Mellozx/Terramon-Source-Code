@@ -1,4 +1,6 @@
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using Terramon.Achievements;
 using Terramon.Items.Pokeballs.Thrown;
 using Terramon.Players;
@@ -34,6 +36,29 @@ namespace Terramon.Items.Pokeballs.Inventory
             recipe.AddIngredient(mod.ItemType("PokeballBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine nameLine = tooltips.FirstOrDefault(t => t.Name == "ItemName" && t.mod == "Terraria");
+
+            base.ModifyTooltips(tooltips);
+
+            tooltips.RemoveAll(l => l.Name == "Damage");
+            tooltips.RemoveAll(l => l.Name == "CritChance");
+            tooltips.RemoveAll(l => l.Name == "Speed");
+            tooltips.RemoveAll(l => l.Name == "Knockback");
+
+            if (NameColorOverride != null)
+                tooltips.Find(t => t.Name == TooltipLines.ITEM_NAME).overrideColor = NameColorOverride;
+
+            foreach (TooltipLine line2 in tooltips)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = new Color(186, 207, 222);
+                }
+            }
         }
     }
 }

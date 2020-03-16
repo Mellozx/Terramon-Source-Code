@@ -74,16 +74,20 @@ namespace Terramon
                                                    "GreatBall",
                                                    "UltraBall",
                                                    "DuskBall",
-                                                    "PremierBall"};
+                                                    "PremierBall",
+                                                   "QuickBall",
+                                                   "MasterBall"};
 
         // catch chance of the ball refers to the same index as the ball
         private readonly static float[][] catchChances = {
-            new float[] { .1190f },
-            new float[] { .1785f },
-            new float[] { .2380f },
-            new float[] { .2380f,
+            new float[] { .1190f }, //Pokeball
+            new float[] { .1785f }, //Great Ball
+            new float[] { .2380f }, //Ultra Ball
+            new float[] { .2380f,   //Dusk Ball
                           .1190f },
-            new float[] { .1190f }
+            new float[] { .1190f }, //Premier Ball
+            new float[] { .2380f }, //Quick Ball
+            new float[] { 1f } //Master Ball
         };
 
         public static string[] GetBallProjectiles()
@@ -332,6 +336,7 @@ namespace Terramon
                 UltraBall,
                 DuskBall,
                 PremierBall,
+                QuickBall,
             }
 
             /// <summary>
@@ -354,6 +359,8 @@ namespace Terramon
                         return ModContent.ItemType<DuskBallCaught>();
                     case Pokebals.PremierBall:
                         return ModContent.ItemType<PremierBallCaught>();
+                    case Pokebals.QuickBall:
+                        return ModContent.ItemType<QuickBallCaught>();
                     default:
                         return 0;
                 }
@@ -388,6 +395,10 @@ namespace Terramon
                 {
                     return Pokebals.PremierBall;
                 }
+                if (item is QuickBallCaught)
+                {
+                    return Pokebals.QuickBall;
+                }
                 return Pokebals.Nothing;
             }
 
@@ -417,6 +428,10 @@ namespace Terramon
                 if (item is PremierBallCaught)
                 {
                     return ModContent.ItemType<PremierBallCaught>();
+                }
+                if (item is QuickBallCaught)
+                {
+                    return ModContent.ItemType<QuickBallCaught>();
                 }
                 return 0;
             }

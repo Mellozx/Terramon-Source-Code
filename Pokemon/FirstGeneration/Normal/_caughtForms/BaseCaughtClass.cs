@@ -84,7 +84,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             Texture2D pokemonTexture = ModContent.GetTexture(SmallSpritePath);
             Texture2D itemTexture = Main.itemTexture[item.type];
             spriteBatch.Draw(itemTexture, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0);
-            spriteBatch.Draw(pokemonTexture, position + itemTexture.Size() * Main.inventoryScale - new Vector2(16, 16), pokemonTexture.Frame(), drawColor, 0f, pokemonTexture.Size() / 2f, Main.inventoryScale, SpriteEffects.None, 0);
+            spriteBatch.Draw(pokemonTexture, position + itemTexture.Size() * Main.inventoryScale - new Vector2(4, 4), pokemonTexture.Frame(), drawColor, 0f, pokemonTexture.Size() / 2f, Main.inventoryScale, SpriteEffects.None, 0);
             return false;
         }
 

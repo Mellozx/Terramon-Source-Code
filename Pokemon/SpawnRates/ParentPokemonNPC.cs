@@ -19,6 +19,8 @@ namespace Terramon.Pokemon
 
         public abstract Type HomeClass();
 
+        private int ballUsage = 0;
+
         public string PokeName() => Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
 
         public override void SetStaticDefaults()
@@ -99,6 +101,7 @@ namespace Terramon.Pokemon
                 {
                     if (ballProjectiles[i] == "DuskBallProjectile") // Special Condition
                     {
+                        ballUsage++;
                         if ((!Main.dayTime && Main.rand.NextFloat() < catchChances[i][0]) ||
                             (Main.dayTime && Main.rand.NextFloat() < catchChances[i][1]))
                         {
@@ -107,7 +110,86 @@ namespace Terramon.Pokemon
                         }
                     }
                     else
+                    if (ballProjectiles[i] == "QuickBallProjectile") // Special Condition
                     {
+                            ballUsage++;
+                            if (ballUsage == 1) // 2x catch chance
+                            {
+                                if (Main.rand.NextFloat() < .2380f)
+                                {
+                                    Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<QuickBallCaught>());
+                                    return;
+                                }
+                            }
+                        if (ballUsage == 2) // 1.8x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .2142f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<QuickBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 3) // 1.6x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .1904f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<QuickBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 4) // 1.4x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .1666f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<QuickBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 5) // 1.2x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .1428f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<QuickBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 6) // 1x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .1190f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<QuickBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 7) // 0.75x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .08925f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<QuickBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 8) // 0.5x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .0595f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<QuickBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage >= 8) // anything more..
+                        {
+                            if (Main.rand.NextFloat() < .0595f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<QuickBallCaught>());
+                                return;
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        ballUsage++;
                         for (int j = 0; j < catchChances[i].Length; j++) // Retain loop for improvement later
                         {
                             if (Main.rand.NextFloat() < catchChances[i][j])
@@ -171,6 +253,13 @@ namespace Terramon.Pokemon
                 if (Main.rand.Next(3) == 0)
                 {
                     Item.NewItem(npc.getRect(), ModContent.ItemType<PremierBallItem>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<QuickBallProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<QuickBallItem>());
                 }
             }
 

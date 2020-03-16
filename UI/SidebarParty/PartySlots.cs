@@ -60,7 +60,7 @@ namespace Terramon.UI.SidebarParty
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot1.HAlign = 0.15f;
             partyslot1.VAlign = 0.15f;
-            partyslot1.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
+            partyslot1.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught || item.modItem is QuickBallCaught;
             mainPanel.Append(partyslot1);
 
             partyslot2 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 1f);
@@ -69,7 +69,7 @@ namespace Terramon.UI.SidebarParty
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot2.HAlign = 0.5f;
             partyslot2.VAlign = 0.15f;
-            partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
+            partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught || item.modItem is QuickBallCaught;
             mainPanel.Append(partyslot2);
 
             partyslot3 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 1f);
@@ -78,7 +78,7 @@ namespace Terramon.UI.SidebarParty
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot3.HAlign = 0.85f;
             partyslot3.VAlign = 0.15f;
-            partyslot3.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
+            partyslot3.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught || item.modItem is QuickBallCaught;
             mainPanel.Append(partyslot3);
 
             partyslot4 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 1f);
@@ -87,7 +87,7 @@ namespace Terramon.UI.SidebarParty
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot4.HAlign = 0.15f;
             partyslot4.VAlign = 0.85f;
-            partyslot4.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
+            partyslot4.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught || item.modItem is QuickBallCaught;
             mainPanel.Append(partyslot4);
 
             partyslot5 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 1f);
@@ -96,7 +96,7 @@ namespace Terramon.UI.SidebarParty
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot5.HAlign = 0.5f;
             partyslot5.VAlign = 0.85f;
-            partyslot5.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
+            partyslot5.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught || item.modItem is QuickBallCaught;
             mainPanel.Append(partyslot5);
 
             partyslot6 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 1f);
@@ -105,7 +105,7 @@ namespace Terramon.UI.SidebarParty
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot6.HAlign = 0.85f;
             partyslot6.VAlign = 0.85f;
-            partyslot6.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
+            partyslot6.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught || item.modItem is QuickBallCaught;
             mainPanel.Append(partyslot6);
 
             Append(mainPanel);
