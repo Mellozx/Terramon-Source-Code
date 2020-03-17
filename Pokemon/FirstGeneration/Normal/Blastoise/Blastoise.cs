@@ -14,19 +14,5 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Blastoise
 			projectile.scale = 1f;
             drawOriginOffsetY = -14;
         }
-
-        public override void AI()
-        {
-            Player player = Main.player[projectile.owner];
-            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
-            if (player.dead)
-            {
-                modPlayer.blastoisePet = false;
-            }
-            if (modPlayer.blastoisePet)
-            {
-                projectile.timeLeft = 2;
-            }
-        }
     }
 }

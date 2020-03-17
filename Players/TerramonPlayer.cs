@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terramon.Items.MiscItems;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon;
@@ -28,6 +29,10 @@ namespace Terramon.Players
 
         public int deletepokecase = 0;
 		public int premierBallRewardCounter = 0;
+
+        protected Dictionary<string, bool> ActivePet = new Dictionary<string, bool>();
+        public int ActivePetId = -1;
+        public string ActivePetName = string.Empty;
 
         public bool pikachuPet = false;
         public bool raichuPet = false;
@@ -245,6 +250,13 @@ namespace Terramon.Players
         public override void Initialize()
         {
             InitializePokeballs();
+            //Initialise active pets bools
+            var list = TerramonMod.GetPokemonsNames();
+            ActivePet = new Dictionary<string, bool>();
+            foreach (var it in list)
+            {
+                ActivePet.Add(it, false);
+            }
         }
 
         public override void ResetEffects()
@@ -284,8 +296,38 @@ namespace Terramon.Players
             dragonitePet = false;
             shinyMewPet = false;
             shinyEeveePet = false;
+            //Set any active pet to false
+            foreach (var it in ActivePet.Keys.ToArray())
+            {
+                ActivePet[it] = false;
+            }
+
         }
 
+        
+
+        /// <summary>
+        /// Enable only one pet for player at once
+        /// </summary>
+        /// <param name="name">Pokemon type name</param>
+        public void ActivatePet(string name)
+        {
+            ResetEffects();
+
+            if (ActivePet.ContainsKey(name))
+                ActivePet[name] = true;
+            else
+                throw new InvalidOperationException($"Pokemon {name} not registered! Please send log files to mod devs!");
+        }
+
+        public bool IsPetActive(string name)
+        {
+
+            if (ActivePet.ContainsKey(name))
+                return ActivePet[name];
+
+            throw new InvalidOperationException($"Pokemon {name} not registered! Please send log files to mod devs!");
+        }
 
         public override void SetupStartInventory(IList<Item> items, bool mediumcoreDeath)
         {

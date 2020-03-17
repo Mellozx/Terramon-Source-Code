@@ -19,19 +19,5 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Ivysaur
 			projectile.scale = 1.2f;
             // drawOriginOffsetY = -1;
         }
-
-        public override void AI()
-        {
-            Player player = Main.player[projectile.owner];
-            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
-            if (player.dead)
-            {
-                modPlayer.ivysaurPet = false;
-            }
-            if (modPlayer.ivysaurPet)
-            {
-                projectile.timeLeft = 2;
-            }
-        }
     }
 }

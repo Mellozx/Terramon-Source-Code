@@ -18,19 +18,5 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Caterpie
             projectile.height = 32;
             drawOriginOffsetY = -14;
         }
-
-        public override void AI()
-        {
-            Player player = Main.player[projectile.owner];
-            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
-            if (player.dead)
-            {
-                modPlayer.caterpiePet = false;
-            }
-            if (modPlayer.caterpiePet)
-            {
-                projectile.timeLeft = 2;
-            }
-        }
     }
 }

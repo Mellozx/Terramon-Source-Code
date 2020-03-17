@@ -13,19 +13,5 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Eevee
             projectile.height = 24; //-4
             drawOriginOffsetY = -20;
         }
-
-        public override void AI()
-        {
-            Player player = Main.player[projectile.owner];
-            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
-            if (player.dead)
-            {
-                modPlayer.eeveePet = false;
-            }
-            if (modPlayer.eeveePet)
-            {
-                projectile.timeLeft = 2;
-            }
-        }
     }
 }

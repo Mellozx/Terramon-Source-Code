@@ -18,19 +18,5 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Dragonair
             projectile.height = 32;
             drawOriginOffsetY = -26;
         }
-
-        public override void AI()
-        {
-            Player player = Main.player[projectile.owner];
-            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
-            if (player.dead)
-            {
-                modPlayer.dragonairPet = false;
-            }
-            if (modPlayer.dragonairPet)
-            {
-                projectile.timeLeft = 2;
-            }
-        }
     }
 }
