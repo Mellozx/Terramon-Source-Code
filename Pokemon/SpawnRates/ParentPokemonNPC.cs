@@ -174,15 +174,7 @@ namespace Terramon.Pokemon
                                 return;
                             }
                         }
-                        if (ballUsage == 8) // 0.5x catch chance
-                        {
-                            if (Main.rand.NextFloat() < .0595f)
-                            {
-                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<QuickBallCaught>());
-                                return;
-                            }
-                        }
-                        if (ballUsage >= 8) // anything more..
+                        if (ballUsage >= 8) // anything more.. 0.5x
                         {
                             if (Main.rand.NextFloat() < .0595f)
                             {
@@ -291,15 +283,7 @@ namespace Terramon.Pokemon
                                 return;
                             }
                         }
-                        if (ballUsage == 13) // 3x catch chance
-                        {
-                            if (Main.rand.NextFloat() < .3570f)
-                            {
-                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
-                                return;
-                            }
-                        }
-                        if (ballUsage >= 13) // anything more..
+                        if (ballUsage >= 13) // anything more.. 3x
                         {
                             if (Main.rand.NextFloat() < .3570f)
                             {
