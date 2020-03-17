@@ -79,6 +79,16 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
                 }
             }
+            if (projectile.type == ModContent.ProjectileType<MasterBallProjectile>())
+            {
+                if (Main.rand.Next(12) == 0)
+                {
+                    projectile.timeLeft = 0;
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<MasterBallCap>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
+                }
+            }
             if (projectile.type == ModContent.ProjectileType<DuskBallProjectile>())
             {
                 if (Main.rand.Next(12) == 0)
@@ -86,7 +96,7 @@ namespace Terramon.Items.Pokeballs.Thrown
                     projectile.timeLeft = 0;
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<DuskBallCap>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
-                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<DuskBallBase>());
                 }
             }
             if (projectile.type == ModContent.ProjectileType < PremierBallProjectile>())
@@ -97,6 +107,26 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<PremierBallCap>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<QuickBallProjectile>())
+            {
+                if (Main.rand.Next(12) == 0)
+                {
+                    projectile.timeLeft = 0;
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<QuickBallCap>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<QuickBallBase>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<TimerBallProjectile>())
+            {
+                if (Main.rand.Next(12) == 0)
+                {
+                    projectile.timeLeft = 0;
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<TimerBallCap>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<TimerBallBase>());
                 }
             }
 

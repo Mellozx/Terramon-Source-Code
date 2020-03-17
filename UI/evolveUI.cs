@@ -65,7 +65,7 @@ namespace Terramon.UI.SidebarParty
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot1.HAlign = 0.15f;
             partyslot1.VAlign = 0.5f;
-            partyslot1.ValidItemFunc = item => item.IsAir || item.modItem is PokeballCaught || item.modItem is GreatBallCaught || item.modItem is UltraBallCaught || item.modItem is DuskBallCaught || item.modItem is PremierBallCaught;
+            partyslot1.ValidItemFunc = item => item.IsAir || TerramonMod.PokeballFactory.GetEnum(item.modItem) != TerramonMod.PokeballFactory.Pokebals.Nothing;
             mainPanel.Append(partyslot1);
 
             partyslot2 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 1f);

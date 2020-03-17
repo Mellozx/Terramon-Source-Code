@@ -76,16 +76,22 @@ namespace Terramon
                                                    "GreatBall",
                                                    "UltraBall",
                                                    "DuskBall",
-                                                    "PremierBall"};
+                                                    "PremierBall",
+                                                   "QuickBall",
+                                                   "TimerBall",
+                                                   "MasterBall"};
 
         // catch chance of the ball refers to the same index as the ball
         private readonly static float[][] catchChances = {
-            new float[] { .1190f },
-            new float[] { .1785f },
-            new float[] { .2380f },
-            new float[] { .2380f,
+            new float[] { .1190f }, //Pokeball
+            new float[] { .1785f }, //Great Ball
+            new float[] { .2380f }, //Ultra Ball
+            new float[] { .2380f,   //Dusk Ball
                           .1190f },
-            new float[] { .1190f }
+            new float[] { .1190f }, //Premier Ball
+            new float[] { .2380f }, //Quick Ball
+            new float[] { .2380f }, //Timer Ball
+            new float[] { 1f } //Master Ball
         };
 
         public static string[] GetBallProjectiles()
@@ -332,8 +338,11 @@ namespace Terramon
                 Pokeball,
                 GreatBall,
                 UltraBall,
+                MasterBall,
                 DuskBall,
                 PremierBall,
+                QuickBall,
+                TimerBall,
             }
 
             /// <summary>
@@ -352,10 +361,16 @@ namespace Terramon
                         return ModContent.ItemType<GreatBallCaught>();
                     case Pokebals.UltraBall:
                         return ModContent.ItemType<UltraBallCaught>();
+                    case Pokebals.MasterBall:
+                        return ModContent.ItemType<MasterBallCaught>();
                     case Pokebals.DuskBall:
                         return ModContent.ItemType<DuskBallCaught>();
                     case Pokebals.PremierBall:
                         return ModContent.ItemType<PremierBallCaught>();
+                    case Pokebals.QuickBall:
+                        return ModContent.ItemType<QuickBallCaught>();
+                    case Pokebals.TimerBall:
+                        return ModContent.ItemType<TimerBallCaught>();
                     default:
                         return 0;
                 }
@@ -382,6 +397,10 @@ namespace Terramon
                 {
                     return Pokebals.UltraBall;
                 }
+                if (item is MasterBallCaught)
+                {
+                    return Pokebals.MasterBall;
+                }
                 if (item is DuskBallCaught)
                 {
                     return Pokebals.DuskBall;
@@ -389,6 +408,14 @@ namespace Terramon
                 if (item is PremierBallCaught)
                 {
                     return Pokebals.PremierBall;
+                }
+                if (item is QuickBallCaught)
+                {
+                    return Pokebals.QuickBall;
+                }
+                if (item is TimerBallCaught)
+                {
+                    return Pokebals.TimerBall;
                 }
                 return Pokebals.Nothing;
             }
@@ -412,6 +439,10 @@ namespace Terramon
                 {
                     return ModContent.ItemType<UltraBallCaught>();
                 }
+                if (item is UltraBallCaught)
+                {
+                    return ModContent.ItemType<UltraBallCaught>();
+                }
                 if (item is DuskBallCaught)
                 {
                     return ModContent.ItemType<DuskBallCaught>();
@@ -419,6 +450,14 @@ namespace Terramon
                 if (item is PremierBallCaught)
                 {
                     return ModContent.ItemType<PremierBallCaught>();
+                }
+                if (item is QuickBallCaught)
+                {
+                    return ModContent.ItemType<QuickBallCaught>();
+                }
+                if (item is TimerBallCaught)
+                {
+                    return ModContent.ItemType<TimerBallCaught>();
                 }
                 return 0;
             }
