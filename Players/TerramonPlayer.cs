@@ -460,6 +460,14 @@ namespace Terramon.Players
             {
                 ClearNPCs();
             }
+
+            var type = BuffType<PokemonBuff>();
+            if (player.HasBuff(type) && !string.IsNullOrEmpty(ActivePetName))
+            {
+                Main.buffTexture[type] =
+                    ModContent.GetTexture(
+                        $"Terramon/Pokemon/FirstGeneration/Normal/{ActivePetName}/{ActivePetName}Buff");
+            }
         }
 
         public override void UpdateAutopause()
