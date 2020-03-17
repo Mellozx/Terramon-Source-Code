@@ -79,6 +79,16 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
                 }
             }
+            if (projectile.type == ModContent.ProjectileType<MasterBallProjectile>())
+            {
+                if (Main.rand.Next(12) == 0)
+                {
+                    projectile.timeLeft = 0;
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<MasterBallCap>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
+                }
+            }
             if (projectile.type == ModContent.ProjectileType<DuskBallProjectile>())
             {
                 if (Main.rand.Next(12) == 0)

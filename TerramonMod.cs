@@ -336,6 +336,7 @@ namespace Terramon
                 Pokeball,
                 GreatBall,
                 UltraBall,
+                MasterBall,
                 DuskBall,
                 PremierBall,
                 QuickBall,
@@ -358,6 +359,8 @@ namespace Terramon
                         return ModContent.ItemType<GreatBallCaught>();
                     case Pokebals.UltraBall:
                         return ModContent.ItemType<UltraBallCaught>();
+                    case Pokebals.MasterBall:
+                        return ModContent.ItemType<MasterBallCaught>();
                     case Pokebals.DuskBall:
                         return ModContent.ItemType<DuskBallCaught>();
                     case Pokebals.PremierBall:
@@ -392,6 +395,10 @@ namespace Terramon
                 {
                     return Pokebals.UltraBall;
                 }
+                if (item is MasterBallCaught)
+                {
+                    return Pokebals.MasterBall;
+                }
                 if (item is DuskBallCaught)
                 {
                     return Pokebals.DuskBall;
@@ -425,6 +432,10 @@ namespace Terramon
                 if (item is GreatBallCaught)
                 {
                     return ModContent.ItemType<GreatBallCaught>();
+                }
+                if (item is UltraBallCaught)
+                {
+                    return ModContent.ItemType<UltraBallCaught>();
                 }
                 if (item is UltraBallCaught)
                 {

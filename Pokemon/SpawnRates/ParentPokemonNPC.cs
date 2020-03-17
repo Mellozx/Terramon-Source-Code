@@ -99,7 +99,12 @@ namespace Terramon.Pokemon
             {
                 if (projectile.type == mod.ProjectileType(ballProjectiles[i]) && projectile.ai[1] == 1)
                 {
-                    if (ballProjectiles[i] == "DuskBallProjectile") // Special Condition
+                    if (ballProjectiles[i] == "MasterBallProjectile") // Master Ball never fails
+                    {
+                        Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<MasterBallCaught>());
+                        return;
+                    }
+                    if (ballProjectiles[i] == "DuskBallProjectile") // Special Condition day/night
                     {
                         ballUsage++;
                         if ((!Main.dayTime && Main.rand.NextFloat() < catchChances[i][0]) ||
