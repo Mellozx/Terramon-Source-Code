@@ -461,6 +461,7 @@ namespace Terramon.Players
                 ClearNPCs();
             }
 
+            //TODO: Move all buff icons in one folder
             var type = BuffType<PokemonBuff>();
             if (player.HasBuff(type) && !string.IsNullOrEmpty(ActivePetName))
             {
