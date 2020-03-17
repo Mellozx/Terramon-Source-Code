@@ -31,13 +31,6 @@ namespace Terramon.Items.Apricorns
             // Set other item.X values here
         }
 
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
-        {
-            Texture2D texture = Main.itemTexture[item.type];
-            spriteBatch.Draw(texture, item.Center - Main.screenPosition, null, lightColor, 0f, texture.Size() / 2f, item.scale / 2, SpriteEffects.None, 0);
-            return false;
-        }
-
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine nameLine = tooltips.FirstOrDefault(t => t.Name == "ItemName" && t.mod == "Terraria");
