@@ -12,18 +12,18 @@ using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
-    public sealed class QuickBallItem : BaseThrowablePokeballItem<QuickBallProjectile>
+    public sealed class TimerBallItem : BaseThrowablePokeballItem<TimerBallProjectile>
     {
-        public QuickBallItem() : base(Constants.Pokeballs.UnlocalizedNames.QUICK_BALL,
+        public TimerBallItem() : base(Constants.Pokeballs.UnlocalizedNames.QUICK_BALL,
             new Dictionary<GameCulture, string>()
             {
-                { GameCulture.English, "Quick Ball" },
-                { GameCulture.French, "Rapide Ball" }
+                { GameCulture.English, "Timer Ball" },
+                { GameCulture.French, "Chrono Ball" }
             },
             new Dictionary<GameCulture, string>()
             {
-                { GameCulture.English, "A somewhat different Poké Ball." + "\nProvides a higher catch rate when used at the start of a wild encounter." },
-                { GameCulture.French, "Un Poké Ball un peu différent." + "\nOffre un taux de capture plus élevé lorsqu'il est utilisé au début d'une rencontre avec un animal sauvage." }
+                { GameCulture.English, "A somewhat different Poké Ball." + "\nIt becomes progressively better the more Balls used on a wild Pokémon." },
+                { GameCulture.French, "Un Poké Ball un peu différent." + "\nIl devient progressivement meilleur au fur et à mesure que l'on utilise des balles sur un Pokémon sauvage." }
             },
             Item.sellPrice(gold: 6, silver: 25), ItemRarityID.White, Constants.Pokeballs.CatchRates.QUICK_BALL)
         {
@@ -32,9 +32,9 @@ namespace Terramon.Items.Pokeballs.Inventory
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("QuickBallCap"));
+            recipe.AddIngredient(mod.ItemType("TimerBallCap"));
             recipe.AddIngredient(mod.ItemType("Button"));
-            recipe.AddIngredient(mod.ItemType("QuickBallBase"));
+            recipe.AddIngredient(mod.ItemType("TimerBallBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
@@ -63,7 +63,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = new Color(100, 161, 237);
+                    line2.overrideColor = new Color(255, 163, 71);
                 }
             }
         }

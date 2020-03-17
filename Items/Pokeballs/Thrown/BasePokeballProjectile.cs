@@ -109,6 +109,16 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<QuickBallBase>());
                 }
             }
+            if (projectile.type == ModContent.ProjectileType<TimerBallProjectile>())
+            {
+                if (Main.rand.Next(12) == 0)
+                {
+                    projectile.timeLeft = 0;
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<TimerBallCap>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<TimerBallBase>());
+                }
+            }
 
             return false;
         }

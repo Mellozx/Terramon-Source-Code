@@ -76,6 +76,7 @@ namespace Terramon
                                                    "DuskBall",
                                                     "PremierBall",
                                                    "QuickBall",
+                                                   "TimerBall",
                                                    "MasterBall"};
 
         // catch chance of the ball refers to the same index as the ball
@@ -87,6 +88,7 @@ namespace Terramon
                           .1190f },
             new float[] { .1190f }, //Premier Ball
             new float[] { .2380f }, //Quick Ball
+            new float[] { .2380f }, //Timer Ball
             new float[] { 1f } //Master Ball
         };
 
@@ -337,6 +339,7 @@ namespace Terramon
                 DuskBall,
                 PremierBall,
                 QuickBall,
+                TimerBall,
             }
 
             /// <summary>
@@ -361,6 +364,8 @@ namespace Terramon
                         return ModContent.ItemType<PremierBallCaught>();
                     case Pokebals.QuickBall:
                         return ModContent.ItemType<QuickBallCaught>();
+                    case Pokebals.TimerBall:
+                        return ModContent.ItemType<TimerBallCaught>();
                     default:
                         return 0;
                 }
@@ -399,6 +404,10 @@ namespace Terramon
                 {
                     return Pokebals.QuickBall;
                 }
+                if (item is TimerBallCaught)
+                {
+                    return Pokebals.TimerBall;
+                }
                 return Pokebals.Nothing;
             }
 
@@ -432,6 +441,10 @@ namespace Terramon
                 if (item is QuickBallCaught)
                 {
                     return ModContent.ItemType<QuickBallCaught>();
+                }
+                if (item is TimerBallCaught)
+                {
+                    return ModContent.ItemType<TimerBallCaught>();
                 }
                 return 0;
             }

@@ -187,7 +187,123 @@ namespace Terramon.Pokemon
                         }
 
                     }
-                    else
+                    else if (ballProjectiles[i] == "TimerBallProjectile") // Special Condition
+                    {
+                        ballUsage++;
+                        if (ballUsage == 1) // 0.5x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .0595f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 2) // 0.75x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .08925f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 3) // 1x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .1190f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 4) // 1.2x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .1428f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 5) // 1.4x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .1666f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 6) // 1.6x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .1904f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 7) // 1.8x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .2142f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 8) // 2x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .2380f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 9) // 2.2x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .2618f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 10) // 2.4x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .2856f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 11) // 2.6x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .3094f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 12) // 2.8x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .3332f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage == 13) // 3x catch chance
+                        {
+                            if (Main.rand.NextFloat() < .3570f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+                        if (ballUsage >= 13) // anything more..
+                        {
+                            if (Main.rand.NextFloat() < .3570f)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                return;
+                            }
+                        }
+
+                    }
                     {
                         ballUsage++;
                         for (int j = 0; j < catchChances[i].Length; j++) // Retain loop for improvement later
@@ -260,6 +376,13 @@ namespace Terramon.Pokemon
                 if (Main.rand.Next(3) == 0)
                 {
                     Item.NewItem(npc.getRect(), ModContent.ItemType<QuickBallItem>());
+                }
+            }
+            if (projectile.type == ModContent.ProjectileType<TimerBallProjectile>()) // Special Condition
+            {
+                if (Main.rand.Next(3) == 0)
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<TimerBallItem>());
                 }
             }
 
