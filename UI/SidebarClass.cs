@@ -34,12 +34,16 @@ namespace Terramon.UI
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            base.DrawSelf(spriteBatch);
-
             if (IsMouseHovering)
             {
                 Main.hoverItemName = HoverText;
+                ImageScale = 1.2f;
             }
+            else
+            {
+                ImageScale = 1f;
+            }
+            base.DrawSelf(spriteBatch);
         }
 
         public override void Update(GameTime gameTime)

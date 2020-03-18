@@ -66,7 +66,7 @@ namespace Terramon.UI.SidebarParty
             mainPanel.VAlign = 0.6f;
             mainPanel.Width.Set(95, 0f);
             mainPanel.Height.Set(385f, 0f);
-            mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
+            mainPanel.BackgroundColor = new Color(15, 20, 46) * 0.5f;
 
             Texture2D chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Help");
             choose = new UIOpaqueButton(chooseTexture, "Show Terramon Help");
@@ -154,14 +154,14 @@ namespace Terramon.UI.SidebarParty
                 }
                 else
                 {
-                    mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
+                    mainPanel.BackgroundColor = new Color(15, 20, 46) * 0.5f;
                 }
             }
             if (TerramonMod.PartyUIAutoMode == true)
             {
                 if (!Main.dayTime)
                 {
-                    mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
+                    mainPanel.BackgroundColor = new Color(15, 20, 46) * 0.5f;
                 }
                 else
                 {
@@ -176,7 +176,7 @@ namespace Terramon.UI.SidebarParty
                 }
                 else
                 {
-                    mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
+                    mainPanel.BackgroundColor = new Color(15, 20, 46) * 0.5f;
                 }
             }
 
