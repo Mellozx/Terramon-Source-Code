@@ -20,19 +20,5 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
             projectile.height = 24; //-4
             drawOriginOffsetY = -14;
         }
-
-        public override void AI()
-        {
-            Player player = Main.player[projectile.owner];
-            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
-            if (player.dead)
-            {
-                modPlayer.bulbasaurPet = false;
-            }
-            if (modPlayer.bulbasaurPet)
-            {
-                projectile.timeLeft = 2;
-            }
-        }
     }
 }

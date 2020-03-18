@@ -41,8 +41,10 @@ namespace Terramon.UI
 				Main.LocalPlayer.mouseInterface = true;
 				if (ValidItemFunc == null || ValidItemFunc(Main.mouseItem)) {
 					// Handle handles all the click and hover actions based on the context.
+                    var oldItem = Item;
 					ItemSlot.Handle(ref Item, _context);
-					OnItemPlaced?.Invoke(Item);
+					if(oldItem != Item)
+                     OnItemPlaced?.Invoke(Item);
 				}
 			}
 			// Draw draws the slot itself and Item. Depending on context, the color will change, as will drawing other things like stack counts.

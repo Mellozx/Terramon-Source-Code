@@ -10,12 +10,6 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
 
         public override Type EvolveTo => typeof(Gengar.Gengar);
 
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            // projectile.scale = 0.5f;
-        }
-
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -24,20 +18,6 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
             projectile.height = 40;
             drawOriginOffsetY = -36;
             projectile.alpha = 95;
-        }
-
-        public override void AI()
-        {
-            Player player = Main.player[projectile.owner];
-            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
-            if (player.dead)
-            {
-                modPlayer.haunterPet = false;
-            }
-            if (modPlayer.haunterPet)
-            {
-                projectile.timeLeft = 2;
-            }
         }
     }
 }

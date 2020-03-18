@@ -14,19 +14,5 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Venusaur
 			projectile.scale = 1f;
             // drawOriginOffsetY = -1;
         }
-
-        public override void AI()
-        {
-            Player player = Main.player[projectile.owner];
-            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
-            if (player.dead)
-            {
-                modPlayer.venusaurPet = false;
-            }
-            if (modPlayer.venusaurPet)
-            {
-                projectile.timeLeft = 2;
-            }
-        }
     }
 }

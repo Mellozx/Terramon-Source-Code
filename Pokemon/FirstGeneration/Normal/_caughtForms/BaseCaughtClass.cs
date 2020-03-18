@@ -90,26 +90,58 @@ namespace Terramon.Items.Pokeballs.Inventory
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if (player.HasBuff(mod.BuffType(PokemonName + "Buff")))
+            //if (player.HasBuff(mod.BuffType(PokemonName + "Buff")))
+            //{
+            //    player.ClearBuff(mod.BuffType(PokemonName + "Buff"));
+            //    switch (Main.rand.Next(3))
+            //    {
+            //        case 0:
+            //            CombatText.NewText(player.Hitbox, Color.White, PokemonName + ", switch out!\nCome back!", true, false);
+            //            break;
+            //        case 1:
+            //            CombatText.NewText(player.Hitbox, Color.White, PokemonName + ", return!", true, false);
+            //            break;
+            //        default:
+            //            CombatText.NewText(player.Hitbox, Color.White, "That's enough for now, " + PokemonName + "!", true, false);
+            //            break;
+            //    }
+            //    return true;
+            //}
+            //else
+            //    player.AddBuff(mod.BuffType(PokemonName + "Buff"), 2);
+            //CombatText.NewText(player.Hitbox, Color.White, "Go! " + PokemonName + "!", true, false);
+            //return true;
+
+            TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+            if (!player.HasBuff(pokeBuff))
             {
-                player.ClearBuff(mod.BuffType(PokemonName + "Buff"));
+                player.AddBuff(pokeBuff, 2);
+                modPlayer.ActivePetName = PokemonName;
+                modPlayer.ActivatePet(PokemonName);
+                CombatText.NewText(player.Hitbox, Color.White, "Go! " + PokemonName + "!", true);
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            }
+            else
+            {
+                player.ClearBuff(pokeBuff);
                 switch (Main.rand.Next(3))
                 {
                     case 0:
-                        CombatText.NewText(player.Hitbox, Color.White, PokemonName + ", switch out!\nCome back!", true, false);
+                        CombatText.NewText(player.Hitbox, Color.White, modPlayer.ActivePetName + ", switch out!\nCome back!", true, false);
                         break;
                     case 1:
-                        CombatText.NewText(player.Hitbox, Color.White, PokemonName + ", return!", true, false);
+                        CombatText.NewText(player.Hitbox, Color.White, modPlayer.ActivePetName + ", return!", true, false);
                         break;
                     default:
-                        CombatText.NewText(player.Hitbox, Color.White, "That's enough for now, " + PokemonName + "!", true, false);
+                        CombatText.NewText(player.Hitbox, Color.White, "That's enough for now, " + modPlayer.ActivePetName + "!", true, false);
                         break;
                 }
-                return true;
+                modPlayer.ActivePetName = string.Empty;
             }
-            else
-                player.AddBuff(mod.BuffType(PokemonName + "Buff"), 2);
-            CombatText.NewText(player.Hitbox, Color.White, "Go! " + PokemonName + "!", true, false);
+
+
+
             return true;
         }
 
@@ -198,6 +230,18 @@ namespace Terramon.Items.Pokeballs.Inventory
             CapturedPokemon = tag.ContainsKey(nameof(CapturedPokemon)) ? tag.GetString(nameof(CapturedPokemon)) : PokemonName;
             Level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
             Exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            base.ModifyTooltips(tooltips);
+            for (int i = 0; i < tooltips.Count;)
+            {
+                if (tooltips[i].text.Contains("damage") || tooltips[i].text.Contains("knockback") || tooltips[i].text.Contains("critical strike") || tooltips[i].text.Contains("speed"))
+                    tooltips.RemoveAt(i);
+                else
+                    i++;
+            }
         }
 
         public override void NetSend(BinaryWriter writer)

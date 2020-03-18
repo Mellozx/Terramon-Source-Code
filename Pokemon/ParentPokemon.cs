@@ -1,4 +1,5 @@
 ﻿using System;
+using Terramon.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -51,6 +52,22 @@ namespace Terramon.Pokemon
             Player player = Main.player[projectile.owner];
             player.zephyrfish = false; // Relic from aiType
             return true;
+        }
+
+        public override void AI()
+        {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (player.dead)
+            {
+                modPlayer.ResetEffects();
+                modPlayer.ActivePetId = -1;
+            }
+            
+            if (modPlayer.IsPetActive(GetType().Name))
+            {
+                projectile.timeLeft = 2;
+            }
         }
     }
 

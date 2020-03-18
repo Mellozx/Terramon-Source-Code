@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
@@ -499,6 +501,11 @@ namespace Terramon
         }
 
         public static TerramonMod Instance { get; private set; }
+
+        public static IEnumerable<string> GetPokemonsNames()
+        {
+            return from it in Instance.pokemonStore select it.Key;
+        }
 
         public static ParentPokemon GetPokemon(string monName)
         {
