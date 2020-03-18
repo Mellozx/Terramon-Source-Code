@@ -461,13 +461,12 @@ namespace Terramon.Players
                 ClearNPCs();
             }
 
-            //TODO: Move all buff icons in one folder
             var type = BuffType<PokemonBuff>();
             if (player.HasBuff(type) && !string.IsNullOrEmpty(ActivePetName))
             {
                 Main.buffTexture[type] =
                     ModContent.GetTexture(
-                        $"Terramon/Pokemon/FirstGeneration/Normal/{ActivePetName}/{ActivePetName}Buff");
+                        $"Terramon/Buffs/{ActivePetName}Buff");
             }
         }
 
