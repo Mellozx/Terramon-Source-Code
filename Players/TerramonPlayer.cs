@@ -461,12 +461,15 @@ namespace Terramon.Players
                 ClearNPCs();
             }
 
-            var type = BuffType<PokemonBuff>();
-            if (player.HasBuff(type) && !string.IsNullOrEmpty(ActivePetName))
+            if (!Main.dedServ)
             {
-                Main.buffTexture[type] =
-                    ModContent.GetTexture(
-                        $"Terramon/Buffs/{ActivePetName}Buff");
+                var type = BuffType<PokemonBuff>();
+                if (player.HasBuff(type) && !string.IsNullOrEmpty(ActivePetName))
+                {
+                    Main.buffTexture[type] =
+                        ModContent.GetTexture(
+                            $"Terramon/Buffs/{ActivePetName}Buff");
+                }
             }
         }
 
