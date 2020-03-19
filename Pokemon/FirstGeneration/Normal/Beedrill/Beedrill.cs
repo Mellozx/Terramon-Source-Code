@@ -1,7 +1,3 @@
-using System;
-using Terramon.Players;
-using Terraria;
-
 namespace Terramon.Pokemon.FirstGeneration.Normal.Beedrill
 {
     public class Beedrill : ParentPokemonFlying

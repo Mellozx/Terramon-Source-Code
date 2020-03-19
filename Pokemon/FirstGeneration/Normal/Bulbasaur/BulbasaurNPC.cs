@@ -1,6 +1,6 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,14 +8,17 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
 {
     public class BulbasaurNPC : ParentPokemonNPC
     {
-        public override Type HomeClass() => typeof(Bulbasaur);
+        public override Type HomeClass()
+        {
+            return typeof(Bulbasaur);
+        }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-			npc.width = 20;
-			npc.height = 20;
-			npc.scale = 1f;
+            npc.width = 20;
+            npc.height = 20;
+            npc.scale = 1f;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -28,13 +31,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
         {
             Player player = Main.LocalPlayer;
             if (spawnInfo.player.ZoneOverworldHeight && spawnInfo.player.ZoneJungle)
-            {
                 return 0.04f;
-            }
-            else
-            {
-                return 0f;
-            }
+            return 0f;
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Terramon.Items.Pokeballs.Thrown;
 using Terraria;
 using Terraria.ID;
@@ -12,18 +9,26 @@ using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
-    public sealed class TimerBallItem : BaseThrowablePokeballItem<TimerBallProjectile>
+    public sealed class TimerBallItem : BaseThrowablePokeballItem<TimerBallProjectile>
     {
         public TimerBallItem() : base(Constants.Pokeballs.UnlocalizedNames.QUICK_BALL,
-            new Dictionary<GameCulture, string>()
+            new Dictionary<GameCulture, string>
             {
-                { GameCulture.English, "Timer Ball" },
-                { GameCulture.French, "Chrono Ball" }
+                {GameCulture.English, "Timer Ball"},
+                {GameCulture.French, "Chrono Ball"}
             },
-            new Dictionary<GameCulture, string>()
+            new Dictionary<GameCulture, string>
             {
-                { GameCulture.English, "A somewhat different Poké Ball." + "\nIt becomes progressively better the more Balls used on a wild Pokémon." },
-                { GameCulture.French, "Un Poké Ball un peu différent." + "\nIl devient progressivement meilleur au fur et à mesure que l'on utilise des balles sur un Pokémon sauvage." }
+                {
+                    GameCulture.English,
+                    "A somewhat different Poké Ball." +
+                    "\nIt becomes progressively better the more Balls used on a wild Pokémon."
+                },
+                {
+                    GameCulture.French,
+                    "Un Poké Ball un peu différent." +
+                    "\nIl devient progressivement meilleur au fur et à mesure que l'on utilise des balles sur un Pokémon sauvage."
+                }
             },
             Item.sellPrice(gold: 6, silver: 25), ItemRarityID.White, Constants.Pokeballs.CatchRates.QUICK_BALL)
         {
@@ -60,12 +65,8 @@ namespace Terramon.Items.Pokeballs.Inventory
                 tooltips.Find(t => t.Name == TooltipLines.ITEM_NAME).overrideColor = NameColorOverride;
 
             foreach (TooltipLine line2 in tooltips)
-            {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
                     line2.overrideColor = new Color(255, 163, 71);
-                }
-            }
         }
     }
 }

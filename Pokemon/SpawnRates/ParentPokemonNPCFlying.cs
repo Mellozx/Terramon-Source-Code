@@ -1,11 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Text.RegularExpressions;
-using Terramon.Items.Pokeballs.Inventory;
-using Terramon.Items.Pokeballs.Thrown;
-using Terramon.Network.Catching;
-using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,7 +6,6 @@ namespace Terramon.Pokemon
 {
     public abstract class ParentPokemonNPCFlying : ParentPokemonNPC
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault(PokeName());
@@ -35,7 +27,6 @@ namespace Terramon.Pokemon
             aiType = NPCID.Firefly;
 
             animationType = NPCID.Firefly;
-
         }
     }
 }

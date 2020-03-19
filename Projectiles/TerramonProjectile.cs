@@ -4,6 +4,5 @@ namespace Terramon.Projectiles
 {
     public abstract class TerramonProjectile : ModProjectile
     {
-        
     }
 }

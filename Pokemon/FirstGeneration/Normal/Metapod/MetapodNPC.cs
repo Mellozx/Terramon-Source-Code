@@ -1,13 +1,16 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Metapod
 {
     public class MetapodNPC : ParentPokemonNPC
     {
-        public override Type HomeClass() => typeof(Metapod);
+        public override Type HomeClass()
+        {
+            return typeof(Metapod);
+        }
 
         public override void SetDefaults()
         {
@@ -25,13 +28,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Metapod
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.player.ZoneOverworldHeight && spawnInfo.player.ZoneJungle)
-            {
                 return 0.05f;
-            }
-            else
-            {
-                return 0f;
-            }
+            return 0f;
         }
     }
 }

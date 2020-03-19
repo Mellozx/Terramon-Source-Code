@@ -11,7 +11,8 @@ namespace Terramon.Items.MiscItems.GameBoys
         /// <param name="value"></param>
         /// <param name="rarity"></param>
         /// <param name="musicPath">The right-most part of the music file, i.e. TitleScreen for GB_TitleScreen.</param>
-        protected GameBoy(string color, string tooltip, int value, int rarity, string musicPath) : base($"Game Boy ({color})", tooltip, 22, 32, value, 0, rarity)
+        protected GameBoy(string color, string tooltip, int value, int rarity, string musicPath) : base(
+            $"Game Boy ({color})", tooltip, 22, 32, value, 0, rarity)
         {
             MusicPath = musicPath;
         }

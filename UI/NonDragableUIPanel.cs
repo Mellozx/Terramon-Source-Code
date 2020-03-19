@@ -1,17 +1,11 @@
 using Microsoft.Xna.Framework;
-
 using Terraria;
-
 using Terraria.GameContent.UI.Elements;
-
 using Terraria.UI;
-
-
 
 namespace Terramon.UI
 
 {
-
     // This DragableUIPanel class inherits from UIPanel. 
 
     // Inheriting is a great tool for UI design. By inheriting, we get the background drawing for free from UIPanel
@@ -25,7 +19,6 @@ namespace Terramon.UI
     internal class NonDragableUIPanel : UIPanel
 
     {
-
         // Stores the offset from the top left of the UIPanel while dragging.
 
         private Vector2 offset;
@@ -33,76 +26,50 @@ namespace Terramon.UI
         public bool dragging;
 
 
-
         public override void MouseDown(UIMouseEvent evt)
         {
-
             base.MouseDown(evt);
 
             DragStart(evt);
-
         }
-
 
 
         public override void MouseUp(UIMouseEvent evt)
         {
-
             base.MouseUp(evt);
 
             DragEnd(evt);
-
         }
-
 
 
         private void DragStart(UIMouseEvent evt)
         {
-
-            
-
         }
-
 
 
         private void DragEnd(UIMouseEvent evt)
         {
-
-            
-
         }
-
 
 
         public override void Update(GameTime gameTime)
         {
-
             base.Update(gameTime); // don't remove.
-
 
 
             // Checking ContainsPoint and then setting mouseInterface to true is very common. This causes clicks on this UIElement to not cause the player to use current items. 
 
-            if (ContainsPoint(Main.MouseScreen))
-            {
-
-                Main.LocalPlayer.mouseInterface = true;
-
-            }
-
+            if (ContainsPoint(Main.MouseScreen)) Main.LocalPlayer.mouseInterface = true;
 
 
             if (dragging)
             {
-
                 Left.Set(Main.mouseX - offset.X, 0f); // Main.MouseScreen.X and Main.mouseX are the same.
 
                 Top.Set(Main.mouseY - offset.Y, 0f);
 
                 Recalculate();
-
             }
-
 
 
             // Here we check if the DragableUIPanel is outside the Parent UIElement rectangle. 
@@ -115,7 +82,6 @@ namespace Terramon.UI
 
             if (!GetDimensions().ToRectangle().Intersects(parentSpace))
             {
-
                 Left.Pixels = Utils.Clamp(Left.Pixels, 0, parentSpace.Right - Width.Pixels);
 
                 Top.Pixels = Utils.Clamp(Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
@@ -123,11 +89,7 @@ namespace Terramon.UI
                 // Recalculate forces the UI system to do the positioning math again.
 
                 Recalculate();
-
             }
-
         }
-
     }
-
 }

@@ -4,7 +4,8 @@ namespace Terramon.Achievements
 {
     public class IntermediateTrainerAchievement : TerramonAchievement
     {
-        public IntermediateTrainerAchievement() : base("Intermediate Trainer", "Catch 25 different Pokémon.", AchievementCategory.Collector)
+        public IntermediateTrainerAchievement() : base("Intermediate Trainer", "Catch 25 different Pokémon.",
+            AchievementCategory.Collector)
         {
         }
     }

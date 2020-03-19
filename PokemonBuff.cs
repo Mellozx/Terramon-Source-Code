@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IL.Terraria.GameContent.UI;
-using Terramon.Players;
+﻿using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -13,7 +7,6 @@ namespace Terramon
     public class PokemonBuff : ModBuff
     {
         public virtual string ProjectileName { get; set; }
-        protected string oldName = "";
 
         public override void SetDefaults()
         {
@@ -32,12 +25,7 @@ namespace Terramon
                 return;
             }
 
-            //if (oldName != modPlayer.ActivePetName)
-            //{
             ProjectileName = modPlayer.ActivePetName;
-            //    oldName = ProjectileName;
-
-            //}
 
             player.buffTime[buffIndex] = 40000;
 
@@ -46,11 +34,10 @@ namespace Terramon
             var petProjectileNotSpawned = !(player.ownedProjectileCounts[mod.ProjectileType(ProjectileName)] > 0);
 
             if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
-            {
-                modPlayer.ActivePetId = Projectile.NewProjectile(player.position.X + player.width / 2, player.position.Y + player.height / 2, 
+                modPlayer.ActivePetId = Projectile.NewProjectile(player.position.X + player.width / 2,
+                    player.position.Y + player.height / 2,
                     0f, 0f, mod.ProjectileType(ProjectileName), 0, 0f,
-                    player.whoAmI, 0f, 0f);
-            }
+                    player.whoAmI);
         }
 
 

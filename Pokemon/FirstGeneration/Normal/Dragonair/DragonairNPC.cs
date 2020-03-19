@@ -1,12 +1,15 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Dragonair
 {
     public class DragonairNPC : NotCatchablePKMN
     {
-        public override Type HomeClass() => typeof(Dragonair);
+        public override Type HomeClass()
+        {
+            return typeof(Dragonair);
+        }
 
         public override void SetDefaults()
         {

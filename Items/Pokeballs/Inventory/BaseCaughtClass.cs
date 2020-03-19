@@ -1,37 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using log4net.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terramon.Items.Pokeballs.Thrown;
 using Terramon.Players;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terramon.Pokemon.FirstGeneration.Normal.Charmander;
-using Terramon.Pokemon.Moves;
+// ReSharper disable InvalidXmlDocComment
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
     public abstract class BaseCaughtClass : ModItem
     {
         /// <summary>
-        /// I think this is not needed. I want  to store what mon are here
-        /// we better need to store a type string <see cref="nameof(Charmander)"/>
+        ///     I think this is not needed. I want  to store what mon are here
+        ///     we better need to store a type string <see cref="nameof(Charmander)" />
         /// </summary>
         public int PokemonNPC;
+
         public string CapturedPokemon;
         public string PokemonName;
         public string SmallSpritePath;
         public int PartySlotNumber;
         public int Level = 1;
-        public int Exp = 0;
+        public int Exp;
 
-        public String[] Moves;
+        public string[] Moves;
 
         public override bool CloneNewInstances => true;
 
@@ -56,7 +51,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             item.rare = 0;
 
             //I'l made a moves registry like i do it with mons after we done
-            Moves = new [] { "", "", "", ""};
+            Moves = new[] {"", "", "", ""};
 
             //Detour handle
             if (Main.netMode != NetmodeID.Server || det_CapturedPokemon == null)
@@ -74,17 +69,17 @@ namespace Terramon.Items.Pokeballs.Inventory
             {
                 var arr = det_Moves.Split('|');
                 for (int i = 0; i < arr.Length || i < 4; i++)
-                {
                     if (!string.IsNullOrEmpty(arr[i]))
                         Moves[i] = arr[i];
-                }
             }
+
             det_Moves = null;
         }
 
-        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            if (SmallSpritePath == null )
+            if (SmallSpritePath == null)
             {
                 var mon = TerramonMod.GetPokemon(CapturedPokemon);
                 if (mon == null)
@@ -95,11 +90,14 @@ namespace Terramon.Items.Pokeballs.Inventory
             Texture2D pokemonTexture = ModContent.GetTexture(SmallSpritePath);
             Texture2D itemTexture = Main.itemTexture[item.type];
             spriteBatch.Draw(itemTexture, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0);
-            spriteBatch.Draw(pokemonTexture, position + itemTexture.Size() * Main.inventoryScale - new Vector2(4, 4), pokemonTexture.Frame(), drawColor, 0f, pokemonTexture.Size() / 2f, Main.inventoryScale, SpriteEffects.None, 0);
+            spriteBatch.Draw(pokemonTexture, position + itemTexture.Size() * Main.inventoryScale - new Vector2(4, 4),
+                pokemonTexture.Frame(), drawColor, 0f, pokemonTexture.Size() / 2f, Main.inventoryScale,
+                SpriteEffects.None, 0);
             return false;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
@@ -109,7 +107,8 @@ namespace Terramon.Items.Pokeballs.Inventory
                 modPlayer.ActivePetName = PokemonName;
                 modPlayer.ActivatePet(PokemonName, false);
                 CombatText.NewText(player.Hitbox, Color.White, "Go! " + PokemonName + "!", true);
-                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>()
+                    .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
             }
             else
             {
@@ -117,18 +116,20 @@ namespace Terramon.Items.Pokeballs.Inventory
                 switch (Main.rand.Next(3))
                 {
                     case 0:
-                        CombatText.NewText(player.Hitbox, Color.White, modPlayer.ActivePetName + ", switch out!\nCome back!", true, false);
+                        CombatText.NewText(player.Hitbox, Color.White,
+                            modPlayer.ActivePetName + ", switch out!\nCome back!", true);
                         break;
                     case 1:
-                        CombatText.NewText(player.Hitbox, Color.White, modPlayer.ActivePetName + ", return!", true, false);
+                        CombatText.NewText(player.Hitbox, Color.White, modPlayer.ActivePetName + ", return!", true);
                         break;
                     default:
-                        CombatText.NewText(player.Hitbox, Color.White, "That's enough for now, " + modPlayer.ActivePetName + "!", true, false);
+                        CombatText.NewText(player.Hitbox, Color.White,
+                            "That's enough for now, " + modPlayer.ActivePetName + "!", true);
                         break;
                 }
+
                 modPlayer.ActivePetName = string.Empty;
             }
-
 
 
             return true;
@@ -137,9 +138,12 @@ namespace Terramon.Items.Pokeballs.Inventory
         public override bool CanRightClick()
         {
             //Just make it little clear
-            return ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir || ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir ||
-                   ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir || ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir ||
-                   ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir || ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir;
+            return ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir ||
+                   ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir ||
+                   ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir ||
+                   ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir ||
+                   ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir ||
+                   ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir;
         }
 
         public override void RightClick(Player player)
@@ -149,47 +153,38 @@ namespace Terramon.Items.Pokeballs.Inventory
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item = item.Clone();
                 item.TurnToAir();
             }
-            else
-
-            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
+            else if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
             {
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item = item.Clone();
                 item.TurnToAir();
             }
-            else
-
-            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
+            else if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
             {
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item = item.Clone();
                 item.TurnToAir();
             }
-            else
-
-            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
+            else if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
             {
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item = item.Clone();
                 item.TurnToAir();
             }
-            else
-
-            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
+            else if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
             {
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item = item.Clone();
                 item.TurnToAir();
             }
-            else
-
-            if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
+            else if (ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
             {
                 ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item = item.Clone();
                 item.TurnToAir();
             }
             else
             {
-                Main.NewText("All Party Slots are full", 255, 240, 20, false);
+                Main.NewText("All Party Slots are full", 255, 240, 20);
                 return;
             }
-            ((TerramonMod)mod).PartySlots.UpdateUI(null);
+
+            ((TerramonMod) mod).PartySlots.UpdateUI(null);
         }
 
         public const string POKEBAL_PROPERTY = "PokebalType";
@@ -199,7 +194,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         public const string MOVE4 = "Move4";
 
         public override TagCompound Save()
-        { 
+        {
             var tag = new TagCompound
             {
                 [nameof(PokemonNPC)] = PokemonNPC,
@@ -218,24 +213,26 @@ namespace Terramon.Items.Pokeballs.Inventory
                 [MOVE4] = Moves[3] ?? "",
                 //[nameof(Moves)] = from it in Moves select it.MoveName,
                 //Used to restore items in sidebarUI
-                [POKEBAL_PROPERTY] = (byte)TerramonMod.PokeballFactory.GetEnum(this),
+                [POKEBAL_PROPERTY] = (byte) TerramonMod.PokeballFactory.GetEnum(this)
             };
-            
-            
+
 
             return tag;
         }
+
         public override void Load(TagCompound tag)
         {
             PokemonNPC = tag.GetInt(nameof(PokemonNPC));
             PokemonName = tag.GetString(nameof(PokemonName));
             SmallSpritePath = tag.GetString(nameof(SmallSpritePath));
             //v2
-            CapturedPokemon = tag.ContainsKey(nameof(CapturedPokemon)) ? tag.GetString(nameof(CapturedPokemon)) : PokemonName;
+            CapturedPokemon = tag.ContainsKey(nameof(CapturedPokemon))
+                ? tag.GetString(nameof(CapturedPokemon))
+                : PokemonName;
             Level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
             Exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
 
-            if(Moves == null)
+            if (Moves == null)
                 Moves = new string[4];
             Moves[0] = tag.ContainsKey(MOVE1) ? tag.GetString(MOVE1) : null;
             Moves[1] = tag.ContainsKey(MOVE2) ? tag.GetString(MOVE2) : null;
@@ -245,23 +242,21 @@ namespace Terramon.Items.Pokeballs.Inventory
             //Update all old pokebals
             bool retrofit = true;
             foreach (var it in Moves)
-            {
                 if (!string.IsNullOrEmpty(it))
                     retrofit = false;
-            }
-            Moves = TerramonMod.GetPokemon(PokemonName).DefaultMove;
+            if(retrofit)
+                Moves = TerramonMod.GetPokemon(PokemonName).DefaultMove;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             base.ModifyTooltips(tooltips);
             for (int i = 0; i < tooltips.Count;)
-            {
-                if (tooltips[i].text.Contains("damage") || tooltips[i].text.Contains("knockback") || tooltips[i].text.Contains("critical strike") || tooltips[i].text.Contains("speed"))
+                if (tooltips[i].text.Contains("damage") || tooltips[i].text.Contains("knockback") ||
+                    tooltips[i].text.Contains("critical strike") || tooltips[i].text.Contains("speed"))
                     tooltips.RemoveAt(i);
                 else
                     i++;
-            }
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -273,7 +268,9 @@ namespace Terramon.Items.Pokeballs.Inventory
                 writer.Write(PokemonName);
             }
             else
+            {
                 writer.Write(false);
+            }
 
             if (SmallSpritePath != null)
             {
@@ -281,7 +278,9 @@ namespace Terramon.Items.Pokeballs.Inventory
                 writer.Write(SmallSpritePath);
             }
             else
+            {
                 writer.Write(false);
+            }
 
             //v2 
             if (CapturedPokemon != null)
@@ -290,16 +289,15 @@ namespace Terramon.Items.Pokeballs.Inventory
                 writer.Write(CapturedPokemon);
             }
             else
+            {
                 writer.Write(false);
+            }
 
             writer.Write(Level);
             writer.Write(Exp);
 
             var mov = "";
-            foreach (var it in Moves)
-            {
-                mov += it + "|";
-            }
+            foreach (var it in Moves) mov += it + "|";
             writer.Write(mov);
         }
 
@@ -310,23 +308,19 @@ namespace Terramon.Items.Pokeballs.Inventory
                 PokemonName = reader.ReadString();
             if (reader.ReadBoolean())
                 SmallSpritePath = reader.ReadString();
-            if (reader.ReadBoolean())
-            {
-                CapturedPokemon = reader.ReadString();
-            }
+            if (reader.ReadBoolean()) CapturedPokemon = reader.ReadString();
 
             Level = reader.ReadInt32();
             Exp = reader.ReadInt32();
 
             var movArr = reader.ReadString().Split('|');
             for (int i = 0; i < movArr.Length || i < 4; i++)
-            {
                 if (!string.IsNullOrEmpty(movArr[i]))
                     Moves[i] = movArr[i];
-            }
         }
 
         //TODO: Take rid with it
+
         #region Temp Server Detour
 
         internal static void writeDetour(string type, string name, string icon, int lvl = 1, string moves = "")
@@ -346,6 +340,5 @@ namespace Terramon.Items.Pokeballs.Inventory
         internal static string det_Moves;
 
         #endregion
-
     }
 }

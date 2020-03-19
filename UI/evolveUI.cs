@@ -4,15 +4,11 @@ using Terramon.Items.MiscItems;
 using Terramon.Items.MiscItems.LinkCables;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network.Catching;
-using Terramon.Players;
 using Terramon.Pokemon;
-using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using Terraria.UI;
 
 namespace Terramon.UI.SidebarParty
@@ -47,7 +43,6 @@ namespace Terramon.UI.SidebarParty
             //pokemon icons
 
 
-
             // Next, we create another UIElement that we will place. Since we will be calling `mainPanel.Append(playButton);`, Left and Top are relative to the top left of the mainPanel UIElement. 
             // By properly nesting UIElements, we can position things relatively to each other easily.
             mainPanel = new DragableUIPanel();
@@ -59,16 +54,17 @@ namespace Terramon.UI.SidebarParty
             mainPanel.Width.Set(180, 0f);
             mainPanel.Height.Set(70f, 0f);
 
-            partyslot1 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 1f);
+            partyslot1 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem);
             partyslot1.SetPadding(0);
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             partyslot1.HAlign = 0.15f;
             partyslot1.VAlign = 0.5f;
-            partyslot1.ValidItemFunc = item => item.IsAir || TerramonMod.PokeballFactory.GetEnum(item.modItem) != TerramonMod.PokeballFactory.Pokebals.Nothing;
+            partyslot1.ValidItemFunc = item => item.IsAir || TerramonMod.PokeballFactory.GetEnum(item.modItem) !=
+                                               TerramonMod.PokeballFactory.Pokebals.Nothing;
             mainPanel.Append(partyslot1);
 
-            partyslot2 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem, 1f);
+            partyslot2 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem);
             partyslot2.SetPadding(0);
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
@@ -95,7 +91,7 @@ namespace Terramon.UI.SidebarParty
             SaveButton.VAlign = 0.53f;
             SaveButton.Width.Set(30, 0f);
             SaveButton.Height.Set(30, 0f);
-            SaveButton.OnClick += new MouseEvent(EvolveButtonClicked);
+            SaveButton.OnClick += EvolveButtonClicked;
 
             //Texture2D buttonSaveTexture = ModContent.GetTexture("Terraria/UI/ButtonPlay");
             //UIHoverImageButton SaveButton = new UIHoverImageButton(buttonSaveTexture, "Evolve"); // Localized text for "Close"
@@ -107,7 +103,6 @@ namespace Terramon.UI.SidebarParty
             //mainPanel.Append(SaveButton);
 
             Append(mainPanel);
-
 
 
             // As a recap, ExampleUI is a UIState, meaning it covers the whole screen. We attach mainPanel to ExampleUI some distance from the top left corner.
@@ -138,7 +133,8 @@ namespace Terramon.UI.SidebarParty
 
                             PokemonGoesHere.SetText($"Place {mon.EvolveCost} Rare Candies in the second slot.");
                             mainPanel.Append(partyslot2);
-                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is RareCandy && partyslot2.Item.stack == mon.EvolveCost)
+                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is RareCandy &&
+                                partyslot2.Item.stack == mon.EvolveCost)
                             {
                                 PokemonGoesHere.SetText("Great! Press the evolve button!");
                                 mainPanel.Append(SaveButton);
@@ -155,7 +151,8 @@ namespace Terramon.UI.SidebarParty
 
                             PokemonGoesHere.SetText($"Place {mon.EvolveCost} Link Cable in the second slot.");
                             mainPanel.Append(partyslot2);
-                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is LinkCable && partyslot2.Item.stack == mon.EvolveCost)
+                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is LinkCable &&
+                                partyslot2.Item.stack == mon.EvolveCost)
                             {
                                 PokemonGoesHere.SetText("Great! Press the evolve button!");
                                 mainPanel.Append(SaveButton);
@@ -165,7 +162,6 @@ namespace Terramon.UI.SidebarParty
                                 mainPanel.RemoveChild(SaveButton);
                             }
                         }
-
                     }
                     else
                     {
@@ -174,6 +170,7 @@ namespace Terramon.UI.SidebarParty
                 }
             }
         }
+
         private void EvolveButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             int whicheverballtype = TerramonMod.PokeballFactory.GetPokeballType(partyslot1.Item.modItem);
@@ -198,7 +195,8 @@ namespace Terramon.UI.SidebarParty
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     BaseCatchPacket packet = new BaseCatchPacket();
-                    packet.Send(TerramonMod.Instance, evolved.GetType().Name, evolved.GetType().Name, Main.LocalPlayer.getRect(), whicheverballtype);
+                    packet.Send(TerramonMod.Instance, evolved.GetType().Name, evolved.GetType().Name,
+                        Main.LocalPlayer.getRect(), whicheverballtype);
                 }
                 else
                 {
@@ -210,10 +208,9 @@ namespace Terramon.UI.SidebarParty
                         item.PokemonName = evolved.GetType().Name;
                         item.CapturedPokemon = evolved.GetType().Name;
                     }
-
                 }
             }
-            
+
             Visible = false;
             partyslot1.Item.TurnToAir();
             partyslot2.Item.TurnToAir();

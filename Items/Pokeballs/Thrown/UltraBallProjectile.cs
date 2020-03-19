@@ -1,10 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
-using Terramon.Items.Pokeballs.Inventory;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terramon.Items.Pokeballs.Thrown;
 
 namespace Terramon.Items.Pokeballs.Thrown
 {
@@ -24,26 +21,26 @@ namespace Terramon.Items.Pokeballs.Thrown
 
             if (projectile.owner == Main.myPlayer && projectile.timeLeft <= 3)
             {
-                Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, 31);
                 projectile.tileCollide = false;
 
                 projectile.alpha = 255;
 
-                projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-                projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
+                projectile.position.X = projectile.position.X + projectile.width / 2;
+                projectile.position.Y = projectile.position.Y + projectile.height / 2;
                 projectile.width = 250;
                 projectile.height = 250;
-                projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-                projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+                projectile.position.X = projectile.position.X - projectile.width / 2;
+                projectile.position.Y = projectile.position.Y - projectile.height / 2;
             }
             else
             {
-
                 if (Main.rand.Next(3) == 0)
                 {
-                    
                 }
             }
+
             projectile.ai[0] += 1f;
             if (projectile.ai[0] > 5f)
             {
@@ -56,17 +53,17 @@ namespace Terramon.Items.Pokeballs.Thrown
                     {
                         projectile.velocity.X = projectile.velocity.X * 0.99f;
                     }
-                    if ((double)projectile.velocity.X > -0.01 && (double)projectile.velocity.X < 0.01)
+                    if (projectile.velocity.X > -0.01 && projectile.velocity.X < 0.01)
                     {
                         projectile.velocity.X = 0f;
                         projectile.netUpdate = true;
                     }
                 }
+
                 projectile.velocity.Y = projectile.velocity.Y + 0.2f;
             }
 
             projectile.rotation += projectile.velocity.X * 0.07f;
-            return;
         }
 
         public override void Kill(int timeLeft)

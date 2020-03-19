@@ -21,10 +21,7 @@ namespace Terramon.UI
         {
             base.DrawSelf(spriteBatch);
 
-            if (IsMouseHovering)
-            {
-                Main.hoverItemName = HoverText;
-            }
+            if (IsMouseHovering) Main.hoverItemName = HoverText;
         }
     }
 }

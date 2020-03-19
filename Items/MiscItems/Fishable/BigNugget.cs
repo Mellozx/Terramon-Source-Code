@@ -1,26 +1,20 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Terraria;
-using Terraria.ID;
+using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
 
 namespace Terramon.Items.MiscItems.Fishable
 {
     public class BigNugget : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Big Nugget");
             Tooltip.SetDefault("A big nugget of pure gold that gives off a lustrous gleam."
-                + "\nIt can be sold at a high price to NPCs.");
+                               + "\nIt can be sold at a high price to NPCs.");
         }
+
         public override void SetDefaults()
         {
             item.width = 28;
@@ -41,12 +35,8 @@ namespace Terramon.Items.MiscItems.Fishable
             TooltipLine nameLine = tooltips.FirstOrDefault(t => t.Name == "ItemName" && t.mod == "Terraria");
 
             foreach (TooltipLine line2 in tooltips)
-            {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
                     line2.overrideColor = new Color(255, 235, 84);
-                }
-            }
         }
     }
 }

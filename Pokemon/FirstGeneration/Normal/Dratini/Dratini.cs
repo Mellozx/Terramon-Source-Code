@@ -1,6 +1,4 @@
 using System;
-using Terramon.Players;
-using Terraria;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Dratini
 {

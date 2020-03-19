@@ -10,7 +10,8 @@ namespace Terramon.Items.MiscItems.GameBoys
                                       "\n[c/FFFF66:Soundtrack: LAVENDER TOWN]";
 
 
-        public GameBoyLavender() : base("Lavender", TOOLTIP, Item.sellPrice(gold: 6, silver: 6, copper: 6), ItemRarityID.Orange, "LAVENDER")
+        public GameBoyLavender() : base("Lavender", TOOLTIP, Item.sellPrice(gold: 6, silver: 6, copper: 6),
+            ItemRarityID.Orange, "LAVENDER")
         {
         }
     }

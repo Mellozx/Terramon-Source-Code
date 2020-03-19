@@ -1,6 +1,6 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,7 +8,10 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Squirtle
 {
     public class SquirtleNPC : ParentPokemonNPC
     {
-        public override Type HomeClass() => typeof(Squirtle);
+        public override Type HomeClass()
+        {
+            return typeof(Squirtle);
+        }
 
         public override void SetDefaults()
         {
@@ -27,13 +30,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Squirtle
         {
             Player player = Main.LocalPlayer;
             if (spawnInfo.player.ZoneRockLayerHeight && spawnInfo.player.ZoneSnow)
-            {
                 return 0.04f;
-            }
-            else
-            {
-                return 0f;
-            }
+            return 0f;
         }
     }
 }

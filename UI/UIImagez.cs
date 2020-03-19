@@ -18,7 +18,6 @@ namespace Terramon.UI
 
         public UIImagez(Texture2D texture) : base(texture)
         {
-
         }
     }
 }

@@ -1,12 +1,15 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeot
 {
     public class PidgeotNPC : NotCatchablePKMNBirdFlying
     {
-        public override Type HomeClass() => typeof(Pidgeot);
+        public override Type HomeClass()
+        {
+            return typeof(Pidgeot);
+        }
 
         public override void SetDefaults()
         {

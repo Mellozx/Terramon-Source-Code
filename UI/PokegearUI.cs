@@ -32,7 +32,6 @@ namespace Terramon.UI
             //pokemon icons
 
 
-
             // Next, we create another UIElement that we will place. Since we will be calling `mainPanel.Append(playButton);`, Left and Top are relative to the top left of the mainPanel UIElement. 
             // By properly nesting UIElements, we can position things relatively to each other easily.
 
@@ -45,21 +44,25 @@ namespace Terramon.UI
             mainPanel.Append(pokegear);
 
             Texture2D buttonDeleteTexture = ModContent.GetTexture("Terraria/UI/ButtonDelete");
-            UIHoverImageButton closeButton = new UIHoverImageButton(buttonDeleteTexture, Language.GetTextValue("LegacyInterface.52")); // Localized text for "Close"
+            UIHoverImageButton closeButton =
+                new UIHoverImageButton(buttonDeleteTexture,
+                    Language.GetTextValue("LegacyInterface.52")); // Localized text for "Close"
             closeButton.Left.Set(13, 0f);
             closeButton.Top.Set(10, 0f);
             closeButton.Width.Set(30, 0f);
             closeButton.Height.Set(30, 0f);
-            closeButton.OnClick += new MouseEvent(CloseButtonClicked);
+            closeButton.OnClick += CloseButtonClicked;
             mainPanel.Append(closeButton);
 
             Texture2D eventsButtonTexture = ModContent.GetTexture("Terramon/UI/EventsButton");
-            UIHoverImageButton eventsButton = new UIHoverImageButton(eventsButtonTexture, "Browse Ongoing Events"); // Localized text for "Close"
+            UIHoverImageButton
+                eventsButton =
+                    new UIHoverImageButton(eventsButtonTexture, "Browse Ongoing Events"); // Localized text for "Close"
             eventsButton.Left.Set(63, 0f);
             eventsButton.Top.Set(70, 0f);
             eventsButton.Width.Set(132, 0f);
             eventsButton.Height.Set(44, 0f);
-            eventsButton.OnClick += new MouseEvent(EventsButtonClicked);
+            eventsButton.OnClick += EventsButtonClicked;
             mainPanel.Append(eventsButton);
 
             Append(mainPanel);
@@ -69,8 +72,9 @@ namespace Terramon.UI
             // Since mainPanel will move, this proper organization will move playButton, closeButton, and moneyDiplay properly when mainPanel moves.
         }
 
-        Mod achLib = ModLoader.GetMod("AchievementLib");
-        Player player = Main.LocalPlayer;
+        private Mod achLib = ModLoader.GetMod("AchievementLib");
+        private Player player = Main.LocalPlayer;
+
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             Main.PlaySound(SoundID.MenuOpen);
@@ -83,9 +87,5 @@ namespace Terramon.UI
             Main.PlaySound(SoundID.MenuOpen);
             PokegearUIEvents.Visible = true;
         }
-
-
-
-
     }
 }

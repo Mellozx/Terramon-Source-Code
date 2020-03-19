@@ -1,12 +1,15 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Beedrill
 {
     public class BeedrillNPC : NotCatchablePKMNBirdFlying
     {
-        public override Type HomeClass() => typeof(Beedrill);
+        public override Type HomeClass()
+        {
+            return typeof(Beedrill);
+        }
 
         public override void SetDefaults()
         {

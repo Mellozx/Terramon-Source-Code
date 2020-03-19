@@ -1,22 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.Serialization;
-using Terramon.Players;
+﻿using System.ComponentModel;
 using Terramon.UI.SidebarParty;
-using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
-using Terraria.ModLoader.Config.UI;
-using Terraria.UI;
 
 namespace Terramon
 {
@@ -43,6 +28,7 @@ namespace Terramon
         [Label("Show Help Button")]
         [Tooltip("When set to true, the help button will appear in the bottom left corner of the screen.")]
         public bool ShowHelpButton;
+
         public override void OnChanged()
         {
             TerramonMod.PartyUITheme = PartyUITheme;
@@ -54,13 +40,9 @@ namespace Terramon
             if (uISidebar != null)
             {
                 if (!TerramonMod.ShowHelpButton)
-                {
                     uISidebar.RemoveChild(uISidebar.choose);
-                }
                 else
-                {
                     uISidebar.Append(uISidebar.choose);
-                }
             }
         }
     }

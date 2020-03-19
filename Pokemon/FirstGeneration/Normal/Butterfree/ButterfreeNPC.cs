@@ -1,12 +1,15 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Butterfree
 {
     public class ButterfreeNPC : NotCatchablePKMNBirdFlying
     {
-        public override Type HomeClass() => typeof(Butterfree);
+        public override Type HomeClass()
+        {
+            return typeof(Butterfree);
+        }
 
         public override void SetDefaults()
         {

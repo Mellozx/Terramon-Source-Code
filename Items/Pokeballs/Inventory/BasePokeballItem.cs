@@ -1,17 +1,17 @@
-﻿using Terraria.ID;
-using WebmilioCommons.Managers;
-using Terramon.Players;
-using Terraria;
-using Terraria.ModLoader;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
+using WebmilioCommons.Managers;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
     public abstract class BasePokeballItem : TerramonItem, IHasUnlocalizedName
     {
-        protected BasePokeballItem(string unlocalizedName, Dictionary<GameCulture, string> displayNames, Dictionary<GameCulture, string> tooltips, int value, int rarity, float catchRate, Color? nameColorOverride = null) :
+        protected BasePokeballItem(string unlocalizedName, Dictionary<GameCulture, string> displayNames,
+            Dictionary<GameCulture, string> tooltips, int value, int rarity, float catchRate,
+            Color? nameColorOverride = null) :
             base(displayNames, tooltips, 24, 24, value, 0, rarity)
         {
             UnlocalizedName = unlocalizedName;

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
 using Terramon.Players;
 using Terraria;
+using Terraria.ID;
 
 namespace Terramon.Pokemon.Moves
 {
@@ -20,10 +15,12 @@ namespace Terramon.Pokemon.Moves
             NPC target = GetNearestNPC(pos);
             if (target == null)
                 return false;
-            Vector2 vel = (target.position - proj.position);
-            vel.Normalize();//Direction
-            vel *= 15;//Speed
-            Projectile.NewProjectile(proj.position, vel, ProjectileID.ChlorophyteArrow, 20, 1f, player.whoAmI);
+            Vector2 vel = (target.position + (target.Size/2)) - (proj.position + (proj.Size/2));
+            var l = vel.Length();
+            vel += target.velocity * (l / 100);//Make predict shoot
+            vel.Normalize(); //Direction
+            vel *= 15; //Speed
+            Projectile.NewProjectile((proj.position + (proj.Size / 2)), vel, ProjectileID.DD2PhoenixBowShot, 20, 1f, player.whoAmI);
             return true;
         }
     }

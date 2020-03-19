@@ -4,7 +4,8 @@ namespace Terramon.Achievements
 {
     public class JustTheBeginningAchievement : TerramonAchievement
     {
-        public JustTheBeginningAchievement() : base("Just The Beginning", "Choose your starter Pokémon.", AchievementCategory.Collector)
+        public JustTheBeginningAchievement() : base("Just The Beginning", "Choose your starter Pokémon.",
+            AchievementCategory.Collector)
         {
         }
     }

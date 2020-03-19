@@ -1,4 +1,3 @@
-using Terramon.Players;
 using Terraria;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Magikarp
@@ -18,9 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Magikarp
         {
             base.AI();
             if (Main.rand.Next(12) == 0)
-            {
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, 34, 0f, 0f, 100, default, 1f);
-            }
+                Dust.NewDust(projectile.position, projectile.width, projectile.height, 34, 0f, 0f, 100);
         }
     }
 }

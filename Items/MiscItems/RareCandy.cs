@@ -8,11 +8,10 @@ namespace Terramon.Items.MiscItems
         {
             DisplayName.SetDefault("Rare Candy");
             Tooltip.SetDefault("A candy that is packed with energy."
-                + "\nThey can be used to level up [c/FFFF66:Pokémon.]"
-                + "\nThe Pokémon Trainer might be able to help you use them.");
-
-
+                               + "\nThey can be used to level up [c/FFFF66:Pokémon.]"
+                               + "\nThe Pokémon Trainer might be able to help you use them.");
         }
+
         public override void SetDefaults()
         {
             item.width = 21;

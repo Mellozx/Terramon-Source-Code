@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
-using Terramon.Pokemon.FirstGeneration.Normal.Squirtle;
+using Terramon.Items.Pokeballs.Inventory;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace Terramon.Network.Catching
 {
@@ -34,7 +28,8 @@ namespace Terramon.Network.Catching
             }
             catch (Exception e)
             {
-                mod.Logger.ErrorFormat("Please report this stacktrace to Terramon devs:\n\n{0}\n\n{1}", e.Message, e.StackTrace);
+                mod.Logger.ErrorFormat("Please report this stacktrace to Terramon devs:\n\n{0}\n\n{1}", e.Message,
+                    e.StackTrace);
             }
         }
 
@@ -55,7 +50,8 @@ namespace Terramon.Network.Catching
             }
             catch (Exception e)
             {
-                mod.Logger.ErrorFormat("Please report this stacktrace to Terramon devs:\n\n{0}\n\n{1}", e.Message, e.StackTrace);
+                mod.Logger.ErrorFormat("Please report this stacktrace to Terramon devs:\n\n{0}\n\n{1}", e.Message,
+                    e.StackTrace);
             }
         }
 
@@ -67,8 +63,8 @@ namespace Terramon.Network.Catching
                     return;
 
                 string type = r.ReadString();
-                PokeballCaught.det_CapturedPokemon = type;
-                PokeballCaught.det_PokemonName = r.ReadString();
+                BaseCaughtClass.det_CapturedPokemon = type;
+                BaseCaughtClass.det_PokemonName = r.ReadString();
                 //string t = r.ReadString();
                 //if(t != "v2")
                 //    PokeballCaught.det_SmallSpritePath = t;
@@ -88,9 +84,9 @@ namespace Terramon.Network.Catching
             }
             catch (Exception e)
             {
-                TerramonMod.Instance.Logger.ErrorFormat("Please report this stacktrace to Terramon devs:\n\n{0}\n\n{1}", e.Message, e.StackTrace);
+                TerramonMod.Instance.Logger.ErrorFormat("Please report this stacktrace to Terramon devs:\n\n{0}\n\n{1}",
+                    e.Message, e.StackTrace);
             }
         }
-
     }
 }

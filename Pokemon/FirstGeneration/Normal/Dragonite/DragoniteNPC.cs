@@ -1,12 +1,15 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Dragonite
 {
     public class DragoniteNPC : NotCatchablePKMNFlying
     {
-        public override Type HomeClass() => typeof(Dragonite);
+        public override Type HomeClass()
+        {
+            return typeof(Dragonite);
+        }
 
         public override void SetDefaults()
         {
