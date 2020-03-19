@@ -34,10 +34,20 @@ namespace Terramon
             var petProjectileNotSpawned = !(player.ownedProjectileCounts[mod.ProjectileType(ProjectileName)] > 0);
 
             if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
-                modPlayer.ActivePetId = Projectile.NewProjectile(player.position.X + player.width / 2,
-                    player.position.Y + player.height / 2,
-                    0f, 0f, mod.ProjectileType(ProjectileName), 0, 0f,
-                    player.whoAmI);
+            {
+                if (player.direction == 1) // direction right
+                {
+                    modPlayer.ActivePetId = Projectile.NewProjectile(player.position.X + 50,
+                    player.position.Y - 8, 0f, 0f, mod.ProjectileType(ProjectileName), 0, 0f,
+                    player.whoAmI, 0f, 0f);
+                }
+                else // direction left
+                {
+                    modPlayer.ActivePetId = Projectile.NewProjectile(player.position.X - 50,
+                    player.position.Y - 8, 0f, 0f, mod.ProjectileType(ProjectileName), 0, 0f,
+                    player.whoAmI, 0f, 0f);
+                }
+            }
         }
 
 

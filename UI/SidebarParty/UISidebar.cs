@@ -39,6 +39,7 @@ namespace Terramon.UI.SidebarParty
         public SidebarClass sixthpkmn;
 
         public int CycleIndex;
+        public int HelpListCycler = 0;
 
         // In OnInitialize, we place various UIElements onto our UIState (this class).
         // UIState classes have width and height equal to the full screen, because of this, usually we first define a UIElement that will act as the container for our UI.
@@ -63,10 +64,10 @@ namespace Terramon.UI.SidebarParty
             mainPanel.VAlign = 0.6f;
             mainPanel.Width.Set(95, 0f);
             mainPanel.Height.Set(385f, 0f);
-            mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
+            mainPanel.BackgroundColor = new Color(15, 20, 46) * 0.65f;
 
             Texture2D chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Help");
-            choose = new UIOpaqueButton(chooseTexture, "Show Terramon Help");
+            choose = new UIOpaqueButton(chooseTexture, "Terramon Help");
             choose.HAlign = 0.007f; // 1
             choose.VAlign = 0.98f; // 1
             choose.Width.Set(20, 0);
@@ -143,13 +144,17 @@ namespace Terramon.UI.SidebarParty
                 if (TerramonMod.PartyUITheme == false)
                     mainPanel.BackgroundColor = new Color(255, 250, 250) * 0.5f;
                 else
-                    mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
+                {
+                    mainPanel.BackgroundColor = new Color(44, 61, 158) * 0.5f;
+                }
             }
 
             if (TerramonMod.PartyUIAutoMode)
             {
                 if (!Main.dayTime)
-                    mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
+                {
+                    mainPanel.BackgroundColor = new Color(44, 61, 158) * 0.5f;
+                }
                 else
                     mainPanel.BackgroundColor = new Color(255, 250, 250) * 0.5f;
             }
@@ -158,7 +163,9 @@ namespace Terramon.UI.SidebarParty
                 if (!Main.dayTime)
                     mainPanel.BackgroundColor = new Color(255, 250, 250) * 0.5f;
                 else
-                    mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
+                {
+                    mainPanel.BackgroundColor = new Color(44, 61, 158) * 0.5f;
+                }
             }
 
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
@@ -231,16 +238,21 @@ namespace Terramon.UI.SidebarParty
 
         private void HelpClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.NewText(
-                "Welcome to Terramon v0.1.2, where you can discover and catch Pokémon in Terraria! For support, join the official Discord server using the [c/f7e34d:/discord] command, or open up the online wiki with the [c/f7e34d:/wiki] command.");
-            Main.NewText(
-                "Check out the Mod Config from [c/ff8f33:Settings > Mod Configuration] or from the Mods menu. You can customize various aspects of the mod there.");
+            HelpListCycler++;
+            if (HelpListCycler == 1)
+            {
+                Main.NewText("(1/3) Welcome to Terramon v0.3, where you can discover and catch Pokémon in Terraria! Keep pressing this button for more tips and tricks.");
+            }
+            if (HelpListCycler == 2)
+            {
+                Main.NewText("(2/3) For support, join the official Discord server using the [c/f7e34d:/discord] command. Or, access our wiki with the [c/f7e34d:/wiki] command.");
+            }
+            if (HelpListCycler == 3)
+            {
+                Main.NewText("(3/3) Also, feel free to customize your experience with the Mod Config in [c/ff8f33:Settings > Mod Configuration] or from the Mods menu.");
+                HelpListCycler = 0;
+            }
         }
-
-        //private void Null(UIMouseEvent evt, UIElement listeningElement)
-        //{
-        //    // doesnt do anything
-        //}
 
         private void SpawnPKMN1(UIMouseEvent evt, UIElement listeningElement)
         {

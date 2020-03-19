@@ -107,8 +107,7 @@ namespace Terramon.Items.Pokeballs.Inventory
                 modPlayer.ActivePetName = PokemonName;
                 modPlayer.ActivatePet(PokemonName, false);
                 CombatText.NewText(player.Hitbox, Color.White, "Go! " + PokemonName + "!", true);
-                Main.PlaySound(ModContent.GetInstance<TerramonMod>()
-                    .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout").WithVolume(0.34f));
             }
             else
             {

@@ -54,7 +54,7 @@ namespace Terramon.UI.Moveset
             mainPanel.VAlign = 1.05f;
             mainPanel.Width.Set(190, 0f);
             mainPanel.Height.Set(135f, 0f);
-            mainPanel.BackgroundColor = new Color(50, 50, 50) * 0.5f;
+            mainPanel.BackgroundColor = new Color(44, 61, 158) * 0.65f;
 
             Texture2D firstmovetexture = ModContent.GetTexture("Terramon/UI/Moveset/NormalType");
             firstmove = new SidebarClass(firstmovetexture, "Normal Type | PP: 35/35");

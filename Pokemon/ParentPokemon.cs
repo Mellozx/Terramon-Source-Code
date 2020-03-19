@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using Terramon.Players;
 using Terraria;
 using Terraria.ID;
@@ -34,6 +35,8 @@ namespace Terramon.Pokemon
         public virtual string[] DefaultMove => new[] {"", "", "", ""};
 
         private string iconName;
+
+        public int SpawnTime = 0;
         public virtual string IconName => iconName ?? (iconName = $"Terramon/Minisprites/Regular/mini{GetType().Name}");
 
 
@@ -63,6 +66,25 @@ namespace Terramon.Pokemon
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
+            SpawnTime++;
+            if (SpawnTime == 1)
+            {
+                if (player.direction == -1) // direction right
+                {
+                    projectile.direction = -1;
+                }
+                else
+                {
+                    projectile.direction = 1;
+                }
+
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Cries/Kanto/cry" + projectile.Name).WithVolume(0.55f));
+                
+                for (int i = 0; i < 18; i++)
+                {
+                    Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("SmokeTransformDust"));
+                }
+            }
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             if (player.dead)
             {
@@ -81,6 +103,15 @@ namespace Terramon.Pokemon
             {
                 aiType = mainAi;
             }
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Player player = Main.player[projectile.owner];
+            if (SpawnTime <= 6)
+            {
+                projectile.position = player.position;
+            }
+            return true;
         }
     }
 
