@@ -24,8 +24,6 @@ namespace Terramon.UI
             {
                 Main.hoverItemName = HoverText;
             }
-        }
-
             base.DrawSelf(spriteBatch);
         }
 
