@@ -11,11 +11,13 @@ namespace Terramon.Pokemon.Moves
     public abstract class BaseMove
     {
         public abstract string MoveName { get; }
-        public virtual PokemonType MoveType { get; }
+        public virtual PokemonType MoveType { get; } = PokemonType.Normal;
 		public abstract Target Target { get; }
+        public virtual int Cooldown { get; } = 5*60;//5 seconds by default
 
         public virtual bool PerformInWorld(ParentPokemon mon, NPC target) => false;
         public virtual bool PerformInBattle(ParentPokemon mon, ParentPokemon target) => false;
+        public virtual bool OverrideAI(ParentPokemon mon) => false;
     }
 
     public enum Target
@@ -24,5 +26,6 @@ namespace Terramon.Pokemon.Moves
         Opponent,
         Party,
         OpponentParty,
+        Trainer,
     }
 }

@@ -33,45 +33,8 @@ namespace Terramon.Players
         protected Dictionary<string, bool> ActivePet = new Dictionary<string, bool>();
         public int ActivePetId = -1;
         public string ActivePetName = string.Empty;
-
-        public bool pikachuPet = false;
-        public bool raichuPet = false;
-        public bool bulbasaurPet = false;
-        public bool ivysaurPet = false;
-		public bool venusaurPet = false;
-        public bool caterpiePet = false;
-        public bool metapodPet = false;
-        public bool butterfreePet = false;
-        public bool weedlePet = false;
-        public bool kakunaPet = false;
-        public bool beedrillPet = false;
-        public bool rattataPet = false;
-        public bool pidgeyPet = false;
-        public bool pidgeottoPet = false;
-        public bool pidgeotPet = false;
-        public bool squirtlePet = false;
-        public bool wartortlePet = false;
-		public bool blastoisePet = false;
-        public bool charmanderPet = false;
-        public bool charmeleonPet = false;
-		public bool charizardPet = false;
-        public bool oddishPet = false;
-        public bool eeveePet = false;
-        public bool gloomPet = false;
-        public bool gastlyPet = false;
-        public bool haunterPet = false;
-        public bool gengarPet = false;
-        public bool goldeenPet = false;
-        public bool horseaPet = false;
-        public bool magikarpPet = false;
-        public bool gyaradosPet = false;
-        public bool dratiniPet = false;
-        public bool dragonairPet = false;
-        public bool dragonitePet = false;
-        public bool shinyMewPet = false;  
-        public bool shinyEeveePet = false;
-        public bool baPet1 = false;
-        public bool piersPet = false;
+        public bool CombatReady = false;
+        public int ActivePartySlot = -1;
 
         public int pkBallsThrown = 0;
         public int greatBallsThrown = 0;
@@ -261,41 +224,6 @@ namespace Terramon.Players
 
         public override void ResetEffects()
         {
-            pikachuPet = false;
-            bulbasaurPet = false;
-            ivysaurPet = false;
-			venusaurPet = false;
-            squirtlePet = false;
-            wartortlePet = false;
-			blastoisePet = false;
-            charmanderPet = false;
-            charmeleonPet = false;
-			charizardPet = false;
-            caterpiePet = false;
-            metapodPet = false;
-            butterfreePet = false;
-            weedlePet = false;
-            kakunaPet = false;
-            beedrillPet = false;
-            rattataPet = false;
-            pidgeyPet = false;
-            pidgeottoPet = false;
-            pidgeotPet = false;
-            eeveePet = false;
-            oddishPet = false;
-            gloomPet = false;
-            gastlyPet = false;
-            gengarPet = false;
-            haunterPet = false;
-            goldeenPet = false;
-            horseaPet = false;
-            magikarpPet = false;
-            gyaradosPet = false;
-            dratiniPet = false;
-            dragonairPet = false;
-            dragonitePet = false;
-            shinyMewPet = false;
-            shinyEeveePet = false;
             //Set any active pet to false
             foreach (var it in ActivePet.Keys.ToArray())
             {
@@ -304,15 +232,26 @@ namespace Terramon.Players
 
         }
 
-        
 
         /// <summary>
         /// Enable only one pet for player at once
         /// </summary>
         /// <param name="name">Pokemon type name</param>
-        public void ActivatePet(string name)
+        /// <param name="combatReady">This pokemon summoned from party UI?</param>
+        public void ActivatePet(string name, bool combatReady = true)
         {
             ResetEffects();
+
+            if (string.IsNullOrEmpty(name) || name == "*")
+            {
+                ActivePetId = -1;
+                ActivePetName = "";
+                CombatReady = false;
+                return;
+            }
+            if (!combatReady)
+                ActivePartySlot = -1;
+            CombatReady = combatReady;
 
             if (ActivePet.ContainsKey(name))
                 ActivePet[name] = true;

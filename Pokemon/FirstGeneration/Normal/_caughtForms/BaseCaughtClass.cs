@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using log4net.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,7 +31,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         public int Level = 1;
         public int Exp = 0;
 
-        public List<BaseMove> Moves;
+        public BaseMove[] Moves;
 
         public override bool CloneNewInstances => true;
 
@@ -55,7 +56,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             item.rare = 0;
 
             //I'l made a moves registry like i do it with mons after we done
-            Moves = new List<BaseMove>(4);
+            Moves = new BaseMove[] { null, null, null, null };
 
             //Detour handle
             if (Main.netMode != NetmodeID.Server || det_CapturedPokemon == null)
@@ -90,35 +91,13 @@ namespace Terramon.Items.Pokeballs.Inventory
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            //if (player.HasBuff(mod.BuffType(PokemonName + "Buff")))
-            //{
-            //    player.ClearBuff(mod.BuffType(PokemonName + "Buff"));
-            //    switch (Main.rand.Next(3))
-            //    {
-            //        case 0:
-            //            CombatText.NewText(player.Hitbox, Color.White, PokemonName + ", switch out!\nCome back!", true, false);
-            //            break;
-            //        case 1:
-            //            CombatText.NewText(player.Hitbox, Color.White, PokemonName + ", return!", true, false);
-            //            break;
-            //        default:
-            //            CombatText.NewText(player.Hitbox, Color.White, "That's enough for now, " + PokemonName + "!", true, false);
-            //            break;
-            //    }
-            //    return true;
-            //}
-            //else
-            //    player.AddBuff(mod.BuffType(PokemonName + "Buff"), 2);
-            //CombatText.NewText(player.Hitbox, Color.White, "Go! " + PokemonName + "!", true, false);
-            //return true;
-
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
             if (!player.HasBuff(pokeBuff))
             {
                 player.AddBuff(pokeBuff, 2);
                 modPlayer.ActivePetName = PokemonName;
-                modPlayer.ActivatePet(PokemonName);
+                modPlayer.ActivatePet(PokemonName, false);
                 CombatText.NewText(player.Hitbox, Color.White, "Go! " + PokemonName + "!", true);
                 Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
             }
@@ -205,8 +184,8 @@ namespace Terramon.Items.Pokeballs.Inventory
 
         public const string POKEBAL_PROPERTY = "PokebalType";
         public override TagCompound Save()
-        {
-            return new TagCompound
+        { 
+            var tag = new TagCompound
             {
                 [nameof(PokemonNPC)] = PokemonNPC,
                 [nameof(PokemonName)] = PokemonName,
@@ -217,9 +196,15 @@ namespace Terramon.Items.Pokeballs.Inventory
                 [nameof(CapturedPokemon)] = CapturedPokemon,
                 [nameof(Level)] = Level,
                 [nameof(Exp)] = Exp,
+                //Store move name
+                //[nameof(Moves)] = from it in Moves select it.MoveName,
                 //Used to restore items in sidebarUI
                 [POKEBAL_PROPERTY] = (byte)TerramonMod.PokeballFactory.GetEnum(this),
             };
+
+            
+
+            return tag;
         }
         public override void Load(TagCompound tag)
         {

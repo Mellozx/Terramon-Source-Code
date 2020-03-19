@@ -18,6 +18,7 @@ using Terramon.Network.Catching;
 using Terramon.Network.Starter;
 using Terramon.Pokemon;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
+using Terramon.Pokemon.Moves;
 using Terramon.UI.Moveset;
 
 namespace Terramon
@@ -176,6 +177,25 @@ namespace Terramon
             PartySlots = null;
             pokemonStore = null;
             wildPokemonStore = null;
+
+            ChooseStarter.Deactivate();
+            ChooseStarter = null;
+            ChooseStarterBulbasaur.Deactivate();
+            ChooseStarterBulbasaur = null;
+            ChooseStarterCharmander.Deactivate();
+            ChooseStarterCharmander = null;
+            ChooseStarterSquirtle.Deactivate();
+            ChooseStarterSquirtle = null;
+            PokegearUI.Deactivate();
+            PokegearUI = null;
+            PokegearUIEvents.Deactivate();
+            PokegearUIEvents = null;
+            evolveUI.Deactivate();
+            evolveUI = null;
+            UISidebar.Deactivate();
+            UISidebar = null;
+            Moves.Deactivate();
+            Moves = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)
@@ -504,7 +524,7 @@ namespace Terramon
 
         public static IEnumerable<string> GetPokemonsNames()
         {
-            return from it in Instance.pokemonStore select it.Key;
+            return Instance.pokemonStore.Keys.ToList();
         }
 
         public static ParentPokemon GetPokemon(string monName)
@@ -535,23 +555,27 @@ namespace Terramon
 
         private Dictionary<string, ParentPokemon> pokemonStore;
         private Dictionary<string, ParentPokemonNPC> wildPokemonStore;
+        private Dictionary<string, BaseMove> movesStore;
         private void LoadPokemons()
         {
+
             pokemonStore = new Dictionary<string, ParentPokemon>();
+            wildPokemonStore = new Dictionary<string, ParentPokemonNPC>();
+            movesStore = new Dictionary<string, BaseMove>();
             foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
             {
+                var baseType = it.BaseType;
                 if (it.IsAbstract)
                     continue;
                 bool valid = false;
-                if (it.BaseType == typeof(ParentPokemon))
+                if (baseType == typeof(ParentPokemon) || baseType == typeof(ParentPokemonNPC) || baseType == typeof(BaseMove))
                     valid = true;
                 else
                 {
                     //Recurrent seek for our class
-                    var baseType = it.BaseType;
                     while (baseType != null && baseType != typeof(object) )
                     {
-                        if (baseType == typeof(ParentPokemon))
+                        if (baseType == typeof(ParentPokemon) || baseType == typeof(ParentPokemonNPC) || baseType == typeof(BaseMove))
                         {
                             valid = true;
                             break;
@@ -563,7 +587,12 @@ namespace Terramon
                 if(valid)
                     try
                     {
-                        pokemonStore.Add(it.Name, (ParentPokemon) Activator.CreateInstance(it));
+                        if(baseType == typeof(ParentPokemon))
+                            pokemonStore.Add(it.Name, (ParentPokemon) Activator.CreateInstance(it));
+                        else if (baseType == typeof(ParentPokemonNPC))
+                            wildPokemonStore.Add(it.Name, (ParentPokemonNPC)Activator.CreateInstance(it)); 
+                        else if (baseType == typeof(BaseMove))
+                            movesStore.Add(it.Name, (BaseMove)Activator.CreateInstance(it));
                     }
                     catch (Exception e)
                     {
@@ -573,8 +602,7 @@ namespace Terramon
                             $"{e.StackTrace}\n");
                     }
             }
-
-            wildPokemonStore = new Dictionary<string, ParentPokemonNPC>();
+            return;
             foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
             {
                 if (it.IsAbstract)
@@ -613,6 +641,41 @@ namespace Terramon
                     }
             }
 
+            foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
+            {
+                if (it.IsAbstract)
+                    continue;
+                bool valid = false;
+                if (it.BaseType == typeof(BaseMove))
+                    valid = true;
+                else
+                {
+                    //Recurrent seek for our class
+                    var baseType = it.BaseType;
+                    while (baseType != null && baseType != typeof(object))
+                    {
+                        if (baseType == typeof(BaseMove))
+                        {
+                            valid = true;
+                            break;
+                        }
+                        baseType = baseType.BaseType;
+                    }
+                }
+
+                if (valid)
+                    try
+                    {
+                        movesStore.Add(it.Name, (BaseMove)Activator.CreateInstance(it));
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Error(
+                            "Exception caught in Events register loop. Report mod author with related stacktrace: \n" +
+                            $"{e.Message}\n" +
+                            $"{e.StackTrace}\n");
+                    }
+            }
         }
     }
 }

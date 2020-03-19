@@ -79,7 +79,6 @@ namespace Terramon.UI.SidebarParty
 
             firstpkmntexture = ModContent.GetTexture("Terraria/Item_0");
             firstpkmn = new SidebarClass(firstpkmntexture, "");
-            firstpkmn.test1 = firstpkmntexture;
             firstpkmn.HAlign = 0.6f; // 1
             firstpkmn.VAlign = 0.08888f; // 1
             firstpkmn.Width.Set(40, 0);
@@ -89,7 +88,6 @@ namespace Terramon.UI.SidebarParty
 
             secondpkmntexture = ModContent.GetTexture("Terraria/Item_0");
             secondpkmn = new SidebarClass(secondpkmntexture, "");
-            secondpkmn.test2 = secondpkmntexture;
             secondpkmn.HAlign = 0.6f; // 1
             secondpkmn.VAlign = 0.25555f; // 1
             secondpkmn.Width.Set(40, 0);
@@ -99,7 +97,6 @@ namespace Terramon.UI.SidebarParty
 
             thirdpkmntexture = ModContent.GetTexture("Terraria/Item_0");
             thirdpkmn = new SidebarClass(thirdpkmntexture, "");
-            thirdpkmn.test3 = thirdpkmntexture;
             thirdpkmn.HAlign = 0.6f; // 1
             thirdpkmn.VAlign = 0.41111f; // 1
             thirdpkmn.Width.Set(40, 0);
@@ -109,7 +106,6 @@ namespace Terramon.UI.SidebarParty
 
             fourthpkmntexture = ModContent.GetTexture("Terraria/Item_0");
             fourthpkmn = new SidebarClass(fourthpkmntexture, "");
-            fourthpkmn.test4 = fourthpkmntexture;
             fourthpkmn.HAlign = 0.6f; // 1
             fourthpkmn.VAlign = 0.58888f; // 1
             fourthpkmn.Width.Set(40, 0);
@@ -119,7 +115,6 @@ namespace Terramon.UI.SidebarParty
 
             fifthpkmntexture = ModContent.GetTexture("Terraria/Item_0");
             fifthpkmn = new SidebarClass(fifthpkmntexture, "");
-            fifthpkmn.test5 = fifthpkmntexture;
             fifthpkmn.HAlign = 0.6f; // 1
             fifthpkmn.VAlign = 0.75555f; // 1
             fifthpkmn.Width.Set(40, 0);
@@ -129,7 +124,6 @@ namespace Terramon.UI.SidebarParty
 
             sixthpkmntexture = ModContent.GetTexture("Terraria/Item_0");
             sixthpkmn = new SidebarClass(sixthpkmntexture, "");
-            sixthpkmn.test6 = sixthpkmntexture;
             sixthpkmn.HAlign = 0.6f; // 1
             sixthpkmn.VAlign = 0.91111f; // 1
             sixthpkmn.Width.Set(40, 0);
@@ -184,7 +178,6 @@ namespace Terramon.UI.SidebarParty
             if (modPlayer.firstslotname != "*")
             {
                 firstpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.firstslotname));
-                firstpkmn.test1 = firstpkmntexture;
                 firstpkmn.HoverText = modPlayer.firstslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
                                       $"\nLVL: {modPlayer.PartySlot1.GetInt(nameof(BaseCaughtClass.Level))}" +
                                       $"\nEXP: {modPlayer.PartySlot1.GetInt(nameof(BaseCaughtClass.Exp))}" +
@@ -194,7 +187,6 @@ namespace Terramon.UI.SidebarParty
             if (modPlayer.secondslotname != "*")
             {
                 secondpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.secondslotname));
-                secondpkmn.test2 = secondpkmntexture;
                 secondpkmn.HoverText = modPlayer.secondslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
                                        $"\nLVL: {modPlayer.PartySlot2.GetInt(nameof(BaseCaughtClass.Level))}" +
                                        $"\nEXP: {modPlayer.PartySlot2.GetInt(nameof(BaseCaughtClass.Exp))}" +
@@ -204,7 +196,6 @@ namespace Terramon.UI.SidebarParty
             if (modPlayer.thirdslotname != "*")
             {
                 thirdpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.thirdslotname));
-                thirdpkmn.test3 = thirdpkmntexture;
                 thirdpkmn.HoverText = modPlayer.thirdslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
                                       $"\nLVL: {modPlayer.PartySlot3.GetInt(nameof(BaseCaughtClass.Level))}" +
                                       $"\nEXP: {modPlayer.PartySlot3.GetInt(nameof(BaseCaughtClass.Exp))}" +
@@ -214,7 +205,6 @@ namespace Terramon.UI.SidebarParty
             if (modPlayer.fourthslotname != "*")
             {
                 fourthpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.fourthslotname));
-                fourthpkmn.test4 = fourthpkmntexture;
                 fourthpkmn.HoverText = modPlayer.fourthslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
                                        $"\nLVL: {modPlayer.PartySlot4.GetInt(nameof(BaseCaughtClass.Level))}" +
                                        $"\nEXP: {modPlayer.PartySlot4.GetInt(nameof(BaseCaughtClass.Exp))}" +
@@ -224,7 +214,6 @@ namespace Terramon.UI.SidebarParty
             if (modPlayer.fifthslotname != "*")
             {
                 fifthpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.fifthslotname));
-                fifthpkmn.test5 = fifthpkmntexture;
                 fifthpkmn.HoverText = modPlayer.fifthslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
                                       $"\nLVL: {modPlayer.PartySlot5.GetInt(nameof(BaseCaughtClass.Level))}" +
                                       $"\nEXP: {modPlayer.PartySlot5.GetInt(nameof(BaseCaughtClass.Exp))}" +
@@ -234,7 +223,6 @@ namespace Terramon.UI.SidebarParty
             if (modPlayer.sixthslotname != "*")
             {
                 sixthpkmn.SetImage(ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + modPlayer.sixthslotname));
-                sixthpkmn.test6 = sixthpkmntexture;
                 sixthpkmn.HoverText = modPlayer.sixthslotname + $"[i:{ModContent.ItemType<Items.Pokeballs.SidebarPKBALL>()}]" +
                                       $"\nLVL: {modPlayer.PartySlot6.GetInt(nameof(BaseCaughtClass.Level))}" +
                                       $"\nEXP: {modPlayer.PartySlot6.GetInt(nameof(BaseCaughtClass.Exp))}" +
@@ -261,14 +249,28 @@ namespace Terramon.UI.SidebarParty
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            if (!player.HasBuff(pokeBuff))
+            var pet = modPlayer.PartySlot1.GetString(nameof(BaseCaughtClass.PokemonName));
+            if (modPlayer.ActivePetName != pet)
             {
-                player.AddBuff(pokeBuff, 2);
+                if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
+                    PrintSwitch(player, modPlayer);
+                if (!player.HasBuff(pokeBuff))
+                {
+                    player.AddBuff(pokeBuff, 2);
+                }
+                modPlayer.ActivePetName = pet;
+                CombatText.NewText(player.Hitbox, Color.White, "Go! " + pet + "!", true);
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>()
+                    .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+                modPlayer.ActivePartySlot = 1;
             }
-
-            modPlayer.ActivePetName = modPlayer.PartySlot1.GetString(nameof(BaseCaughtClass.PokemonName));
-            CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.firstslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            else
+            {
+                player.ClearBuff(pokeBuff);
+                PrintSwitch(player, modPlayer);
+                modPlayer.ActivePetName = string.Empty;
+                modPlayer.ActivePartySlot = -1;
+            }
         }
         private void SpawnPKMN2(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -276,15 +278,30 @@ namespace Terramon.UI.SidebarParty
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (modPlayer.secondslotname == "*")
                 return;
-            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            if (!player.HasBuff(pokeBuff))
-            {
-                player.AddBuff(pokeBuff, 2);
-            }
 
-            modPlayer.ActivePetName = modPlayer.PartySlot2.GetString(nameof(BaseCaughtClass.PokemonName));
-            CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.secondslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+            var pet = modPlayer.PartySlot2.GetString(nameof(BaseCaughtClass.PokemonName));
+            if (modPlayer.ActivePetName != pet)
+            {
+                if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
+                    PrintSwitch(player, modPlayer);
+                if (!player.HasBuff(pokeBuff))
+                {
+                    player.AddBuff(pokeBuff, 2);
+                }
+                modPlayer.ActivePetName = pet;
+                CombatText.NewText(player.Hitbox, Color.White, "Go! " + pet + "!", true);
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>()
+                    .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+                modPlayer.ActivePartySlot = 2;
+            }
+            else
+            {
+                player.ClearBuff(pokeBuff);
+                PrintSwitch(player, modPlayer);
+                modPlayer.ActivePetName = string.Empty;
+                modPlayer.ActivePartySlot = -1;
+            }
         }
         private void SpawnPKMN3(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -292,15 +309,30 @@ namespace Terramon.UI.SidebarParty
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (modPlayer.thirdslotname == "*")
                 return;
-            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            if (!player.HasBuff(pokeBuff))
-            {
-                player.AddBuff(pokeBuff, 2);
-            }
 
-            modPlayer.ActivePetName = modPlayer.PartySlot3.GetString(nameof(BaseCaughtClass.PokemonName));
-            CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.thirdslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+            var pet = modPlayer.PartySlot3.GetString(nameof(BaseCaughtClass.PokemonName));
+            if (modPlayer.ActivePetName != pet)
+            {
+                if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
+                    PrintSwitch(player, modPlayer);
+                if (!player.HasBuff(pokeBuff))
+                {
+                    player.AddBuff(pokeBuff, 2);
+                }
+                modPlayer.ActivePetName = pet;
+                CombatText.NewText(player.Hitbox, Color.White, "Go! " + pet + "!", true);
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>()
+                    .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+                modPlayer.ActivePartySlot = 3;
+            }
+            else
+            {
+                player.ClearBuff(pokeBuff);
+                PrintSwitch(player, modPlayer);
+                modPlayer.ActivePetName = string.Empty;
+                modPlayer.ActivePartySlot = -1;
+            }
         }
         private void SpawnPKMN4(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -308,15 +340,30 @@ namespace Terramon.UI.SidebarParty
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (modPlayer.fourthslotname == "*")
                 return;
-            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            if (!player.HasBuff(pokeBuff))
-            {
-                player.AddBuff(pokeBuff, 2);
-            }
 
-            modPlayer.ActivePetName = modPlayer.PartySlot4.GetString(nameof(BaseCaughtClass.PokemonName));
-            CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.fourthslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+            var pet = modPlayer.PartySlot4.GetString(nameof(BaseCaughtClass.PokemonName));
+            if (modPlayer.ActivePetName != pet)
+            {
+                if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
+                    PrintSwitch(player, modPlayer);
+                if (!player.HasBuff(pokeBuff))
+                {
+                    player.AddBuff(pokeBuff, 2);
+                }
+                modPlayer.ActivePetName = pet;
+                CombatText.NewText(player.Hitbox, Color.White, "Go! " + pet + "!", true);
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>()
+                    .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+                modPlayer.ActivePartySlot = 4;
+            }
+            else
+            {
+                player.ClearBuff(pokeBuff);
+                PrintSwitch(player, modPlayer);
+                modPlayer.ActivePetName = string.Empty;
+                modPlayer.ActivePartySlot = -1;
+            }
         }
         private void SpawnPKMN5(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -324,15 +371,30 @@ namespace Terramon.UI.SidebarParty
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (modPlayer.fifthslotname == "*")
                 return;
-            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            if (!player.HasBuff(pokeBuff))
-            {
-                player.AddBuff(pokeBuff, 2);
-            }
 
-            modPlayer.ActivePetName = modPlayer.PartySlot5.GetString(nameof(BaseCaughtClass.PokemonName));
-            CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.fifthslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+            var pet = modPlayer.PartySlot5.GetString(nameof(BaseCaughtClass.PokemonName));
+            if (modPlayer.ActivePetName != pet)
+            {
+                if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
+                    PrintSwitch(player, modPlayer);
+                if (!player.HasBuff(pokeBuff))
+                {
+                    player.AddBuff(pokeBuff, 2);
+                }
+                modPlayer.ActivePetName = pet;
+                CombatText.NewText(player.Hitbox, Color.White, "Go! " + pet + "!", true);
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>()
+                    .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+                modPlayer.ActivePartySlot = 5;
+            }
+            else
+            {
+                player.ClearBuff(pokeBuff);
+                PrintSwitch(player, modPlayer);
+                modPlayer.ActivePetName = string.Empty;
+                modPlayer.ActivePartySlot = -1;
+            }
         }
         private void SpawnPKMN6(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -340,18 +402,49 @@ namespace Terramon.UI.SidebarParty
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (modPlayer.sixthslotname == "*")
                 return;
-            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            if (!player.HasBuff(pokeBuff))
-            {
-                player.AddBuff(pokeBuff, 2);
-            }
 
-            modPlayer.ActivePetName = modPlayer.PartySlot6.GetString(nameof(BaseCaughtClass.PokemonName));
-            CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.sixthslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+            var pet = modPlayer.PartySlot6.GetString(nameof(BaseCaughtClass.PokemonName));
+            if (modPlayer.ActivePetName != pet)
+            {
+                if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
+                    PrintSwitch(player, modPlayer);
+                if (!player.HasBuff(pokeBuff))
+                {
+                    player.AddBuff(pokeBuff, 2);
+                }
+                modPlayer.ActivePetName = pet;
+                CombatText.NewText(player.Hitbox, Color.White, "Go! " + pet + "!", true);
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>()
+                    .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+                modPlayer.ActivePartySlot = 6;
+            }
+            else
+            {
+                player.ClearBuff(pokeBuff);
+                PrintSwitch(player, modPlayer);
+                modPlayer.ActivePetName = string.Empty;
+                modPlayer.ActivePartySlot = -1;
+            }
         }
 
-
+        protected void PrintSwitch(Player player, TerramonPlayer modPlayer)
+        {
+            var rect = new Rectangle(player.Hitbox.X, player.Hitbox.Y, player.Hitbox.Width, player.Hitbox.Height);
+            rect.Y -= 35;
+            switch (Main.rand.Next(3))
+            {
+                case 0:
+                    CombatText.NewText(rect, Color.White, modPlayer.ActivePetName + ", switch out!\nCome back!", true, false);
+                    break;
+                case 1:
+                    CombatText.NewText(rect, Color.White, modPlayer.ActivePetName + ", return!", true, false);
+                    break;
+                default:
+                    CombatText.NewText(rect, Color.White, "That's enough for now, " + modPlayer.ActivePetName + "!", true, false);
+                    break;
+            }
+        }
 
 
     }
