@@ -32,6 +32,8 @@ namespace Terramon.Pokemon
         public virtual PokemonType[] PokemonTypes => new []{PokemonType.Normal};
 
         private string iconName;
+
+        public int SpawnTime = 0;
         public virtual string IconName => iconName ?? (iconName = $"Terramon/Minisprites/Regular/mini{GetType().Name}");
 
 
@@ -57,6 +59,23 @@ namespace Terramon.Pokemon
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
+            SpawnTime++;
+            if (SpawnTime == 1)
+            {
+                if (player.direction == -1) // direction right
+                {
+                    projectile.direction = -1;
+                }
+                else
+                {
+                    projectile.direction = 1;
+                }
+
+                for (int i = 0; i < 18; i++)
+                {
+                    Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("SmokeTransformDust"));
+                }
+            }
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             if (player.dead)
             {
