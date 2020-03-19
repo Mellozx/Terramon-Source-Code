@@ -1,13 +1,16 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Caterpie
 {
     public class CaterpieNPC : ParentPokemonNPC
     {
-        public override Type HomeClass() => typeof(Caterpie);
+        public override Type HomeClass()
+        {
+            return typeof(Caterpie);
+        }
 
         public override void SetDefaults()
         {
@@ -25,13 +28,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Caterpie
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.player.ZoneOverworldHeight)
-            {
                 return 0.08f;
-            }
-            else
-            {
-                return 0f;
-            }
+            return 0f;
         }
     }
 }

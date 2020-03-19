@@ -1,26 +1,22 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
 
 namespace Terramon.Pokemon.FirstGeneration.Fishing
 {
     public class MagikarpFish : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Magikarp");
             Tooltip.SetDefault("It's a Pokémon you caught while fishing."
-                + "\nSpawns a catchable Magikarp when used.");
+                               + "\nSpawns a catchable Magikarp when used.");
         }
+
         public override void SetDefaults()
         {
             item.width = 44;
@@ -42,17 +38,13 @@ namespace Terramon.Pokemon.FirstGeneration.Fishing
             TooltipLine nameLine = tooltips.FirstOrDefault(t => t.Name == "ItemName" && t.mod == "Terraria");
 
             foreach (TooltipLine line2 in tooltips)
-            {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
                     line2.overrideColor = new Color(255, 144, 81);
-                }
-            }
         }
 
         public override bool UseItem(Player player)
         {
-            NPC.NewNPC((int)player.position.X, (int)player.position.Y, mod.NPCType("MagikarpNPC"));
+            NPC.NewNPC((int) player.position.X, (int) player.position.Y, mod.NPCType("MagikarpNPC"));
             return true;
         }
     }

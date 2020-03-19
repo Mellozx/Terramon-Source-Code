@@ -1,6 +1,4 @@
 using System;
-using Terramon.Players;
-using Terraria;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Ivysaur
 {
@@ -16,7 +14,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Ivysaur
 
             projectile.width = 36;
             projectile.height = 28;
-			projectile.scale = 1.2f;
+            projectile.scale = 1.2f;
             // drawOriginOffsetY = -1;
         }
     }

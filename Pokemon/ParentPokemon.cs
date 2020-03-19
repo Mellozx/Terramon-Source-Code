@@ -10,27 +10,29 @@ namespace Terramon.Pokemon
     public abstract class ParentPokemon : ModProjectile
     {
         /// <summary>
-        /// Next stage pokemon to evolve.
-        /// If value == null => mon can't evolve
+        ///     Next stage pokemon to evolve.
+        ///     If value == null => mon can't evolve
         /// </summary>
         public virtual Type EvolveTo { get; } = null;
 
         /// <summary>
-        /// How much candies need to evolve.
+        ///     How much candies need to evolve.
         /// </summary>
         public virtual int EvolveCost { get; } = 0;
 
         /// <summary>
-        /// Item what used for evolution
+        ///     Item what used for evolution
         /// </summary>
         public virtual EvolveItem EvolveItem { get; } = EvolveItem.RareCandy;
 
         /// <summary>
-        /// Just for checking if this mon can evolve or not
+        ///     Just for checking if this mon can evolve or not
         /// </summary>
         public bool CanEvolve => EvolveTo != null && EvolveCost != 0;
 
-        public virtual PokemonType[] PokemonTypes => new []{PokemonType.Normal};
+        public virtual PokemonType[] PokemonTypes => new[] {PokemonType.Normal};
+
+        public virtual string[] DefaultMove => new[] {"", "", "", ""};
 
         private string iconName;
 
@@ -54,8 +56,12 @@ namespace Terramon.Pokemon
         {
             Player player = Main.player[projectile.owner];
             player.zephyrfish = false; // Relic from aiType
+            if (aiType != 0)
+                mainAi = aiType;
             return true;
         }
+
+        private int mainAi = ProjectileID.Puppy;
 
         public override void AI()
         {
@@ -85,10 +91,17 @@ namespace Terramon.Pokemon
                 modPlayer.ResetEffects();
                 modPlayer.ActivePetId = -1;
             }
-            
-            if (modPlayer.IsPetActive(GetType().Name))
+
+            if (modPlayer.IsPetActive(GetType().Name)) projectile.timeLeft = 2;
+
+            if (modPlayer.ActiveMove != null)
             {
-                projectile.timeLeft = 2;
+                if (modPlayer.ActiveMove.OverrideAI(projectile, this, modPlayer))
+                    aiType = 0;
+            }
+            else if (aiType == 0)
+            {
+                aiType = mainAi;
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -124,7 +137,7 @@ namespace Terramon.Pokemon
         Nuclear,
         Light,
         Machine,
-        Sound,
+        Sound
     }
 
     public enum EvolveItem

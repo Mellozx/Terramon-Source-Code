@@ -1,20 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Terramon.Achievements;
-using Terramon.Items.Pokeballs.Inventory;
-using Terramon.Items.Pokeballs.Thrown;
-using Terramon.Players;
-using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
+using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
+namespace Terramon.Items.Pokeballs.Inventory
 {
     public class UltraBallCaught : BaseCaughtClass
     {
@@ -23,25 +12,18 @@ namespace Terramon.Pokemon.FirstGeneration.Normal._caughtForms
             base.SetStaticDefaults();
             DisplayName.SetDefault("Ultra Ball");
             Tooltip.SetDefault("Contains %PokemonName"
-                + "\nLeft click to send out this Pokémon."
-                + "\nRight click to add to your party.");
+                               + "\nLeft click to send out this Pokémon."
+                               + "\nRight click to add to your party.");
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine nameLine = tooltips.FirstOrDefault(t => t.Name == "ItemName" && t.mod == "Terraria");
-            if (nameLine != null)
-            {
-                nameLine.text = "Ultra Ball (" + PokemonName + ")";
-            }
+            if (nameLine != null) nameLine.text = "Ultra Ball (" + PokemonName + ")";
 
             foreach (TooltipLine line2 in tooltips)
-            {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
                     line2.overrideColor = new Color(245, 218, 83);
-                }
-            }
 
             string tooltipText = tooltips.Find(x => x.Name == "Tooltip0").text;
             tooltipText = tooltipText.Replace("%PokemonName", PokemonName);

@@ -10,7 +10,6 @@ namespace Terramon.Items.Pokeballs.Thrown
 {
     public abstract class BasePokeballProjectile : TerramonProjectile
     {
-        
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -21,36 +20,29 @@ namespace Terramon.Items.Pokeballs.Thrown
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.timeLeft = 300;
-			projectile.light = 1f;
-			projectile.scale = 1f;
+            projectile.light = 1f;
+            projectile.scale = 1f;
         }
 
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             if (projectile.ai[0] == 2)
                 return true;
 
             if (projectile.soundDelay == 0)
-            {
                 if (Main.netMode != NetmodeID.Server)
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/ballbounce").WithVolume(.7f));
-            }
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/ballbounce")
+                        .WithVolume(.7f));
             projectile.soundDelay = 10;
 
 
             if (projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
-            {
                 projectile.velocity.X = oldVelocity.X * -0.4f;
-            }
             if (projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
-            {
                 projectile.velocity.Y = oldVelocity.Y * -0.4f;
-            }
 
             if (projectile.type == ModContent.ProjectileType<PokeballProjectile>())
-            {
                 if (Main.rand.Next(12) == 0)
                 {
                     projectile.timeLeft = 0;
@@ -58,9 +50,8 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
                 }
-            }
+
             if (projectile.type == ModContent.ProjectileType<GreatBallProjectile>())
-            {
                 if (Main.rand.Next(12) == 0)
                 {
                     projectile.timeLeft = 0;
@@ -68,9 +59,8 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
                 }
-            }
+
             if (projectile.type == ModContent.ProjectileType<UltraBallProjectile>())
-            {
                 if (Main.rand.Next(12) == 0)
                 {
                     projectile.timeLeft = 0;
@@ -78,9 +68,8 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
                 }
-            }
+
             if (projectile.type == ModContent.ProjectileType<MasterBallProjectile>())
-            {
                 if (Main.rand.Next(12) == 0)
                 {
                     projectile.timeLeft = 0;
@@ -88,9 +77,8 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
                 }
-            }
+
             if (projectile.type == ModContent.ProjectileType<DuskBallProjectile>())
-            {
                 if (Main.rand.Next(12) == 0)
                 {
                     projectile.timeLeft = 0;
@@ -98,9 +86,8 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<DuskBallBase>());
                 }
-            }
-            if (projectile.type == ModContent.ProjectileType < PremierBallProjectile>())
-            {
+
+            if (projectile.type == ModContent.ProjectileType<PremierBallProjectile>())
                 if (Main.rand.Next(12) == 0)
                 {
                     projectile.timeLeft = 0;
@@ -108,9 +95,8 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
                 }
-            }
+
             if (projectile.type == ModContent.ProjectileType<QuickBallProjectile>())
-            {
                 if (Main.rand.Next(12) == 0)
                 {
                     projectile.timeLeft = 0;
@@ -118,9 +104,8 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<QuickBallBase>());
                 }
-            }
+
             if (projectile.type == ModContent.ProjectileType<TimerBallProjectile>())
-            {
                 if (Main.rand.Next(12) == 0)
                 {
                     projectile.timeLeft = 0;
@@ -128,7 +113,6 @@ namespace Terramon.Items.Pokeballs.Thrown
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<TimerBallBase>());
                 }
-            }
 
             return false;
         }

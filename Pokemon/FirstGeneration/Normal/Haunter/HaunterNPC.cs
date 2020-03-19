@@ -1,6 +1,6 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,7 +8,10 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
 {
     public class HaunterNPC : ParentPokemonNPCFlying
     {
-        public override Type HomeClass() => typeof(Haunter);
+        public override Type HomeClass()
+        {
+            return typeof(Haunter);
+        }
 
         public override void SetDefaults()
         {
@@ -28,13 +31,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
         {
             Player player = Main.LocalPlayer;
             if (spawnInfo.player.ZoneDungeon)
-            {
                 return 0.05f;
-            }
-            else
-            {
-                return 0f;
-            }
+            return 0f;
         }
     }
 }

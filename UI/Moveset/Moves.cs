@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terramon.Players;
-using Terraria;
 using Terraria.GameContent.UI.Elements;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -45,7 +41,6 @@ namespace Terramon.UI.Moveset
 
 
             //pokemon icons
-
 
 
             // Next, we create another UIElement that we will place. Since we will be calling `mainPanel.Append(playButton);`, Left and Top are relative to the top left of the mainPanel UIElement. 
@@ -104,6 +99,7 @@ namespace Terramon.UI.Moveset
             // We then place playButton, closeButton, and moneyDiplay onto mainPanel so we can easily place these UIElements relative to mainPanel.
             // Since mainPanel will move, this proper organization will move playButton, closeButton, and moneyDiplay properly when mainPanel moves.
         }
+
         public override void Update(GameTime gameTime)
         {
             // Don't delete this or the UIElements attached to this UIState will cease to function.

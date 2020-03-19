@@ -1,6 +1,5 @@
 using System;
 using Microsoft.Xna.Framework;
-using Terramon.Players;
 using Terraria;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
@@ -11,7 +10,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
 
         public override Type EvolveTo => typeof(Charmeleon.Charmeleon);
 
-        public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire };
+        public override PokemonType[] PokemonTypes => new[] {PokemonType.Fire};
 
         public override void SetDefaults()
         {
@@ -26,9 +25,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
         {
             base.AI();
             if (Main.rand.Next(9) == 0)
-            {
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 100, new Color(255, 148, 41), 1f);
-            }
+                Dust.NewDust(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 100,
+                    new Color(255, 148, 41));
         }
     }
 }

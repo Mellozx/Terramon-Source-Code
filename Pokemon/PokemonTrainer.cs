@@ -1,23 +1,16 @@
+using Terramon.Players;
+using Terramon.UI.SidebarParty;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terramon.Players;
-using Terramon.UI;
-using Terramon.UI.SidebarParty;
 
 namespace Terramon.Pokemon
 {
     [AutoloadHead]
     public class PokemonTrainer : ModNPC
     {
-        public override string Texture
-        {
-            get
-            {
-                return "Terramon/Pokemon/PokemonTrainer";
-            }
-        }
+        public override string Texture => "Terramon/Pokemon/PokemonTrainer";
 
         public override bool Autoload(ref string name)
         {
@@ -72,8 +65,8 @@ namespace Terramon.Pokemon
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-			TerramonPlayer player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-			player.premierBallRewardCounter = 0;
+            TerramonPlayer player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+            player.premierBallRewardCounter = 0;
             shop.item[nextSlot].SetDefaults(mod.ItemType("PokeballItem"));
             nextSlot++;
             shop.item[nextSlot].SetDefaults(mod.ItemType("GreatBallItem"));
@@ -85,6 +78,7 @@ namespace Terramon.Pokemon
                 shop.item[nextSlot].SetDefaults(mod.ItemType("DuskBallItem"));
                 nextSlot++;
             }
+
             if (NPC.downedBoss1)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyGray"));
@@ -100,34 +94,38 @@ namespace Terramon.Pokemon
                 shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyYellow"));
                 nextSlot++;
             }
+
             //gray blue pink purple turquoise yellow
         }
 
         public override string GetChat()
         {
-                switch (Main.rand.Next(9))
-                {
-                    case 0:
-                        return "There's a lot of Pokémon out in the world, but you need Poké Balls to catch 'em!";
-                    case 1:
-                        return "I just got back from my Alola vacation. See my tan lines?";
-                    case 2:
-                        return "Pokemon are sorted into different tiers. If you trigger a tier upgrade, Pokémon in a higher tier may start appearing!";
-                    case 3:
-                        return "Evolution is amazing. I can help you out with evolving your Pokémon.. but first get your hands on a handful of Rare Candies.";
-                    case 4:
-                        return "Pokémon will appear in their respective biomes. To encounter rock types, go to the Desert.";
-                    case 5:
-                        return "Gotta Catch Em' All!";
-                    case 6:
-                        return "As your journey progresses, I'll be selling new things. Check back here every so often.";
-                    case 7:
-                        return "Rare Candies can level up your Pokémon. They're quite challenging to find, so keep an eye out.";
-                    case 8:
-                        return "Buy 10 Poké Balls at once, and I'll give you a little something extra..";
-                    default:
-                        return "Gotta Catch Em' All!";
-                }
+            switch (Main.rand.Next(9))
+            {
+                case 0:
+                    return "There's a lot of Pokémon out in the world, but you need Poké Balls to catch 'em!";
+                case 1:
+                    return "I just got back from my Alola vacation. See my tan lines?";
+                case 2:
+                    return
+                        "Pokemon are sorted into different tiers. If you trigger a tier upgrade, Pokémon in a higher tier may start appearing!";
+                case 3:
+                    return
+                        "Evolution is amazing. I can help you out with evolving your Pokémon.. but first get your hands on a handful of Rare Candies.";
+                case 4:
+                    return "Pokémon will appear in their respective biomes. To encounter rock types, go to the Desert.";
+                case 5:
+                    return "Gotta Catch Em' All!";
+                case 6:
+                    return "As your journey progresses, I'll be selling new things. Check back here every so often.";
+                case 7:
+                    return
+                        "Rare Candies can level up your Pokémon. They're quite challenging to find, so keep an eye out.";
+                case 8:
+                    return "Buy 10 Poké Balls at once, and I'll give you a little something extra..";
+                default:
+                    return "Gotta Catch Em' All!";
+            }
         }
 
         public override void SetChatButtons(ref string button, ref string button2)
@@ -143,7 +141,7 @@ namespace Terramon.Pokemon
             {
                 shop = true;
             }
-            else 
+            else
             {
                 Main.playerInventory = true;
                 Main.npcChatText = "";
@@ -169,7 +167,8 @@ namespace Terramon.Pokemon
             attackDelay = 2;
         }
 
-        public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
+        public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection,
+            ref float randomOffset)
         {
             multiplier = 12f;
             randomOffset = 2f;

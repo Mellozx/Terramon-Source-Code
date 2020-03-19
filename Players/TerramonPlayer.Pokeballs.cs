@@ -14,11 +14,25 @@ namespace Terramon.Players
 
         #region Thrown Pokeballs
 
-        public void IncrementThrownPokeballs(BasePokeballItem pokeball) => IncrementThrownPokeballs(pokeball.UnlocalizedName);
-        public int IncrementThrownPokeballs(string unlocalizedName) => ThrownPokeballs[unlocalizedName] = GetOrCreateThrownPokeballs(unlocalizedName) + 1;
+        public void IncrementThrownPokeballs(BasePokeballItem pokeball)
+        {
+            IncrementThrownPokeballs(pokeball.UnlocalizedName);
+        }
 
-        public int GetThrownPokeballsCount(BasePokeballItem pokeball) => GetThrownPokeballsCount(pokeball.UnlocalizedName);
-        public int GetThrownPokeballsCount(string unlocalizedName) => GetOrCreateThrownPokeballs(unlocalizedName);
+        public int IncrementThrownPokeballs(string unlocalizedName)
+        {
+            return ThrownPokeballs[unlocalizedName] = GetOrCreateThrownPokeballs(unlocalizedName) + 1;
+        }
+
+        public int GetThrownPokeballsCount(BasePokeballItem pokeball)
+        {
+            return GetThrownPokeballsCount(pokeball.UnlocalizedName);
+        }
+
+        public int GetThrownPokeballsCount(string unlocalizedName)
+        {
+            return GetOrCreateThrownPokeballs(unlocalizedName);
+        }
 
         private int GetOrCreateThrownPokeballs(string unlocalizedName)
         {

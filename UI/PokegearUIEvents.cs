@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -31,7 +32,6 @@ namespace Terramon.UI
             //pokemon icons
 
 
-
             // Next, we create another UIElement that we will place. Since we will be calling `mainPanel.Append(playButton);`, Left and Top are relative to the top left of the mainPanel UIElement. 
             // By properly nesting UIElements, we can position things relatively to each other easily.
 
@@ -44,21 +44,23 @@ namespace Terramon.UI
             mainPanel.Append(pokegear);
 
             Texture2D buttonDeleteTexture = ModContent.GetTexture("Terramon/UI/Close");
-            UIHoverImageButton closeButton = new UIHoverImageButton(buttonDeleteTexture, "Close Menu"); // Localized text for "Close"
+            UIHoverImageButton
+                closeButton = new UIHoverImageButton(buttonDeleteTexture, "Close Menu"); // Localized text for "Close"
             closeButton.Left.Set(30, 0f);
             closeButton.Top.Set(190, 0f);
             closeButton.Width.Set(112, 0f);
             closeButton.Height.Set(44, 0f);
-            closeButton.OnClick += new MouseEvent(CloseButtonClicked);
+            closeButton.OnClick += CloseButtonClicked;
             mainPanel.Append(closeButton);
 
             Texture2D buttonDiscordTexture = ModContent.GetTexture("Terramon/UI/Discord");
-            UIHoverImageButton discButton = new UIHoverImageButton(buttonDiscordTexture, "Join our [c/9370DB:Discord]\nfor future Event Codes!"); // Localized text for "Close"
+            UIHoverImageButton discButton = new UIHoverImageButton(buttonDiscordTexture,
+                "Join our [c/9370DB:Discord]\nfor future Event Codes!"); // Localized text for "Close"
             discButton.Left.Set(271, 0f);
             discButton.Top.Set(183, 0f);
             discButton.Width.Set(64, 0f);
             discButton.Height.Set(64, 0f);
-            discButton.OnClick += new MouseEvent(DiscButtonClicked);
+            discButton.OnClick += DiscButtonClicked;
             mainPanel.Append(discButton);
 
             Append(mainPanel);
@@ -68,8 +70,9 @@ namespace Terramon.UI
             // Since mainPanel will move, this proper organization will move playButton, closeButton, and moneyDiplay properly when mainPanel moves.
         }
 
-        Mod achLib = ModLoader.GetMod("AchievementLib");
-        Player player = Main.LocalPlayer;
+        private Mod achLib = ModLoader.GetMod("AchievementLib");
+        private Player player = Main.LocalPlayer;
+
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             Main.PlaySound(SoundID.MenuOpen);
@@ -79,11 +82,7 @@ namespace Terramon.UI
         private void DiscButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             Main.PlaySound(SoundID.MenuOpen);
-            System.Diagnostics.Process.Start("https://discord.gg/MyeY4AM");
+            Process.Start("https://discord.gg/MyeY4AM");
         }
-
-
-
-
     }
 }

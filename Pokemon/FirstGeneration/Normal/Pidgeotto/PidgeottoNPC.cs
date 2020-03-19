@@ -1,13 +1,16 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto
 {
     public class PidgeottoNPC : ParentPokemonNPCFlyingBird
     {
-        public override Type HomeClass() => typeof(Pidgeotto);
+        public override Type HomeClass()
+        {
+            return typeof(Pidgeotto);
+        }
 
         public override void SetDefaults()
         {
@@ -26,13 +29,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.player.ZoneOverworldHeight)
-            {
                 return 0.045f;
-            }
-            else
-            {
-                return 0f;
-            }
+            return 0f;
         }
     }
 }

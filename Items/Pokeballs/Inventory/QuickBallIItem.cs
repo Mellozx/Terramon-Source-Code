@@ -1,9 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Terramon.Items.Pokeballs.Thrown;
 using Terraria;
 using Terraria.ID;
@@ -12,18 +9,26 @@ using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
-    public sealed class QuickBallItem : BaseThrowablePokeballItem<QuickBallProjectile>
+    public sealed class QuickBallItem : BaseThrowablePokeballItem<QuickBallProjectile>
     {
         public QuickBallItem() : base(Constants.Pokeballs.UnlocalizedNames.QUICK_BALL,
-            new Dictionary<GameCulture, string>()
+            new Dictionary<GameCulture, string>
             {
-                { GameCulture.English, "Quick Ball" },
-                { GameCulture.French, "Rapide Ball" }
+                {GameCulture.English, "Quick Ball"},
+                {GameCulture.French, "Rapide Ball"}
             },
-            new Dictionary<GameCulture, string>()
+            new Dictionary<GameCulture, string>
             {
-                { GameCulture.English, "A somewhat different Poké Ball." + "\nProvides a higher catch rate when used at the start of a wild encounter." },
-                { GameCulture.French, "Un Poké Ball un peu différent." + "\nOffre un taux de capture plus élevé lorsqu'il est utilisé au début d'une rencontre avec un animal sauvage." }
+                {
+                    GameCulture.English,
+                    "A somewhat different Poké Ball." +
+                    "\nProvides a higher catch rate when used at the start of a wild encounter."
+                },
+                {
+                    GameCulture.French,
+                    "Un Poké Ball un peu différent." +
+                    "\nOffre un taux de capture plus élevé lorsqu'il est utilisé au début d'une rencontre avec un animal sauvage."
+                }
             },
             Item.sellPrice(gold: 6, silver: 25), ItemRarityID.White, Constants.Pokeballs.CatchRates.QUICK_BALL)
         {
@@ -60,12 +65,8 @@ namespace Terramon.Items.Pokeballs.Inventory
                 tooltips.Find(t => t.Name == TooltipLines.ITEM_NAME).overrideColor = NameColorOverride;
 
             foreach (TooltipLine line2 in tooltips)
-            {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
                     line2.overrideColor = new Color(100, 161, 237);
-                }
-            }
         }
     }
 }

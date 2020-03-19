@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
+﻿using System.IO;
+using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
 using Terramon.Pokemon.FirstGeneration.Normal.Charmander;
 using Terramon.Pokemon.FirstGeneration.Normal.Squirtle;
@@ -15,7 +10,6 @@ namespace Terramon.Network.Starter
 {
     public class SpawnStarterPacket : Packet
     {
-
         public const string NAME = "net_packet";
         public override string PacketName => NAME;
 
@@ -40,7 +34,8 @@ namespace Terramon.Network.Starter
                     if (!Main.player[whoAmI].active)
                         return;
 
-                    PokeballCaught.writeDetour(nameof(Squirtle), "Squirtle", "Terramon/Minisprites/Regular/miniSquirtle");
+                    BaseCaughtClass.writeDetour(nameof(Squirtle), "Squirtle",
+                        "Terramon/Minisprites/Regular/miniSquirtle");
                     int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
                     if (index >= 400 || !(Main.item[index].modItem is PokeballCaught modItem))
                         return;
@@ -48,7 +43,8 @@ namespace Terramon.Network.Starter
                     break;
                 case CHARMANDER:
                 {
-                    PokeballCaught.writeDetour(nameof(Charmander), "Charmander", "Terramon/Minisprites/Regular/miniCharmander");
+                    BaseCaughtClass.writeDetour(nameof(Charmander), "Charmander",
+                        "Terramon/Minisprites/Regular/miniCharmander");
                     int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
                     if (index >= 400 || !(Main.item[index].modItem is PokeballCaught modItem))
                         return;
@@ -56,16 +52,18 @@ namespace Terramon.Network.Starter
                     break;
                 case BULBASAUR:
                 {
-                    PokeballCaught.writeDetour(nameof(Bulbasaur), "Bulbasaur", "Terramon/Minisprites/Regular/miniBulbasaur");
+                    BaseCaughtClass.writeDetour(nameof(Bulbasaur), "Bulbasaur",
+                        "Terramon/Minisprites/Regular/miniBulbasaur");
                     int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
                     if (index >= 400 || !(Main.item[index].modItem is PokeballCaught modItem))
                         return;
                 }
                     break;
             }
-            
         }
 
-        public void HandleFromServer(BinaryReader reader) { return; }
+        public void HandleFromServer(BinaryReader reader)
+        {
+        }
     }
 }

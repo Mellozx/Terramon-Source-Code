@@ -1,26 +1,19 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
 
 namespace Terramon.Pokemon.FirstGeneration.Fishing
 {
     public class GoldeenFish : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Goldeen");
             Tooltip.SetDefault("It's a Pokémon you caught while fishing."
-                + "\nSpawns a catchable Goldeen when used.");
+                               + "\nSpawns a catchable Goldeen when used.");
         }
+
         public override void SetDefaults()
         {
             item.width = 44;
@@ -39,7 +32,7 @@ namespace Terramon.Pokemon.FirstGeneration.Fishing
 
         public override bool UseItem(Player player)
         {
-            NPC.NewNPC((int)player.position.X, (int)player.position.Y, mod.NPCType("GoldeenNPC"));
+            NPC.NewNPC((int) player.position.X, (int) player.position.Y, mod.NPCType("GoldeenNPC"));
             return true;
         }
     }

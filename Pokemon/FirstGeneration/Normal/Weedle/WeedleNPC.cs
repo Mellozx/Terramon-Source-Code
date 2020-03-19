@@ -1,13 +1,16 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Weedle
 {
     public class WeedleNPC : ParentPokemonNPC
     {
-        public override Type HomeClass() => typeof(Weedle);
+        public override Type HomeClass()
+        {
+            return typeof(Weedle);
+        }
 
         public override void SetDefaults()
         {
@@ -25,13 +28,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Weedle
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.player.ZoneOverworldHeight)
-            {
                 return 0.08f;
-            }
-            else
-            {
-                return 0f;
-            }
+            return 0f;
         }
     }
 }

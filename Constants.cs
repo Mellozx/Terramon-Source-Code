@@ -6,7 +6,6 @@
         {
             public static class Names
             {
-
             }
         }
 
@@ -19,10 +18,8 @@
                     GREAT_BALL = "greatBall",
                     ULTRA_BALL = "ultraBall",
                     MASTER_BALL = "masterBall",
-               
                     DUSK_BALL = "duskBall",
                     PREMIER_BALL = "premierBall",
-                    
                     QUICK_BALL = "quickBall";
             }
 
@@ -33,10 +30,8 @@
                     GREAT_BALL = 1.5f,
                     ULTRA_BALL = 2f,
                     MASTER_BALL = 1000f,
-
                     DUSK_BALL = 2f,
                     PREMIER_BALL = 1f,
-
                     QUICK_BALL = 1f;
             }
         }

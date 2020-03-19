@@ -1,13 +1,16 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Rattata
 {
     public class RattataNPC : ParentPokemonNPC
     {
-        public override Type HomeClass() => typeof(Rattata);
+        public override Type HomeClass()
+        {
+            return typeof(Rattata);
+        }
 
         public override void SetDefaults()
         {
@@ -25,13 +28,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Rattata
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.player.ZoneOverworldHeight)
-            {
                 return 0.08f;
-            }
-            else
-            {
-                return 0f;
-            }
+            return 0f;
         }
     }
 }

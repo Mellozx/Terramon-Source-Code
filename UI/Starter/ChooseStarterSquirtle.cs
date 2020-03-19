@@ -1,13 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network.Starter;
 using Terramon.Players;
-using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terramon.Pokemon.FirstGeneration.Normal.Squirtle;
 using Terramon.UI.SidebarParty;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -26,10 +24,6 @@ namespace Terramon.UI.Starter
             mainPanel.Top.Set(0f, 0f);
             mainPanel.Width.Set(0f, 1f);
             mainPanel.Height.Set(0f, 1f);
-
-
-
-
 
 
             Texture2D starterselect = ModContent.GetTexture("Terramon/UI/PossibleAssets/StarterMenuNew");
@@ -77,75 +71,75 @@ namespace Terramon.UI.Starter
             mainPanel.Append(toprightcorner);
 
             Texture2D test = ModContent.GetTexture("Terramon/UI/PossibleAssets/Text");
-             UIImagez testmenu = new UIImagez(test);
-             testmenu.HAlign = 0.5f;  
-             testmenu.VAlign = 0.3f;  
-              testmenu.Width.Set(391, 0);
-              testmenu.Height.Set(99, 0);
-             mainPanel.Append(testmenu);
+            UIImagez testmenu = new UIImagez(test);
+            testmenu.HAlign = 0.5f;
+            testmenu.VAlign = 0.3f;
+            testmenu.Width.Set(391, 0);
+            testmenu.Height.Set(99, 0);
+            mainPanel.Append(testmenu);
 
             Texture2D bulbasaurTexture = ModContent.GetTexture("Terramon/UI/PossibleAssets/Bulbasaur");
-            UIHoverImageButton bulbasaurTextureButton = new UIHoverImageButton(bulbasaurTexture, "Bulbasaur");     
-            bulbasaurTextureButton.HAlign = 0.35f;  
-            bulbasaurTextureButton.VAlign = 0.5f;   
+            UIHoverImageButton bulbasaurTextureButton = new UIHoverImageButton(bulbasaurTexture, "Bulbasaur");
+            bulbasaurTextureButton.HAlign = 0.35f;
+            bulbasaurTextureButton.VAlign = 0.5f;
             bulbasaurTextureButton.Width.Set(100, 0f);
             bulbasaurTextureButton.Height.Set(92, 0f);
-            bulbasaurTextureButton.OnClick += new MouseEvent(bulbasaurTextureButtonClicked);
+            bulbasaurTextureButton.OnClick += bulbasaurTextureButtonClicked;
             mainPanel.Append(bulbasaurTextureButton);
 
             Texture2D charmanderTexture = ModContent.GetTexture("Terramon/UI/PossibleAssets/Charmander");
-            UIHoverImageButton charmanderTextureButton = new UIHoverImageButton(charmanderTexture, "Charmander");     
-            charmanderTextureButton.HAlign = 0.5f;  
-            charmanderTextureButton.VAlign = 0.5f;   
+            UIHoverImageButton charmanderTextureButton = new UIHoverImageButton(charmanderTexture, "Charmander");
+            charmanderTextureButton.HAlign = 0.5f;
+            charmanderTextureButton.VAlign = 0.5f;
             charmanderTextureButton.Width.Set(100, 0f);
             charmanderTextureButton.Height.Set(92, 0f);
-            charmanderTextureButton.OnClick += new MouseEvent(charmanderTextureButtonClicked);
+            charmanderTextureButton.OnClick += charmanderTextureButtonClicked;
             mainPanel.Append(charmanderTextureButton);
 
             Texture2D squirtleTexture = ModContent.GetTexture("Terramon/UI/PossibleAssets/Squirtle");
-            UIImagez squirtleTextureButton = new UIImagez(squirtleTexture);     
-            squirtleTextureButton.HAlign = 0.65f;  
-            squirtleTextureButton.VAlign = 0.5f;   
+            UIImagez squirtleTextureButton = new UIImagez(squirtleTexture);
+            squirtleTextureButton.HAlign = 0.65f;
+            squirtleTextureButton.VAlign = 0.5f;
             squirtleTextureButton.Width.Set(100, 0f);
             squirtleTextureButton.Height.Set(92, 0f);
             mainPanel.Append(squirtleTextureButton);
 
             Texture2D charmanderTextTexture = ModContent.GetTexture("Terramon/UI/PossibleAssets/SquirtleText");
             UIImagez charmanderText = new UIImagez(charmanderTextTexture);
-            charmanderText.HAlign = 0.5f;  
-            charmanderText.VAlign = 0.7f;  
+            charmanderText.HAlign = 0.5f;
+            charmanderText.VAlign = 0.7f;
             charmanderText.Width.Set(351, 0);
             charmanderText.Height.Set(65, 0);
             mainPanel.Append(charmanderText);
 
             Texture2D chooseTexture = ModContent.GetTexture("Terramon/UI/PossibleAssets/Choose");
             UIHoverImageButton choose = new UIHoverImageButton(chooseTexture, "Choose Squirtle!");
-            choose.HAlign = 0.5f;  
-            choose.VAlign = 0.8f;  
+            choose.HAlign = 0.5f;
+            choose.VAlign = 0.8f;
             choose.Width.Set(153, 0);
             choose.Height.Set(43, 0);
-            choose.OnClick += new MouseEvent(Chosen);
+            choose.OnClick += Chosen;
             mainPanel.Append(choose);
 
 
-
             Append(mainPanel);
-
         }
 
-        
-        Player player = Main.LocalPlayer;
-       
+
+        private Player player = Main.LocalPlayer;
+
         private void bulbasaurTextureButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             Main.PlaySound(SoundID.MenuOpen);
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarterBulbasaur());
         }
+
         private void charmanderTextureButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             Main.PlaySound(SoundID.MenuOpen);
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarterCharmander());
         }
+
         private void Chosen(UIMouseEvent evt, UIElement listeningElement)
         {
             TerramonPlayer TerramonPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
@@ -167,14 +161,13 @@ namespace Terramon.UI.Starter
                     return;
                 (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<SquirtleNPC>();
                 (Main.item[index].modItem as PokeballCaught).PokemonName = "Squirtle";
-                (Main.item[index].modItem as PokeballCaught).SmallSpritePath = "Terramon/Minisprites/Regular/miniSquirtle";
+                (Main.item[index].modItem as PokeballCaught).SmallSpritePath =
+                    "Terramon/Minisprites/Regular/miniSquirtle";
             }
 
             Main.NewText("You chose [c/00FFFF:Squirtle, the Tiny Turtle Pokemon.] Great choice!");
             ChooseStarter.Visible = false;
             UISidebar.Visible = true;
         }
-
-
     }
 }

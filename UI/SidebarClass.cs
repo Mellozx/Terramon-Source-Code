@@ -11,20 +11,6 @@ namespace Terramon.UI
     // We've added some code to allow the Button to show a text tooltip while hovered. 
     internal class SidebarClass : UIImage
     {
-        public Texture2D test1;
-        public Texture2D test2;
-        public Texture2D test3;
-        public Texture2D test4;
-        public Texture2D test5;
-        public Texture2D test6;
-
-        public SidebarClass tooltip1;
-        public Texture2D tooltip2;
-        public Texture2D tooltip3;
-        public Texture2D tooltip4;
-        public Texture2D tooltip5;
-        public Texture2D tooltip6;
-
         internal string HoverText;
 
         public SidebarClass(Texture2D texture, string hoverText) : base(texture)
@@ -37,30 +23,15 @@ namespace Terramon.UI
             if (IsMouseHovering)
             {
                 Main.hoverItemName = HoverText;
-                ImageScale = 1.2f;
-            }
-            else
-            {
-                ImageScale = 1f;
             }
             base.DrawSelf(spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
         {
-
             base.Update(gameTime); // don't remove.
-
-
-
             // Checking ContainsPoint and then setting mouseInterface to true is very common. This causes clicks on this UIElement to not cause the player to use current items. 
-
-            if (ContainsPoint(Main.MouseScreen))
-            {
-
-                Main.LocalPlayer.mouseInterface = true;
-
-            }
+            if (ContainsPoint(Main.MouseScreen)) Main.LocalPlayer.mouseInterface = true;
         }
     }
 }

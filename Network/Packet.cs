@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Terraria.ModLoader;
 
 namespace Terramon.Network
@@ -21,13 +16,11 @@ namespace Terramon.Network
 
         public virtual void HandleFromClient(BinaryReader reader, int whoAmI)
         {
-
         }
 
         //We don't need whoAmI because server id all ways same and equal 256
         public virtual void HandleFromServer(BinaryReader reader)
         {
-
         }
     }
 }

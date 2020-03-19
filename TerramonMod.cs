@@ -1,24 +1,23 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Terramon.UI;
-using Terraria;
-// using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.UI;
-using Terramon.UI.Starter;
-using Terramon.UI.SidebarParty;
-using Terraria.ID;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network.Catching;
 using Terramon.Network.Starter;
 using Terramon.Pokemon;
-using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
+using Terramon.Pokemon.Moves;
+using Terramon.UI;
 using Terramon.UI.Moveset;
+using Terramon.UI.SidebarParty;
+using Terramon.UI.Starter;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace Terramon
 {
@@ -49,7 +48,7 @@ namespace Terramon
         public UserInterface _exampleUserInterface; // Choose Starter
         private UserInterface _exampleUserInterfaceNew; // Pokegear Main Menu
         private UserInterface PokegearUserInterfaceNew;
-        private UserInterface evolveUserInterfaceNew;// Pokegear Events Menu
+        private UserInterface evolveUserInterfaceNew; // Pokegear Events Menu
         private UserInterface _uiSidebar;
         private UserInterface _moves;
         public UserInterface _partySlots;
@@ -72,35 +71,39 @@ namespace Terramon
             //};
         }
 
-        private readonly static string[] balls = { "Pokeball",
-                                                   "GreatBall",
-                                                   "UltraBall",
-                                                   "DuskBall",
-                                                    "PremierBall",
-                                                   "QuickBall",
-                                                   "TimerBall",
-                                                   "MasterBall"};
+        private static readonly string[] balls =
+        {
+            "Pokeball",
+            "GreatBall",
+            "UltraBall",
+            "DuskBall",
+            "PremierBall",
+            "QuickBall",
+            "TimerBall",
+            "MasterBall"
+        };
 
         // catch chance of the ball refers to the same index as the ball
-        private readonly static float[][] catchChances = {
-            new float[] { .1190f }, //Pokeball
-            new float[] { .1785f }, //Great Ball
-            new float[] { .2380f }, //Ultra Ball
-            new float[] { .2380f,   //Dusk Ball
-                          .1190f },
-            new float[] { .1190f }, //Premier Ball
-            new float[] { .2380f }, //Quick Ball
-            new float[] { .2380f }, //Timer Ball
-            new float[] { 1f } //Master Ball
+        private static readonly float[][] catchChances =
+        {
+            new[] {.1190f}, //Pokeball
+            new[] {.1785f}, //Great Ball
+            new[] {.2380f}, //Ultra Ball
+            new[]
+            {
+                .2380f, //Dusk Ball
+                .1190f
+            },
+            new[] {.1190f}, //Premier Ball
+            new[] {.2380f}, //Quick Ball
+            new[] {.2380f}, //Timer Ball
+            new[] {1f} //Master Ball
         };
 
         public static string[] GetBallProjectiles()
         {
             string[] ballProjectiles = new string[balls.Length];
-            for (int i = 0; i < balls.Length; i++)
-            {
-                ballProjectiles[i] = balls[i] + "Projectile";
-            }
+            for (int i = 0; i < balls.Length; i++) ballProjectiles[i] = balls[i] + "Projectile";
 
             return ballProjectiles;
         }
@@ -139,7 +142,6 @@ namespace Terramon
                 _uiSidebar = new UserInterface();
                 _moves = new UserInterface();
                 _partySlots = new UserInterface();
-            
 
 
                 _exampleUserInterface.SetState(ChooseStarter); // Choose Starter
@@ -155,10 +157,11 @@ namespace Terramon
             if (Main.dedServ)
                 return;
 
-            FirstPKMAbility = this.RegisterHotKey("First Pokémon Move", Keys.Z.ToString());
-            SecondPKMAbility = this.RegisterHotKey("Second Pokémon Move", Keys.X.ToString());
-            ThirdPKMAbility = this.RegisterHotKey("Third Pokémon Move", Keys.C.ToString());
-            FourthPKMAbility = this.RegisterHotKey("Fourth Pokémon Move", Keys.V.ToString());
+            FirstPKMAbility = RegisterHotKey("First Pokémon Move", Keys.Z.ToString());
+            SecondPKMAbility = RegisterHotKey("Second Pokémon Move", Keys.X.ToString());
+            ThirdPKMAbility = RegisterHotKey("Third Pokémon Move", Keys.C.ToString());
+            FourthPKMAbility = RegisterHotKey("Fourth Pokémon Move", Keys.V.ToString());
+
 
             PartyCycle = RegisterHotKey("Quick Spawn First Party Pokémon", Keys.RightAlt.ToString());
         }
@@ -176,12 +179,35 @@ namespace Terramon
             PartySlots = null;
             pokemonStore = null;
             wildPokemonStore = null;
+            movesStore = null;
+
+            ChooseStarter.Deactivate();
+            ChooseStarter = null;
+            ChooseStarterBulbasaur.Deactivate();
+            ChooseStarterBulbasaur = null;
+            ChooseStarterCharmander.Deactivate();
+            ChooseStarterCharmander = null;
+            ChooseStarterSquirtle.Deactivate();
+            ChooseStarterSquirtle = null;
+            PokegearUI.Deactivate();
+            PokegearUI = null;
+            PokegearUIEvents.Deactivate();
+            PokegearUIEvents = null;
+            evolveUI.Deactivate();
+            evolveUI = null;
+            UISidebar.Deactivate();
+            UISidebar = null;
+            Moves.Deactivate();
+            Moves = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)
 
 
-        public static float[][] GetCatchChances() => catchChances;
+        public static float[][] GetCatchChances()
+        {
+            return catchChances;
+        }
 
         /* public override void Load()
 		{
@@ -194,107 +220,46 @@ namespace Terramon
 
         public override void UpdateUI(GameTime gameTime)
         {
-            if (ChooseStarter.Visible)
-            {
-                _exampleUserInterface?.Update(gameTime);
-            }
-            if (PokegearUI.Visible)
-            {
-                _exampleUserInterfaceNew?.Update(gameTime);
-            }
-            if (PokegearUIEvents.Visible)
-            {
-                PokegearUserInterfaceNew?.Update(gameTime);
-            }
-            if (EvolveUI.Visible)
-            {
-                evolveUserInterfaceNew?.Update(gameTime);
-            }
+            if (ChooseStarter.Visible) _exampleUserInterface?.Update(gameTime);
+            if (PokegearUI.Visible) _exampleUserInterfaceNew?.Update(gameTime);
+            if (PokegearUIEvents.Visible) PokegearUserInterfaceNew?.Update(gameTime);
+            if (EvolveUI.Visible) evolveUserInterfaceNew?.Update(gameTime);
             //starters
-            if (ChooseStarterBulbasaur.Visible)
-            {
-                _exampleUserInterface?.Update(gameTime);
-            }
-            if (ChooseStarterCharmander.Visible)
-            {
-                _exampleUserInterface?.Update(gameTime);
-            }
-            if (ChooseStarterSquirtle.Visible)
-            {
-                _exampleUserInterface?.Update(gameTime);
-            }
-            if (UISidebar.Visible)
-            {
-                _uiSidebar?.Update(gameTime);
-            }
-            if (Moves.Visible)
-            {
-                _moves?.Update(gameTime);
-            }
-            if (PartySlots.Visible)
-            {
-                _partySlots?.Update(gameTime);
-            }
+            if (ChooseStarterBulbasaur.Visible) _exampleUserInterface?.Update(gameTime);
+            if (ChooseStarterCharmander.Visible) _exampleUserInterface?.Update(gameTime);
+            if (ChooseStarterSquirtle.Visible) _exampleUserInterface?.Update(gameTime);
+            if (UISidebar.Visible) _uiSidebar?.Update(gameTime);
+            if (Moves.Visible) _moves?.Update(gameTime);
+            if (PartySlots.Visible) _partySlots?.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-            int StarterSelectionLayer = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Interface Logic 1"));
+            //int StarterSelectionLayer = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Interface Logic 1")); //Unused var
             if (mouseTextIndex != -1)
-            {
                 layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
                     "Terramon: Pokemon Interfaces",
                     delegate
                     {
-                        if (ChooseStarter.Visible)
-                        {
-                            _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        }
-                        if (PokegearUI.Visible)
-                        {
-                            _exampleUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
-                        }
-                        if (PokegearUIEvents.Visible)
-                        {
-                            PokegearUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
-                        }
-                        if (EvolveUI.Visible)
-                        {
-                            evolveUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
-                        }
+                        if (ChooseStarter.Visible) _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
+                        if (PokegearUI.Visible) _exampleUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
+                        if (PokegearUIEvents.Visible) PokegearUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
+                        if (EvolveUI.Visible) evolveUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
                         if (ChooseStarterBulbasaur.Visible)
-                        {
                             _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        }
                         if (ChooseStarterCharmander.Visible)
-                        {
                             _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        }
-                        if (ChooseStarterSquirtle.Visible)
-                        {
-                            _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        }
-                        if (UISidebar.Visible)
-                        {
-                            _uiSidebar.Draw(Main.spriteBatch, new GameTime());
-                        }
-                        if (Moves.Visible)
-                        {
-                            _moves.Draw(Main.spriteBatch, new GameTime());
-                        }
-                        if (PartySlots.Visible)
-                        {
-                            _partySlots.Draw(Main.spriteBatch, new GameTime());
-                        }
+                        if (ChooseStarterSquirtle.Visible) _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
+                        if (UISidebar.Visible) _uiSidebar.Draw(Main.spriteBatch, new GameTime());
+                        if (Moves.Visible) _moves.Draw(Main.spriteBatch, new GameTime());
+                        if (PartySlots.Visible) _partySlots.Draw(Main.spriteBatch, new GameTime());
                         return true;
                     },
                     InterfaceScaleType.UI)
                 );
-
-            }
-            
         }
+
         public static bool MyUIStateActive(Player player)
         {
             return ChooseStarter.Visible;
@@ -302,15 +267,9 @@ namespace Terramon
 
         public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
-            if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active)
-            {
-                return;
-            }
+            if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active) return;
 
-            if (MyUIStateActive(Main.LocalPlayer))
-            {
-                music = GetSoundSlot(SoundType.Music, null);
-            }
+            if (MyUIStateActive(Main.LocalPlayer)) music = GetSoundSlot(SoundType.Music, null);
         }
 
         // END UI STUFF
@@ -327,8 +286,8 @@ namespace Terramon
 
 
         /// <summary>
-        /// Class used to save pokeball rarity when manipulating
-        /// items data;
+        ///     Class used to save pokeball rarity when manipulating
+        ///     items data;
         /// </summary>
         public static class PokeballFactory
         {
@@ -342,12 +301,12 @@ namespace Terramon
                 DuskBall,
                 PremierBall,
                 QuickBall,
-                TimerBall,
+                TimerBall
             }
 
             /// <summary>
-            /// Return type id for provided pokeball.
-            /// Mostly used for loading from saves
+            ///     Return type id for provided pokeball.
+            ///     Mostly used for loading from saves
             /// </summary>
             /// <param name="item">Byte enum of save pokeball</param>
             /// <returns>Return item id or 0 if this is not a pokeball</returns>
@@ -377,92 +336,44 @@ namespace Terramon
             }
 
             /// <summary>
-            /// Return enum byte for provided item.
-            /// Mostly used for saving
+            ///     Return enum byte for provided item.
+            ///     Mostly used for saving
             /// </summary>
             /// <param name="item">ModItem of item</param>
-            /// <returns>Return byte enum or <see cref="Pokebals.Nothing"/>
-            /// if provided item is not a pokeball</returns>
+            /// <returns>
+            ///     Return byte enum or <see cref="Pokebals.Nothing" />
+            ///     if provided item is not a pokeball
+            /// </returns>
             public static Pokebals GetEnum(ModItem item)
             {
-                if (item is PokeballCaught)
-                {
-                    return Pokebals.Pokeball;
-                }
-                if (item is GreatBallCaught)
-                {
-                    return Pokebals.GreatBall;
-                }
-                if (item is UltraBallCaught)
-                {
-                    return Pokebals.UltraBall;
-                }
-                if (item is MasterBallCaught)
-                {
-                    return Pokebals.MasterBall;
-                }
-                if (item is DuskBallCaught)
-                {
-                    return Pokebals.DuskBall;
-                }
-                if (item is PremierBallCaught)
-                {
-                    return Pokebals.PremierBall;
-                }
-                if (item is QuickBallCaught)
-                {
-                    return Pokebals.QuickBall;
-                }
-                if (item is TimerBallCaught)
-                {
-                    return Pokebals.TimerBall;
-                }
+                if (item is PokeballCaught) return Pokebals.Pokeball;
+                if (item is GreatBallCaught) return Pokebals.GreatBall;
+                if (item is UltraBallCaught) return Pokebals.UltraBall;
+                if (item is MasterBallCaught) return Pokebals.MasterBall;
+                if (item is DuskBallCaught) return Pokebals.DuskBall;
+                if (item is PremierBallCaught) return Pokebals.PremierBall;
+                if (item is QuickBallCaught) return Pokebals.QuickBall;
+                if (item is TimerBallCaught) return Pokebals.TimerBall;
                 return Pokebals.Nothing;
             }
 
             /// <summary>
-            /// Return item type id from provided pokeball
+            ///     Return item type id from provided pokeball
             /// </summary>
             /// <param name="item">ModItem of item</param>
             /// <returns>Return item id or 0 if this is not a pokeball</returns>
             public static int GetPokeballType(ModItem item)
             {
-                if (item is PokeballCaught)
-                {
-                    return ModContent.ItemType<PokeballCaught>();
-                }
-                if (item is GreatBallCaught)
-                {
-                    return ModContent.ItemType<GreatBallCaught>();
-                }
-                if (item is UltraBallCaught)
-                {
-                    return ModContent.ItemType<UltraBallCaught>();
-                }
-                if (item is UltraBallCaught)
-                {
-                    return ModContent.ItemType<UltraBallCaught>();
-                }
-                if (item is DuskBallCaught)
-                {
-                    return ModContent.ItemType<DuskBallCaught>();
-                }
-                if (item is PremierBallCaught)
-                {
-                    return ModContent.ItemType<PremierBallCaught>();
-                }
-                if (item is QuickBallCaught)
-                {
-                    return ModContent.ItemType<QuickBallCaught>();
-                }
-                if (item is TimerBallCaught)
-                {
-                    return ModContent.ItemType<TimerBallCaught>();
-                }
+                if (item is PokeballCaught) return ModContent.ItemType<PokeballCaught>();
+                if (item is GreatBallCaught) return ModContent.ItemType<GreatBallCaught>();
+                if (item is UltraBallCaught) return ModContent.ItemType<UltraBallCaught>();
+                if (item is DuskBallCaught) return ModContent.ItemType<DuskBallCaught>();
+                if (item is PremierBallCaught) return ModContent.ItemType<PremierBallCaught>();
+                if (item is QuickBallCaught) return ModContent.ItemType<QuickBallCaught>();
+                if (item is TimerBallCaught) return ModContent.ItemType<TimerBallCaught>();
                 return 0;
             }
         }
-
 
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -495,114 +406,86 @@ namespace Terramon
             }
             catch (Exception e)
             {
-                Logger.ErrorFormat("Exception appear in HandlePacket. Please, contact mod devs with folowing stacktrace:\n\n{0}\n\n{1}", e.Message, e.StackTrace);
+                Logger.ErrorFormat(
+                    "Exception appear in HandlePacket. Please, contact mod devs with folowing stacktrace:\n\n{0}\n\n{1}",
+                    e.Message, e.StackTrace);
             }
-
         }
 
         public static TerramonMod Instance { get; private set; }
 
         public static IEnumerable<string> GetPokemonsNames()
         {
-            return from it in Instance.pokemonStore select it.Key;
+            return Instance.pokemonStore.Keys.ToList();
         }
 
         public static ParentPokemon GetPokemon(string monName)
         {
-            if (monName == null)
-            {
-                return null;
-            }
+            if (monName == null) return null;
             if (Instance.pokemonStore != null && Instance.pokemonStore.ContainsKey(monName))
-            {
                 return Instance.pokemonStore[monName];
-            }
             return null;
         }
 
+        // ReSharper disable once UnusedMember.Global
         public static ParentPokemonNPC GetWildPokemon(string monName)
         {
-            if (monName == null)
-            {
-                return null;
-            }
+            if (monName == null) return null;
             if (Instance.pokemonStore != null && Instance.pokemonStore.ContainsKey(monName))
-            {
                 return Instance.wildPokemonStore[monName];
-            }
             return null;
         }
+
+        public static BaseMove GetMove(string moveName)
+        {
+            if (string.IsNullOrEmpty(moveName)) return null;
+            if (Instance.movesStore != null && Instance.movesStore.ContainsKey(moveName))
+                return Instance.movesStore[moveName];
+            return null;
+        }
+
 
         private Dictionary<string, ParentPokemon> pokemonStore;
         private Dictionary<string, ParentPokemonNPC> wildPokemonStore;
+        private Dictionary<string, BaseMove> movesStore;
+
         private void LoadPokemons()
         {
             pokemonStore = new Dictionary<string, ParentPokemon>();
-            foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
-            {
-                if (it.IsAbstract)
-                    continue;
-                bool valid = false;
-                if (it.BaseType == typeof(ParentPokemon))
-                    valid = true;
-                else
-                {
-                    //Recurrent seek for our class
-                    var baseType = it.BaseType;
-                    while (baseType != null && baseType != typeof(object) )
-                    {
-                        if (baseType == typeof(ParentPokemon))
-                        {
-                            valid = true;
-                            break;
-                        }
-                        baseType = baseType.BaseType;
-                    }
-                }
-
-                if(valid)
-                    try
-                    {
-                        pokemonStore.Add(it.Name, (ParentPokemon) Activator.CreateInstance(it));
-                    }
-                    catch (Exception e)
-                    {
-                        Logger.Error(
-                            "Exception caught in Events register loop. Report mod author with related stacktrace: \n" +
-                            $"{e.Message}\n" +
-                            $"{e.StackTrace}\n");
-                    }
-            }
-
             wildPokemonStore = new Dictionary<string, ParentPokemonNPC>();
+            movesStore = new Dictionary<string, BaseMove>();
             foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
             {
+                var baseType = it.BaseType;
                 if (it.IsAbstract)
                     continue;
                 bool valid = false;
-                if (it.BaseType == typeof(ParentPokemonNPC))
+                if (baseType == typeof(ParentPokemon) || baseType == typeof(ParentPokemonNPC) ||
+                    baseType == typeof(BaseMove))
                     valid = true;
                 else
-                {
                     //Recurrent seek for our class
-                    var baseType = it.BaseType;
                     while (baseType != null && baseType != typeof(object))
                     {
-                        if (baseType == typeof(ParentPokemonNPC))
+                        if (baseType == typeof(ParentPokemon) || baseType == typeof(ParentPokemonNPC) ||
+                            baseType == typeof(BaseMove))
                         {
                             valid = true;
                             break;
                         }
+
                         baseType = baseType.BaseType;
                     }
-                }
 
                 if (valid)
                     try
                     {
-                        //We register wild mon and captured mon with same name
-                        var inst = (ParentPokemonNPC) Activator.CreateInstance(it);
-                        wildPokemonStore.Add(inst.HomeClass().Name, inst);
+                        if (baseType == typeof(ParentPokemon))
+                            pokemonStore.Add(it.Name, (ParentPokemon) Activator.CreateInstance(it));
+                        else if (baseType == typeof(ParentPokemonNPC))
+                            wildPokemonStore.Add(it.Name, (ParentPokemonNPC) Activator.CreateInstance(it));
+                        else if (baseType == typeof(BaseMove))
+                            movesStore.Add(it.Name, (BaseMove) Activator.CreateInstance(it));
                     }
                     catch (Exception e)
                     {
@@ -612,7 +495,6 @@ namespace Terramon
                             $"{e.StackTrace}\n");
                     }
             }
-
         }
     }
 }

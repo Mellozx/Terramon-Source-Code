@@ -1,6 +1,3 @@
-using Terramon.Players;
-using Terraria;
-
 namespace Terramon.Pokemon.FirstGeneration.Normal.Pikachu
 {
     public class Pikachu : ParentPokemon

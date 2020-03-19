@@ -1,11 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Text.RegularExpressions;
-using Terramon.Items.Pokeballs.Inventory;
-using Terramon.Items.Pokeballs.Thrown;
-using Terramon.Network.Catching;
-using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,7 +6,6 @@ namespace Terramon.Pokemon
 {
     public abstract class ParentPokemonNPCFlyingBird : ParentPokemonNPC
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault(PokeName());
@@ -35,12 +27,11 @@ namespace Terramon.Pokemon
             aiType = NPCID.Firefly;
 
             animationType = NPCID.Firefly;
-
         }
 
         private const int Flying1 = 0;
         private const int Flying2 = 1;
-        public int AITimer = 0;
+        public int AITimer;
 
         public override void AI()
         {
@@ -48,6 +39,7 @@ namespace Terramon.Pokemon
             if (AITimer > 60)
                 AITimer = 0;
         }
+
         public override void FindFrame(int frameHeight)
         {
             npc.spriteDirection = npc.direction;

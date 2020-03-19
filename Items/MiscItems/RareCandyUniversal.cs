@@ -12,7 +12,7 @@ namespace Terramon.Items.MiscItems
         {
             if (Main.rand.Next(100) < 3)
                 Item.NewItem(npc.getRect(), mod.ItemType("RareCandy"));
-            if (Main.rand.Next(100) < 2 && Main.hardMode == true)
+            if (Main.rand.Next(100) < 2 && Main.hardMode)
                 Item.NewItem(npc.getRect(), mod.ItemType("RareCandy"));
             if (npc.type == NPCID.KingSlime)
                 Item.NewItem(npc.getRect(), mod.ItemType("RareCandy"), 4);
@@ -20,7 +20,8 @@ namespace Terramon.Items.MiscItems
                 Item.NewItem(npc.getRect(), mod.ItemType("RareCandy"), 4);
             if (npc.type == NPCID.EyeofCthulhu)
                 Item.NewItem(npc.getRect(), mod.ItemType("RareCandy"), 5);
-            if (Array.IndexOf(new int[] { NPCID.EaterofWorldsBody, NPCID.EaterofWorldsHead, NPCID.EaterofWorldsTail }, npc.type) > -1 && npc.boss)
+            if (Array.IndexOf(new int[] {NPCID.EaterofWorldsBody, NPCID.EaterofWorldsHead, NPCID.EaterofWorldsTail},
+                    npc.type) > -1 && npc.boss)
                 Item.NewItem(npc.getRect(), mod.ItemType("RareCandy"), 6);
             if (npc.type == NPCID.BrainofCthulhu)
                 Item.NewItem(npc.getRect(), mod.ItemType("RareCandy"), 6);
@@ -50,11 +51,8 @@ namespace Terramon.Items.MiscItems
 
         public override bool? CanHitNPC(NPC npc, NPC target)
         {
-            if (target.modNPC != null && target.modNPC is ParentPokemonNPC)
-            {
-                return false;
-            }
-                return null;
+            if (target.modNPC != null && target.modNPC is ParentPokemonNPC) return false;
+            return null;
         }
     }
 }
