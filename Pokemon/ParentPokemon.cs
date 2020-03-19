@@ -1,5 +1,6 @@
 ﻿using System;
 using Terramon.Players;
+using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,6 +32,8 @@ namespace Terramon.Pokemon
 
         public virtual PokemonType[] PokemonTypes => new []{PokemonType.Normal};
 
+        public virtual string[] DefaultMove => new string[] {"", "", "", ""};
+
         private string iconName;
         public virtual string IconName => iconName ?? (iconName = $"Terramon/Minisprites/Regular/mini{GetType().Name}");
 
@@ -51,9 +54,12 @@ namespace Terramon.Pokemon
         {
             Player player = Main.player[projectile.owner];
             player.zephyrfish = false; // Relic from aiType
+            if (aiType != 0)
+                mainAi = aiType;
             return true;
         }
 
+        private int mainAi = ProjectileID.Puppy;
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -67,6 +73,16 @@ namespace Terramon.Pokemon
             if (modPlayer.IsPetActive(GetType().Name))
             {
                 projectile.timeLeft = 2;
+            }
+
+            if (modPlayer.ActiveMove != null)
+            {
+                if (modPlayer.ActiveMove.OverrideAI(projectile, this, modPlayer))
+                    aiType = 0;
+            }
+            else if(aiType == 0)
+            {
+                aiType = mainAi;
             }
         }
     }

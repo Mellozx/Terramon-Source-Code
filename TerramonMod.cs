@@ -1,25 +1,23 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Terramon.UI;
-using Terraria;
-// using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.UI;
-using Terramon.UI.Starter;
-using Terramon.UI.SidebarParty;
-using Terraria.ID;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Terramon.Network.Catching;
 using Terramon.Network.Starter;
 using Terramon.Pokemon;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
 using Terramon.Pokemon.Moves;
+using Terramon.UI;
 using Terramon.UI.Moveset;
+using Terramon.UI.SidebarParty;
+using Terramon.UI.Starter;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace Terramon
 {
@@ -161,6 +159,7 @@ namespace Terramon
             ThirdPKMAbility = this.RegisterHotKey("Third Pokémon Move", Keys.C.ToString());
             FourthPKMAbility = this.RegisterHotKey("Fourth Pokémon Move", Keys.V.ToString());
 
+
             PartyCycle = RegisterHotKey("Quick Spawn First Party Pokémon", Keys.RightAlt.ToString());
         }
 
@@ -177,6 +176,7 @@ namespace Terramon
             PartySlots = null;
             pokemonStore = null;
             wildPokemonStore = null;
+            movesStore = null;
 
             ChooseStarter.Deactivate();
             ChooseStarter = null;
@@ -260,7 +260,7 @@ namespace Terramon
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-            int StarterSelectionLayer = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Interface Logic 1"));
+            //int StarterSelectionLayer = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Interface Logic 1")); //Unused var
             if (mouseTextIndex != -1)
             {
                 layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
@@ -459,10 +459,6 @@ namespace Terramon
                 {
                     return ModContent.ItemType<UltraBallCaught>();
                 }
-                if (item is UltraBallCaught)
-                {
-                    return ModContent.ItemType<UltraBallCaught>();
-                }
                 if (item is DuskBallCaught)
                 {
                     return ModContent.ItemType<DuskBallCaught>();
@@ -540,6 +536,7 @@ namespace Terramon
             return null;
         }
 
+        // ReSharper disable once UnusedMember.Global
         public static ParentPokemonNPC GetWildPokemon(string monName)
         {
             if (monName == null)
@@ -552,6 +549,20 @@ namespace Terramon
             }
             return null;
         }
+
+        public static BaseMove GetMove(string moveName)
+        {
+            if (string.IsNullOrEmpty(moveName))
+            {
+                return null;
+            }
+            if (Instance.movesStore != null && Instance.movesStore.ContainsKey(moveName))
+            {
+                return Instance.movesStore[moveName];
+            }
+            return null;
+        }
+
 
         private Dictionary<string, ParentPokemon> pokemonStore;
         private Dictionary<string, ParentPokemonNPC> wildPokemonStore;
@@ -593,80 +604,6 @@ namespace Terramon
                             wildPokemonStore.Add(it.Name, (ParentPokemonNPC)Activator.CreateInstance(it)); 
                         else if (baseType == typeof(BaseMove))
                             movesStore.Add(it.Name, (BaseMove)Activator.CreateInstance(it));
-                    }
-                    catch (Exception e)
-                    {
-                        Logger.Error(
-                            "Exception caught in Events register loop. Report mod author with related stacktrace: \n" +
-                            $"{e.Message}\n" +
-                            $"{e.StackTrace}\n");
-                    }
-            }
-            return;
-            foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
-            {
-                if (it.IsAbstract)
-                    continue;
-                bool valid = false;
-                if (it.BaseType == typeof(ParentPokemonNPC))
-                    valid = true;
-                else
-                {
-                    //Recurrent seek for our class
-                    var baseType = it.BaseType;
-                    while (baseType != null && baseType != typeof(object))
-                    {
-                        if (baseType == typeof(ParentPokemonNPC))
-                        {
-                            valid = true;
-                            break;
-                        }
-                        baseType = baseType.BaseType;
-                    }
-                }
-
-                if (valid)
-                    try
-                    {
-                        //We register wild mon and captured mon with same name
-                        var inst = (ParentPokemonNPC) Activator.CreateInstance(it);
-                        wildPokemonStore.Add(inst.HomeClass().Name, inst);
-                    }
-                    catch (Exception e)
-                    {
-                        Logger.Error(
-                            "Exception caught in Events register loop. Report mod author with related stacktrace: \n" +
-                            $"{e.Message}\n" +
-                            $"{e.StackTrace}\n");
-                    }
-            }
-
-            foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
-            {
-                if (it.IsAbstract)
-                    continue;
-                bool valid = false;
-                if (it.BaseType == typeof(BaseMove))
-                    valid = true;
-                else
-                {
-                    //Recurrent seek for our class
-                    var baseType = it.BaseType;
-                    while (baseType != null && baseType != typeof(object))
-                    {
-                        if (baseType == typeof(BaseMove))
-                        {
-                            valid = true;
-                            break;
-                        }
-                        baseType = baseType.BaseType;
-                    }
-                }
-
-                if (valid)
-                    try
-                    {
-                        movesStore.Add(it.Name, (BaseMove)Activator.CreateInstance(it));
                     }
                     catch (Exception e)
                     {

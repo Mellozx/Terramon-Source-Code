@@ -7,14 +7,17 @@ using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon;
 using Terramon.Pokemon.FirstGeneration.Fishing;
 using Terramon.Pokemon.FirstGeneration.Normal._caughtForms;
+using Terramon.Pokemon.Moves;
 using Terramon.UI.Moveset;
 using Terramon.UI.SidebarParty;
 using Terramon.UI.Starter;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.World.Generation;
 using static Terraria.ModLoader.ModContent;
 
 
@@ -34,7 +37,52 @@ namespace Terramon.Players
         public int ActivePetId = -1;
         public string ActivePetName = string.Empty;
         public bool CombatReady = false;
-        public int ActivePartySlot = -1;
+        public int ActivePartySlot
+        {
+            get { return _activePartySlot; }
+            set
+            {
+                _activePartySlot = value;
+
+                MoveSet = new BaseMove[] { null, null, null, null };
+
+                TagCompound tag;
+                switch (value)
+                {
+                    case 1:
+                        tag = PartySlot1;
+                        break;
+                    case 2:
+                        tag = PartySlot2;
+                        break;
+                    case 3:
+                        tag = PartySlot3;
+                        break;
+                    case 4:
+                        tag = PartySlot4;
+                        break;
+                    case 5:
+                        tag = PartySlot5;
+                        break;
+                    case 6:
+                        tag = PartySlot6;
+                        break;
+                    default:
+                        return;
+                }
+                var m1 = tag.ContainsKey(BaseCaughtClass.MOVE1) ? tag.GetString(BaseCaughtClass.MOVE1) : null;
+                var m2 = tag.ContainsKey(BaseCaughtClass.MOVE2) ? tag.GetString(BaseCaughtClass.MOVE2) : null;
+                var m3 = tag.ContainsKey(BaseCaughtClass.MOVE3) ? tag.GetString(BaseCaughtClass.MOVE3) : null;
+                var m4 = tag.ContainsKey(BaseCaughtClass.MOVE4) ? tag.GetString(BaseCaughtClass.MOVE4) : null;
+                MoveSet[0] = !string.IsNullOrEmpty(m1) ? TerramonMod.GetMove(m1) : null;
+                MoveSet[1] = !string.IsNullOrEmpty(m2) ? TerramonMod.GetMove(m2) : null;
+                MoveSet[2] = !string.IsNullOrEmpty(m3) ? TerramonMod.GetMove(m3) : null;
+                MoveSet[3] = !string.IsNullOrEmpty(m4) ? TerramonMod.GetMove(m4) : null;
+            }
+        }
+        private int _activePartySlot = -1;
+        public BaseMove[] MoveSet;
+        public int Cooldown = 0;
 
         public int pkBallsThrown = 0;
         public int greatBallsThrown = 0;
@@ -410,7 +458,85 @@ namespace Terramon.Players
                             $"Terramon/Buffs/{ActivePetName}Buff");
                 }
             }
+
+            if (Cooldown > 0 && ActiveMove == null)
+#if DEBUG
+                Cooldown = 0;
+#else
+                Cooldown--;
+#endif
+
+
+
+                if (CombatReady && ActivePartySlot > 0 && ActivePartySlot <= 6 && ActivePetId != -1 
+                && Main.projectile[ActivePetId].modProjectile is ParentPokemon)//Integrity check
+            {
+                if (ActiveMove != null)
+                {
+                    if (!ActiveMove.Update(Main.projectile[ActivePetId],
+                        (ParentPokemon) Main.projectile[ActivePetId].modProjectile, this))
+                        ActiveMove = null;
+                }else if (Cooldown <= 0)
+                {
+                    var mod = (TerramonMod) this.mod;
+                    if(mod.FirstPKMAbility.JustPressed && MoveSet[0] != null && ActiveMove == null)
+                    {
+                        
+                        
+                        ActiveMove = MoveSet[0];
+                        if(ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
+                            (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                            Cooldown = ActiveMove.Cooldown;
+                        else
+                        {
+                            ActiveMove = null;
+                        }
+                    }
+                    else if (mod.SecondPKMAbility.JustPressed && MoveSet[1] != null && ActiveMove == null)
+                    {
+
+
+                        ActiveMove = MoveSet[1];
+                        if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
+                            (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                            Cooldown = ActiveMove.Cooldown;
+                        else
+                        {
+                            ActiveMove = null;
+                        }
+                    }
+                    else if (mod.ThirdPKMAbility.JustPressed && MoveSet[2] != null && ActiveMove == null)
+                    {
+
+
+                        ActiveMove = MoveSet[2];
+                        if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
+                            (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                            Cooldown = ActiveMove.Cooldown;
+                        else
+                        {
+                            ActiveMove = null;
+                        }
+                    }
+                    else if (mod.FourthPKMAbility.JustPressed && MoveSet[3] != null && ActiveMove == null)
+                    {
+
+
+                        ActiveMove = MoveSet[3];
+                        if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
+                            (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                            Cooldown = ActiveMove.Cooldown;
+                        else
+                        {
+                            ActiveMove = null;
+                        }
+                    }
+
+                }
+            }
         }
+
+        public BaseMove ActiveMove;
 
         public override void UpdateAutopause()
         {
@@ -581,5 +707,7 @@ namespace Terramon.Players
 
         
         public bool StarterPackageBought { get; }
+
+        public int whoAmI => player.whoAmI;
     }
 }
