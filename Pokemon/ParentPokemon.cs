@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using Terramon.Players;
 using Terraria;
 using Terraria.ID;
@@ -89,6 +90,15 @@ namespace Terramon.Pokemon
             {
                 projectile.timeLeft = 2;
             }
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Player player = Main.player[projectile.owner];
+            if (SpawnTime <= 6)
+            {
+                projectile.position = player.position;
+            }
+            return true;
         }
     }
 
