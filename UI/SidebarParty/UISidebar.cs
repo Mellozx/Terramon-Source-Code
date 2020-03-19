@@ -41,6 +41,7 @@ namespace Terramon.UI.SidebarParty
         public SidebarClass sixthpkmn;
 
         public int CycleIndex;
+        public int HelpListCycler = 0;
 
         // In OnInitialize, we place various UIElements onto our UIState (this class).
         // UIState classes have width and height equal to the full screen, because of this, usually we first define a UIElement that will act as the container for our UI.
@@ -69,7 +70,7 @@ namespace Terramon.UI.SidebarParty
             mainPanel.BackgroundColor = new Color(15, 20, 46) * 0.65f;
 
             Texture2D chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Help");
-            choose = new UIOpaqueButton(chooseTexture, "Show Terramon Help");
+            choose = new UIOpaqueButton(chooseTexture, "Terramon Help");
             choose.HAlign = 0.007f; // 1
             choose.VAlign = 0.98f; // 1
             choose.Width.Set(20, 0);
@@ -245,8 +246,20 @@ namespace Terramon.UI.SidebarParty
 
         private void HelpClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.NewText("Welcome to Terramon v0.1.2, where you can discover and catch Pokémon in Terraria! For support, join the official Discord server using the [c/f7e34d:/discord] command, or open up the online wiki with the [c/f7e34d:/wiki] command.");
-            Main.NewText("Check out the Mod Config from [c/ff8f33:Settings > Mod Configuration] or from the Mods menu. You can customize various aspects of the mod there.");
+            HelpListCycler++;
+            if (HelpListCycler == 1)
+            {
+                Main.NewText("(1/3) Welcome to Terramon v0.3, where you can discover and catch Pokémon in Terraria! Keep pressing this button for more tips and tricks.");
+            }
+            if (HelpListCycler == 2)
+            {
+                Main.NewText("(2/3) For support, join the official Discord server using the [c/f7e34d:/discord] command. Or, access our wiki with the [c/f7e34d:/wiki] command.");
+            }
+            if (HelpListCycler == 3)
+            {
+                Main.NewText("(3/3) Also, feel free to customize your experience with the Mod Config in [c/ff8f33:Settings > Mod Configuration] or from the Mods menu.");
+                HelpListCycler = 0;
+            }
         }
         private void Null(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -268,7 +281,7 @@ namespace Terramon.UI.SidebarParty
 
             modPlayer.ActivePetName = modPlayer.PartySlot1.GetString(nameof(BaseCaughtClass.PokemonName));
             CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.firstslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout").WithVolume(0.3f));
         }
         private void SpawnPKMN2(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -284,7 +297,7 @@ namespace Terramon.UI.SidebarParty
 
             modPlayer.ActivePetName = modPlayer.PartySlot2.GetString(nameof(BaseCaughtClass.PokemonName));
             CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.secondslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout").WithVolume(0.3f));
         }
         private void SpawnPKMN3(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -300,7 +313,7 @@ namespace Terramon.UI.SidebarParty
 
             modPlayer.ActivePetName = modPlayer.PartySlot3.GetString(nameof(BaseCaughtClass.PokemonName));
             CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.thirdslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout").WithVolume(0.3f));
         }
         private void SpawnPKMN4(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -316,7 +329,7 @@ namespace Terramon.UI.SidebarParty
 
             modPlayer.ActivePetName = modPlayer.PartySlot4.GetString(nameof(BaseCaughtClass.PokemonName));
             CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.fourthslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout").WithVolume(0.3f));
         }
         private void SpawnPKMN5(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -332,7 +345,7 @@ namespace Terramon.UI.SidebarParty
 
             modPlayer.ActivePetName = modPlayer.PartySlot5.GetString(nameof(BaseCaughtClass.PokemonName));
             CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.fifthslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout").WithVolume(0.3f));
         }
         private void SpawnPKMN6(UIMouseEvent evt, UIElement listeningElement)
         {
@@ -348,7 +361,7 @@ namespace Terramon.UI.SidebarParty
 
             modPlayer.ActivePetName = modPlayer.PartySlot6.GetString(nameof(BaseCaughtClass.PokemonName));
             CombatText.NewText(player.Hitbox, Color.White, "Go! " + modPlayer.sixthslotname + "!", true);
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout").WithVolume(0.3f));
         }
 
 
