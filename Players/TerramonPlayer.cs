@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terramon.Items.MiscItems;
@@ -33,6 +34,7 @@ namespace Terramon.Players
         public int ActivePetId = -1;
         public string ActivePetName = string.Empty;
         public bool CombatReady;
+        public bool AutoUse;
 
         public int ActivePartySlot
         {
@@ -455,6 +457,55 @@ namespace Terramon.Players
                 else if (Cooldown <= 0)
                 {
                     var mod = (TerramonMod) this.mod;
+                    if (AutoUse)
+                    {
+                        var f1 = MoveSet[0]?.AutoUseWeight(Main.projectile[ActivePetId],
+                                         (ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
+                        var f2 = MoveSet[1]?.AutoUseWeight(Main.projectile[ActivePetId],
+                                         (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
+                        var f3 = MoveSet[2]?.AutoUseWeight(Main.projectile[ActivePetId],
+                                         (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
+                        var f4 = MoveSet[3]?.AutoUseWeight(Main.projectile[ActivePetId],
+                                         (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
+                        var sum = f1 + f2 + f3 + f4 + 1500; //1500 is idle
+                        var w = Main.rand.Next(sum);
+                        if (w < f1)
+                        {
+                            ActiveMove = MoveSet[0];
+                            if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
+                                (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                                Cooldown = ActiveMove.Cooldown;
+                            else
+                                ActiveMove = null;
+                        }
+                        else if(w < f1 + f2)
+                        {
+                            ActiveMove = MoveSet[1];
+                            if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
+                                (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                                Cooldown = ActiveMove.Cooldown;
+                            else
+                                ActiveMove = null;
+                        }
+                        else if (w < f1 + f2 + f3)
+                        {
+                            ActiveMove = MoveSet[2];
+                            if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
+                                (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                                Cooldown = ActiveMove.Cooldown;
+                            else
+                                ActiveMove = null;
+                        }else if (w < f1 + f2 + f3 + f4)
+                        {
+                            ActiveMove = MoveSet[3];
+                            if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
+                                (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                                Cooldown = ActiveMove.Cooldown;
+                            else
+                                ActiveMove = null;
+                        }
+
+                    }
                     if (mod.FirstPKMAbility.JustPressed && MoveSet[0] != null && ActiveMove == null)
                     {
                         ActiveMove = MoveSet[0];

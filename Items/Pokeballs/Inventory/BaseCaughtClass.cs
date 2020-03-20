@@ -53,6 +53,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             //I'l made a moves registry like i do it with mons after we done
             Moves = new[] {"", "", "", ""};
 
+
             //Detour handle
             if (Main.netMode != NetmodeID.Server || det_CapturedPokemon == null)
                 return;
