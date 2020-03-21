@@ -37,7 +37,8 @@ namespace Terramon.Pokemon
             npc.lifeMax = 15;
             npc.lifeRegen = 15;
             npc.knockBackResist = 0.5f;
-
+            npc.friendly = true;
+            npc.damage = 0;
             npc.value = 0f;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/capturepokemon");

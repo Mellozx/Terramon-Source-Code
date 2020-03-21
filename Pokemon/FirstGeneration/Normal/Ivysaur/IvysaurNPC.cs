@@ -55,21 +55,21 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Ivysaur
 
                     for (int i = 0; i < ultraballCaught.Length; i++)
                     {
-                        UltraBallCaught ultraball = pokeballCaught[i].modItem as UltraBallCaught;
+                        UltraBallCaught ultraball = ultraballCaught[i].modItem as UltraBallCaught;
                         if (ultraball.PokemonName == "Venusaur")
                             return 0.035f;
                     }
 
                     for (int i = 0; i < duskballCaught.Length; i++)
                     {
-                        DuskBallCaught duskball = pokeballCaught[i].modItem as DuskBallCaught;
+                        DuskBallCaught duskball = duskballCaught[i].modItem as DuskBallCaught;
                         if (duskball.PokemonName == "Venusaur")
                             return 0.035f;
                     }
 
                     for (int i = 0; i < premierballCaught.Length; i++)
                     {
-                        PremierBallCaught premierball = pokeballCaught[i].modItem as PremierBallCaught;
+                        PremierBallCaught premierball = premierballCaught[i].modItem as PremierBallCaught;
                         if (premierball.PokemonName == "Venusaur")
                             return 0.035f;
                     }
