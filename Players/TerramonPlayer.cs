@@ -34,6 +34,8 @@ namespace Terramon.Players
         public string ActivePetName = string.Empty;
         public bool CombatReady;
 
+        public bool Attacking = false;
+
         public int ActivePartySlot
         {
             get => _activePartySlot;
@@ -335,6 +337,8 @@ namespace Terramon.Players
 
         public override void OnEnterWorld(Player player)
         {
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            modPlayer.Attacking = false;
             Moves.Visible = true;
             Mod leveledMod = ModLoader.GetMod("Leveled");
             Mod overhaulMod = ModLoader.GetMod("TerrariaOverhaul");

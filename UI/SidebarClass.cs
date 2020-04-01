@@ -22,7 +22,12 @@ namespace Terramon.UI
         {
             if (IsMouseHovering)
             {
+                ImageScale = 1.2f;
                 Main.hoverItemName = HoverText;
+            }
+            else
+            {
+                ImageScale = 1;
             }
             base.DrawSelf(spriteBatch);
         }
