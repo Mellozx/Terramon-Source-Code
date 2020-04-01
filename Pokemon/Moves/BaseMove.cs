@@ -11,6 +11,12 @@ namespace Terramon.Pokemon.Moves
         public abstract Target Target { get; }
         public virtual int Cooldown { get; } = 5 * 60; //5 seconds by default
 
+        /// <summary>
+        /// Weight of current move when <see cref="TerramonPlayer.AutoUse"/> enabled.
+        /// The more weight the more chance to be used.
+        /// </summary>
+        public virtual int AutoUseWeight(Projectile proj, ParentPokemon mon, Vector2 target, TerramonPlayer player) => 10;
+
         //If method bellow return false -> move action not cast if Perform failed, or ended if Update
         public virtual bool PerformInWorld(Projectile proj, ParentPokemon mon, Vector2 target, TerramonPlayer player)
         {
@@ -53,7 +59,7 @@ namespace Terramon.Pokemon.Moves
                     }
                 }
 
-            if (closest == -1 || (pos - Main.npc[closest].position).Length() > 600)
+            if (closest == -1 || (pos - Main.npc[closest].position).LengthSquared() > 60000)//400^2
                 return null;
 
             return Main.npc[closest];
