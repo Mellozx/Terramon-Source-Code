@@ -24,6 +24,11 @@ namespace Terramon.UI
             {
                 ImageScale = 1.2f;
                 Main.hoverItemName = HoverText;
+                ImageScale = 1.2f;
+            }
+            else
+            {
+                ImageScale = 1f;
             }
             else
             {
