@@ -341,7 +341,7 @@ namespace Terramon.Players
         {
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             modPlayer.Attacking = false;
-            Moves.Visible = true;
+            Moves.Visible = false; // Ignore for v0.3
             Mod leveledMod = ModLoader.GetMod("Leveled");
             Mod overhaulMod = ModLoader.GetMod("TerrariaOverhaul");
             if (leveledMod != null)
