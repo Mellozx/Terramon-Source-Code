@@ -10,12 +10,12 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
 {
     public class Bulbasaur : ParentPokemon
     {
-        public override string[] DefaultMove => new[] { nameof(ShootMove), "", "", "" };
+        // public override string[] DefaultMove => new[] { nameof(ShootMove), "", "", "" };
         public override int EvolveCost => 11;
 
         public override Type EvolveTo => typeof(Ivysaur.Ivysaur);
 
-        public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass, PokemonType.Poison };
+        // public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass, PokemonType.Poison };
 
         public override void SetDefaults()
         {
