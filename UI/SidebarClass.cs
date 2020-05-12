@@ -30,10 +30,6 @@ namespace Terramon.UI
             {
                 ImageScale = 1f;
             }
-            else
-            {
-                ImageScale = 1;
-            }
             base.DrawSelf(spriteBatch);
         }
 
