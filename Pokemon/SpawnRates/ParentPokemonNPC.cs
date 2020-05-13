@@ -102,8 +102,15 @@ namespace Terramon.Pokemon
                     {
                         Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<MasterBallCaught>());
                         return;
-                    }
-
+                    } else 
+                    if (ballProjectiles[i] == "ZeroBallProjectile") // Master Ball never fails
+                    {
+                        if (Main.rand.NextFloat() < .1190f)
+                        {
+                            Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<ZeroBallCaught>());
+                            return;
+                        }
+                    } else 
                     if (ballProjectiles[i] == "DuskBallProjectile") // Special Condition day/night
                     {
                         ballUsage++;
@@ -315,6 +322,9 @@ namespace Terramon.Pokemon
             if (projectile.type == ModContent.ProjectileType<TimerBallProjectile>()) // Special Condition
                 if (Main.rand.Next(3) == 0)
                     Item.NewItem(npc.getRect(), ModContent.ItemType<TimerBallItem>());
+            if (projectile.type == ModContent.ProjectileType<ZeroBallProjectile>()) // Special Condition
+                if (Main.rand.Next(3) == 0)
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<ZeroBallItem>());
 
             damage = 0;
             npc.life = npc.lifeMax + 1;

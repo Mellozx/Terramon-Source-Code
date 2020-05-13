@@ -43,7 +43,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         public override void SetDefaults()
         {
             base.SetDefaults();
-            item.value = 70000;
+            item.value = 50000;
             item.scale = 0.7f;
         }
 
