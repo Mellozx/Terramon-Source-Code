@@ -45,7 +45,7 @@ namespace Terramon.Pokemon
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[projectile.type] = 11;
+            Main.projFrames[projectile.type] = 22;
             Main.projPet[projectile.type] = true;
         }
 

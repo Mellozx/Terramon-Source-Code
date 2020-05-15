@@ -8,6 +8,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
 {
     public class CharmanderNPC : ParentPokemonNPC
     {
+        public int timer;
+        public int shinynum;
         public override Type HomeClass()
         {
             return typeof(Charmander);
@@ -26,8 +28,34 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
             return true;
         }
 
+        public override void FindFrame(int frameHeight)
+        {
+            npc.frame.Width = 76 / 2;
+            if (shiny)
+            {
+                npc.frame.X = 76 / 2;
+            }
+            else
+            {
+                npc.frame.X = 0;
+            }
+        }
         public override void AI()
         {
+            Random rnd = new Random();
+            timer++;
+            if (timer == 1)
+            {
+                shinynum = rnd.Next(1, 1); // Shiny Chance, to-do later
+                if (shinynum == 69420)
+                {
+                    shiny = true;
+                }
+                else
+                {
+                    shiny = false;
+                }
+            }
             if (Main.rand.Next(9) == 0)
                 Dust.NewDust(npc.position, npc.width, npc.height, 55, 0f, 0f, 100, new Color(255, 148, 41));
         }

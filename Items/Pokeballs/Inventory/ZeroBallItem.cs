@@ -34,7 +34,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("ZeroBallCap"));
-            recipe.AddIngredient(mod.ItemType("Button"));
+            recipe.AddIngredient(mod.ItemType("DarkButton"));
             recipe.AddIngredient(mod.ItemType("ZeroBallBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();

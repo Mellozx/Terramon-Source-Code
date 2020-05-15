@@ -20,6 +20,8 @@ namespace Terramon.Pokemon
 
         private int ballUsage;
 
+        protected bool shiny;
+
         public string PokeName()
         {
             return Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
@@ -359,6 +361,14 @@ namespace Terramon.Pokemon
 
                 if (!(Main.item[index].modItem is BaseCaughtClass item)) return;
                 item.PokemonName = npc.TypeName;
+                if (shiny)
+                {
+                    item.isShiny = true;
+                }
+                else
+                {
+                    item.isShiny = false;
+                }
                 item.CapturedPokemon = HomeClass().Name;
             }
         }
