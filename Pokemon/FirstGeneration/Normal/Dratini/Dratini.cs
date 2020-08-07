@@ -8,6 +8,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Dratini
 
         public override Type EvolveTo => typeof(Dragonair.Dragonair);
 
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Dragon };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

@@ -2,6 +2,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gengar
 {
     public class Gengar : ParentPokemon
     {
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Poison, PokemonType.Ghost };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

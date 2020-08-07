@@ -2,11 +2,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Oddish
 {
     public class Oddish : ParentPokemon
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            // projectile.scale = 0.5f;
-        }
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass, PokemonType.Poison };
 
         public override void SetDefaults()
         {
