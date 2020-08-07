@@ -13,6 +13,11 @@ namespace Terramon.Items
                 shop.item[nextSlot].SetDefaults(mod.ItemType("LinkCable"));
                 nextSlot++;
             }
+			if (type == NPCID.Cyborg)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("ZeroBallItem"));
+                nextSlot++;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terramon.Players;
+using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -39,6 +40,8 @@ namespace Terramon.Pokemon
         public int SpawnTime = 0;
         public virtual string IconName => iconName ?? (iconName = $"Terramon/Minisprites/Regular/mini{GetType().Name}");
 
+        public int AttackDuration;
+
 
         public override void SetStaticDefaults()
         {
@@ -50,6 +53,7 @@ namespace Terramon.Pokemon
         {
             projectile.CloneDefaults(ProjectileID.Puppy);
             aiType = ProjectileID.Puppy;
+            projectile.owner = Main.myPlayer;
         }
 
         public override bool PreAI()
@@ -62,10 +66,10 @@ namespace Terramon.Pokemon
         }
 
         private int mainAi = ProjectileID.Puppy;
-
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             SpawnTime++;
             if (SpawnTime == 1)
             {
@@ -85,7 +89,7 @@ namespace Terramon.Pokemon
                     Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("SmokeTransformDust"));
                 }
             }
-            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+
             if (player.dead)
             {
                 modPlayer.ResetEffects();
@@ -102,6 +106,27 @@ namespace Terramon.Pokemon
             else if (aiType == 0)
             {
                 aiType = mainAi;
+            }
+
+            if (modPlayer.Attacking)
+            {
+                AttackDuration++;
+                if (AttackDuration < 60)
+                {
+                    if (projectile.type == ModContent.ProjectileType<Bulbasaur>())
+                    {
+                        Projectile.NewProjectile(projectile.position.X + 23, projectile.position.Y + 8, 0f, 0f, ModContent.ProjectileType<AngerOverlay>(), 0, 0, Main.myPlayer);
+                    }
+                    AttackDuration = 0;
+                }
+                else
+                {
+                    // dont make any more.
+                }
+            }
+            else
+            {
+
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)

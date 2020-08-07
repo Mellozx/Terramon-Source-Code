@@ -36,6 +36,8 @@ namespace Terramon.Players
         public bool CombatReady;
         public bool AutoUse;
 
+        public bool Attacking = false;
+
         public int ActivePartySlot
         {
             get => _activePartySlot;
@@ -337,7 +339,9 @@ namespace Terramon.Players
 
         public override void OnEnterWorld(Player player)
         {
-            Moves.Visible = true;
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            modPlayer.Attacking = false;
+            Moves.Visible = false; // Ignore for v0.3
             Mod leveledMod = ModLoader.GetMod("Leveled");
             Mod overhaulMod = ModLoader.GetMod("TerrariaOverhaul");
             if (leveledMod != null)

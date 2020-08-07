@@ -26,6 +26,8 @@ namespace Terramon.Items.Pokeballs.Inventory
         public int Level = 1;
         public int Exp;
 
+        public bool isShiny;
+
         public string[] Moves;
 
         public override bool CloneNewInstances => true;

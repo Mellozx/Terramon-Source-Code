@@ -24,6 +24,7 @@ namespace Terramon.Pokemon.Moves
             NPC target = GetNearestNPC(pos);
             if (target == null)
                 return false;
+            player.Attacking = true;
             Vector2 vel = (target.position + (target.Size/2)) - (proj.position + (proj.Size/2));
             var l = vel.Length();
             vel += target.velocity * (l / 100);//Make predict shoot

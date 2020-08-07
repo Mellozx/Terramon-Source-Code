@@ -22,6 +22,7 @@ namespace Terramon.UI
         {
             if (IsMouseHovering)
             {
+                ImageScale = 1.2f;
                 Main.hoverItemName = HoverText;
                 ImageScale = 1.2f;
             }

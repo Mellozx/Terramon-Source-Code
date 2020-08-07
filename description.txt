@@ -1,4 +1,4 @@
-﻿[c/ff7857:== New update, v0.2.1.4! ==]
+﻿[c/ff7857:== We're back! New update, v0.3! ==]
 
 ✧ Terramon is a mod that adds Pokémon to Terraria! It also adds many aspects and mechanics of the Pokémon games as well, including Pokémon themselves, Poké Balls, your very own Pokémon party and much more. Terramon is constantly being improved to match the Pokémon games as much as possible, so remember to update often for new features weekly.
 
@@ -14,10 +14,9 @@
 ✧ Current Team
 Jamz: Head Developer and Founder
 InfinaMii: Developer, Spriter
-Requias: Developer
 KindRed-Sand: Developer, Mod Networking
+AnotherGuy: Trial Dev
 daimgamer: Spriter
-Potat: Spriter
 
 ✧ Special Thanks
 Webmilio: Retired Developer
