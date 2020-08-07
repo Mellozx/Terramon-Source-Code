@@ -34,16 +34,24 @@ namespace Terramon.Items.Pokeballs.Inventory
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("ZeroBallCap"));
-            recipe.AddIngredient(mod.ItemType("Button"));
+            recipe.AddIngredient(mod.ItemType("DarkButton"));
             recipe.AddIngredient(mod.ItemType("ZeroBallBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();
+
+            ModRecipe recipe2 = new ModRecipe(mod);
+            recipe2.AddIngredient(mod.ItemType("BlackApricorn"), 4);
+            recipe2.AddIngredient(ItemID.IronBar, 6);
+            recipe2.AddIngredient(ItemID.Nanites, 12);
+            recipe2.AddTile(TileID.Anvils);
+            recipe2.SetResult(this);
+            recipe2.AddRecipe();
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            item.value = 70000;
+            item.value = 50000;
             item.scale = 0.7f;
         }
 

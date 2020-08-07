@@ -45,14 +45,14 @@ namespace Terramon.UI.SidebarParty
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             mainPanel.HAlign = 0.4f;
             mainPanel.VAlign = 0.65f;
-            mainPanel.Width.Set(185, 0f);
+            mainPanel.Width.Set(210, 0f);
             mainPanel.Height.Set(150f, 0f);
 
             partyslot1 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem);
             partyslot1.SetPadding(0);
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
-            partyslot1.HAlign = 0.15f;
+            partyslot1.HAlign = 0.10f;
             partyslot1.VAlign = 0.15f;
             partyslot1.ValidItemFunc = item => item.IsAir || TerramonMod.PokeballFactory.GetEnum(item.modItem) !=
                                                TerramonMod.PokeballFactory.Pokebals.Nothing;
@@ -72,7 +72,7 @@ namespace Terramon.UI.SidebarParty
             partyslot3.SetPadding(0);
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
-            partyslot3.HAlign = 0.85f;
+            partyslot3.HAlign = 0.90f;
             partyslot3.VAlign = 0.15f;
             partyslot3.ValidItemFunc = item => item.IsAir || TerramonMod.PokeballFactory.GetEnum(item.modItem) !=
                                                TerramonMod.PokeballFactory.Pokebals.Nothing;
@@ -82,7 +82,7 @@ namespace Terramon.UI.SidebarParty
             partyslot4.SetPadding(0);
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
-            partyslot4.HAlign = 0.15f;
+            partyslot4.HAlign = 0.10f;
             partyslot4.VAlign = 0.85f;
             partyslot4.ValidItemFunc = item => item.IsAir || TerramonMod.PokeballFactory.GetEnum(item.modItem) !=
                                                TerramonMod.PokeballFactory.Pokebals.Nothing;
@@ -102,7 +102,7 @@ namespace Terramon.UI.SidebarParty
             partyslot6.SetPadding(0);
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
-            partyslot6.HAlign = 0.85f;
+            partyslot6.HAlign = 0.90f;
             partyslot6.VAlign = 0.85f;
             partyslot6.ValidItemFunc = item => item.IsAir || TerramonMod.PokeballFactory.GetEnum(item.modItem) !=
                                                TerramonMod.PokeballFactory.Pokebals.Nothing;

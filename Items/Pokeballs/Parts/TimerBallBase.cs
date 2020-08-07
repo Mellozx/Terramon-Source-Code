@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
@@ -25,7 +25,7 @@ namespace Terramon.Items.Pokeballs.Parts
             item.rare = 0;
         }
 
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup("IronBar", 2);
@@ -46,4 +46,4 @@ namespace Terramon.Items.Pokeballs.Parts
                     line2.overrideColor = new Color(255, 163, 71);
         }
     }
-}
+}*/

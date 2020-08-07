@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Terramon.Items.MiscItems
+namespace Terramon.Items.Evolution
 {
     public class RareCandyUniversal : GlobalNPC
     {

@@ -14,7 +14,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         public PokeballItem() : base(Constants.Pokeballs.UnlocalizedNames.POKE_BALL,
             new Dictionary<GameCulture, string>
             {
-                {GameCulture.English, "Poké Ball"}
+                {GameCulture.English, "Poke Ball"}
             },
             new Dictionary<GameCulture, string>
             {
@@ -40,6 +40,13 @@ namespace Terramon.Items.Pokeballs.Inventory
             recipe.AddIngredient(mod.ItemType("PokeballBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();
+
+            ModRecipe recipe2 = new ModRecipe(mod);
+            recipe2.AddIngredient(mod.ItemType("RedApricorn"), 4);
+            recipe2.AddIngredient(ItemID.IronBar, 6);
+            recipe2.AddTile(TileID.Anvils);
+            recipe2.SetResult(this);
+            recipe2.AddRecipe();
         }
 
         public override void SetDefaults()

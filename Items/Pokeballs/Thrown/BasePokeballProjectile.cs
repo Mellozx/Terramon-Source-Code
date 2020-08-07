@@ -111,7 +111,7 @@ namespace Terramon.Items.Pokeballs.Thrown
                     projectile.timeLeft = 0;
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<TimerBallCap>());
                     Item.NewItem(projectile.getRect(), ModContent.ItemType<Button>());
-                    Item.NewItem(projectile.getRect(), ModContent.ItemType<TimerBallBase>());
+                    Item.NewItem(projectile.getRect(), ModContent.ItemType<PokeballBase>());
                 }
 
             return false;

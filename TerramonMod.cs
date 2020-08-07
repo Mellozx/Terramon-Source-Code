@@ -80,7 +80,8 @@ namespace Terramon
             "PremierBall",
             "QuickBall",
             "TimerBall",
-            "MasterBall"
+            "MasterBall",
+            "ZeroBall"
         };
 
         // catch chance of the ball refers to the same index as the ball
@@ -97,7 +98,8 @@ namespace Terramon
             new[] {.1190f}, //Premier Ball
             new[] {.2380f}, //Quick Ball
             new[] {.2380f}, //Timer Ball
-            new[] {1f} //Master Ball
+            new[] {1f}, //Master Ball
+            new[] {.1190f} //Zero Ball
         };
 
         public static string[] GetBallProjectiles()
@@ -301,7 +303,8 @@ namespace Terramon
                 DuskBall,
                 PremierBall,
                 QuickBall,
-                TimerBall
+                TimerBall,
+                ZeroBall
             }
 
             /// <summary>
@@ -330,6 +333,8 @@ namespace Terramon
                         return ModContent.ItemType<QuickBallCaught>();
                     case Pokebals.TimerBall:
                         return ModContent.ItemType<TimerBallCaught>();
+                    case Pokebals.ZeroBall:
+                        return ModContent.ItemType<ZeroBallCaught>();
                     default:
                         return 0;
                 }
@@ -354,6 +359,7 @@ namespace Terramon
                 if (item is PremierBallCaught) return Pokebals.PremierBall;
                 if (item is QuickBallCaught) return Pokebals.QuickBall;
                 if (item is TimerBallCaught) return Pokebals.TimerBall;
+                if (item is ZeroBallCaught) return Pokebals.ZeroBall;
                 return Pokebals.Nothing;
             }
 
@@ -371,6 +377,8 @@ namespace Terramon
                 if (item is PremierBallCaught) return ModContent.ItemType<PremierBallCaught>();
                 if (item is QuickBallCaught) return ModContent.ItemType<QuickBallCaught>();
                 if (item is TimerBallCaught) return ModContent.ItemType<TimerBallCaught>();
+                if (item is MasterBallCaught) return ModContent.ItemType<MasterBallCaught>();
+                if (item is ZeroBallCaught) return ModContent.ItemType<ZeroBallCaught>();
                 return 0;
             }
         }
