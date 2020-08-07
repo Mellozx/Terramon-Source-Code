@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace Terramon.Items.EvolutionaryStones
+namespace Terramon.Items.Evolution
 {
     public class ThunderStone : ModItem
     {
