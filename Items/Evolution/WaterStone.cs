@@ -3,16 +3,15 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace Terramon.Items.EvolutionaryStones
+namespace Terramon.Items.Evolution
 {
-    public class FireStone : ModItem
+    public class WaterStone : ModItem
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Fire Stone");
-            Tooltip.SetDefault(
-                "A stone used for making certain kinds of Pokémon evolve.\nThe stone is inscribed with a thunderbolt pattern.");
+            DisplayName.SetDefault("Water Stone");
+            Tooltip.SetDefault("A stone used for making certain kinds of Pokémon evolve.");
         }
 
         public override void SetDefaults()
@@ -31,7 +30,7 @@ namespace Terramon.Items.EvolutionaryStones
 
             foreach (TooltipLine line2 in tooltips)
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                    line2.overrideColor = new Color(255, 202, 99);
+                    line2.overrideColor = new Color(10, 120, 255);
         }
     }
 }
