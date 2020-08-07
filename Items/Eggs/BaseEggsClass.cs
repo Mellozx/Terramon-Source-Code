@@ -9,11 +9,11 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 
-namespace Terramon.Items.MiscItems.Eggs
+namespace Terramon.Items.Eggs
 {
     public class BaseEggsClass : ModItem
     {
-        public override string Texture => mod.Name + "/Items/MiscItems/Eggs/Vari1/PkEggV1";
+        public override string Texture => mod.Name + "/Items/Eggs/Tier1/NormalEgg";
         public virtual int WaitTime { get; } = 0;       //this should be in seconds
         public virtual int PokemonToDropType { get; private set; }
         public virtual string PokemonName { get; private set; }
