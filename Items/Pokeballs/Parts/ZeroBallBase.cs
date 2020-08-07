@@ -25,7 +25,7 @@ namespace Terramon.Items.Pokeballs.Parts
             item.rare = 0;
         }
 
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("PokeballBase"));
@@ -34,7 +34,7 @@ namespace Terramon.Items.Pokeballs.Parts
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
-        }
+        }*/
 
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -47,3 +47,5 @@ namespace Terramon.Items.Pokeballs.Parts
         }
     }
 }
+ 
+ 
