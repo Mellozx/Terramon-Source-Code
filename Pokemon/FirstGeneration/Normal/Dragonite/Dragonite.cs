@@ -2,6 +2,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Dragonite
 {
     public class Dragonite : ParentPokemonFlying
     {
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Dragon, PokemonType.Flying };
+
         public override void SetDefaults()
         {
             base.SetDefaults();
