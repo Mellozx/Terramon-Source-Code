@@ -8,6 +8,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Caterpie
 
         public override Type EvolveTo => typeof(Metapod.Metapod);
 
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Bug };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

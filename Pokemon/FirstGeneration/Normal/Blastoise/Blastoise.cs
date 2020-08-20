@@ -2,6 +2,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Blastoise
 {
     public class Blastoise : ParentPokemon
     {
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

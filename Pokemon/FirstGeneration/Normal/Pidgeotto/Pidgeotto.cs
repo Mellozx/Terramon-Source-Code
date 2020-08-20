@@ -8,6 +8,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto
 
         public override Type EvolveTo => typeof(Pidgeot.Pidgeot);
 
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Normal, PokemonType.Flying };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

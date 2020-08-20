@@ -10,6 +10,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmeleon
 
         public override Type EvolveTo => typeof(Charizard.Charizard);
 
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

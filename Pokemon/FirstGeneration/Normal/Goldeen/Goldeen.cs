@@ -4,6 +4,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Goldeen
 {
     public class Goldeen : ParentPokemon
     {
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
+
         public override void SetDefaults()
         {
             base.SetDefaults();
