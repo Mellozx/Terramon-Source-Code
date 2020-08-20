@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terramon.Pokemon.Moves;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
 {
@@ -11,6 +12,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
         public override Type EvolveTo => typeof(Charmeleon.Charmeleon);
 
         public override PokemonType[] PokemonTypes => new[] {PokemonType.Fire};
+
+        public override string[] DefaultMove => new[] { nameof(TackleMove), nameof(HealMove), nameof(ShootMove), "" };
 
         public override void SetDefaults()
         {

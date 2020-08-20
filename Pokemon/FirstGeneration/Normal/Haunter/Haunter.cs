@@ -8,6 +8,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
 
         public override Type EvolveTo => typeof(Gengar.Gengar);
 
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Ghost, PokemonType.Poison };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

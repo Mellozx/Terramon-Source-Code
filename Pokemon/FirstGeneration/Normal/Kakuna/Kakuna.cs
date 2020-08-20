@@ -8,6 +8,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Kakuna
 
         public override Type EvolveTo => typeof(Beedrill.Beedrill);
 
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Bug, PokemonType.Poison };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

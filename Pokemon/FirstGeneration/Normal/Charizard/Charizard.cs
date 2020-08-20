@@ -5,6 +5,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charizard
 {
     public class Charizard : ParentPokemon
     {
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire, PokemonType.Flying };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

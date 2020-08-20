@@ -4,6 +4,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Magikarp
 {
     public class Magikarp : ParentPokemon
     {
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

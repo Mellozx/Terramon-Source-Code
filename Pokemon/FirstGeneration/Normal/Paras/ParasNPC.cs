@@ -1,15 +1,16 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal.Raichu
+namespace Terramon.Pokemon.FirstGeneration.Normal.Paras
 {
-    public class RaichuNPC : ParentPokemonNPC
+    public class ParasNPC : ParentPokemonNPC
     {
         public override Type HomeClass()
         {
-            return typeof(Raichu);
+            return typeof(Paras);
         }
 
         public override void SetDefaults()
@@ -17,6 +18,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Raichu
             base.SetDefaults();
             npc.width = 20;
             npc.height = 20;
+            npc.scale = 1f;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -25,10 +27,11 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Raichu
             return true;
         }
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+            public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
+            Player player = Main.LocalPlayer;
             if (spawnInfo.player.ZoneOverworldHeight)
-                return 0f;
+                return 0.02f;
             return 0f;
         }
     }

@@ -7,6 +7,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gastly
         public override int EvolveCost => 20;
 
         public override Type EvolveTo => typeof(Haunter.Haunter);
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Ghost, PokemonType.Poison };
 
         public override void SetDefaults()
         {

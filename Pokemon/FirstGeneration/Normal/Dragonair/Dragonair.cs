@@ -8,6 +8,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Dragonair
 
         public override Type EvolveTo => typeof(Dragonite.Dragonite);
 
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Dragon };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

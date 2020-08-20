@@ -8,6 +8,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Wartortle
 
         public override Type EvolveTo => typeof(Blastoise.Blastoise);
 
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
+
         public override void SetDefaults()
         {
             base.SetDefaults();

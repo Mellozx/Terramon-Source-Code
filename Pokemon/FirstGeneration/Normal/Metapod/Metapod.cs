@@ -8,6 +8,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Metapod
 
         public override Type EvolveTo => typeof(Butterfree.Butterfree);
 
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Bug };
+
         public override void SetDefaults()
         {
             base.SetDefaults();
