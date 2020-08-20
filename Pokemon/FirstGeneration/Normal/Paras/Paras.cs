@@ -12,7 +12,6 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Paras
 
             projectile.width = 32;
             projectile.height = 32;
-            drawOriginOffsetY = -16;
         }
     }
 }
