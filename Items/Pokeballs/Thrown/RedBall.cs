@@ -44,7 +44,8 @@ namespace Terramon.Items.Pokeballs.Thrown // This projectile is thrown by Red, t
         {
             if (projectile.ai[0] == 0)
             {
-                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/throwball").WithVolume(.7f));
+                if(!Main.dedServ)
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/throwball").WithVolume(.7f));
                 projectile.ai[0] = 1;
                 projectile.ai[1] = 1;
 

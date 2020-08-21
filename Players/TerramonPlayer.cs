@@ -16,6 +16,7 @@ using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
 // ReSharper disable ParameterHidesMember
 // ReSharper disable LocalVariableHidesMember
 
@@ -583,7 +584,7 @@ namespace Terramon.Players
                 if (Main.npc[i] != null && !Main.npc[i].townNPC)
                 {
                     Main.npc[i].life = 0;
-                    if (Main.netMode == 2) NetMessage.SendData(23, -1, -1, null, i);
+                    if (Main.netMode == NetmodeID.Server) NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, i);
                 }
         }
 

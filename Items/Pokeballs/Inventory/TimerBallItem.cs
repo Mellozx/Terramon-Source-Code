@@ -70,7 +70,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             tooltips.RemoveAll(l => l.Name == "Knockback");
 
             if (NameColorOverride != null)
-                tooltips.Find(t => t.Name == TooltipLines.ITEM_NAME).overrideColor = NameColorOverride;
+                tooltips.Find(t => t.Name == "ItemName").overrideColor = NameColorOverride;
 
             foreach (TooltipLine line2 in tooltips)
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
