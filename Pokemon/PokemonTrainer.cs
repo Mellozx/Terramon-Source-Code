@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace Terramon.Pokemon
 {
@@ -83,16 +84,21 @@ namespace Terramon.Pokemon
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyGray"));
                 nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyRed"));
+                nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyBlue"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyPink"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyPurple"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyTurquoise"));
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyYellow"));
                 nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyTeal"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyPink"));
+                nextSlot++;
+                if (!Main.bloodMoon)
+                {
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyDark"));
+                    nextSlot++;
+                }
             }
 
             //gray blue pink purple turquoise yellow
@@ -100,31 +106,50 @@ namespace Terramon.Pokemon
 
         public override string GetChat()
         {
-            switch (Main.rand.Next(9))
+            switch (Main.rand.Next(20))
             {
                 case 0:
-                    return "There's a lot of Pokémon out in the world, but you need Poké Balls to catch 'em!";
+                    return "There's a lot of Pokémon out in the world, but you'll need Poké Balls to catch 'em!";
                 case 1:
                     return "I just got back from my Alola vacation. See my tan lines?";
                 case 2:
-                    return
-                        "Pokemon are sorted into different tiers. If you trigger a tier upgrade, Pokémon in a higher tier may start appearing!";
+                    return "Pokémon are all sorted into cateories called 'Types'. These types all have unique strengths and weaknesses to each other.";
                 case 3:
-                    return
-                        "Evolution is amazing. I can help you out with evolving your Pokémon.. but first get your hands on a handful of Rare Candies.";
+                    return "Evolution is amazing. I can help you discover your Pokémon's cool evolutions, but it'll cost some Rare Candies.";
                 case 4:
-                    return "Pokémon will appear in their respective biomes. To encounter rock types, go to the Desert.";
+                    return "In Johto there are these Pokémon called Furrets. They sure do love to walk";
                 case 5:
                     return "Gotta Catch Em' All!";
                 case 6:
-                    return "As your journey progresses, I'll be selling new things. Check back here every so often.";
+                    return "As your journey progresses, I'll offer new things. Check back here every so often.";
                 case 7:
-                    return
-                        "Rare Candies can level up your Pokémon. They're quite challenging to find, so keep an eye out.";
+                    return "Rare Candies can level up your Pokémon. They're quite challenging to find, so keep an eye out.";
                 case 8:
-                    return "Buy 10 Poké Balls at once, and I'll give you a little something extra..";
+                    return "Buy 10 Poké Balls at once, and you might get a surprise...";
+                case 9:
+                    return "Different Pokémon like living in different places. If you travel around, you may find new Pokemon!";
+                case 10:
+                    return "Recently I saw a trainer in a green robe. She looked to be in a hurry.";
+                case 11:
+                    return "Earlier I spotted a trainer wearing green whilst I was looking after Ivysaur. It looked like she was carrying some sort of egg.";
+                case 12:
+                    return "There are many different regions in the world. One day I hope to visit all of them!";
+                case 13:
+                    return "Have you played Mobile Creatures on the Game Boy? It has excellent music! Some can be played quite loud...";
+                case 14:
+                    return "I can give you some types of Poké Balls, but some require rare materials such as Nanites to craft.";
+                case 15:
+                    return "That Pokédex of yours doesn't seem to be working. I'll have to look into buying you an upgrade...";
+                case 16:
+                    return "I like to decorate my room with mini Pokéballs, crafted using the same ingredients as full-sized ones.";
+                case 17:
+                    return "I conveniently sell Pokéballs for you to buy, but if you're short of cash you can always make your own using apricorns and iron!";
+                case 18:
+                    return "Sometimes when I shake a tree, apricorns fall out! They taste especially good when juiced.";
+                case 19:
+                    return "Flying Pokémon can be hard to catch. If only I had a stronger Pokéball to catch them with...";
                 default:
-                    return "Gotta Catch Em' All!";
+                    return "missingno.";
             }
         }
 
@@ -172,6 +197,11 @@ namespace Terramon.Pokemon
         {
             multiplier = 12f;
             randomOffset = 2f;
+        }
+
+        public override void NPCLoot()
+        {
+            Item.NewItem(npc.getRect(), ItemType<Items.Pokeballs.Inventory.JokeBall>());
         }
     }
 }

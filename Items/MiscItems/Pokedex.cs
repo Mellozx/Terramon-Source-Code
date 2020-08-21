@@ -11,9 +11,8 @@ namespace Terramon.Items.MiscItems
         {
             DisplayName.SetDefault("Pokédex");
             Tooltip.SetDefault(
-                "It's a digital encyclopedia created by [c/33FF33:Professor Oak] as an invaluable tool to Trainers."
-                + "\nUse it to open the dex user interface and keep track of your Pokémon data."
-                + "\nOh, and you probably shouldn't get rid of it.");
+                "It's a digital encyclopedia created by [c/33FF33:Professor Oak] to teach Trainers about Pokémon."
+                + "\nDon't get rid of it, as it could come in handy later on.");
         }
 
         public override void SetDefaults()
