@@ -3,11 +3,10 @@ using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using WebmilioCommons.Managers;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
-    public abstract class BasePokeballItem : TerramonItem, IHasUnlocalizedName
+    public abstract class BasePokeballItem : TerramonItem
     {
         protected BasePokeballItem(string unlocalizedName, Dictionary<GameCulture, string> displayNames,
             Dictionary<GameCulture, string> tooltips, int value, int rarity, float catchRate,
@@ -46,7 +45,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             tooltips.RemoveAll(l => l.Name == "Knockback");
 
             if (NameColorOverride != null)
-                tooltips.Find(t => t.Name == TooltipLines.ITEM_NAME).overrideColor = NameColorOverride;
+                tooltips.Find(t => t.Name == "ItemName").overrideColor = NameColorOverride;
         }
 
 

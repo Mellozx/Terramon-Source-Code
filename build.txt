@@ -3,4 +3,4 @@ version = 0.4
 displayName = Terramon - Pokémon in Terraria
 homepage = https://terrariamods.gamepedia.com/Terramon
 buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*
-modReferences = WebmilioCommons@0.1.11.4
+modReferences = 
