@@ -11,6 +11,28 @@
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
   </Target>
   <ItemGroup>
+    <Compile Remove="Items\Apricorns\Cooked\CookedBlackApricorn.cs" />
+    <Compile Remove="Items\Apricorns\Cooked\CookedBlueApricorn.cs" />
+    <Compile Remove="Items\Apricorns\Cooked\CookedGreenApricorn.cs" />
+    <Compile Remove="Items\Apricorns\Cooked\CookedPinkApricorn.cs" />
+    <Compile Remove="Items\Apricorns\Cooked\CookedRedApricorn.cs" />
+    <Compile Remove="Items\Apricorns\Cooked\CookedWhiteApricorn.cs" />
+    <Compile Remove="Items\Apricorns\Cooked\CookedYellowApricorn.cs" />
+    <Compile Remove="Items\Food\StoneBowl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Items\Apricorns\Cooked\CookedBlackApricorn.cs" />
+    <None Include="Items\Apricorns\Cooked\CookedBlueApricorn.cs" />
+    <None Include="Items\Apricorns\Cooked\CookedGreenApricorn.cs" />
+    <None Include="Items\Apricorns\Cooked\CookedPinkApricorn.cs" />
+    <None Include="Items\Apricorns\Cooked\CookedRedApricorn.cs" />
+    <None Include="Items\Apricorns\Cooked\CookedWhiteApricorn.cs" />
+    <None Include="Items\Apricorns\Cooked\CookedYellowApricorn.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Items\Food\StoneBowl.cs" />
   </ItemGroup>
 </Project>
