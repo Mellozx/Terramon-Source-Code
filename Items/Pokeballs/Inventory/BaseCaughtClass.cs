@@ -77,6 +77,9 @@ namespace Terramon.Items.Pokeballs.Inventory
             }
 
             det_Moves = null;
+
+            //TODO: Assign this to your field
+            //Shiny = det_Shiny;
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
@@ -325,13 +328,14 @@ namespace Terramon.Items.Pokeballs.Inventory
 
         #region Temp Server Detour
 
-        internal static void writeDetour(string type, string name, string icon, int lvl = 1, string moves = "")
+        internal static void writeDetour(string type, string name, string icon, int lvl = 1, string moves = "", bool shiny = false)
         {
             det_CapturedPokemon = type;
             det_PokemonName = name;
             det_SmallSpritePath = icon;
             det_Lvl = lvl;
             det_Moves = moves;
+            det_Shiny = shiny;
         }
 
         internal static string det_CapturedPokemon;
@@ -340,6 +344,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         internal static string det_SmallSpritePath;
         internal static int det_Lvl;
         internal static string det_Moves;
+        internal static bool det_Shiny;
 
         #endregion
     }
