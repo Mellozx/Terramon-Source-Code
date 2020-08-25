@@ -1,5 +1,5 @@
 author = Terramon Team
 version = 0.3.1
-displayName = Terramon - Pokémon in Terraria
+displayName = Terramon - Pokemon in Terraria
 homepage = https://terrariamods.gamepedia.com/Terramon
-buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*, Tiles\*
+buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*
