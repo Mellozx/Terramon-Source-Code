@@ -11,13 +11,14 @@ namespace Terramon.Network.Catching
         public const string NAME = "net_basecat";
         public override string PacketName => NAME;
 
-        public void Send(TerramonMod mod, int type, string name, string icon, Rectangle rect, int pokeType)
+        public void Send(TerramonMod mod, int type, string name, string icon, Rectangle rect, int pokeType, bool shiny = false)
         {
             try
             {
                 var packet = GetPacket(mod);
                 packet.Write(type);
                 packet.Write(name);
+                packet.Write(shiny);
                 packet.Write(icon);
                 packet.Write(rect.X);
                 packet.Write(rect.Y);
@@ -33,13 +34,14 @@ namespace Terramon.Network.Catching
             }
         }
 
-        public void Send(TerramonMod mod, string type, string name, Rectangle rect, int pokeType)
+        public void Send(TerramonMod mod, string type, string name, Rectangle rect, int pokeType, bool shiny = false)
         {
             try
             {
                 var packet = GetPacket(mod);
                 packet.Write(type);
                 packet.Write(name);
+                packet.Write(shiny);
                 //packet.Write("v2");
                 packet.Write(rect.X);
                 packet.Write(rect.Y);
@@ -65,6 +67,7 @@ namespace Terramon.Network.Catching
                 string type = r.ReadString();
                 BaseCaughtClass.det_CapturedPokemon = type;
                 BaseCaughtClass.det_PokemonName = r.ReadString();
+                BaseCaughtClass.det_Shiny = r.ReadBoolean();
                 //string t = r.ReadString();
                 //if(t != "v2")
                 //    PokeballCaught.det_SmallSpritePath = t;
