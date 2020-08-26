@@ -346,7 +346,7 @@ namespace Terramon.Pokemon
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 var packet = new BaseCatchPacket();
-                packet.Send((TerramonMod) mod, HomeClass().Name, npc.TypeName, npc.getRect(), type);
+                packet.Send((TerramonMod) mod, HomeClass().Name, npc.TypeName, npc.getRect(), type/*, Shiny */);//TODO: Add your shiny field as param
             }
             else
             {
