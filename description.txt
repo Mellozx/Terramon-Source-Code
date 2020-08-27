@@ -8,8 +8,8 @@
 • 43 new items
 
 [c/4de857:== ✧ Credits ✧ ==]
-InfinaMii: Team Leader & Developer
 Jamz: Team Founder & Developer
+InfinaMii:
 KindRed-Sand: Developer, Mod Networking
 AnotherGuy: Developer
 Stevie: Trial Developer
