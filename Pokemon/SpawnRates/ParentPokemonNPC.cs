@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Text.RegularExpressions;
 using Terramon.Items.Pokeballs.Inventory;
@@ -12,29 +13,81 @@ namespace Terramon.Pokemon
 {
     public abstract class ParentPokemonNPC : ModNPC
     {
+        public override string Texture => "Terramon/Pokemon/Empty";
+
         private readonly string[] ballProjectiles = TerramonMod.GetBallProjectiles();
         private readonly float[][] catchChances = TerramonMod.GetCatchChances();
         private readonly string nameMatcher = "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))";
 
+        public int frame;
+        public int frameCounter;
         public abstract Type HomeClass();
 
         private int ballUsage;
 
-        protected bool shiny;
+        protected bool shiny = false;
+        protected int timer;
 
         public string PokeName()
         {
             return Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
         }
 
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            var path = $"Pokemon/FirstGeneration/Normal/{npc.TypeName}/{npc.TypeName}";
+            if (shiny)
+            {
+                path += "_Shiny";
+            }
+            SpriteEffects effects = npc.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            Texture2D pkmnTexture = mod.GetTexture(path);
+            int frameHeight = pkmnTexture.Height / Main.npcFrameCount[npc.type];
+            spriteBatch.Draw(pkmnTexture, npc.position - Main.screenPosition + new Vector2(0, -6), new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, npc.rotation, new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
+            return true;
+        }
+
+        public override void AI()
+        {
+            //Animations
+
+            npc.spriteDirection = npc.velocity.X > 0 ? -1 : (npc.velocity.X < 0 ? 1 : npc.spriteDirection);
+
+            if (npc.velocity.X > 0f || npc.velocity.Y > 0f)
+            {
+                frameCounter++;
+                if (frameCounter > 30)
+                {
+                    frame += 1;
+                    frameCounter = 0;
+                    if (frame >= Main.npcFrameCount[npc.type])
+                    {
+                        frame = 0;
+                    }
+                }
+            }
+            else
+            {
+                frame = 0;
+                frameCounter = 0;
+            }
+        }
+
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault(PokeName());
-            Main.npcFrameCount[npc.type] = Main.npcFrameCount[NPCID.Bunny];
+            Main.npcFrameCount[npc.type] = 2;
         }
 
         public override void SetDefaults()
         {
+            var shinynum = Main.rand.Next(5);
+            if (shinynum == 0)
+            {
+                shiny = true;
+            }
+
             npc.defense = 0;
             npc.lifeMax = 15;
             npc.lifeRegen = 15;
@@ -47,8 +100,6 @@ namespace Terramon.Pokemon
 
             npc.aiStyle = 7;
             aiType = NPCID.Bunny;
-
-            animationType = NPCID.Bunny;
         }
 
         private string GetSmallSpritePath(NPC npc)

@@ -39,7 +39,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("TimerBallCap"));
             recipe.AddIngredient(mod.ItemType("Button"));
-            recipe.AddIngredient(mod.ItemType("TimerBallBase"));
+            recipe.AddIngredient(mod.ItemType("PokeballBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();
 

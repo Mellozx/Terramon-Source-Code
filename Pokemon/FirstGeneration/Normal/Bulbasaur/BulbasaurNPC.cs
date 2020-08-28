@@ -21,12 +21,6 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
             npc.scale = 1f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-        {
-            npc.gfxOffY = 6;
-            return true;
-        }
-
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             Player player = Main.LocalPlayer;

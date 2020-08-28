@@ -40,6 +40,15 @@ namespace Terramon.Items.Pokeballs.Inventory
             recipe.AddIngredient(mod.ItemType("PokeballBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();
+
+            ModRecipe recipe2 = new ModRecipe(mod);
+            recipe2.AddIngredient(ItemID.IronBar, 6);
+            recipe2.AddIngredient(ItemID.LunarBar, 7);
+            recipe.AddIngredient(mod.ItemType("RedApricorn"), 4);
+            recipe.AddIngredient(mod.ItemType("BlueApricorn"), 4);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 
         public override void SetDefaults()
