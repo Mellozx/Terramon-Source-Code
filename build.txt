@@ -1,5 +1,6 @@
 author = Terramon Team
 version = 0.4.0
 displayName = Terramon Mod
+version = 0.4.0
 homepage = https://terrariamods.gamepedia.com/Terramon
-buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*, Tiles\*
+buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*

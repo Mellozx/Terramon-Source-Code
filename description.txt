@@ -6,14 +6,15 @@
 • More than 30 Pokémon!
 • New UI and mechanics!
 • 43 new items
-• 31 buffs
 
 [c/4de857:== ✧ Credits ✧ ==]
-InfinaMii: 'Mr Boss', etc.
 Jamz: Team Founder & Developer
+InfinaMii:
 KindRed-Sand: Developer, Mod Networking
 AnotherGuy: Developer
-Solemn: Trial Developer
+Stevie: Trial Developer
+Solemn: Music, Trial Developer
+pcboi_228: Trial Developer
 
 [c/4de8af:== ✧ Special Thanks ✧ ==]
 Chen: Retired Developer
