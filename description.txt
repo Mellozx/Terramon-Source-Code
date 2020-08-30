@@ -9,7 +9,7 @@
 
 [c/4de857:== ✧ Credits ✧ ==]
 Jamz: Team Founder & Developer
-InfinaMii:
+InfinaMii: Developer, Spriter, ^
 KindRed-Sand: Developer, Mod Networking
 AnotherGuy: Developer
 Stevie: Trial Developer
@@ -17,6 +17,7 @@ Solemn: Music, Trial Developer
 pcboi_228: Trial Developer
 
 [c/4de8af:== ✧ Special Thanks ✧ ==]
+Req: Trailer Editor
 Chen: Retired Developer
 Piers: Retired Developer
 Potat: Retired Spriter
