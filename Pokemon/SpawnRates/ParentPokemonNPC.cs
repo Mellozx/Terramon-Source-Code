@@ -44,11 +44,13 @@ namespace Terramon.Pokemon
             Texture2D pkmnTexture = mod.GetTexture(path);
             int frameHeight = pkmnTexture.Height / Main.npcFrameCount[npc.type];
             spriteBatch.Draw(pkmnTexture, npc.position - Main.screenPosition + new Vector2(0, -6), new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, npc.rotation, new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
-            return true;
+            return false;
         }
 
         public override void AI()
         {
+            npc.scale = 1f;
+
             //Animations
 
             npc.spriteDirection = npc.velocity.X > 0 ? -1 : (npc.velocity.X < 0 ? 1 : npc.spriteDirection);
@@ -68,7 +70,7 @@ namespace Terramon.Pokemon
             }
             else
             {
-                frame = 0;
+                frame = 1;
                 frameCounter = 0;
             }
         }
@@ -82,7 +84,7 @@ namespace Terramon.Pokemon
 
         public override void SetDefaults()
         {
-            var shinynum = Main.rand.Next(5);
+            var shinynum = Main.rand.Next(4096); // Generates 0 to 4095, essentially a 0.02% chance
             if (shinynum == 0)
             {
                 shiny = true;
@@ -397,12 +399,12 @@ namespace Terramon.Pokemon
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 var packet = new BaseCatchPacket();
-                packet.Send((TerramonMod) mod, HomeClass().Name, npc.TypeName, npc.getRect(), type/*, Shiny */);//TODO: Add your shiny field as param
+                packet.Send((TerramonMod) mod, HomeClass().Name, npc.TypeName, npc.getRect(), type, shiny);
             }
             else
             {
                 if (Main.netMode == NetmodeID.Server)
-                    BaseCaughtClass.writeDetour(HomeClass().Name, npc.TypeName, GetSmallSpritePath(npc));
+                    BaseCaughtClass.writeDetour(HomeClass().Name, npc.TypeName, GetSmallSpritePath(npc), 1, "", shiny);
 
                 int index = Item.NewItem(npc.getRect(), type);
                 if (index >= 400)

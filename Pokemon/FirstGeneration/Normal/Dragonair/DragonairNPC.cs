@@ -1,11 +1,13 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Dragonair
 {
     public class DragonairNPC : NotCatchablePKMN
-    {
+    { public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Dragonair/Dragonair";
         public override Type HomeClass()
         {
             return typeof(Dragonair);
@@ -16,12 +18,35 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Dragonair
             base.SetDefaults();
             npc.width = 20;
             npc.height = 20;
+            npc.scale = 1f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+public static bool PlayerIsInForest(Player player){
+	return !player.ZoneJungle
+		&& !player.ZoneDungeon
+		&& !player.ZoneCorrupt
+		&& !player.ZoneCrimson
+		&& !player.ZoneHoly
+		&& !player.ZoneSnow
+		&& !player.ZoneUndergroundDesert
+		&& !player.ZoneGlowshroom
+		&& !player.ZoneMeteor
+		&& !player.ZoneBeach
+		&& !player.ZoneDesert
+		&& player.ZoneOverworldHeight;
+}
+
+public static bool PlayerIsInEvils(Player player){
+	return player.ZoneCrimson
+		|| player.ZoneCorrupt;
+}
+
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            npc.gfxOffY = 6;
-            return true;
+            Player player = Main.LocalPlayer;
+            if (PlayerIsInForest(player))
+                return 0f;
+            return 0f;
         }
     }
 }

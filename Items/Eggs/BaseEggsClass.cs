@@ -68,7 +68,7 @@ namespace Terramon.Items.Eggs
                 case NetmodeID.Server:
                 {
                     BaseCaughtClass.writeDetour(pokemonName, pokemonName,
-                        GetSmallSpritePath(pokemonName)); //This force server to write data when SetDefault() was called
+                        GetSmallSpritePath(pokemonName), 1, "", false); //This force server to write data when SetDefault() was called
                     Item.NewItem(player.position, ItemType<PokeballCaught>()); // Within this call SetDefault was called
                     break;
                 }

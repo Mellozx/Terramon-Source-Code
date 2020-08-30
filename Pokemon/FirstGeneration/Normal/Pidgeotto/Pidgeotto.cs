@@ -1,8 +1,14 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terramon.Players;
+using Terramon.Pokemon.Moves;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto
 {
-    public class Pidgeotto : ParentPokemonFlying
+    public class Pidgeotto : ParentPokemon
     {
         public override int EvolveCost => 18;
 
@@ -14,9 +20,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto
         {
             base.SetDefaults();
 
-            projectile.width = 32;
-            projectile.height = 32;
-            drawOriginOffsetY = -8;
+            
+            
         }
     }
 }

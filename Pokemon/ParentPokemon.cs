@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terramon.Players;
 using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
@@ -10,6 +11,8 @@ namespace Terramon.Pokemon
 {
     public abstract class ParentPokemon : ModProjectile
     {
+        public override string Texture => "Terramon/Pokemon/Empty";
+
         /// <summary>
         ///     Next stage pokemon to evolve.
         ///     If value == null => mon can't evolve
@@ -42,10 +45,15 @@ namespace Terramon.Pokemon
 
         public int AttackDuration;
 
+        public bool shiny = false;
+
+        public int frame;
+        public int frameCounter;
+
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[projectile.type] = 11;
+            Main.projFrames[projectile.type] = 2;
             Main.projPet[projectile.type] = true;
         }
 
@@ -54,6 +62,21 @@ namespace Terramon.Pokemon
             projectile.CloneDefaults(ProjectileID.Puppy);
             aiType = ProjectileID.Puppy;
             projectile.owner = Main.myPlayer;
+            drawOffsetX = 100;
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            var path = $"Pokemon/FirstGeneration/Normal/{projectile.Name}/{projectile.Name}";
+            if (shiny)
+            {
+                path += "_Shiny";
+            }
+            SpriteEffects effects = projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            Texture2D pkmnTexture = mod.GetTexture(path);
+            int frameHeight = pkmnTexture.Height / Main.projFrames[projectile.type];
+            spriteBatch.Draw(pkmnTexture, projectile.position - Main.screenPosition + new Vector2(14, 0), new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, projectile.rotation, new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), projectile.scale, effects, 0f);
+            return true;
         }
 
         public override bool PreAI()
@@ -68,6 +91,29 @@ namespace Terramon.Pokemon
         private int mainAi = ProjectileID.Puppy;
         public override void AI()
         {
+            //Animations
+
+            projectile.spriteDirection = projectile.velocity.X > 0 ? -1 : (projectile.velocity.X < 0 ? 1 : projectile.spriteDirection);
+
+            if (projectile.velocity.X != 0 || projectile.velocity.Y > 1)
+            {
+                frameCounter++;
+                if (frameCounter > 15)
+                {
+                    frame += 1;
+                    frameCounter = 0;
+                    if (frame >= Main.projFrames[projectile.type])
+                    {
+                        frame = 0;
+                    }
+                }
+            }
+            else
+            {
+                frame = 1;
+                frameCounter = 0;
+            }
+
             Player player = Main.player[projectile.owner];
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             SpawnTime++;
@@ -146,7 +192,8 @@ namespace Terramon.Pokemon
         Dark,
         Dragon,
         Electric,
-        Fight,
+        Fairy,
+        Fighting,
         Fire,
         Flying,
         Ghost,
@@ -155,7 +202,7 @@ namespace Terramon.Pokemon
         Ice,
         Normal,
         Poison,
-        Psyhcic,
+        Psychic,
         Rock,
         Steel,
         Water,

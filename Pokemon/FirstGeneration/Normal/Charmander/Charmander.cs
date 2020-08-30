@@ -1,7 +1,10 @@
-using System;
 using Microsoft.Xna.Framework;
-using Terraria;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terramon.Players;
 using Terramon.Pokemon.Moves;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
 {
@@ -11,25 +14,14 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmander
 
         public override Type EvolveTo => typeof(Charmeleon.Charmeleon);
 
-        public override PokemonType[] PokemonTypes => new[] {PokemonType.Fire};
-
-        public override string[] DefaultMove => new[] { nameof(TackleMove), nameof(HealMove), nameof(ShootMove), "" };
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire };
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            projectile.width = 34;
-            projectile.height = 26;
-            drawOriginOffsetY = -14;
-        }
-
-        public override void AI()
-        {
-            base.AI();
-            if (Main.rand.Next(9) == 0)
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 100,
-                    new Color(255, 148, 41));
+            
+            
         }
     }
 }

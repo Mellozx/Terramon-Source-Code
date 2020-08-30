@@ -392,9 +392,7 @@ namespace Terramon.Players
             if (liquidType == 0 && player.ZoneBeach && Main.rand.NextBool(6)) //16.7% chance from fishing
                 caughtType = ItemType<MagikarpFish>();
             if (liquidType == 0 && player.ZoneBeach && Main.rand.NextBool(12)) //8.3% chance from fishing
-                caughtType = Main.rand.Next(new[] {ItemType<GoldeenFish>(), ItemType<HorseaFish>()});
-            if (liquidType == 0 && Main.rand.NextBool(100)) //1% chance from fishing
-                caughtType = ItemType<MagikarpFish>();
+                caughtType = Main.rand.Next(new[] {ItemType<GoldeenFish>(), ItemType<HorseaFish>(), ItemType<TentacoolFish>()});
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)

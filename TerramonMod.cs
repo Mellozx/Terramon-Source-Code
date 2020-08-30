@@ -193,6 +193,8 @@ namespace Terramon
             UISidebar = null;
             Moves.Deactivate();
             Moves = null;
+
+            PartyCycle = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)

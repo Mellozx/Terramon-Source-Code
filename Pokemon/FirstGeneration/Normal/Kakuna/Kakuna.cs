@@ -1,4 +1,10 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terramon.Players;
+using Terramon.Pokemon.Moves;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Kakuna
 {
@@ -14,9 +20,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Kakuna
         {
             base.SetDefaults();
 
-            projectile.width = 32;
-            projectile.height = 32;
-            drawOriginOffsetY = -14;
+            
+            
         }
     }
 }

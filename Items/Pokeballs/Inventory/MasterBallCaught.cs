@@ -22,6 +22,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             if (isShiny)
             {
                 if (nameLine != null) nameLine.text = "Master Ball (" + PokemonName + " ✦)";
+                tooltips.Add(new TooltipLine(mod, "Shiny", "[c/f5da42:This is a shiny Pokémon]"));
             }
             else
             {

@@ -1,12 +1,13 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Raichu
 {
-    public class RaichuNPC : ParentPokemonNPC
-    {
+    public class RaichuNPC : NotCatchablePKMN
+    { public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Raichu/Raichu";
         public override Type HomeClass()
         {
             return typeof(Raichu);
@@ -17,17 +18,33 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Raichu
             base.SetDefaults();
             npc.width = 20;
             npc.height = 20;
+            npc.scale = 1f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-        {
-            npc.gfxOffY = 6;
-            return true;
-        }
+public static bool PlayerIsInForest(Player player){
+	return !player.ZoneJungle
+		&& !player.ZoneDungeon
+		&& !player.ZoneCorrupt
+		&& !player.ZoneCrimson
+		&& !player.ZoneHoly
+		&& !player.ZoneSnow
+		&& !player.ZoneUndergroundDesert
+		&& !player.ZoneGlowshroom
+		&& !player.ZoneMeteor
+		&& !player.ZoneBeach
+		&& !player.ZoneDesert
+		&& player.ZoneOverworldHeight;
+}
+
+public static bool PlayerIsInEvils(Player player){
+	return player.ZoneCrimson
+		|| player.ZoneCorrupt;
+}
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.ZoneOverworldHeight)
+            Player player = Main.LocalPlayer;
+            if (PlayerIsInForest(player))
                 return 0f;
             return 0f;
         }

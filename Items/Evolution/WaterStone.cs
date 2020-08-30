@@ -11,7 +11,7 @@ namespace Terramon.Items.Evolution
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Water Stone");
-            Tooltip.SetDefault("A stone used for making certain kinds of Pokémon evolve.");
+            Tooltip.SetDefault("A stone used for making certain kinds of Pokémon evolve.\nIt is the blue of a pool of clear water.");
         }
 
         public override void SetDefaults()

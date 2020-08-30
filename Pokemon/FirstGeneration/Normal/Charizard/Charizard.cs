@@ -1,28 +1,27 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terramon.Players;
+using Terramon.Pokemon.Moves;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Charizard
 {
     public class Charizard : ParentPokemon
     {
-        public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire, PokemonType.Flying };
+        
+
+        
+
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire };
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            projectile.width = 48;
-            projectile.height = 40;
-            projectile.scale = 1f;
-            drawOriginOffsetY = -14;
-        }
-
-        public override void AI()
-        {
-            base.AI();
-            if (Main.rand.Next(9) == 0)
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 100,
-                    new Color(255, 148, 41));
+            
+            
         }
     }
 }

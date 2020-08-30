@@ -12,7 +12,7 @@ namespace Terramon.Items.Evolution
             base.SetStaticDefaults();
             DisplayName.SetDefault("Fire Stone");
             Tooltip.SetDefault(
-                "A stone used for making certain kinds of Pokémon evolve.\nThe stone is inscribed with a thunderbolt pattern.");
+                "A stone used for making certain kinds of Pokémon evolve.\nThe stone has a fiery orange heart.");
         }
 
         public override void SetDefaults()

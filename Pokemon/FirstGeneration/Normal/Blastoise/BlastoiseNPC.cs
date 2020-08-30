@@ -1,11 +1,13 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Blastoise
 {
     public class BlastoiseNPC : NotCatchablePKMN
-    {
+    { public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Blastoise/Blastoise";
         public override Type HomeClass()
         {
             return typeof(Blastoise);
@@ -14,15 +16,18 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Blastoise
         public override void SetDefaults()
         {
             base.SetDefaults();
-            npc.width = 24;
-            npc.height = 24;
+            npc.width = 20;
+            npc.height = 20;
             npc.scale = 1f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            npc.gfxOffY = 6;
-            return true;
+            Player player = Main.LocalPlayer;
+            if (spawnInfo.player.ZoneSnow)
+                return 0f;
+            return 0f;
         }
     }
 }
+

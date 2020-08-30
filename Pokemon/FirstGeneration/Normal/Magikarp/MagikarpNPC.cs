@@ -2,11 +2,12 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Magikarp
 {
     public class MagikarpNPC : NotCatchablePKMN
-    {
+    { public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Magikarp/Magikarp";
         public override Type HomeClass()
         {
             return typeof(Magikarp);
@@ -20,15 +21,33 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Magikarp
             npc.scale = 1f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-        {
-            npc.gfxOffY = 6;
-            return true;
-        }
+public static bool PlayerIsInForest(Player player){
+	return !player.ZoneJungle
+		&& !player.ZoneDungeon
+		&& !player.ZoneCorrupt
+		&& !player.ZoneCrimson
+		&& !player.ZoneHoly
+		&& !player.ZoneSnow
+		&& !player.ZoneUndergroundDesert
+		&& !player.ZoneGlowshroom
+		&& !player.ZoneMeteor
+		&& !player.ZoneBeach
+		&& !player.ZoneDesert
+		&& player.ZoneOverworldHeight;
+}
 
-        public override void AI()
+public static bool PlayerIsInEvils(Player player){
+	return player.ZoneCrimson
+		|| player.ZoneCorrupt;
+}
+
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.rand.Next(12) == 0) Dust.NewDust(npc.position, npc.width, npc.height, 34, 0f, 0f, 100);
+            Player player = Main.LocalPlayer;
+            if (PlayerIsInForest(player))
+                return 0f;
+            return 0f;
         }
     }
 }
+

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace Terramon.Pokemon.FirstGeneration.Normal.Squirtle
 {
     public class SquirtleNPC : ParentPokemonNPC
-    {
+    { public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Squirtle/Squirtle";
         public override Type HomeClass()
         {
             return typeof(Squirtle);
@@ -18,20 +18,16 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Squirtle
             base.SetDefaults();
             npc.width = 20;
             npc.height = 20;
-        }
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-        {
-            npc.gfxOffY = 6;
-            return true;
+            npc.scale = 1f;
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             Player player = Main.LocalPlayer;
-            if (spawnInfo.player.ZoneRockLayerHeight && spawnInfo.player.ZoneSnow)
-                return 0.04f;
+            if (spawnInfo.player.ZoneSnow && spawnInfo.player.ZoneRockLayerHeight)
+                return 0.03f;
             return 0f;
         }
     }
 }
+

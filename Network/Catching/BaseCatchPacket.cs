@@ -67,7 +67,7 @@ namespace Terramon.Network.Catching
                 string type = r.ReadString();
                 BaseCaughtClass.det_CapturedPokemon = type;
                 BaseCaughtClass.det_PokemonName = r.ReadString();
-                BaseCaughtClass.det_Shiny = r.ReadBoolean();
+                BaseCaughtClass.det_isShiny = r.ReadBoolean();
                 //string t = r.ReadString();
                 //if(t != "v2")
                 //    PokeballCaught.det_SmallSpritePath = t;

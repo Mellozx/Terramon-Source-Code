@@ -2,11 +2,12 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Charizard
 {
     public class CharizardNPC : NotCatchablePKMN
-    {
+    { public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Charizard/Charizard";
         public override Type HomeClass()
         {
             return typeof(Charizard);
@@ -15,21 +16,18 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charizard
         public override void SetDefaults()
         {
             base.SetDefaults();
-            npc.width = 24;
-            npc.height = 24;
+            npc.width = 20;
+            npc.height = 20;
             npc.scale = 1f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            npc.gfxOffY = 6;
-            return true;
-        }
-
-        public override void AI()
-        {
-            if (Main.rand.Next(9) == 0)
-                Dust.NewDust(npc.position, npc.width, npc.height, 55, 0f, 0f, 100, new Color(255, 148, 41));
+            Player player = Main.LocalPlayer;
+            if (spawnInfo.player.ZoneRockLayerHeight)
+                return 0f;
+            return 0f;
         }
     }
 }
+

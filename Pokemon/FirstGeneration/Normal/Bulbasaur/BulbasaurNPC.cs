@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
 {
     public class BulbasaurNPC : ParentPokemonNPC
-    {
+    { public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Bulbasaur/Bulbasaur";
         public override Type HomeClass()
         {
             return typeof(Bulbasaur);
@@ -25,8 +25,10 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
         {
             Player player = Main.LocalPlayer;
             if (spawnInfo.player.ZoneOverworldHeight && spawnInfo.player.ZoneJungle)
-                return 0.04f;
+                return 0.03f;
             return 0f;
         }
     }
 }
+
+

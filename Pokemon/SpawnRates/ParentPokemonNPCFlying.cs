@@ -25,8 +25,23 @@ namespace Terramon.Pokemon
 
             npc.aiStyle = 65;
             aiType = NPCID.Firefly;
+        }
 
-            animationType = NPCID.Firefly;
+        public override void AI()
+        {
+            npc.scale = 1f;
+
+            npc.spriteDirection = npc.velocity.X > 0 ? -1 : (npc.velocity.X < 0 ? 1 : npc.spriteDirection);
+            frameCounter++;
+            if (frameCounter > 30)
+            {
+                frame += 1;
+                frameCounter = 0;
+                if (frame >= Main.npcFrameCount[npc.type])
+                {
+                    frame = 0;
+                }
+            }
         }
     }
 }

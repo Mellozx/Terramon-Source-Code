@@ -1,4 +1,10 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terramon.Players;
+using Terramon.Pokemon.Moves;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Ivysaur
 {
@@ -14,10 +20,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Ivysaur
         {
             base.SetDefaults();
 
-            projectile.width = 36;
-            projectile.height = 28;
-            projectile.scale = 1.2f;
-            // drawOriginOffsetY = -1;
+            
+            
         }
     }
 }

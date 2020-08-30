@@ -68,6 +68,8 @@ namespace Terramon.Items.Pokeballs.Inventory
             det_SmallSpritePath = null;
             CapturedPokemon = det_CapturedPokemon;
             det_CapturedPokemon = null;
+            isShiny = det_isShiny;
+            det_isShiny = false;
             if (!string.IsNullOrEmpty(det_Moves))
             {
                 var arr = det_Moves.Split('|');
@@ -208,6 +210,8 @@ namespace Terramon.Items.Pokeballs.Inventory
 
                 [nameof(SmallSpritePath)] = SmallSpritePath, // what do i do here
                 //v2
+
+                [nameof(isShiny)] = isShiny,
                 [nameof(CapturedPokemon)] = CapturedPokemon,
                 [nameof(Level)] = Level,
                 [nameof(Exp)] = Exp,
@@ -230,6 +234,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             PokemonNPC = tag.GetInt(nameof(PokemonNPC));
             PokemonName = tag.GetString(nameof(PokemonName));
             SmallSpritePath = tag.GetString(nameof(SmallSpritePath));
+            isShiny = tag.GetBool(nameof(isShiny));
             //v2
             CapturedPokemon = tag.ContainsKey(nameof(CapturedPokemon))
                 ? tag.GetString(nameof(CapturedPokemon))
@@ -300,6 +305,7 @@ namespace Terramon.Items.Pokeballs.Inventory
 
             writer.Write(Level);
             writer.Write(Exp);
+            writer.Write(isShiny);
 
             var mov = "";
             foreach (var it in Moves) mov += it + "|";
@@ -317,6 +323,7 @@ namespace Terramon.Items.Pokeballs.Inventory
 
             Level = reader.ReadInt32();
             Exp = reader.ReadInt32();
+            isShiny = reader.ReadBoolean();
 
             var movArr = reader.ReadString().Split('|');
             for (int i = 0; i < movArr.Length || i < 4; i++)
@@ -335,7 +342,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             det_SmallSpritePath = icon;
             det_Lvl = lvl;
             det_Moves = moves;
-            det_Shiny = shiny;
+            det_isShiny = shiny;
         }
 
         internal static string det_CapturedPokemon;
@@ -344,7 +351,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         internal static string det_SmallSpritePath;
         internal static int det_Lvl;
         internal static string det_Moves;
-        internal static bool det_Shiny;
+        internal static bool det_isShiny;
 
         #endregion
     }

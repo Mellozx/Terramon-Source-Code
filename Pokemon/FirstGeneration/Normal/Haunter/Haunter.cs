@@ -1,10 +1,16 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terramon.Players;
+using Terramon.Pokemon.Moves;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
 {
-    public class Haunter : ParentPokemonGastly
+    public class Haunter : ParentPokemon
     {
-        public override int EvolveCost => 10;
+        public override int EvolveCost => 18;
 
         public override Type EvolveTo => typeof(Gengar.Gengar);
 
@@ -14,10 +20,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
         {
             base.SetDefaults();
 
-            projectile.width = 38;
-            projectile.height = 40;
-            drawOriginOffsetY = -36;
-            projectile.alpha = 95;
+            
+            
         }
     }
 }

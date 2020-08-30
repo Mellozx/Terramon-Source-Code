@@ -25,8 +25,6 @@ namespace Terramon.Pokemon
 
             npc.aiStyle = 65;
             aiType = NPCID.Firefly;
-
-            animationType = NPCID.Firefly;
         }
 
         private const int Flying1 = 0;
@@ -35,18 +33,19 @@ namespace Terramon.Pokemon
 
         public override void AI()
         {
-            AITimer++;
-            if (AITimer > 60)
-                AITimer = 0;
-        }
+            npc.scale = 1f;
 
-        public override void FindFrame(int frameHeight)
-        {
-            npc.spriteDirection = npc.direction;
-            if (AITimer > 30)
-                npc.frame.Y = Flying1 * frameHeight;
-            else
-                npc.frame.Y = Flying2 * frameHeight;
+            npc.spriteDirection = npc.velocity.X > 0 ? -1 : (npc.velocity.X < 0 ? 1 : npc.spriteDirection);
+            frameCounter++;
+            if (frameCounter > 30)
+            {
+                frame += 1;
+                frameCounter = 0;
+                if (frame >= Main.npcFrameCount[npc.type])
+                {
+                    frame = 0;
+                }
+            }
         }
     }
 }

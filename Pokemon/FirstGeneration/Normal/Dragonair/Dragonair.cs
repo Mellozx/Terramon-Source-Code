@@ -1,10 +1,16 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using Terramon.Players;
+using Terramon.Pokemon.Moves;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Dragonair
 {
     public class Dragonair : ParentPokemon
     {
-        public override int EvolveCost => 25;
+        public override int EvolveCost => 15;
 
         public override Type EvolveTo => typeof(Dragonite.Dragonite);
 
@@ -14,9 +20,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Dragonair
         {
             base.SetDefaults();
 
-            projectile.width = 32;
-            projectile.height = 32;
-            drawOriginOffsetY = -26;
+            
+            
         }
     }
 }

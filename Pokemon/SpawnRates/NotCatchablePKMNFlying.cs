@@ -9,7 +9,7 @@ namespace Terramon.Pokemon
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault(PokeName());
-            Main.npcFrameCount[npc.type] = Main.npcFrameCount[NPCID.Bunny];
+            Main.npcFrameCount[npc.type] = 2;
         }
 
         public override void SetDefaults()
@@ -25,8 +25,23 @@ namespace Terramon.Pokemon
 
             npc.aiStyle = 64;
             aiType = NPCID.Firefly;
+        }
 
-            animationType = NPCID.Bunny;
+        public override void AI()
+        {
+            npc.scale = 1f;
+
+            npc.spriteDirection = npc.velocity.X > 0 ? -1 : (npc.velocity.X < 0 ? 1 : npc.spriteDirection);
+            frameCounter++;
+            if (frameCounter > 30)
+            {
+                frame += 1;
+                frameCounter = 0;
+                if (frame >= Main.npcFrameCount[npc.type])
+                {
+                    frame = 0;
+                }
+            }
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)

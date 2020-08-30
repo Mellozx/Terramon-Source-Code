@@ -1,25 +1,27 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terramon.Players;
+using Terramon.Pokemon.Moves;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Magikarp
 {
     public class Magikarp : ParentPokemon
     {
+        public override int EvolveCost => 15;
+
+        public override Type EvolveTo => typeof(Gyarados.Gyarados);
+
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            projectile.width = 34; //-6
-            projectile.height = 24; //-4
-            drawOriginOffsetY = -20;
-        }
-
-        public override void AI()
-        {
-            base.AI();
-            if (Main.rand.Next(12) == 0)
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, 34, 0f, 0f, 100);
+            
+            
         }
     }
 }

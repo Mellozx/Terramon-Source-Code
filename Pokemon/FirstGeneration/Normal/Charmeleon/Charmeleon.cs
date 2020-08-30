@@ -1,6 +1,10 @@
-using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terramon.Players;
+using Terramon.Pokemon.Moves;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Charmeleon
 {
@@ -16,17 +20,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Charmeleon
         {
             base.SetDefaults();
 
-            projectile.width = 22;
-            projectile.height = 20;
-            drawOriginOffsetY = -30;
-        }
-
-        public override void AI()
-        {
-            base.AI();
-            if (Main.rand.Next(9) == 0)
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 100,
-                    new Color(255, 91, 59));
+            
+            
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Terramon.Network.Starter
                     if (!Main.player[whoAmI].active)
                         return;
 
-                    BaseCaughtClass.writeDetour(nameof(Squirtle), "Squirtle",
+                    BaseCaughtClass.writeDetour(nameof(Pokemon.FirstGeneration.Normal.Squirtle), "Squirtle",
                         "Terramon/Minisprites/Regular/miniSquirtle");
                     int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
                     if (index >= 400 || !(Main.item[index].modItem is PokeballCaught modItem))
@@ -43,7 +43,7 @@ namespace Terramon.Network.Starter
                     break;
                 case CHARMANDER:
                 {
-                    BaseCaughtClass.writeDetour(nameof(Charmander), "Charmander",
+                    BaseCaughtClass.writeDetour(nameof(Pokemon.FirstGeneration.Normal.Charmander), "Charmander",
                         "Terramon/Minisprites/Regular/miniCharmander");
                     int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
                     if (index >= 400 || !(Main.item[index].modItem is PokeballCaught modItem))
@@ -52,7 +52,7 @@ namespace Terramon.Network.Starter
                     break;
                 case BULBASAUR:
                 {
-                    BaseCaughtClass.writeDetour(nameof(Bulbasaur), "Bulbasaur",
+                    BaseCaughtClass.writeDetour(nameof(Pokemon.FirstGeneration.Normal.Bulbasaur), "Bulbasaur",
                         "Terramon/Minisprites/Regular/miniBulbasaur");
                     int index = Item.NewItem(Main.player[whoAmI].getRect(), ModContent.ItemType<PokeballCaught>());
                     if (index >= 400 || !(Main.item[index].modItem is PokeballCaught modItem))

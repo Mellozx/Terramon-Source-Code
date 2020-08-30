@@ -11,7 +11,7 @@ namespace Terramon.Items.Evolution
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Thunder Stone");
-            Tooltip.SetDefault("A stone used for making certain kinds of Pokémon evolve.");
+            Tooltip.SetDefault("A stone used for making certain kinds of Pokémon evolve.\nThe stone is inscribed with a thunderbolt pattern.");
         }
 
         public override void SetDefaults()

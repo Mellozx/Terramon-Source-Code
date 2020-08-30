@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
 {
     public class HaunterNPC : ParentPokemonNPCFlying
-    {
+    { public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Haunter/Haunter";
         public override Type HomeClass()
         {
             return typeof(Haunter);
@@ -17,15 +17,29 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
         {
             base.SetDefaults();
             npc.width = 20;
-            npc.height = 28;
-            npc.alpha = 95;
+            npc.height = 20;
+            npc.scale = 1f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-        {
-            npc.gfxOffY = -4;
-            return true;
-        }
+public static bool PlayerIsInForest(Player player){
+	return !player.ZoneJungle
+		&& !player.ZoneDungeon
+		&& !player.ZoneCorrupt
+		&& !player.ZoneCrimson
+		&& !player.ZoneHoly
+		&& !player.ZoneSnow
+		&& !player.ZoneUndergroundDesert
+		&& !player.ZoneGlowshroom
+		&& !player.ZoneMeteor
+		&& !player.ZoneBeach
+		&& !player.ZoneDesert
+		&& player.ZoneOverworldHeight;
+}
+
+public static bool PlayerIsInEvils(Player player){
+	return player.ZoneCrimson
+		|| player.ZoneCorrupt;
+}
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {

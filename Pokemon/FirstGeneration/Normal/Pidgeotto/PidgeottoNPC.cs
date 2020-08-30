@@ -1,12 +1,13 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto
 {
     public class PidgeottoNPC : ParentPokemonNPCFlyingBird
-    {
+    { public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Pidgeotto/Pidgeotto";
         public override Type HomeClass()
         {
             return typeof(Pidgeotto);
@@ -15,21 +16,31 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto
         public override void SetDefaults()
         {
             base.SetDefaults();
-            npc.width = 30;
-            npc.height = 28;
+            npc.width = 20;
+            npc.height = 20;
             npc.scale = 1f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-        {
-            npc.gfxOffY = -4;
-            return true;
-        }
+public static bool PlayerIsInForest(Player player){
+	return !player.ZoneJungle
+		&& !player.ZoneDungeon
+		&& !player.ZoneCorrupt
+		&& !player.ZoneCrimson
+		&& !player.ZoneHoly
+		&& !player.ZoneSnow
+		&& !player.ZoneUndergroundDesert
+		&& !player.ZoneGlowshroom
+		&& !player.ZoneMeteor
+		&& !player.ZoneBeach
+		&& !player.ZoneDesert
+		&& player.ZoneOverworldHeight;
+}
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.ZoneOverworldHeight)
-                return 0.045f;
+            Player player = Main.LocalPlayer;
+            if (PlayerIsInForest(player))
+                return 0.04f;
             return 0f;
         }
     }
