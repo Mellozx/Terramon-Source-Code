@@ -28,6 +28,26 @@ namespace Terramon.Pokemon
         protected bool shiny = false;
         protected int timer;
 
+public static bool PlayerIsInForest(Player player){
+	return !player.ZoneJungle
+		&& !player.ZoneDungeon
+		&& !player.ZoneCorrupt
+		&& !player.ZoneCrimson
+		&& !player.ZoneHoly
+		&& !player.ZoneSnow
+		&& !player.ZoneUndergroundDesert
+		&& !player.ZoneGlowshroom
+		&& !player.ZoneMeteor
+		&& !player.ZoneBeach
+		&& !player.ZoneDesert
+		&& player.ZoneOverworldHeight;
+}
+
+public static bool PlayerIsInEvils(Player player){
+	return player.ZoneCrimson
+		|| player.ZoneCorrupt;
+}
+
         public string PokeName()
         {
             return Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");

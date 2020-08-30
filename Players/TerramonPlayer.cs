@@ -17,6 +17,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
+using DiscordRPC;
 // ReSharper disable ParameterHidesMember
 // ReSharper disable LocalVariableHidesMember
 

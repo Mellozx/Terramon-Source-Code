@@ -30,9 +30,15 @@
     <None Include="Items\Apricorns\Cooked\CookedYellowApricorn.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DiscordRichPresence" Version="1.0.150" />
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Items\Food\StoneBowl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DiscordRPC">
+      <HintPath>lib\DiscordRPC.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

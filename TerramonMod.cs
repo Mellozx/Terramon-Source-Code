@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DiscordRPC;
+using DiscordRPC.Logging;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,10 @@ namespace Terramon
 {
     public class TerramonMod : Mod
     {
+        // NEW DISCORD RICH PRESENCE INTEGRATION
+        public DiscordRpcClient client;
+        //
+
         internal ChooseStarter ChooseStarter;
         internal ChooseStarterBulbasaur ChooseStarterBulbasaur;
         internal ChooseStarterCharmander ChooseStarterCharmander;
@@ -104,6 +110,36 @@ namespace Terramon
 
         public override void Load()
         {
+            // Initalize Discord RP on Mod Load
+            client = new DiscordRpcClient("749707767203233792");
+            client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+            //
+
+            //Subscribe to events
+            client.OnReady += (sender, e) =>
+            {
+                Console.WriteLine("Received Ready from user {0}", e.User.Username);
+            };
+
+            client.OnPresenceUpdate += (sender, e) =>
+            {
+                Console.WriteLine("Received Update! {0}", e.Presence);
+            };
+
+            //Connect to the RPC
+            client.Initialize();
+
+            client.SetPresence(new RichPresence()
+            {
+                Details = "In Menu",
+                State = "Playing v0.4",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "largeimage2",
+                    LargeImageText = "Terramon Mod"
+                }
+            });
+
             //Load all mons to a store
             LoadPokemons();
 
