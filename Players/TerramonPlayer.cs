@@ -282,9 +282,14 @@ namespace Terramon.Players
         /// </summary>
         /// <param name="name">Pokemon type name</param>
         /// <param name="combatReady">This pokemon summoned from party UI?</param>
+
+        public string lastactivename;
+
         public void ActivatePet(string name, bool combatReady = true)
         {
             ResetEffects();
+
+            var monName = ActivePet.FirstOrDefault(x => x.Value).Value;
 
             if (string.IsNullOrEmpty(name) || name == "*")
             {
@@ -292,7 +297,16 @@ namespace Terramon.Players
                 ActivePetName = "";
                 CombatReady = false;
                 return;
+            } 
+            else
+            {
+                if (lastactivename != name)
+                {
+                    GetInstance<TerramonMod>().DisplayPokemonNameRP(name);
+                }
             }
+
+            lastactivename = name;
 
             if (!combatReady)
                 ActivePartySlot = -1;
@@ -341,6 +355,10 @@ namespace Terramon.Players
 
         public override void OnEnterWorld(Player player)
         {
+            // Call to Mod class to enable in-world Rich Presence
+            GetInstance<TerramonMod>().EnterWorldRP();
+            //
+
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             modPlayer.Attacking = false;
             Moves.Visible = false; // Ignore for v0.3
@@ -407,9 +425,19 @@ namespace Terramon.Players
                     CombatText.NewText(player.Hitbox, Color.White, "Go! " + firstslotname + "!", true);
                 }
         }
-
+        string lastmon = "";
         public override void PreUpdate()
         {
+            var monName = ActivePet.FirstOrDefault(x => x.Value).Key;
+            if (lastmon != monName)
+            {
+                if (string.IsNullOrEmpty(monName) || monName == "*")
+                {
+                    GetInstance<TerramonMod>().RemoveDisplayPokemonNameRP();
+                }
+            }
+            lastmon = monName;
+
             if (StarterChosen)
             {
                 if (Main.playerInventory)

@@ -108,6 +108,74 @@ namespace Terramon
             return ballProjectiles;
         }
 
+        Timestamps timestamp;
+
+        public virtual void EnterWorldRP()
+        {
+            timestamp = Timestamps.Now;
+            client.SetPresence(new RichPresence()
+            {
+                Details = "In-Game",
+                State = "Playing v0.4",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "largeimage2",
+                    LargeImageText = "Terramon Mod",
+                    SmallImageKey = "pokeball",
+                    SmallImageText = "No Pokémon Selected"
+                },
+                Timestamps = timestamp
+            });
+        }
+
+        public virtual void DisplayPokemonNameRP(string name)
+        {
+            client.SetPresence(new RichPresence()
+            {
+                Details = "In-Game",
+                State = "Playing v0.4",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "largeimage2",
+                    LargeImageText = "Terramon Mod",
+                    SmallImageKey = "pokeball",
+                    SmallImageText = "Using " + name
+                },
+                Timestamps = timestamp
+            });
+        }
+
+        public virtual void RemoveDisplayPokemonNameRP()
+        {
+            client.SetPresence(new RichPresence()
+            {
+                Details = "In-Game",
+                State = "Playing v0.4",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "largeimage2",
+                    LargeImageText = "Terramon Mod",
+                    SmallImageKey = "pokeball",
+                    SmallImageText = "No Pokémon Selected"
+                },
+                Timestamps = timestamp
+            });
+        }
+
+        public override void PreSaveAndQuit()
+        {
+            client.SetPresence(new RichPresence()
+            {
+                Details = "In Menu",
+                State = "Playing v0.4",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "largeimage2",
+                    LargeImageText = "Terramon Mod"
+                }
+            });
+        }
+
         public override void Load()
         {
             // Initalize Discord RP on Mod Load
@@ -131,7 +199,7 @@ namespace Terramon
 
             client.SetPresence(new RichPresence()
             {
-                Details = "In Menu",
+                Details = "In Game Menu",
                 State = "Playing v0.4",
                 Assets = new Assets()
                 {
@@ -198,6 +266,7 @@ namespace Terramon
 
         public override void Unload()
         {
+	    client.Dispose();
             Instance = null;
             _exampleUserInterface.SetState(null); // Choose Starter
             _exampleUserInterfaceNew.SetState(null); // Pokegear Main Menu
