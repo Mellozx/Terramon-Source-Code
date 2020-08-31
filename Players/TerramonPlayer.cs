@@ -32,7 +32,7 @@ namespace Terramon.Players
         public int deletepokecase = 0;
         public int premierBallRewardCounter;
 
-        private Dictionary<string, bool> ActivePet = new Dictionary<string, bool>();
+        private Dictionary<string, bool> ActivePets = new Dictionary<string, bool>();
         public int ActivePetId = -1;
         public string ActivePetName = string.Empty;
         public bool CombatReady;
@@ -84,6 +84,31 @@ namespace Terramon.Players
                 MoveSet[3] = !string.IsNullOrEmpty(m4) ? TerramonMod.GetMove(m4) : null;
             }
         }
+
+        public TagCompound ActivePet
+        {
+            get
+            {
+                switch (ActivePartySlot)
+                {
+                    case 1:
+                        return PartySlot1;
+                    case 2:
+                        return PartySlot2;
+                    case 3:
+                        return PartySlot3;
+                    case 4:
+                        return PartySlot4;
+                    case 5:
+                        return PartySlot5;
+                    case 6:
+                        return PartySlot6;
+                    default:
+                        return null;
+                }
+            }
+        }
+
 
         private int _activePartySlot = -1;
         public BaseMove[] MoveSet;
@@ -266,14 +291,14 @@ namespace Terramon.Players
             //Initialise active pets bools
             // ReSharper disable once LocalVariableHidesMember
             var list = TerramonMod.GetPokemonsNames();
-            ActivePet = new Dictionary<string, bool>();
-            foreach (var it in list) ActivePet.Add(it, false);
+            ActivePets = new Dictionary<string, bool>();
+            foreach (var it in list) ActivePets.Add(it, false);
         }
 
         public override void ResetEffects()
         {
             //Set any active pet to false
-            foreach (var it in ActivePet.Keys.ToArray()) ActivePet[it] = false;
+            foreach (var it in ActivePets.Keys.ToArray()) ActivePets[it] = false;
         }
 
 
@@ -298,8 +323,8 @@ namespace Terramon.Players
                 ActivePartySlot = -1;
             CombatReady = combatReady;
 
-            if (ActivePet.ContainsKey(name))
-                ActivePet[name] = true;
+            if (ActivePets.ContainsKey(name))
+                ActivePets[name] = true;
             else
                 throw new InvalidOperationException(
                     $"Pokemon {name} not registered! Please send log files to mod devs!");
@@ -307,8 +332,8 @@ namespace Terramon.Players
 
         public bool IsPetActive(string name)
         {
-            if (ActivePet.ContainsKey(name))
-                return ActivePet[name];
+            if (ActivePets.ContainsKey(name))
+                return ActivePets[name];
 
             throw new InvalidOperationException($"Pokemon {name} not registered! Please send log files to mod devs!");
         }
