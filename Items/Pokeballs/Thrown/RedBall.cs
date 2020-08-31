@@ -20,7 +20,7 @@ namespace Terramon.Items.Pokeballs.Thrown // This projectile is thrown by Red, t
             projectile.timeLeft = 300;
             projectile.damage = 30;
             projectile.light = 1f;
-            projectile.scale = 0.6f;
+            projectile.scale = 1f;
             collide = true;
         }
 

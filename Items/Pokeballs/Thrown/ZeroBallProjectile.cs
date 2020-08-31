@@ -2,37 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Items.Pokeballs.Parts;
-using Terramon.Pokemon.FirstGeneration.Normal.Beedrill;
-using Terramon.Pokemon.FirstGeneration.Normal.Blastoise;
-using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
-using Terramon.Pokemon.FirstGeneration.Normal.Butterfree;
-using Terramon.Pokemon.FirstGeneration.Normal.Caterpie;
-using Terramon.Pokemon.FirstGeneration.Normal.Charizard;
-using Terramon.Pokemon.FirstGeneration.Normal.Charmander;
-using Terramon.Pokemon.FirstGeneration.Normal.Charmeleon;
-using Terramon.Pokemon.FirstGeneration.Normal.Dragonair;
-using Terramon.Pokemon.FirstGeneration.Normal.Dragonite;
-using Terramon.Pokemon.FirstGeneration.Normal.Dratini;
-using Terramon.Pokemon.FirstGeneration.Normal.Eevee;
-using Terramon.Pokemon.FirstGeneration.Normal.Gastly;
-using Terramon.Pokemon.FirstGeneration.Normal.Gengar;
-using Terramon.Pokemon.FirstGeneration.Normal.Goldeen;
-using Terramon.Pokemon.FirstGeneration.Normal.Haunter;
-using Terramon.Pokemon.FirstGeneration.Normal.Horsea;
-using Terramon.Pokemon.FirstGeneration.Normal.Ivysaur;
-using Terramon.Pokemon.FirstGeneration.Normal.Kakuna;
-using Terramon.Pokemon.FirstGeneration.Normal.Magikarp;
-using Terramon.Pokemon.FirstGeneration.Normal.Metapod;
-using Terramon.Pokemon.FirstGeneration.Normal.Oddish;
-using Terramon.Pokemon.FirstGeneration.Normal.Pidgeot;
-using Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto;
-using Terramon.Pokemon.FirstGeneration.Normal.Pidgey;
-using Terramon.Pokemon.FirstGeneration.Normal.Pikachu;
-using Terramon.Pokemon.FirstGeneration.Normal.Rattata;
-using Terramon.Pokemon.FirstGeneration.Normal.Squirtle;
-using Terramon.Pokemon.FirstGeneration.Normal.Venusaur;
-using Terramon.Pokemon.FirstGeneration.Normal.Wartortle;
-using Terramon.Pokemon.FirstGeneration.Normal.Weedle;
+using Terramon.Pokemon;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -49,40 +19,7 @@ namespace Terramon.Items.Pokeballs.Thrown
                 NPC target = Main.npc[i];
                 if 
                     (
-                        target.type == ModContent.NPCType<BulbasaurNPC>() ||
-                        target.type == ModContent.NPCType<IvysaurNPC>() ||
-                        target.type == ModContent.NPCType<VenusaurNPC>() ||
-                        target.type == ModContent.NPCType<CharmanderNPC>() ||
-                        target.type == ModContent.NPCType<CharmeleonNPC>() ||
-                        target.type == ModContent.NPCType<CharizardNPC>() ||
-                        target.type == ModContent.NPCType<SquirtleNPC>() ||
-                        target.type == ModContent.NPCType<WartortleNPC>() ||
-                        target.type == ModContent.NPCType<BlastoiseNPC>() ||
-                        target.type == ModContent.NPCType<CaterpieNPC>() ||
-                        target.type == ModContent.NPCType<MetapodNPC>() ||
-                        target.type == ModContent.NPCType<ButterfreeNPC>() ||
-                        target.type == ModContent.NPCType<WeedleNPC>() ||
-                        target.type == ModContent.NPCType<KakunaNPC>() ||
-                        target.type == ModContent.NPCType<BeedrillNPC>() ||
-                        target.type == ModContent.NPCType<PidgeyNPC>() ||
-                        target.type == ModContent.NPCType<PidgeottoNPC>() ||
-                        target.type == ModContent.NPCType<PidgeotNPC>() ||
-                        target.type == ModContent.NPCType<RattataNPC>() ||
-                        // target.type == ModContent.NPCType<RaticateNPC>() ||
-                        // target.type == ModContent.NPCType<SpearowNPC>() ||
-                        // target.type == ModContent.NPCType<FearowNPC>() ||
-                        target.type == ModContent.NPCType<PikachuNPC>() ||
-                        target.type == ModContent.NPCType<OddishNPC>() ||
-                        target.type == ModContent.NPCType<GastlyNPC>() ||
-                        target.type == ModContent.NPCType<HaunterNPC>() ||
-                        target.type == ModContent.NPCType<GengarNPC>() ||
-                        target.type == ModContent.NPCType<HorseaNPC>() ||
-                        target.type == ModContent.NPCType<GoldeenNPC>() ||
-                        target.type == ModContent.NPCType<MagikarpNPC>() ||
-                        target.type == ModContent.NPCType<EeveeNPC>() ||
-                        target.type == ModContent.NPCType<DratiniNPC>() ||
-                        target.type == ModContent.NPCType<DragonairNPC>() ||
-                        target.type == ModContent.NPCType<DragoniteNPC>() 
+                        target.modNPC is ParentPokemonNPC parentNPC
                     )
                 {
                     float shootToX = target.position.X + (float)target.width * 0.5f - projectile.Center.X;
@@ -90,7 +27,7 @@ namespace Terramon.Items.Pokeballs.Thrown
                     float distance = (float)System.Math.Sqrt((double)(shootToX * shootToX + shootToY * shootToY));
 
                     //If the distance between the live targeted npc and the projectile is less than 480 pixels
-                    if (distance < 480f && !target.friendly && target.active)
+                    if (distance < 280f && target.active)
                     {
                         //Divide the factor, 3f, which is the desired velocity
                         distance = 3f / distance;
