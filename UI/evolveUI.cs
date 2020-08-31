@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Razorwing.Framework.Localisation;
 using Terramon.Items.Evolution;
 using Terramon.Items.MiscItems.LinkCables;
 using Terramon.Items.Pokeballs.Inventory;
@@ -31,6 +32,13 @@ namespace Terramon.UI.SidebarParty
         public VanillaItemSlotWrapper partyslot1;
         public VanillaItemSlotWrapper partyslot2;
 
+        public ILocalisedBindableString placeMonString =
+            TerramonMod.Localisation.GetLocalisedString(new LocalisedString("evolveUI.placemon"));
+        public ILocalisedBindableString placeCandyText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString("evolveUI.placeItem"));
+        public ILocalisedBindableString rareCandyText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString("rareCandy"));
+        public ILocalisedBindableString linkCableText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString("linkCable"));
+
+
         // In OnInitialize, we place various UIElements onto our UIState (this class).
         // UIState classes have width and height equal to the full screen, because of this, usually we first define a UIElement that will act as the container for our UI.
         // We then place various other UIElement onto that container UIElement positioned relative to the container UIElement.
@@ -38,7 +46,6 @@ namespace Terramon.UI.SidebarParty
         {
             // Here we define our container UIElement. In DragableUIPanel.cs, you can see that DragableUIPanel is a UIPanel with a couple added features.
             // Here we define our container UIElement. In DragableUIPanel.cs, you can see that DragableUIPanel is a UIPanel with a couple added features.
-
 
             //pokemon icons
 
@@ -76,7 +83,8 @@ namespace Terramon.UI.SidebarParty
             PokemonGoesHere = new UIText("0/0");
             PokemonGoesHere.HAlign = 0.5f;
             PokemonGoesHere.VAlign = 1.5f;
-            PokemonGoesHere.SetText("Place a Pokémon in the first slot.");
+            //PokemonGoesHere.SetText("Place a Pokémon in the first slot.");
+            PokemonGoesHere.SetText(placeMonString.Value);
             mainPanel.Append(PokemonGoesHere);
 
             RareCandiesGoHere = new UIText("0/0");
@@ -116,7 +124,8 @@ namespace Terramon.UI.SidebarParty
             base.Update(gameTime);
             if (partyslot1.Item.IsAir)
             {
-                PokemonGoesHere.SetText("Place a Pokémon in the first slot.");
+                //PokemonGoesHere.SetText("Place a Pokémon in the first slot.");
+                PokemonGoesHere.SetText(placeMonString.Value);
                 mainPanel.RemoveChild(partyslot2);
             }
             else
@@ -130,8 +139,9 @@ namespace Terramon.UI.SidebarParty
                         {
                             //Set preference to RareCandy
                             partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is RareCandy;
-
-                            PokemonGoesHere.SetText($"Place {mon.EvolveCost} Rare Candies in the second slot.");
+                            //PokemonGoesHere.SetText($"Place {mon.EvolveCost} Rare Candies in the second slot.");
+                            placeCandyText.Args = new object[] {mon.EvolveCost, rareCandyText.Value};
+                            PokemonGoesHere.SetText(placeCandyText.Value);
                             mainPanel.Append(partyslot2);
                             if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is RareCandy &&
                                 partyslot2.Item.stack == mon.EvolveCost)
@@ -149,7 +159,10 @@ namespace Terramon.UI.SidebarParty
                             //Set preference to LinkCable
                             partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is LinkCable;
 
-                            PokemonGoesHere.SetText($"Place {mon.EvolveCost} Link Cable in the second slot.");
+                            //PokemonGoesHere.SetText($"Place {mon.EvolveCost} Link Cable in the second slot.");
+
+                            placeCandyText.Args = new object[] { mon.EvolveCost, linkCableText.Value };
+                            PokemonGoesHere.SetText(placeCandyText.Value);
                             mainPanel.Append(partyslot2);
                             if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is LinkCable &&
                                 partyslot2.Item.stack == mon.EvolveCost)
