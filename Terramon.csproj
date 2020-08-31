@@ -18,7 +18,15 @@
     <Compile Remove="Items\Apricorns\Cooked\CookedRedApricorn.cs" />
     <Compile Remove="Items\Apricorns\Cooked\CookedWhiteApricorn.cs" />
     <Compile Remove="Items\Apricorns\Cooked\CookedYellowApricorn.cs" />
+    <Compile Remove="Items\Eggs\BaseEggsClass.cs" />
+    <Compile Remove="Items\Eggs\PokemonBreeder.cs" />
     <Compile Remove="Items\Food\StoneBowl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\en-US.lang" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\en-US.lang" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Items\Apricorns\Cooked\CookedBlackApricorn.cs" />
@@ -28,6 +36,8 @@
     <None Include="Items\Apricorns\Cooked\CookedRedApricorn.cs" />
     <None Include="Items\Apricorns\Cooked\CookedWhiteApricorn.cs" />
     <None Include="Items\Apricorns\Cooked\CookedYellowApricorn.cs" />
+    <None Include="Items\Eggs\BaseEggsClass.cs" />
+    <None Include="Items\Eggs\PokemonBreeder.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />

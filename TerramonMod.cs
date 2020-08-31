@@ -5,17 +5,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Razorwing.Framework.IO.Stores;
+using Razorwing.Framework.Localisation;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network.Catching;
 using Terramon.Network.Starter;
 using Terramon.Pokemon;
 using Terramon.Pokemon.Moves;
+using Terramon.Razorwing.Framework.IO.Stores;
 using Terramon.UI;
 using Terramon.UI.Moveset;
 using Terramon.UI.SidebarParty;
 using Terramon.UI.Starter;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -54,6 +58,8 @@ namespace Terramon
         public UserInterface _partySlots;
 
         public static ModHotKey PartyCycle;
+        public static LocalisationManager Localisation;
+        public static IResourceStore<byte[]> Store;
 
         //evolution
 
@@ -101,7 +107,9 @@ namespace Terramon
 
             return ballProjectiles;
         }
-
+#if DEBUG
+        protected DllResourceStore man;
+#endif
         public override void Load()
         {
             //Load all mons to a store
@@ -109,6 +117,17 @@ namespace Terramon
 
             if (Main.netMode != NetmodeID.Server)
             {
+                Localisation = new LocalisationManager();
+                Store = new NamespacedResourceStore<byte[]>(man = new DllResourceStore(typeof(TerramonMod).Assembly), "");
+                Localisation.AddLanguage(GameCulture.English.Name, new LocalisationStore(Store, GameCulture.English));
+#if DEBUG
+                var l = new List<string>();
+                foreach (var it in man.GetAvailableResources())
+                {
+                    l.Add(it);
+                }
+#endif
+
                 ChooseStarter = new ChooseStarter();
                 ChooseStarter.Activate();
                 ChooseStarterBulbasaur = new ChooseStarterBulbasaur();
@@ -145,6 +164,8 @@ namespace Terramon
                 _uiSidebar.SetState(UISidebar);
                 _moves.SetState(Moves);
                 _partySlots.SetState(PartySlots);
+
+    
             }
 
 
@@ -195,6 +216,8 @@ namespace Terramon
             Moves = null;
 
             PartyCycle = null;
+            Localisation = null;
+            Store = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)
