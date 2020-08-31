@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Scyther
 {
-    public class Scyther : ParentPokemon
+    public class Scyther : ParentPokemonFlying
     {
         
 

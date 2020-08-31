@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Zubat
 {
-    public class Zubat : ParentPokemon
+    public class Zubat : ParentPokemonFlying
     {
         public override int EvolveCost => 17;
 

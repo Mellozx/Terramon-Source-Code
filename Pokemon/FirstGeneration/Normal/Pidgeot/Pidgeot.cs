@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeot
 {
-    public class Pidgeot : ParentPokemon
+    public class Pidgeot : ParentPokemonFlying
     {
         
 

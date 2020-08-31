@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Koffing
 {
-    public class Koffing : ParentPokemon
+    public class Koffing : ParentPokemonGastly
     {
         public override int EvolveCost => 30;
 

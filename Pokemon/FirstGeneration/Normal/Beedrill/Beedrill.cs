@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Beedrill
 {
-    public class Beedrill : ParentPokemon
+    public class Beedrill : ParentPokemonFlying
     {
         
 

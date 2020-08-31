@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Haunter
 {
-    public class Haunter : ParentPokemon
+    public class Haunter : ParentPokemonGastly
     {
         public override int EvolveCost => 18;
 

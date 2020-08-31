@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Weezing
 {
-    public class Weezing : ParentPokemon
+    public class Weezing : ParentPokemonGastly
     {
         
 

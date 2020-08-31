@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Fearow
 {
-    public class Fearow : ParentPokemon
+    public class Fearow : ParentPokemonFlying
     {
         
 
