@@ -28,25 +28,27 @@ namespace Terramon.Pokemon
         protected bool shiny = false;
         protected int timer;
 
-public static bool PlayerIsInForest(Player player){
-	return !player.ZoneJungle
-		&& !player.ZoneDungeon
-		&& !player.ZoneCorrupt
-		&& !player.ZoneCrimson
-		&& !player.ZoneHoly
-		&& !player.ZoneSnow
-		&& !player.ZoneUndergroundDesert
-		&& !player.ZoneGlowshroom
-		&& !player.ZoneMeteor
-		&& !player.ZoneBeach
-		&& !player.ZoneDesert
-		&& player.ZoneOverworldHeight;
-}
+        public static bool PlayerIsInForest(Player player)
+        {
+            return !player.ZoneJungle
+                   && !player.ZoneDungeon
+                   && !player.ZoneCorrupt
+                   && !player.ZoneCrimson
+                   && !player.ZoneHoly
+                   && !player.ZoneSnow
+                   && !player.ZoneUndergroundDesert
+                   && !player.ZoneGlowshroom
+                   && !player.ZoneMeteor
+                   && !player.ZoneBeach
+                   && !player.ZoneDesert
+                   && player.ZoneOverworldHeight;
+        }
 
-public static bool PlayerIsInEvils(Player player){
-	return player.ZoneCrimson
-		|| player.ZoneCorrupt;
-}
+        public static bool PlayerIsInEvils(Player player)
+        {
+            return player.ZoneCrimson
+                   || player.ZoneCorrupt;
+        }
 
         public string PokeName()
         {
@@ -60,10 +62,13 @@ public static bool PlayerIsInEvils(Player player){
             {
                 path += "_Shiny";
             }
+
             SpriteEffects effects = npc.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Texture2D pkmnTexture = mod.GetTexture(path);
             int frameHeight = pkmnTexture.Height / Main.npcFrameCount[npc.type];
-            spriteBatch.Draw(pkmnTexture, npc.position - Main.screenPosition + new Vector2(0, -6), new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, npc.rotation, new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
+            spriteBatch.Draw(pkmnTexture, npc.position - Main.screenPosition + new Vector2(0, -6),
+                new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, npc.rotation,
+                new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
             return false;
         }
 
@@ -178,16 +183,16 @@ public static bool PlayerIsInEvils(Player player){
                     {
                         Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<MasterBallCaught>());
                         return;
-                    } else 
-                    if (ballProjectiles[i] == "ZeroBallProjectile") // Master Ball never fails
+                    }
+                    else if (ballProjectiles[i] == "ZeroBallProjectile") // Master Ball never fails
                     {
                         if (Main.rand.NextFloat() < .1190f)
                         {
                             Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<ZeroBallCaught>());
                             return;
                         }
-                    } else 
-                    if (ballProjectiles[i] == "DuskBallProjectile") // Special Condition day/night
+                    }
+                    else if (ballProjectiles[i] == "DuskBallProjectile") // Special Condition day/night
                     {
                         ballUsage++;
                         if (!Main.dayTime && Main.rand.NextFloat() < catchChances[i][0] ||
@@ -443,6 +448,7 @@ public static bool PlayerIsInEvils(Player player){
                 {
                     item.isShiny = false;
                 }
+
                 item.CapturedPokemon = HomeClass().Name;
             }
         }
