@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeotto
 {
-    public class Pidgeotto : ParentPokemon
+    public class Pidgeotto : ParentPokemonFlying
     {
         public override int EvolveCost => 18;
 

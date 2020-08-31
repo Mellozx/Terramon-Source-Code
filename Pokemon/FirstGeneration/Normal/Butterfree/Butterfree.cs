@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Butterfree
 {
-    public class Butterfree : ParentPokemon
+    public class Butterfree : ParentPokemonFlying
     {
         
 

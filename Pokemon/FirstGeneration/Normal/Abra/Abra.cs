@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Abra
 {
-    public class Abra : ParentPokemon
+    public class Abra : ParentPokemonGastly
     {
         public override int EvolveCost => 11;
 

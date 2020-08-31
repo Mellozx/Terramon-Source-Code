@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Magneton
 {
-    public class Magneton : ParentPokemon
+    public class Magneton : ParentPokemonGastly
     {
         
 

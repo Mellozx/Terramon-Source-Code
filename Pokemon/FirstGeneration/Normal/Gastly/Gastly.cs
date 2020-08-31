@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Gastly
 {
-    public class Gastly : ParentPokemon
+    public class Gastly : ParentPokemonGastly
     {
         public override int EvolveCost => 20;
 

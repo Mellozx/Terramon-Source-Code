@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Aerodactyl
 {
-    public class Aerodactyl : ParentPokemon
+    public class Aerodactyl : ParentPokemonFlying
     {
         
 

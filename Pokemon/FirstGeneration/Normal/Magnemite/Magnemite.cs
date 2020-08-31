@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Magnemite
 {
-    public class Magnemite : ParentPokemon
+    public class Magnemite : ParentPokemonGastly
     {
         public override int EvolveCost => 25;
 

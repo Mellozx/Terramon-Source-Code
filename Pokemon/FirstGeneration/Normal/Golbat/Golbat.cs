@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Golbat
 {
-    public class Golbat : ParentPokemon
+    public class Golbat : ParentPokemonFlying
     {
         
 
