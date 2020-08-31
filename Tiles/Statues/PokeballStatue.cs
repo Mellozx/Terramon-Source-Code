@@ -38,7 +38,7 @@ namespace Terramon.Tiles.Statues
         {
             Tile tile = Main.tile[i, j];
 
-            if (tile.frameX > 0)
+            if (tile.frameX > 18)
             {
                 // We can support different light colors for different styles here: switch (tile.frameY / 54)
                 r = 1f;
@@ -65,39 +65,6 @@ namespace Terramon.Tiles.Statues
             NetMessage.SendTileSquare(-1, i, topY + 1, 2, TileChangeType.None);
             NetMessage.SendTileSquare(-1, i+1, topY + 1, 2, TileChangeType.None);
 
-        }
-
-        public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref Color drawColor, ref int nextSpecialDrawIndex)
-        {
-            if (!Main.gamePaused && Main.instance.IsActive && (!Lighting.UpdateEveryFrame || Main.rand.NextBool(4)))
-            {
-                Tile tile = Main.tile[i, j];
-                short frameX = tile.frameX;
-                short frameY = tile.frameY;
-                if (Main.rand.NextBool(40) && frameX == 0)
-                {
-                    int style = frameY / 54;
-                    if (frameY / 18 % 3 == 0)
-                    {
-                        int dustChoice = -1;
-                        if (style == 0)
-                        {
-                            dustChoice = 21; // A purple dust.
-                        }
-                        // We can support different dust for different styles here
-                        if (dustChoice != -1)
-                        {
-                            int dust = Dust.NewDust(new Vector2(i * 16 + 4, j * 16 + 2), 4, 4, dustChoice, 0f, 0f, 100, default(Color), 1f);
-                            if (Main.rand.Next(3) != 0)
-                            {
-                                Main.dust[dust].noGravity = true;
-                            }
-                            Main.dust[dust].velocity *= 0.3f;
-                            Main.dust[dust].velocity.Y = Main.dust[dust].velocity.Y - 1.5f;
-                        }
-                    }
-                }
-            }
         }
     }
     
