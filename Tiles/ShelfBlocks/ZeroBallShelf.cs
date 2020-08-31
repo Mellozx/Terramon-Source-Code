@@ -14,9 +14,10 @@ namespace Terramon.Tiles.ShelfBlocks
 		public override void SetDefaults()
 		{
 			Main.tileShine[Type] = 1100;
-			Main.tileSolid[Type] = true;
+			Main.tileSolid[Type] = false;
 			Main.tileSolidTop[Type] = false;
-			Main.tileFrameImportant[Type] = true;
+            Main.tileLighted[Type] = true;
+            Main.tileFrameImportant[Type] = true;
             minPick = 0;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.StyleHorizontal = true;
@@ -26,7 +27,19 @@ namespace Terramon.Tiles.ShelfBlocks
 			AddMapEntry(new Color(8, 60, 84), Language.GetText("Zero Ball"));
 		}
 
-		public override bool Drop(int i, int j)
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
+            Tile tile = Main.tile[i, j];
+            if (tile.frameX == 0)
+            {
+                // We can support different light colors for different styles here: switch (tile.frameY / 54)
+                r = 0f;
+                g = 0.30f;
+                b = 0.66f;
+            }
+        }
+
+        public override bool Drop(int i, int j)
 		{
 			Tile t = Main.tile[i, j];
 			int style = t.frameX / 18;

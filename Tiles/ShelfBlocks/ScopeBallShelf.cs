@@ -14,9 +14,10 @@ namespace Terramon.Tiles.ShelfBlocks
 		public override void SetDefaults()
 		{
 			Main.tileShine[Type] = 1100;
-			Main.tileSolid[Type] = true;
+			Main.tileSolid[Type] = false;
 			Main.tileSolidTop[Type] = false;
-			Main.tileFrameImportant[Type] = true;
+            Main.tileLighted[Type] = true;
+            Main.tileFrameImportant[Type] = true;
             minPick = 0;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.StyleHorizontal = true;
@@ -26,7 +27,19 @@ namespace Terramon.Tiles.ShelfBlocks
 			AddMapEntry(new Color(83, 14, 92), Language.GetText("Scope Ball"));
 		}
 
-		public override bool Drop(int i, int j)
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
+            Tile tile = Main.tile[i, j];
+            if (tile.frameX == 0)
+            {
+                // We can support different light colors for different styles here: switch (tile.frameY / 54)
+                r = 0.52f;
+                g = 0f;
+                b = 0.66f;
+            }
+        }
+
+        public override bool Drop(int i, int j)
 		{
 			Tile t = Main.tile[i, j];
 			int style = t.frameX / 18;
@@ -62,5 +75,16 @@ namespace Terramon.Tiles.ShelfBlocks
                 item.consumable = true;
                 item.createTile = mod.TileType("ScopeBallShelf");
             }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("BlackApricorn"), 2);
+            recipe.AddIngredient(ItemID.Nanites);
+            recipe.AddIngredient(ItemID.Amethyst);
+            recipe.AddIngredient(ItemID.IronBar);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
+    }
 }

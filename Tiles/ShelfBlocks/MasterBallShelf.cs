@@ -14,7 +14,7 @@ namespace Terramon.Tiles.ShelfBlocks
 		public override void SetDefaults()
 		{
 			Main.tileShine[Type] = 1100;
-			Main.tileSolid[Type] = true;
+			Main.tileSolid[Type] = false;
 			Main.tileSolidTop[Type] = false;
 			Main.tileFrameImportant[Type] = true;
             minPick = 0;
@@ -62,5 +62,15 @@ namespace Terramon.Tiles.ShelfBlocks
                 item.consumable = true;
                 item.createTile = mod.TileType("MasterBallShelf");
             }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("RedApricorn"));
+            recipe.AddIngredient(mod.ItemType("BlueApricorn"));
+            recipe.AddIngredient(ItemID.LunarBar);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
+    }
 }
