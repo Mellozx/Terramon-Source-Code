@@ -14,8 +14,8 @@ namespace Terramon.Tiles.ShelfBlocks
 		public override void SetDefaults()
 		{
 			Main.tileShine[Type] = 1100;
-			Main.tileSolid[Type] = true;
-			Main.tileSolidTop[Type] = true;
+			Main.tileSolid[Type] = false;
+			Main.tileSolidTop[Type] = false;
 			Main.tileFrameImportant[Type] = true;
             minPick = 0;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
@@ -32,7 +32,7 @@ namespace Terramon.Tiles.ShelfBlocks
 			int style = t.frameX / 18;
 			if (style == 0) // It can be useful to share a single tile with multiple styles. This code will let you drop the appropriate bar if you had multiple.
 			{
-				Item.NewItem(i * 16, j * 16, 16, 16, mod.ItemType("TimerBall"));
+				Item.NewItem(i * 16, j * 16, 16, 16, mod.ItemType("TimerBallShelf_Held"));
 			}
 			return base.Drop(i, j);
 		}

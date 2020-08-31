@@ -14,8 +14,8 @@ namespace Terramon.Tiles.ShelfBlocks
 		public override void SetDefaults()
 		{
 			Main.tileShine[Type] = 1100;
-			Main.tileSolid[Type] = true;
-			Main.tileSolidTop[Type] = true;
+			Main.tileSolid[Type] = false;
+			Main.tileSolidTop[Type] = false;
 			Main.tileFrameImportant[Type] = true;
             minPick = 0;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
@@ -30,9 +30,9 @@ namespace Terramon.Tiles.ShelfBlocks
 		{
 			Tile t = Main.tile[i, j];
 			int style = t.frameX / 18;
-			if (style == 0) // It can be useful to share a single tile with multiple styles. This code will let you drop the appropriate bar if you had multiple.
+			if (style == 0)
 			{
-				Item.NewItem(i * 16, j * 16, 16, 16, mod.ItemType("MasterBall"));
+				Item.NewItem(i * 16, j * 16, 16, 16, mod.ItemType("MasterBallShelf_Held"));
 			}
 			return base.Drop(i, j);
 		}
@@ -62,5 +62,15 @@ namespace Terramon.Tiles.ShelfBlocks
                 item.consumable = true;
                 item.createTile = mod.TileType("MasterBallShelf");
             }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("RedApricorn"));
+            recipe.AddIngredient(mod.ItemType("BlueApricorn"));
+            recipe.AddIngredient(ItemID.LunarBar);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
+    }
 }

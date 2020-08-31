@@ -60,10 +60,16 @@ namespace Terramon.Tiles.Statues
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("BlackApricorn"));
+            recipe.AddIngredient(mod.ItemType("BlueApricorn"));
             recipe.AddIngredient(ItemID.StoneBlock, 50);
+            recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();
+
+            ModRecipe recipe2 = new ModRecipe(mod);
+            recipe2.AddIngredient(mod.ItemType("ApricornStatueLiteItem"));
+            recipe2.SetResult(this);
+            recipe2.AddRecipe();
         }
     }
 }
