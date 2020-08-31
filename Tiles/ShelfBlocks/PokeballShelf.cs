@@ -15,7 +15,7 @@ namespace Terramon.Tiles.ShelfBlocks
 		{
 			Main.tileShine[Type] = 1100;
 			Main.tileSolid[Type] = true;
-			Main.tileSolidTop[Type] = true;
+			Main.tileSolidTop[Type] = false;
 			Main.tileFrameImportant[Type] = true;
             minPick = 0;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
