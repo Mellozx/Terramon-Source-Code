@@ -1,5 +1,9 @@
 ﻿#This is localisation file for English
-evolveUI.placemon=Please, place pokemon in first slot.
-evolveUI.placeItem=Place {0} {1} in second slot.
+evolveUI.placemon=Place a Pokémon in the first slot.
+evolveUI.placeItem=Place {0} {1} in the second slot.
 rareCandy=Rare Candy
-linkCable=Link Cables
+linkCable=Link Cable
+#Some names that need fixing
+Nidoranm=Nidoran ♂
+Nidoranf=Nidoran ♀
+Mrmime=Mr. Mime

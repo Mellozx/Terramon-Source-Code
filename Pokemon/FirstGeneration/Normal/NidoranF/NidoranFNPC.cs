@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal.NidoranF
+namespace Terramon.Pokemon.FirstGeneration.Normal.Nidoranf
 {
-    public class NidoranFNPC : ParentPokemonNPC
+    public class NidoranfNPC : ParentPokemonNPC
     {
         public override Type HomeClass()
         {
-            return typeof(NidoranF);
+            return typeof(Nidoranf);
         }
 
         public override void SetDefaults()

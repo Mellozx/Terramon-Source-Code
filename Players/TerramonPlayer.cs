@@ -314,7 +314,7 @@ namespace Terramon.Players
         {
             ResetEffects();
 
-            var monName = ActivePet.FirstOrDefault(x => x.Value).Value;
+            var monName = ActivePets.FirstOrDefault(x => x.Value).Value;
 
             if (string.IsNullOrEmpty(name) || name == "*")
             {
@@ -453,7 +453,7 @@ namespace Terramon.Players
         string lastmon = "";
         public override void PreUpdate()
         {
-            var monName = ActivePet.FirstOrDefault(x => x.Value).Key;
+            var monName = ActivePets.FirstOrDefault(x => x.Value).Key;
             if (lastmon != monName)
             {
                 if (string.IsNullOrEmpty(monName) || monName == "*")
