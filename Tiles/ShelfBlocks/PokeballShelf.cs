@@ -26,10 +26,17 @@ namespace Terramon.Tiles.ShelfBlocks
 			AddMapEntry(new Color(240, 34, 64), Language.GetText("Pokeball")); 
 		}
 
-public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			Item.NewItem(i * 16, j * 16, 16, 16, mod.ItemType("PokeballShelf"));
-		}
-	}
+        public override bool Drop(int i, int j)
+        {
+            Tile t = Main.tile[i, j];
+            int style = t.frameX / 18;
+            if (style == 0)
+            {
+                Item.NewItem(i * 16, j * 16, 16, 16, mod.ItemType("PokeballShelf_Held"));
+            }
+            return base.Drop(i, j);
+        }
+    }
     
     //Pokeball Item
 
