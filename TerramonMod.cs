@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Razorwing.Framework.Configuration;
 using Razorwing.Framework.IO.Stores;
 using Razorwing.Framework.Localisation;
 using Terramon.Items.Pokeballs.Inventory;
@@ -183,6 +184,7 @@ namespace Terramon
         }
 		
         protected DllResourceStore man;
+        protected Bindable<string> locale = new Bindable<string>(Language.ActiveCulture.Name);
 		
         public override void Load()
         {
@@ -221,15 +223,14 @@ namespace Terramon
 
             if (Main.netMode != NetmodeID.Server)
             {
-                Localisation = new LocalisationManager();
-                Store = new NamespacedResourceStore<byte[]>(man = new DllResourceStore(typeof(TerramonMod).Assembly), "");
+                Localisation = new LocalisationManager(locale);
+                //Store = new NamespacedResourceStore<byte[]>(man = new DllResourceStore(typeof(TerramonMod).Assembly), "");
+                Store = new ResourceStore<byte[]>(new EmbeddedStore());
                 Localisation.AddLanguage(GameCulture.English.Name, new LocalisationStore(Store, GameCulture.English));
 #if DEBUG
-                var l = new List<string>();
-                foreach (var it in man.GetAvailableResources())
-                {
-                    l.Add(it);
-                }
+
+                var ss = Localisation.GetLocalisedString(new LocalisedString(("title","Powered by broken code")));//It's terrible checking in ui from phone, so i can ensure everything works from version string
+                Main.versionNumber = ss.Value + "\n" + Main.versionNumber;
 #endif
 
                 ChooseStarter = new ChooseStarter();
@@ -399,14 +400,14 @@ namespace Terramon
         // END UI STUFF
 
 
-        #region HotKeys
+#region HotKeys
 
         public ModHotKey FirstPKMAbility { get; private set; }
         public ModHotKey SecondPKMAbility { get; private set; }
         public ModHotKey ThirdPKMAbility { get; private set; }
         public ModHotKey FourthPKMAbility { get; private set; }
 
-        #endregion
+#endregion
 
 
         /// <summary>

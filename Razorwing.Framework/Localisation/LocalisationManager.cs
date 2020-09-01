@@ -16,10 +16,10 @@ namespace Razorwing.Framework.Localisation
         private readonly Bindable<string> configLocale;
         private readonly Bindable<IResourceStore<string>> currentStorage = new Bindable<IResourceStore<string>>();
 
-        public LocalisationManager()
+        public LocalisationManager(Bindable<string> locale)
         {
-            preferUnicode = new Bindable<bool>(false);
-            configLocale = new Bindable<string>(LanguageManager.Instance.ActiveCulture.Name);
+            preferUnicode = new Bindable<bool>(true);
+            configLocale = locale;
             configLocale.BindValueChanged(updateLocale);
         }
 

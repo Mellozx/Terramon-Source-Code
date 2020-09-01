@@ -45,7 +45,7 @@ namespace Razorwing.Framework.Localisation
                     }
                 }
                 
-                Value = !string.IsNullOrEmpty(newText) ? newText : text.ShouldLocalise ? text.Args.Any()? text.Args.First().ToString() : text.Text.Original : text.Text.Original;
+                Value = !string.IsNullOrEmpty(newText) ? newText : text.Text.Fallback;
             }
 
             LocalisedString ILocalisedBindableString.Text
