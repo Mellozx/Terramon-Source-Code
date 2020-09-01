@@ -31,7 +31,7 @@ namespace Terramon.Razorwing.Framework.IO.Stores
 
         protected void loadDictionary()
         {
-            using (var stream = fileStore.GetStream($@"{culture.Name}.lang"))
+            using (var stream = fileStore.GetStream($@"Resources/{culture.Name}.lang"))
             {
                 if (stream == null)
                     return;

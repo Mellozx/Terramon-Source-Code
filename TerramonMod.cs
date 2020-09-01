@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Razorwing.Framework.Configuration;
 using Razorwing.Framework.IO.Stores;
 using Razorwing.Framework.Localisation;
@@ -228,7 +229,6 @@ namespace Terramon
                 Store = new ResourceStore<byte[]>(new EmbeddedStore());
                 Localisation.AddLanguage(GameCulture.English.Name, new LocalisationStore(Store, GameCulture.English));
 #if DEBUG
-
                 var ss = Localisation.GetLocalisedString(new LocalisedString(("title","Powered by broken code")));//It's terrible checking in ui from phone, so i can ensure everything works from version string
                 Main.versionNumber = ss.Value + "\n" + Main.versionNumber;
 #endif
