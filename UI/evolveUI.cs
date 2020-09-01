@@ -33,10 +33,12 @@ namespace Terramon.UI.SidebarParty
         public VanillaItemSlotWrapper partyslot2;
 
         public ILocalisedBindableString placeMonString =
-            TerramonMod.Localisation.GetLocalisedString(new LocalisedString("evolveUI.placemon"));
-        public ILocalisedBindableString placeCandyText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString("evolveUI.placeItem"));
-        public ILocalisedBindableString rareCandyText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString("rareCandy"));
-        public ILocalisedBindableString linkCableText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString("linkCable"));
+            TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("evolveUI.placemon", "Place a Pokémon in the first slot.")));
+        public ILocalisedBindableString placeCandyText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("evolveUI.placeItem", "Place {0} {1} in the second slot.")));
+        public ILocalisedBindableString pressEvolveText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("evolveUI.pressEvolve", "Great! Press the evolve button!")));
+        public ILocalisedBindableString cannotEvolveText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("evolveUI.cannotEvolve", "This Pokémon cannot evolve!")));
+        public ILocalisedBindableString rareCandyText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("rareCandy", "Rare Candy")));
+        public ILocalisedBindableString linkCableText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("linkCable","Link Cable")));
 
 
         // In OnInitialize, we place various UIElements onto our UIState (this class).
@@ -146,7 +148,9 @@ namespace Terramon.UI.SidebarParty
                             if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is RareCandy &&
                                 partyslot2.Item.stack == mon.EvolveCost)
                             {
-                                PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                //PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                PokemonGoesHere.SetText(pressEvolveText.Value);
+
                                 mainPanel.Append(SaveButton);
                             }
                             else
@@ -167,7 +171,9 @@ namespace Terramon.UI.SidebarParty
                             if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is LinkCable &&
                                 partyslot2.Item.stack == mon.EvolveCost)
                             {
-                                PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                //PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                PokemonGoesHere.SetText(pressEvolveText.Value);
+
                                 mainPanel.Append(SaveButton);
                             }
                             else

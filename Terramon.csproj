@@ -51,4 +51,10 @@
       <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Razorwing.Framework\Attribute\" />
+  </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="LocaleParser.exe" />
+  </Target>
 </Project>

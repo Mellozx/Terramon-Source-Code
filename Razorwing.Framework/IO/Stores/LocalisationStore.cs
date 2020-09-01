@@ -31,7 +31,7 @@ namespace Terramon.Razorwing.Framework.IO.Stores
 
         protected void loadDictionary()
         {
-            using (var stream = fileStore.GetStream($@"Resources/{culture.Name}.lang"))
+            using (var stream = fileStore.GetStream($@"{culture.Name}.lang"))
             {
                 if (stream == null)
                     return;
@@ -48,8 +48,8 @@ namespace Terramon.Razorwing.Framework.IO.Stores
 
                         string key = line.Substring(0, equalsIndex).Trim();
                         string val = line.Remove(0, equalsIndex + 1).Trim();
-
-                        if (dictionary.ContainsKey(line))
+                        val = val.Replace("\\n", "\n");
+                        if (dictionary.ContainsKey(key))
                         {
 #if DEBUG
                             throw new FileLoadException($@"Found duplicated entry: {key}");
@@ -57,7 +57,7 @@ namespace Terramon.Razorwing.Framework.IO.Stores
                         }
                         else
                         {
-                            dictionary.Add(key, val); ;
+                            dictionary.Add(key, val); 
                         }
                         //if (!Enum.TryParse(key, out TLookup lookup))
                         //    continue;
