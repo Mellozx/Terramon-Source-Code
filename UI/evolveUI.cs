@@ -184,7 +184,7 @@ namespace Terramon.UI.SidebarParty
                     }
                     else
                     {
-                        PokemonGoesHere.SetText("This Pokémon cannot evolve!");
+                        PokemonGoesHere.SetText(cannotEvolveText.Value);
                     }
                 }
             }
@@ -200,14 +200,14 @@ namespace Terramon.UI.SidebarParty
                 var mon = TerramonMod.GetPokemon(pokeball.CapturedPokemon);
                 if (mon == null)
                 {
-                    Main.NewText("This Pokémon cannot evolve!");
+                    Main.NewText(cannotEvolveText.Value);
                     return;
                 }
 
                 var evolved = TerramonMod.GetPokemon(mon.EvolveTo.Name);
                 if (evolved == null)
                 {
-                    Main.NewText("This Pokémon cannot evolve!");
+                    Main.NewText(cannotEvolveText.Value);
                     return;
                 }
 

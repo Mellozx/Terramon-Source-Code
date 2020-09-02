@@ -32,7 +32,10 @@ namespace Razorwing.Framework.Localisation
 
                 if (text.ShouldLocalise && storage.Value != null)
                     newText = storage.Value.Get(newText);
-
+                if (string.IsNullOrEmpty(newText))
+                {
+                    newText = text.Text.Fallback;
+                }
                 if (text.Args?.Length > 0 && !string.IsNullOrEmpty(newText))
                 {
                     try
@@ -45,7 +48,7 @@ namespace Razorwing.Framework.Localisation
                     }
                 }
                 
-                Value = !string.IsNullOrEmpty(newText) ? newText : text.Text.Fallback;
+                Value = newText;
             }
 
             LocalisedString ILocalisedBindableString.Text
@@ -66,7 +69,7 @@ namespace Razorwing.Framework.Localisation
                 get { return text.Args; }
                 set
                 {
-                    if(ArgEquals(Args, value))
+                    if (ArgEquals(Args, value))
                         return;
 
                     text.Args = value;

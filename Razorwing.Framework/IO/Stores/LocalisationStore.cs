@@ -1,11 +1,6 @@
-﻿using System;
+﻿using Razorwing.Framework.IO.Stores;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using On.Terraria;
-using Razorwing.Framework.IO.Stores;
 using Terraria.Localization;
 
 namespace Terramon.Razorwing.Framework.IO.Stores
