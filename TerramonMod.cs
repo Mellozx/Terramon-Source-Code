@@ -231,10 +231,10 @@ namespace Terramon
                 if (Localisation == null)
                 {
                     Localisation = new LocalisationManager(locale);
-                    Store = new ResourceStore<byte[]>(new EmbeddedStore());
-                    Localisation.AddLanguage(GameCulture.English.Name, new LocalisationStore(Store, GameCulture.English));
                 }
 
+                Store = new ResourceStore<byte[]>(new EmbeddedStore());
+                Localisation.AddLanguage(GameCulture.English.Name, new LocalisationStore(Store, GameCulture.English));
 #if DEBUG
                 var ss = Localisation.GetLocalisedString(new LocalisedString(("title","Powered by broken code")));//It's terrible checking in ui from phone, so i can ensure everything works from version string
                 Main.versionNumber = ss.Value + "\n" + Main.versionNumber;
