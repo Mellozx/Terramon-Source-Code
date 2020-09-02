@@ -25,6 +25,9 @@ namespace Razorwing.Framework.Localisation
 
         public void AddLanguage(string language, IResourceStore<string> storage)
         {
+            var loc = locales.Find(l => l.Name == language);
+            if (loc != null)
+                locales.Remove(loc);
             locales.Add(new LocaleMapping { Name = language, Storage = storage });
             configLocale.TriggerChange();
         }
