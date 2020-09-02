@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Razorwing.Framework.Localisation;
 using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Inventory
@@ -10,20 +11,21 @@ namespace Terramon.Items.Pokeballs.Inventory
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Premier Ball");
-            Tooltip.SetDefault("Contains %PokemonName"
-                               + "\nLeft click to send out this Pokémon."
-                               + "\nRight click to add to your party.");
+            Tooltip.SetDefault(pokeballTooltip?.Value ?? "");
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            if (pokeName.Value != PokemonName)
+            {
+                pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(PokemonName));
+            }
+
             TooltipLine nameLine = tooltips.FirstOrDefault(t => t.Name == "ItemName" && t.mod == "Terraria");
-            if (nameLine != null) nameLine.text = "Premier Ball (" + PokemonName + ")";
+            if (nameLine != null) nameLine.text = "Premier Ball (" + PokemonName + (isShiny ? " ✦)" : ")");
 
-            string tooltipText = tooltips.Find(x => x.Name == "Tooltip0").text;
-            tooltipText = tooltipText.Replace("%PokemonName", PokemonName);
-
-            tooltips.Find(x => x.Name == "Tooltip0").text = tooltipText;
+            pokeballTooltip.Args = new object[] { isShiny ? pokeName.Value + " ✦" : pokeName.Value };
+            tooltips.Find(x => x.Name == "Tooltip0").text = pokeballTooltip.Value;
             base.ModifyTooltips(tooltips);
         }
     }

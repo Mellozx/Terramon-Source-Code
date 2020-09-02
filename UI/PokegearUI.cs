@@ -72,7 +72,7 @@ namespace Terramon.UI
             // Since mainPanel will move, this proper organization will move playButton, closeButton, and moneyDiplay properly when mainPanel moves.
         }
 
-        private Mod achLib = ModLoader.GetMod("AchievementLib");
+        //private Mod achLib = ModLoader.GetMod("AchievementLib");
         private Player player = Main.LocalPlayer;
 
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)

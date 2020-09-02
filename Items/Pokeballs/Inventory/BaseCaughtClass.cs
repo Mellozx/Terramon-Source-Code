@@ -2,6 +2,7 @@
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Razorwing.Framework.Localisation;
 using Terramon.Players;
 using Terraria;
 using Terraria.ID;
@@ -18,6 +19,15 @@ namespace Terramon.Items.Pokeballs.Inventory
         ///     we better need to store a type string <see cref="nameof(Charmander)" />
         /// </summary>
         public int PokemonNPC;
+
+        public ILocalisedBindableString goText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("go", "Go {0}!")));
+        public ILocalisedBindableString retire1Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("retire1", "{0}, switch out!\nCome back!")));
+        public ILocalisedBindableString retire2Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("retire2", "{0}, return!")));
+        public ILocalisedBindableString retire3Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("retire3", "That's enough for now, {0}!")));
+        public ILocalisedBindableString pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("*")));
+        public ILocalisedBindableString pokeballTooltip = TerramonMod.Localisation.GetLocalisedString(
+            new LocalisedString(("pokeball.tooltip", "Contains {0} \nLeft click to send out this Pokémon (or return it to this ball).\nRight click to add to your party."), "*"));
+
 
         public string CapturedPokemon;
         public string PokemonName;
@@ -42,7 +52,6 @@ namespace Terramon.Items.Pokeballs.Inventory
             item.useTime = 20;
             item.useStyle = 1;
             item.useAnimation = 20;
-
             item.UseSound = SoundID.Item2;
             item.accessory = false;
             item.shoot = 10;
@@ -109,12 +118,18 @@ namespace Terramon.Items.Pokeballs.Inventory
         {
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+            if (pokeName.Value != PokemonName)
+            {
+                pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(PokemonName));
+            }
+
             if (!player.HasBuff(pokeBuff))
             {
                 player.AddBuff(pokeBuff, 2);
                 modPlayer.ActivePetName = PokemonName;
                 modPlayer.ActivatePet(PokemonName, false);
-                CombatText.NewText(player.Hitbox, Color.White, "Go! " + PokemonName + "!", true);
+                goText.Args = new object[] { pokeName.Value };
+                CombatText.NewText(player.Hitbox, Color.White, goText.Value, true);
                 Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout").WithVolume(0.34f));
             }
             else
@@ -123,15 +138,16 @@ namespace Terramon.Items.Pokeballs.Inventory
                 switch (Main.rand.Next(3))
                 {
                     case 0:
-                        CombatText.NewText(player.Hitbox, Color.White,
-                            modPlayer.ActivePetName + ", switch out!\nCome back!", true);
+                        retire1Text.Args = new object[] { pokeName.Value };
+                        CombatText.NewText(player.Hitbox, Color.White, retire1Text.Value, true);
                         break;
                     case 1:
-                        CombatText.NewText(player.Hitbox, Color.White, modPlayer.ActivePetName + ", return!", true);
+                        retire2Text.Args = new object[] { pokeName.Value };
+                        CombatText.NewText(player.Hitbox, Color.White, retire2Text.Value, true);
                         break;
                     default:
-                        CombatText.NewText(player.Hitbox, Color.White,
-                            "That's enough for now, " + modPlayer.ActivePetName + "!", true);
+                        retire3Text.Args = new object[] { pokeName.Value };
+                        CombatText.NewText(player.Hitbox, Color.White, retire3Text.Value, true);
                         break;
                 }
 
@@ -262,8 +278,9 @@ namespace Terramon.Items.Pokeballs.Inventory
         {
             base.ModifyTooltips(tooltips);
             for (int i = 0; i < tooltips.Count;)
-                if (tooltips[i].text.Contains("damage") || tooltips[i].text.Contains("knockback") ||
-                    tooltips[i].text.Contains("critical strike") || tooltips[i].text.Contains("speed"))
+                //if (tooltips[i].text.Contains("damage") || tooltips[i].text.Contains("knockback") ||
+                //    tooltips[i].text.Contains("critical strike") || tooltips[i].text.Contains("speed"))
+                if(tooltips[i].Name != "ItemName" && tooltips[i].Name != "Tooltip0")
                     tooltips.RemoveAt(i);
                 else
                     i++;
