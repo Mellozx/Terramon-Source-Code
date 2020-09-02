@@ -9,6 +9,7 @@ using Terramon.Pokemon;
 using Terramon.Pokemon.FirstGeneration.Fishing;
 using Terramon.Pokemon.Moves;
 using Terramon.UI.Moveset;
+using Razorwing.Framework.Localisation;
 using Terramon.UI.SidebarParty;
 using Terramon.UI.Starter;
 using Terraria;
@@ -34,9 +35,12 @@ namespace Terramon.Players
 
         private Dictionary<string, bool> ActivePets = new Dictionary<string, bool>();
         public int ActivePetId = -1;
+        public bool ActivePetShiny;
         public string ActivePetName = string.Empty;
         public bool CombatReady;
         public bool AutoUse;
+
+        public ILocalisedBindableString pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("*")));
 
         public bool Attacking = false;
 
@@ -314,6 +318,18 @@ namespace Terramon.Players
         {
             ResetEffects();
 
+            if(ActivePet != null)
+            {
+                if (ActivePet.GetBool("isShiny"))
+                {
+                    ActivePetShiny = true;
+                }
+                else
+                {
+                    ActivePetShiny = false;
+                }
+            }
+
             var monName = ActivePets.FirstOrDefault(x => x.Value).Value;
 
             if (string.IsNullOrEmpty(name) || name == "*")
@@ -327,7 +343,11 @@ namespace Terramon.Players
             {
                 if (lastactivename != name)
                 {
-                    GetInstance<TerramonMod>().DisplayPokemonNameRP(name);
+                    if (pokeName.Value != name)
+                    {
+                        pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(name));
+                    }
+                    GetInstance<TerramonMod>().DisplayPokemonNameRP(pokeName.Value, ActivePetShiny);
                 }
             }
 

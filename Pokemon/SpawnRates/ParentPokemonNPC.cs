@@ -8,12 +8,15 @@ using Terramon.Network.Catching;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Razorwing.Framework.Localisation;
 
 namespace Terramon.Pokemon
 {
     public abstract class ParentPokemonNPC : ModNPC
     {
         public override string Texture => "Terramon/Pokemon/Empty";
+
+        public ILocalisedBindableString pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("*")));
 
         private readonly string[] ballProjectiles = TerramonMod.GetBallProjectiles();
         private readonly float[][] catchChances = TerramonMod.GetCatchChances();
@@ -57,7 +60,8 @@ namespace Terramon.Pokemon
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            var path = $"Pokemon/FirstGeneration/Normal/{npc.TypeName}/{npc.TypeName}";
+	    string n = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
+            var path = $"Pokemon/FirstGeneration/Normal/{n}/{n}";
             if (shiny)
             {
                 path += "_Shiny";
@@ -103,13 +107,19 @@ namespace Terramon.Pokemon
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault(PokeName());
+            string n = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
+            if (pokeName.Value != n)
+            {
+                pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(n));
+		        n = pokeName.Value;
+            }
+            DisplayName.SetDefault(n);
             Main.npcFrameCount[npc.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            var shinynum = Main.rand.Next(4096); // Generates 0 to 4095, essentially a 0.02% chance
+            var shinynum = Main.rand.Next(4096); // Generates number between 0 and 4095, essentially a 0.02% chance
             if (shinynum == 0)
             {
                 shiny = true;
@@ -415,11 +425,15 @@ namespace Terramon.Pokemon
         private void Catch(ref Projectile proj, ref bool crit, ref int dmg, int type)
         {
             var PokeNam = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
+            if (pokeName.Value != PokeNam)
+            {
+                pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(PokeNam));
+            }
             proj.ai[1] = 2;
             crit = false;
             dmg = npc.lifeMax;
             CreateDust(4);
-            CombatText.NewText(npc.Hitbox, Color.Orange, $"{PokeNam} was caught!", true);
+            CombatText.NewText(npc.Hitbox, Color.Orange, $"{pokeName.Value} was caught!", true);
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
