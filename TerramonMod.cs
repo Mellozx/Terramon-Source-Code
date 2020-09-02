@@ -189,7 +189,7 @@ namespace Terramon
 		
         protected DllResourceStore man;
         protected Bindable<string> locale = new Bindable<string>(Language.ActiveCulture.Name);
-		
+
         public override void Load()
         {
             // Initalize Discord RP on Mod Load
@@ -232,9 +232,10 @@ namespace Terramon
                 {
                     Localisation = new LocalisationManager(locale);
                 }
-
+                locale = new Bindable<string>(Language.ActiveCulture.Name);
                 Store = new ResourceStore<byte[]>(new EmbeddedStore());
                 Localisation.AddLanguage(GameCulture.English.Name, new LocalisationStore(Store, GameCulture.English));
+                Localisation.AddLanguage(GameCulture.Russian.Name, new LocalisationStore(Store, GameCulture.Russian));
 #if DEBUG
                 var ss = Localisation.GetLocalisedString(new LocalisedString(("title","Powered by broken code")));//It's terrible checking in ui from phone, so i can ensure everything works from version string
                 Main.versionNumber = ss.Value + "\n" + Main.versionNumber;
@@ -295,7 +296,7 @@ namespace Terramon
 
         public override void Unload()
         {
-	    client.Dispose();
+            client.Dispose();
             Instance = null;
             _exampleUserInterface.SetState(null); // Choose Starter
             _exampleUserInterfaceNew.SetState(null); // Pokegear Main Menu

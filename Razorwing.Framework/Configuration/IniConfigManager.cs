@@ -1,30 +1,22 @@
+using Razorwing.Framework.IO.Stores;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using Razorwing.Framework.Bindables;
-using Razorwing.Framework.Platform;
-using Terraria.Localization;
-
 
 namespace Razorwing.Framework.Configuration
 {
-    public class IniConfigManager<TLookup> : ConfigManager<TLookup>
-        where TLookup : struct, Enum
+    public class IniConfigManager<T> : ConfigManager<T>
+        where T : struct, Enum
     {
         /// <summary>
         /// The backing file used to store the config. Null means no persistent storage.
         /// </summary>
-        protected virtual string Filename => $@"{culture.Name}.lang";
-
-        protected GameCulture culture;
+        protected virtual string Filename => @"game.ini";
 
         private readonly Storage storage;
 
-        public IniConfigManager(Storage storage, GameCulture culture = null)
-            : base(null)
+        public IniConfigManager(Storage storage)
         {
             this.storage = storage;
-            this.culture = culture ?? GameCulture.English;
 
             InitialiseDefaults();
             Load();
@@ -52,11 +44,10 @@ namespace Razorwing.Framework.Configuration
                         string key = line.Substring(0, equalsIndex).Trim();
                         string val = line.Remove(0, equalsIndex + 1).Trim();
 
-                        if (!Enum.TryParse(key, out TLookup lookup))
+                        if (!Enum.TryParse(key, out T lookup))
                             continue;
 
                         if (ConfigStore.TryGetValue(lookup, out IBindable b))
-                        {
                             try
                             {
                                 b.Parse(val);
@@ -64,7 +55,6 @@ namespace Razorwing.Framework.Configuration
                             catch (Exception e)
                             {
                             }
-                        }
                         else if (AddMissingEntries)
                             Set(lookup, val);
                     }
@@ -74,21 +64,21 @@ namespace Razorwing.Framework.Configuration
 
         protected override bool PerformSave()
         {
-            //if (string.IsNullOrEmpty(Filename)) return false;
+            if (string.IsNullOrEmpty(Filename)) return false;
 
-            //try
-            //{
-            //    using (var stream = storage.GetStream(Filename, FileAccess.Write, FileMode.Create))
-            //    using (var w = new StreamWriter(stream))
-            //    {
-            //        foreach (var p in ConfigStore)
-            //            w.WriteLine(@"{0} = {1}", p.Key, p.Value.ToString().Replace("\n", "\\n").Replace("\r", ""));
-            //    }
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
+            try
+            {
+                using (var stream = storage.GetStream(Filename, FileAccess.Write, FileMode.Create))
+                using (var w = new StreamWriter(stream))
+                {
+                    foreach (var p in ConfigStore)
+                        w.WriteLine(@"{0} = {1}", p.Key, p.Value);
+                }
+            }
+            catch
+            {
+                return false;
+            }
 
             return true;
         }
