@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Razorwing.Framework.Platform
+namespace Razorwing.Framework.IO.Stores
 {
     public abstract class Storage
     {
