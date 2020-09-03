@@ -141,7 +141,13 @@ namespace Terramon.Pokemon
 
         private string GetSmallSpritePath(NPC npc)
         {
-            return "Terramon/Minisprites/Regular/mini" + npc.TypeName;
+            if (shiny)
+            {
+                return "Terramon/Minisprites/Regular/mini" + npc.TypeName + "_Shiny";
+            } else
+            {
+                return "Terramon/Minisprites/Regular/mini" + npc.TypeName;
+            }
         }
 
         public override bool? CanBeHitByItem(Player player, Item item)

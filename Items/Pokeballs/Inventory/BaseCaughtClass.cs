@@ -101,7 +101,13 @@ namespace Terramon.Items.Pokeballs.Inventory
                 var mon = TerramonMod.GetPokemon(CapturedPokemon);
                 if (mon == null)
                     return true;
-                SmallSpritePath = mon.IconName;
+                if (isShiny)
+                {
+                    SmallSpritePath = mon.IconName + "_Shiny";
+                } else
+                {
+                    SmallSpritePath = mon.IconName;
+                }
             }
 
             Texture2D pokemonTexture = ModContent.GetTexture(SmallSpritePath);
