@@ -297,6 +297,7 @@ namespace Terramon
         public override void Unload()
         {
             client.Dispose();
+            client = null;
             Instance = null;
             _exampleUserInterface.SetState(null); // Choose Starter
             _exampleUserInterfaceNew.SetState(null); // Pokegear Main Menu
@@ -309,6 +310,14 @@ namespace Terramon
             pokemonStore = null;
             wildPokemonStore = null;
             movesStore = null;
+            _exampleUserInterface = null;
+            _exampleUserInterfaceNew = null;
+            PokegearUserInterfaceNew = null;
+            _uiSidebar = null;
+            _partySlots = null;
+            _moves = null;
+
+
 
             ChooseStarter.Deactivate();
             ChooseStarter = null;
@@ -330,6 +339,11 @@ namespace Terramon
             Moves = null;
 
             PartyCycle = null;
+            FirstPKMAbility = null;
+            SecondPKMAbility = null;
+            ThirdPKMAbility = null;
+            FourthPKMAbility = null;
+
             Localisation = null;
             Store = null;
         }
