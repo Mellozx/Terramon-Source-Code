@@ -18,7 +18,7 @@ namespace Terramon.Commands
             if (args.Length == 0)
             {
                 caller.Reply("Opened Discord link...");
-                Process.Start("https://discord.gg/MyeY4AM");
+                Process.Start("https://discord.gg/U8skDEA");
             }
         }
     }

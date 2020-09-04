@@ -123,68 +123,72 @@ namespace Terramon
 
         public virtual void EnterWorldRP()
         {
-            timestamp = Timestamps.Now;
-            client.SetPresence(new RichPresence()
-            {
-                Details = "In-Game",
-                State = "Playing v0.4",
-                Assets = new Assets()
+                timestamp = Timestamps.Now;
+                client.SetPresence(new RichPresence()
                 {
-                    LargeImageKey = "largeimage2",
-                    LargeImageText = "Terramon Mod",
-                    SmallImageKey = "pokeball",
-                    SmallImageText = "No Pokémon Selected"
-                },
-                Timestamps = timestamp
-            });
+                    Details = "In-Game",
+                    State = "Playing v0.4",
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "largeimage2",
+                        LargeImageText = "Terramon Mod",
+                        SmallImageKey = "pokeball",
+                        SmallImageText = "No Pokémon Selected"
+                    },
+                    Timestamps = timestamp
+                });
         }
 
-        public virtual void DisplayPokemonNameRP(string name)
+        public virtual void DisplayPokemonNameRP(string name, bool shinyness)
         {
-            client.SetPresence(new RichPresence()
+            if (shinyness)
             {
-                Details = "In-Game",
-                State = "Playing v0.4",
-                Assets = new Assets()
+                name = name += " ✨";
+            }
+                client.SetPresence(new RichPresence()
                 {
-                    LargeImageKey = "largeimage2",
-                    LargeImageText = "Terramon Mod",
-                    SmallImageKey = "pokeball",
-                    SmallImageText = "Using " + name
-                },
-                Timestamps = timestamp
-            });
+                    Details = "In-Game",
+                    State = "Playing v0.4",
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "largeimage2",
+                        LargeImageText = "Terramon Mod",
+                        SmallImageKey = "pokeball",
+                        SmallImageText = "Using " + name
+                    },
+                    Timestamps = timestamp
+                });
         }
 
         public virtual void RemoveDisplayPokemonNameRP()
         {
-            client.SetPresence(new RichPresence()
-            {
-                Details = "In-Game",
-                State = "Playing v0.4",
-                Assets = new Assets()
+                client.SetPresence(new RichPresence()
                 {
-                    LargeImageKey = "largeimage2",
-                    LargeImageText = "Terramon Mod",
-                    SmallImageKey = "pokeball",
-                    SmallImageText = "No Pokémon Selected"
-                },
-                Timestamps = timestamp
-            });
+                    Details = "In-Game",
+                    State = "Playing v0.4",
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "largeimage2",
+                        LargeImageText = "Terramon Mod",
+                        SmallImageKey = "pokeball",
+                        SmallImageText = "No Pokémon Selected"
+                    },
+                    Timestamps = timestamp
+                });
         }
 
         public override void PreSaveAndQuit()
         {
-            client.SetPresence(new RichPresence()
-            {
-                Details = "In Menu",
-                State = "Playing v0.4",
-                Assets = new Assets()
+                client.SetPresence(new RichPresence()
                 {
-                    LargeImageKey = "largeimage2",
-                    LargeImageText = "Terramon Mod"
-                }
-            });
+                    Details = "In Menu",
+                    State = "Playing v0.4",
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "largeimage2",
+                        LargeImageText = "Terramon Mod"
+                    }
+                });
         }
 		
         protected DllResourceStore man;
@@ -192,35 +196,35 @@ namespace Terramon
 
         public override void Load()
         {
-            // Initalize Discord RP on Mod Load
-            client = new DiscordRpcClient("749707767203233792");
-            client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
-            //
+                // Initalize Discord RP on Mod Load
+                client = new DiscordRpcClient("749707767203233792");
+                client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+                //
 
-            //Subscribe to events
-            client.OnReady += (sender, e) =>
-            {
-                Console.WriteLine("Received Ready from user {0}", e.User.Username);
-            };
-
-            client.OnPresenceUpdate += (sender, e) =>
-            {
-                Console.WriteLine("Received Update! {0}", e.Presence);
-            };
-
-            //Connect to the RPC
-            client.Initialize();
-
-            client.SetPresence(new RichPresence()
-            {
-                Details = "In Game Menu",
-                State = "Playing v0.4",
-                Assets = new Assets()
+                //Subscribe to events
+                client.OnReady += (sender, e) =>
                 {
-                    LargeImageKey = "largeimage2",
-                    LargeImageText = "Terramon Mod"
-                }
-            });
+                    Console.WriteLine("Received Ready from user {0}", e.User.Username);
+                };
+
+                client.OnPresenceUpdate += (sender, e) =>
+                {
+                    Console.WriteLine("Received Update! {0}", e.Presence);
+                };
+
+                //Connect to the RPC
+                client.Initialize();
+
+                client.SetPresence(new RichPresence()
+                {
+                    Details = "In Menu",
+                    State = "Playing v0.4",
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "largeimage2",
+                        LargeImageText = "Terramon Mod"
+                    }
+                });
 
             //Load all mons to a store
             LoadPokemons();

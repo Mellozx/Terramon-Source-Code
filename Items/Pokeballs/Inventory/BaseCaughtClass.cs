@@ -101,7 +101,13 @@ namespace Terramon.Items.Pokeballs.Inventory
                 var mon = TerramonMod.GetPokemon(CapturedPokemon);
                 if (mon == null)
                     return true;
-                SmallSpritePath = mon.IconName;
+                if (isShiny)
+                {
+                    SmallSpritePath = mon.IconName + "_Shiny";
+                } else
+                {
+                    SmallSpritePath = mon.IconName;
+                }
             }
 
             Texture2D pokemonTexture = ModContent.GetTexture(SmallSpritePath);
@@ -126,6 +132,13 @@ namespace Terramon.Items.Pokeballs.Inventory
             if (!player.HasBuff(pokeBuff))
             {
                 player.AddBuff(pokeBuff, 2);
+                if (isShiny)
+                {
+                    modPlayer.ActivePetShiny = true;
+                } else
+                {
+                    modPlayer.ActivePetShiny = false;
+                }
                 modPlayer.ActivePetName = PokemonName;
                 modPlayer.ActivatePet(PokemonName, false);
                 goText.Args = new object[] { pokeName.Value };
@@ -135,6 +148,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             else
             {
                 player.ClearBuff(pokeBuff);
+                if (pokeName.Value != modPlayer.ActivePetName) { pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(modPlayer.ActivePetName)); };
                 switch (Main.rand.Next(3))
                 {
                     case 0:

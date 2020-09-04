@@ -91,6 +91,17 @@ namespace Terramon.Pokemon
         private int mainAi = ProjectileID.Puppy;
         public override void AI()
         {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+
+            if (modPlayer.ActivePetShiny)
+            {
+                shiny = true;
+            } else
+            {
+                shiny = false;
+            }
+
             //Animations
 
             projectile.spriteDirection = projectile.velocity.X > 0 ? -1 : (projectile.velocity.X < 0 ? 1 : projectile.spriteDirection);
@@ -114,8 +125,6 @@ namespace Terramon.Pokemon
                 frameCounter = 0;
             }
 
-            Player player = Main.player[projectile.owner];
-            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             SpawnTime++;
             if (SpawnTime == 1)
             {
