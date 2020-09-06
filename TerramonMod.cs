@@ -67,7 +67,10 @@ namespace Terramon
 
         public static ModHotKey PartyCycle;
         public static LocalisationManager Localisation;
-        public static IResourceStore<byte[]> Store;
+        public static ResourceStore<byte[]> Store;
+        public static Texture2DStore Textures;
+        public Storage storage;
+
 
         //evolution
 
@@ -237,10 +240,17 @@ namespace Terramon
                     Localisation = new LocalisationManager(locale);
                 }
                 locale = new Bindable<string>(Language.ActiveCulture.Name);
-                Store = new ResourceStore<byte[]>(new EmbeddedStore());
-                Localisation.AddLanguage(GameCulture.English.Name, new LocalisationStore(Store, GameCulture.English));
-                Localisation.AddLanguage(GameCulture.Russian.Name, new LocalisationStore(Store, GameCulture.Russian));
+
+                storage = new ModStorage("Terramon");//Initialise local resource store
+                Store = new ResourceStore<byte[]>(new EmbeddedStore());//Make new instance of ResourceStore with dependency what loads data from ModStore
+                Store.AddStore(new StorageCachableStore(storage, new WebStore()));//Add second dependency what checks if data exist in local store.
+                                                                                  //If not and provided URL load data from web and save it on drive
+                Textures = new Texture2DStore(Store);//Initialise cachable texture store in order not creating new texture each call
+
+                Localisation.AddLanguage(GameCulture.English.Name, new LocalisationStore(Store, GameCulture.English));//Adds en-US.lang file handling
+                Localisation.AddLanguage(GameCulture.Russian.Name, new LocalisationStore(Store, GameCulture.Russian));//Adds ru-RU.lang file handling
 #if DEBUG
+                UseWebAssets = true;
                 var ss = Localisation.GetLocalisedString(new LocalisedString(("title","Powered by broken code")));//It's terrible checking in ui from phone, so i can ensure everything works from version string
                 Main.versionNumber = ss.Value + "\n" + Main.versionNumber;
 #endif
@@ -349,6 +359,9 @@ namespace Terramon
             FourthPKMAbility = null;
 
             Localisation = null;
+            Textures = null;
+            storage = null;
+            Store.Dispose();
             Store = null;
         }
 
@@ -653,5 +666,8 @@ namespace Terramon
                     }
             }
         }
+
+        public static bool UseWebAssets = false;
+        public static bool WebResourceAvailable(string name) => Store.Get(name) != null;
     }
 }

@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Razorwing.Framework.Localisation;
+// ReSharper disable PossibleLossOfFraction
 
 namespace Terramon.Pokemon
 {
@@ -60,7 +61,10 @@ namespace Terramon.Pokemon
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-	    string n = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
+            if (DrawHighRes(spriteBatch, drawColor))//Try use bigger texture with more frames if available
+                return false;
+
+	        string n = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
             var path = $"Pokemon/FirstGeneration/Normal/{n}/{n}";
             if (shiny)
             {
@@ -68,6 +72,7 @@ namespace Terramon.Pokemon
             }
 
             SpriteEffects effects = npc.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            //We can replace getter here to TerramonMod.Textures.Get(path), but it will make copy of texture in RAM (but not sure)
             Texture2D pkmnTexture = mod.GetTexture(path);
             int frameHeight = pkmnTexture.Height / Main.npcFrameCount[npc.type];
             spriteBatch.Draw(pkmnTexture, npc.position - Main.screenPosition + new Vector2(0, -6),
@@ -75,6 +80,39 @@ namespace Terramon.Pokemon
                 new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
             return false;
         }
+
+        protected bool DrawHighRes(SpriteBatch spriteBatch, Color drawColor)
+        {
+            if (!TerramonMod.UseWebAssets)//If player actually want use we assets. Rn false by default and don't have config entry 
+                return false;
+
+            string n = HomeClass().Name;
+            if (n == "Nidoranf" || n == "Nidoranm")//We have some naming issues with it, so just ignore it until it get fixed
+            {
+                return false;
+            }
+
+            //Use old repo version where we have larger sprites
+            //Commit id is: ed845d454819a0cf6067224aa1e0f453f20e0040
+            //TODO: Make new repo for bigger textures or make new folder in current repo to store all large textures
+            var path = shiny ? $"https://raw.githubusercontent.com/JamzZz/Terramon-Source-Code/ed845d454819a0cf6067224aa1e0f453f20e0040/Pokemon/FirstGeneration/Normal/{n}/{n}_Shiny.png" 
+                : $"https://raw.githubusercontent.com/JamzZz/Terramon-Source-Code/ed845d454819a0cf6067224aa1e0f453f20e0040/Pokemon/FirstGeneration/Normal/{n}/{n}.png";
+                                        
+            //Check resource availability
+            if (!TerramonMod.WebResourceAvailable(path))
+                return false;
+
+            //Default drawing
+            SpriteEffects effects = npc.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            //With slightly different way to get textures
+            Texture2D pkmnTexture = TerramonMod.Textures.Get(path);
+            int frameHeight = pkmnTexture.Height / (Main.npcFrameCount[npc.type] = 11);//TODO: make a cache file what have all offsets and sizes
+            spriteBatch.Draw(pkmnTexture, npc.position - Main.screenPosition + new Vector2(0, -6),
+                new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, npc.rotation,
+                new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
+            return true;
+        }
+
 
         public override void AI()
         {

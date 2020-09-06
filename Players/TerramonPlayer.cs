@@ -1,24 +1,22 @@
+using Microsoft.Xna.Framework;
+using Razorwing.Framework.Localisation;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Terramon.Items.MiscItems;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon;
 using Terramon.Pokemon.FirstGeneration.Fishing;
 using Terramon.Pokemon.Moves;
 using Terramon.UI.Moveset;
-using Razorwing.Framework.Localisation;
 using Terramon.UI.SidebarParty;
 using Terramon.UI.Starter;
 using Terraria;
 using Terraria.GameInput;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
-using Terraria.ID;
-using DiscordRPC;
 // ReSharper disable ParameterHidesMember
 // ReSharper disable LocalVariableHidesMember
 
@@ -30,7 +28,7 @@ namespace Terramon.Players
         public List<Item> list = new List<Item>();
         public List<Item> loadList = new List<Item>();
 
-        public int deletepokecase = 0;
+        //public int deletepokecase = 0;
         public int premierBallRewardCounter;
 
         private Dictionary<string, bool> ActivePets = new Dictionary<string, bool>();
@@ -42,7 +40,7 @@ namespace Terramon.Players
 
         public ILocalisedBindableString pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("*")));
 
-        public bool Attacking = false;
+        public bool Attacking;
 
         public int ActivePartySlot
         {
@@ -149,7 +147,7 @@ namespace Terramon.Players
                 {
                     //We need to update data inside item
                     var modItem = ((TerramonMod) mod).PartySlots.partyslot1.Item.modItem;
-                    if (modItem != null && modItem.item != null && modItem.item.active) modItem.Load(value);
+                    if (modItem?.item != null && modItem.item.active) modItem.Load(value);
                 }
             }
         }
@@ -170,7 +168,7 @@ namespace Terramon.Players
                 {
                     //We need to update data inside item
                     var modItem = ((TerramonMod) mod).PartySlots.partyslot2.Item.modItem;
-                    if (modItem != null && modItem.item != null && modItem.item.active) modItem.Load(value);
+                    if (modItem?.item != null && modItem.item.active) modItem.Load(value);
                 }
             }
         }
@@ -191,7 +189,7 @@ namespace Terramon.Players
                 {
                     //We need to update data inside item
                     var modItem = ((TerramonMod) mod).PartySlots.partyslot3.Item.modItem;
-                    if (modItem != null && modItem.item != null && modItem.item.active) modItem.Load(value);
+                    if (modItem?.item != null && modItem.item.active) modItem.Load(value);
                 }
             }
         }
@@ -212,7 +210,7 @@ namespace Terramon.Players
                 {
                     //We need to update data inside item
                     var modItem = ((TerramonMod) mod).PartySlots.partyslot4.Item.modItem;
-                    if (modItem != null && modItem.item != null && modItem.item.active) modItem.Load(value);
+                    if (modItem?.item != null && modItem.item.active) modItem.Load(value);
                 }
             }
         }
@@ -233,7 +231,7 @@ namespace Terramon.Players
                 {
                     //We need to update data inside item
                     var modItem = ((TerramonMod) mod).PartySlots.partyslot5.Item.modItem;
-                    if (modItem != null && modItem.item != null && modItem.item.active) modItem.Load(value);
+                    if (modItem?.item != null && modItem.item.active) modItem.Load(value);
                 }
             }
         }
@@ -306,14 +304,13 @@ namespace Terramon.Players
         }
 
 
+        public string lastactivename;
+
         /// <summary>
         ///     Enable only one pet for player at once
         /// </summary>
         /// <param name="name">Pokemon type name</param>
         /// <param name="combatReady">This pokemon summoned from party UI?</param>
-
-        public string lastactivename;
-
         public void ActivatePet(string name, bool combatReady = true)
         {
             ResetEffects();
@@ -330,7 +327,7 @@ namespace Terramon.Players
                 }
             }
 
-            var monName = ActivePets.FirstOrDefault(x => x.Value).Value;
+            //var monName = ActivePets.FirstOrDefault(x => x.Value).Value;
 
             if (string.IsNullOrEmpty(name) || name == "*")
             {

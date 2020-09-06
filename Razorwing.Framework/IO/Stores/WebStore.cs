@@ -31,7 +31,7 @@ namespace Razorwing.Framework.IO.Stores
 
         public byte[] Get(string name)
         {
-            return ((MemoryStream) GetStream(name)).GetBuffer(); //Just reuse code
+            return ((MemoryStream) GetStream(name))?.GetBuffer(); //Just reuse code
         }
 
         public Task<byte[]> GetAsync(string name)
@@ -43,14 +43,21 @@ namespace Razorwing.Framework.IO.Stores
         {
             lock (web)
             {
-                using (Stream str = web.OpenRead(name))
+                try
                 {
-                    MemoryStream ms = new MemoryStream();
-                    //if (web.ResponseHeaders.Get("content-type") != accept) return null;
+                    using (Stream str = web.OpenRead(name))
+                    {
+                        MemoryStream ms = new MemoryStream();
+                        //if (web.ResponseHeaders.Get("content-type") != accept) return null;
 
-                    str?.CopyTo(ms);
+                        str?.CopyTo(ms);
 
-                    return ms;
+                        return ms;
+                    }
+                }
+                catch (Exception e)
+                {
+                    return null;
                 }
             }
         }

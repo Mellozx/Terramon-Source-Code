@@ -17,17 +17,9 @@ namespace Terramon.Razorwing.Framework.IO.Stores
         {
             if (root == null)
             {
-                string[] arr = ModLoader.ModPath.Split('\\');
+                //string[] arr = ModLoader.ModPath.Split('\\');
                 
-                var i = -1;
-                List<string> l = arr.Select(s =>
-                {
-                    i++;
-                    return i < arr.Length - 1 ? arr[i] : null;
-                }).ToList();
-                l.Add("Mods");
-                l.Add("Cache");
-                root = string.Join("\\", l);
+                 root = Path.Combine(ModLoader.ModPath, "Cache");
             }
 
             return root;

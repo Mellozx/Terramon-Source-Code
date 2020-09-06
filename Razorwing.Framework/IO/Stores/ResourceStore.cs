@@ -135,7 +135,7 @@ namespace Razorwing.Framework.IO.Stores
             return default;
         }
 
-        public Stream GetStream(string name)
+        public virtual Stream GetStream(string name)
         {
             if (name == null)
                 return null;

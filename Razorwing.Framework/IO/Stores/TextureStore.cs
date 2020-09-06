@@ -14,13 +14,17 @@ namespace Terramon.Razorwing.Framework.IO.Stores
         public Texture2DStore(IResourceStore<byte[]> store = null)
         {
             Store = store;
-            (store as ResourceStore<byte[]>)?.AddExtension(@"png");
-            AddExtension(@"png");
         }
 
         protected IResourceStore<byte[]> Store { get; }
 
 
+        /// <summary>
+        /// Used in cases when we don't want block game thread and don't want texture just here at this moment
+        /// We don't have this cases so ignore this method.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public new Task<Texture2D> GetAsync(string name)
         {
             return Task.Run(
@@ -29,7 +33,7 @@ namespace Terramon.Razorwing.Framework.IO.Stores
         }
 
         /// <summary>
-        ///     Retrieves a texture from the store and adds it to the atlas.
+        /// Retrieves a texture from the store and adds it to the Dictionary.
         /// </summary>
         /// <param name="name">The name of the texture.</param>
         /// <returns>The texture.</returns>
@@ -37,12 +41,10 @@ namespace Terramon.Razorwing.Framework.IO.Stores
         {
             if (string.IsNullOrEmpty(name)) return null;
 
-            lock (TextureCache)
+            lock (TextureCache)//This locking needed only if we have multi thread access. But left it intact 
             {
-                Texture2D tex;
-
                 // refresh the texture if no longer available (may have been previously disposed).
-                if (!TextureCache.TryGetValue(name, out tex) || tex?.IsDisposed == true)
+                if (!TextureCache.TryGetValue(name, out Texture2D tex) || tex?.IsDisposed == true)
                     using (Stream str = Store.GetStream(name))
                     {
                         if (str == null)
