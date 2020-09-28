@@ -100,11 +100,6 @@ namespace Terramon.Tiles.Statues
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
-            ModRecipe recipe2 = new ModRecipe(mod);
-            recipe2.AddIngredient(mod.ItemType("PokeballStatueLiteItem"));
-            recipe2.SetResult(this);
-            recipe2.AddRecipe();
         }
     }
 }

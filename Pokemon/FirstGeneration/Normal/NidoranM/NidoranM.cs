@@ -6,9 +6,9 @@ using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal.Nidoranm
+namespace Terramon.Pokemon.FirstGeneration.Normal.NidoranM
 {
-    public class Nidoranm : ParentPokemon
+    public class NidoranM : ParentPokemon
     {
         public override int EvolveCost => 11;
 
