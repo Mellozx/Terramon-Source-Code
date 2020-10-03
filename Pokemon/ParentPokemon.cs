@@ -37,6 +37,15 @@ namespace Terramon.Pokemon
         public virtual PokemonType[] PokemonTypes => new[] {PokemonType.Normal};
 
         public virtual string[] DefaultMove => new[] {"", "", "", ""};
+        public virtual int MaxHP => 45;
+        public virtual int PhysicalDamage => 50;
+        public virtual int PhysicalDefence => 50;
+        public virtual int SpecialDamage => 50;
+        public virtual int SpecialDefence => 50;
+        public virtual int Speed => 45;
+
+        public int TotalPoints => MaxHP + PhysicalDamage + PhysicalDefence + SpecialDamage + SpecialDefence + Speed;
+
 
         private string iconName;
 
@@ -195,32 +204,7 @@ namespace Terramon.Pokemon
         }
     }
 
-    public enum PokemonType
-    {
-        Bug,
-        Dark,
-        Dragon,
-        Electric,
-        Fairy,
-        Fighting,
-        Fire,
-        Flying,
-        Ghost,
-        Grass,
-        Ground,
-        Ice,
-        Normal,
-        Poison,
-        Psychic,
-        Rock,
-        Steel,
-        Water,
-        Nuclear,
-        Light,
-        Machine,
-        Sound
-    }
-
+   
     public enum EvolveItem
     {
         RareCandy,
