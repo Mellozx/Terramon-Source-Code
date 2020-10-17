@@ -13,7 +13,7 @@ namespace Terramon
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
             DisplayName.SetDefault($"{ProjectileName}");
-            Description.SetDefault($"A {ProjectileName} is following you around!");
+            Description.SetDefault($"{ProjectileName} is following you around!");
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -53,7 +53,7 @@ namespace Terramon
 
         public override void ModifyBuffTip(ref string tip, ref int rare)
         {
-            tip = $"A {ProjectileName} is following you around!";
+            tip = $"{ProjectileName} is following you around!";
             rare = 0;
         }
     }

@@ -67,7 +67,13 @@ namespace Terramon.Pokemon
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            var path = $"Pokemon/FirstGeneration/Normal/{projectile.Name}/{projectile.Name}";
+            var arr = GetType().Namespace.Split('.');
+            string path = String.Empty;
+            for (int i = 1; i < arr.Length && i < 4; i++)// We skip "Terramon" at 0 pos
+            {
+                path += path.Length > 0 ? $"/{arr[i]}" : arr[i];
+            }
+            path += $"/{projectile.Name}/{projectile.Name}";
             if (shiny)
             {
                 path += "_Shiny";

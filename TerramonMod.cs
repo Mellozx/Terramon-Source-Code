@@ -127,11 +127,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
-                    State = "Playing v0.4",
+                    State = "Testing v0.4.1",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod",
+                        LargeImageText = "Terramon Mod (Beta)",
                         SmallImageKey = "pokeball",
                         SmallImageText = "No Pokémon Selected"
                     },
@@ -148,11 +148,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
-                    State = "Playing v0.4",
+                    State = "Testing v0.4.1",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod",
+                        LargeImageText = "Terramon Mod (Beta)",
                         SmallImageKey = "pokeball",
                         SmallImageText = "Using " + name
                     },
@@ -165,11 +165,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
-                    State = "Playing v0.4",
+                    State = "Testing v0.4.1",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod",
+                        LargeImageText = "Terramon Mod (Beta)",
                         SmallImageKey = "pokeball",
                         SmallImageText = "No Pokémon Selected"
                     },
@@ -182,11 +182,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
-                    State = "Playing v0.4",
+                    State = "Testing v0.4.1",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod"
+                        LargeImageText = "Terramon Mod (Beta)"
                     }
                 });
         }
@@ -218,11 +218,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
-                    State = "Playing v0.4",
+                    State = "Testing v0.4.1",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod"
+                        LargeImageText = "Terramon Mod (Beta)"
                     }
                 });
 
