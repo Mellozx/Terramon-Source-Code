@@ -90,7 +90,8 @@ namespace Terramon
             "QuickBall",
             "TimerBall",
             "MasterBall",
-            "ZeroBall"
+            "ZeroBall",
+            "ShadowBall"
         };
 
         // catch chance of the ball refers to the same index as the ball

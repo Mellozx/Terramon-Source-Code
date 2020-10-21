@@ -21,7 +21,8 @@
                     DUSK_BALL = "duskBall",
                     PREMIER_BALL = "premierBall",
                     QUICK_BALL = "quickBall",
-                    ZERO_BALL = "zeroBall";
+                    ZERO_BALL = "zeroBall",
+                    SHADOW_BALL = "shadowBall";
             }
 
             public static class CatchRates
@@ -34,7 +35,8 @@
                     DUSK_BALL = 2f,
                     PREMIER_BALL = 1f,
                     QUICK_BALL = 1f,
-                    ZERO_BALL = 1f;
+                    ZERO_BALL = 1f,
+                    SHADOW_BALL = 0.7f;
             }
         }
     }
