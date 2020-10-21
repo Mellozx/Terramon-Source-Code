@@ -6,15 +6,11 @@ using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal.NidoranM
+namespace Terramon.Pokemon.FourthGeneration.Normal.Drifblim
 {
-    public class NidoranM : ParentPokemon
+    public class Drifblim : ParentPokemonFlying
     {
-        public override int EvolveCost => 11;
-
-        public override Type EvolveTo => typeof(Nidorino.Nidorino);
-
-        public override PokemonType[] PokemonTypes => new[] { PokemonType.Poison };
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Ghost, PokemonType.Flying };
 
         public override void SetDefaults()
         {

@@ -131,7 +131,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
+<<<<<<< HEAD
+                    State = "Playing v0.4.1",
+=======
                     State = "Playing v0.4",
+>>>>>>> parent of 7b589a0... First step of Halloween additions
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
@@ -152,7 +156,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
+<<<<<<< HEAD
+                    State = "Playing v0.4.1",
+=======
                     State = "Playing v0.4",
+>>>>>>> parent of 7b589a0... First step of Halloween additions
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
@@ -169,7 +177,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
+<<<<<<< HEAD
+                    State = "Playing v0.4.1",
+=======
                     State = "Playing v0.4",
+>>>>>>> parent of 7b589a0... First step of Halloween additions
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
@@ -186,7 +198,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
+<<<<<<< HEAD
+                    State = "Playing v0.4.1",
+=======
                     State = "Playing v0.4",
+>>>>>>> parent of 7b589a0... First step of Halloween additions
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
@@ -222,7 +238,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
+<<<<<<< HEAD
+                    State = "Playing v0.4.1",
+=======
                     State = "Playing v0.4",
+>>>>>>> parent of 7b589a0... First step of Halloween additions
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",

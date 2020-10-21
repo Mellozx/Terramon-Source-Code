@@ -3,16 +3,16 @@
 ✧ Terramon is a mod that adds Pokémon to Terraria! It also adds many aspects and mechanics of the Pokémon games as well, including Poké Balls, your own Pokémon party and much more!
 
 ✧ Currently in the mod, there's...
-• More than 30 Pokémon!
+• Over 100 Pokémon!
 • New UI and mechanics!
-• 43 new items
+• Various decorations!
+• New music!
 
 [c/4de857:== ✧ Credits ✧ ==]
 Jamz: Team Founder & Developer
 InfinaMii: Developer, Spriter, ^
 KindRed-Sand: Developer, Mod Networking
 AnotherGuy: Developer
-Stevie: Trial Developer
 Solemn: Music, Trial Developer
 pcboi_228: Trial Developer
 

@@ -6,15 +6,15 @@ using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal.NidoranM
+namespace Terramon.Pokemon.Originals.Normal.Coolotad
 {
-    public class NidoranM : ParentPokemon
+    public class Coolotad : ParentPokemon
     {
-        public override int EvolveCost => 11;
+        
 
-        public override Type EvolveTo => typeof(Nidorino.Nidorino);
+        
 
-        public override PokemonType[] PokemonTypes => new[] { PokemonType.Poison };
+        public override PokemonType[] PokemonTypes => new[] { PokemonType.Water, PokemonType.Ground };
 
         public override void SetDefaults()
         {
