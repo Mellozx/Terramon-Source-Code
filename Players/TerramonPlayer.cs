@@ -7,6 +7,7 @@ using Terramon.Items.MiscItems;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon;
 using Terramon.Pokemon.FirstGeneration.Fishing;
+using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
 using Terramon.Pokemon.Moves;
 using Terramon.UI.Moveset;
 using Terramon.UI.SidebarParty;
@@ -27,6 +28,8 @@ namespace Terramon.Players
     {
         public List<Item> list = new List<Item>();
         public List<Item> loadList = new List<Item>();
+
+        public BattleMode Battle = null;
 
         //public int deletepokecase = 0;
         public int premierBallRewardCounter;
@@ -87,7 +90,7 @@ namespace Terramon.Players
             }
         }
 
-        public TagCompound ActivePet
+        public PokemonData ActivePet
         {
             get
             {
@@ -124,14 +127,14 @@ namespace Terramon.Players
         public int Language = 1;
         public int ItemNameColors = 1;
 
-        private TagCompound _partySlot1;
-        private TagCompound _partySlot2;
-        private TagCompound _partySlot3;
-        private TagCompound _partySlot4;
-        private TagCompound _partySlot5;
-        private TagCompound _partySlot6;
+        private PokemonData _partySlot1;
+        private PokemonData _partySlot2;
+        private PokemonData _partySlot3;
+        private PokemonData _partySlot4;
+        private PokemonData _partySlot5;
+        private PokemonData _partySlot6;
 
-        public TagCompound PartySlot1
+        public PokemonData PartySlot1
         {
             get => _partySlot1;
             set
@@ -152,7 +155,7 @@ namespace Terramon.Players
             }
         }
 
-        public TagCompound PartySlot2
+        public PokemonData PartySlot2
         {
             get => _partySlot2;
             set
@@ -173,7 +176,7 @@ namespace Terramon.Players
             }
         }
 
-        public TagCompound PartySlot3
+        public PokemonData PartySlot3
         {
             get => _partySlot3;
             set
@@ -194,7 +197,7 @@ namespace Terramon.Players
             }
         }
 
-        public TagCompound PartySlot4
+        public PokemonData PartySlot4
         {
             get => _partySlot4;
             set
@@ -215,7 +218,7 @@ namespace Terramon.Players
             }
         }
 
-        public TagCompound PartySlot5
+        public PokemonData PartySlot5
         {
             get => _partySlot5;
             set
@@ -236,7 +239,7 @@ namespace Terramon.Players
             }
         }
 
-        public TagCompound PartySlot6
+        public PokemonData PartySlot6
         {
             get => _partySlot6;
             set
@@ -258,17 +261,17 @@ namespace Terramon.Players
         }
 
 
-        public int firstslottype = 1;
+        //public int firstslottype = 1;
         public string firstslotname = "*";
-        public int secondslottype = 1;
+        //public int secondslottype = 1;
         public string secondslotname = "*";
-        public int thirdslottype = 1;
+        //public int thirdslottype = 1;
         public string thirdslotname = "*";
-        public int fourthslottype = 1;
+        //public int fourthslottype = 1;
         public string fourthslotname = "*";
-        public int fifthslottype = 1;
+        //public int fifthslottype = 1;
         public string fifthslotname = "*";
-        public int sixthslottype = 1;
+        //public int sixthslottype = 1;
         public string sixthslotname = "*";
 
         public int CycleIndex;
@@ -317,14 +320,7 @@ namespace Terramon.Players
 
             if(ActivePet != null)
             {
-                if (ActivePet.GetBool("isShiny"))
-                {
-                    ActivePetShiny = true;
-                }
-                else
-                {
-                    ActivePetShiny = false;
-                }
+                ActivePetShiny = ActivePet.IsShiny;
             }
 
             //var monName = ActivePets.FirstOrDefault(x => x.Value).Value;
@@ -522,10 +518,18 @@ namespace Terramon.Players
             if (CombatReady && ActivePartySlot > 0 && ActivePartySlot <= 6 && ActivePetId != -1
                 && Main.projectile[ActivePetId].modProjectile is ParentPokemon) //Integrity check
             {
-                if (ActiveMove != null)
+                if (Battle != null)
                 {
-                    if (!ActiveMove.Update(Main.projectile[ActivePetId],
-                        (ParentPokemon) Main.projectile[ActivePetId].modProjectile, this))
+                    Battle.Update();
+                    if(Battle.State == BattleState.None)
+                    {
+                        Battle.Cleanup();
+                        Battle = null;
+                    }
+                }
+                else if (ActiveMove != null)
+                {
+                    if (!ActiveMove.Update((ParentPokemon) Main.projectile[ActivePetId].modProjectile, this))
                         ActiveMove = null;
                 }
                 else if (Cooldown <= 0)
@@ -533,21 +537,16 @@ namespace Terramon.Players
                     var mod = (TerramonMod) this.mod;
                     if (AutoUse)
                     {
-                        var f1 = MoveSet[0]?.AutoUseWeight(Main.projectile[ActivePetId],
-                                         (ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
-                        var f2 = MoveSet[1]?.AutoUseWeight(Main.projectile[ActivePetId],
-                                         (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
-                        var f3 = MoveSet[2]?.AutoUseWeight(Main.projectile[ActivePetId],
-                                         (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
-                        var f4 = MoveSet[3]?.AutoUseWeight(Main.projectile[ActivePetId],
-                                         (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
+                        var f1 = MoveSet[0]?.AutoUseWeight((ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
+                        var f2 = MoveSet[1]?.AutoUseWeight((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
+                        var f3 = MoveSet[2]?.AutoUseWeight((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
+                        var f4 = MoveSet[3]?.AutoUseWeight((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
                         var sum = f1 + f2 + f3 + f4 + 1500; //1500 is idle
                         var w = Main.rand.Next(sum);
                         if (w < f1)
                         {
                             ActiveMove = MoveSet[0];
-                            if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
-                                (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                            if (ActiveMove.PerformInWorld((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                                 Cooldown = ActiveMove.Cooldown;
                             else
                                 ActiveMove = null;
@@ -555,8 +554,7 @@ namespace Terramon.Players
                         else if(w < f1 + f2)
                         {
                             ActiveMove = MoveSet[1];
-                            if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
-                                (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                            if (ActiveMove.PerformInWorld((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                                 Cooldown = ActiveMove.Cooldown;
                             else
                                 ActiveMove = null;
@@ -564,16 +562,14 @@ namespace Terramon.Players
                         else if (w < f1 + f2 + f3)
                         {
                             ActiveMove = MoveSet[2];
-                            if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
-                                (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                            if (ActiveMove.PerformInWorld((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                                 Cooldown = ActiveMove.Cooldown;
                             else
                                 ActiveMove = null;
                         }else if (w < f1 + f2 + f3 + f4)
                         {
                             ActiveMove = MoveSet[3];
-                            if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
-                                (ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                            if (ActiveMove.PerformInWorld((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                                 Cooldown = ActiveMove.Cooldown;
                             else
                                 ActiveMove = null;
@@ -583,8 +579,7 @@ namespace Terramon.Players
                     if (mod.FirstPKMAbility.JustPressed && MoveSet[0] != null && ActiveMove == null)
                     {
                         ActiveMove = MoveSet[0];
-                        if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
-                            (ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                        if (ActiveMove.PerformInWorld((ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                             Cooldown = ActiveMove.Cooldown;
                         else
                             ActiveMove = null;
@@ -592,8 +587,7 @@ namespace Terramon.Players
                     else if (mod.SecondPKMAbility.JustPressed && MoveSet[1] != null && ActiveMove == null)
                     {
                         ActiveMove = MoveSet[1];
-                        if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
-                            (ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                        if (ActiveMove.PerformInWorld((ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                             Cooldown = ActiveMove.Cooldown;
                         else
                             ActiveMove = null;
@@ -601,8 +595,7 @@ namespace Terramon.Players
                     else if (mod.ThirdPKMAbility.JustPressed && MoveSet[2] != null && ActiveMove == null)
                     {
                         ActiveMove = MoveSet[2];
-                        if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
-                            (ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                        if (ActiveMove.PerformInWorld((ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                             Cooldown = ActiveMove.Cooldown;
                         else
                             ActiveMove = null;
@@ -610,12 +603,12 @@ namespace Terramon.Players
                     else if (mod.FourthPKMAbility.JustPressed && MoveSet[3] != null && ActiveMove == null)
                     {
                         ActiveMove = MoveSet[3];
-                        if (ActiveMove.PerformInWorld(Main.projectile[ActivePetId],
-                            (ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                        if (ActiveMove.PerformInWorld((ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                             Cooldown = ActiveMove.Cooldown;
                         else
                             ActiveMove = null;
                     }
+
                 }
             }
         }
@@ -738,18 +731,18 @@ namespace Terramon.Players
                 [nameof(StarterChosen)] = StarterChosen
             };
 
-            if (PartySlot1 != null && PartySlot1.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
-                tag.Add(nameof(PartySlot1), PartySlot1);
-            if (PartySlot2 != null && PartySlot2.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
-                tag.Add(nameof(PartySlot2), PartySlot2);
-            if (PartySlot3 != null && PartySlot3.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
-                tag.Add(nameof(PartySlot3), PartySlot3);
-            if (PartySlot4 != null && PartySlot4.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
-                tag.Add(nameof(PartySlot4), PartySlot4);
-            if (PartySlot5 != null && PartySlot5.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
-                tag.Add(nameof(PartySlot5), PartySlot5);
-            if (PartySlot6 != null && PartySlot6.GetByte(BaseCaughtClass.POKEBAL_PROPERTY) != 0)
-                tag.Add(nameof(PartySlot6), PartySlot6);
+            if (PartySlot1 != null && PartySlot1.pokeballType != 0)
+                tag.Add(nameof(PartySlot1), PartySlot1.GetCompound());
+            if (PartySlot2 != null && PartySlot2.pokeballType != 0)
+                tag.Add(nameof(PartySlot2), PartySlot2.GetCompound());
+            if (PartySlot3 != null && PartySlot3.pokeballType != 0)
+                tag.Add(nameof(PartySlot3), PartySlot3.GetCompound());
+            if (PartySlot4 != null && PartySlot4.pokeballType != 0)
+                tag.Add(nameof(PartySlot4), PartySlot4.GetCompound());
+            if (PartySlot5 != null && PartySlot5.pokeballType != 0)
+                tag.Add(nameof(PartySlot5), PartySlot5.GetCompound());
+            if (PartySlot6 != null && PartySlot6.pokeballType != 0)
+                tag.Add(nameof(PartySlot6), PartySlot6.GetCompound());
 
 
             SavePokeballs(tag);
@@ -760,12 +753,13 @@ namespace Terramon.Players
         public override void Load(TagCompound tag)
         {
             StarterChosen = tag.GetBool(nameof(StarterChosen));
-            PartySlot1 = tag.ContainsKey(nameof(PartySlot1)) ? tag.GetCompound(nameof(PartySlot1)) : null;
-            PartySlot2 = tag.ContainsKey(nameof(PartySlot2)) ? tag.GetCompound(nameof(PartySlot2)) : null;
-            PartySlot3 = tag.ContainsKey(nameof(PartySlot3)) ? tag.GetCompound(nameof(PartySlot3)) : null;
-            PartySlot4 = tag.ContainsKey(nameof(PartySlot4)) ? tag.GetCompound(nameof(PartySlot4)) : null;
-            PartySlot5 = tag.ContainsKey(nameof(PartySlot5)) ? tag.GetCompound(nameof(PartySlot5)) : null;
-            PartySlot6 = tag.ContainsKey(nameof(PartySlot6)) ? tag.GetCompound(nameof(PartySlot6)) : null;
+            PartySlot1 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot1))) : null;
+            PartySlot2 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot2))) : null;
+            PartySlot3 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot3))) : null;
+            PartySlot4 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot4))) : null;
+            PartySlot5 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot5))) : null;
+            PartySlot6 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot6))) : null;
+
             LoadPokeballs(tag);
         }
 

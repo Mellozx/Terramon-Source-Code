@@ -63,6 +63,7 @@ namespace Terramon
         private UserInterface evolveUserInterfaceNew; // Pokegear Events Menu
         private UserInterface _uiSidebar;
         private UserInterface _moves;
+        private UserInterface _battle;
         public UserInterface _partySlots;
 
         public static ModHotKey PartyCycle;
@@ -282,6 +283,7 @@ namespace Terramon
                 _uiSidebar = new UserInterface();
                 _moves = new UserInterface();
                 _partySlots = new UserInterface();
+                _battle = new UserInterface();
 
 
                 _exampleUserInterface.SetState(ChooseStarter); // Choose Starter
@@ -291,6 +293,7 @@ namespace Terramon
                 _uiSidebar.SetState(UISidebar);
                 _moves.SetState(Moves);
                 _partySlots.SetState(PartySlots);
+                _battle.SetState(BattleMode.UI = new BattleUI());// Automatically assign shortcut
 
     
             }
@@ -320,6 +323,8 @@ namespace Terramon
             _uiSidebar.SetState(null);
             _partySlots.SetState(null);
             _moves.SetState(null);
+            _battle.SetState(null);
+            BattleMode.UI = null;
             PartySlots = null;
             pokemonStore = null;
             wildPokemonStore = null;
@@ -330,6 +335,7 @@ namespace Terramon
             _uiSidebar = null;
             _partySlots = null;
             _moves = null;
+            _battle = null;
 
 
 
@@ -394,7 +400,8 @@ namespace Terramon
             if (ChooseStarterSquirtle.Visible) _exampleUserInterface?.Update(gameTime);
             if (UISidebar.Visible) _uiSidebar?.Update(gameTime);
             if (Moves.Visible) _moves?.Update(gameTime);
-            if (PartySlots.Visible) _partySlots?.Update(gameTime);
+            if (PartySlots.Visible && !BattleUI.Visible) _partySlots?.Update(gameTime);
+            if (BattleUI.Visible) _battle.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -417,7 +424,8 @@ namespace Terramon
                         if (ChooseStarterSquirtle.Visible) _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
                         if (UISidebar.Visible) _uiSidebar.Draw(Main.spriteBatch, new GameTime());
                         if (Moves.Visible) _moves.Draw(Main.spriteBatch, new GameTime());
-                        if (PartySlots.Visible) _partySlots.Draw(Main.spriteBatch, new GameTime());
+                        if (PartySlots.Visible && !BattleUI.Visible) _partySlots.Draw(Main.spriteBatch, new GameTime());
+                        if (BattleUI.Visible) _battle.Draw(Main.spriteBatch, new GameTime());
                         return true;
                     },
                     InterfaceScaleType.UI)

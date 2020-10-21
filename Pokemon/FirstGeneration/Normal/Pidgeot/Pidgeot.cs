@@ -10,9 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Pidgeot
 {
     public class Pidgeot : ParentPokemonFlying
     {
-        
-
-        
+#if DEBUG
+        public override string[] DefaultMove => new[] {nameof(ShootMove), nameof(HealMove), null, null};
+#endif
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Normal, PokemonType.Flying };
 

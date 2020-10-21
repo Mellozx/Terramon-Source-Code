@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Players;
+using Terramon.Pokemon;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -285,60 +286,60 @@ namespace Terramon.UI.SidebarParty
             {
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass) partyslot1.Item.modItem;
-                modPlayer.firstslottype = pokeballCaught.PokemonNPC;
+                //modPlayer.firstslottype = pokeballCaught.PokemonNPC;
                 //old_1 = pokeballCaught.PokemonName ;
                 modPlayer.firstslotname = pokeballCaught.PokemonName;
-                modPlayer.PartySlot1 = pokeballCaught.Save();
+                modPlayer.PartySlot1 =new PokemonData(pokeballCaught.Save());
             }
 
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot2.Item.IsAir)
             {
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass) partyslot2.Item.modItem;
-                modPlayer.secondslottype = pokeballCaught.PokemonNPC;
+                //modPlayer.secondslottype = pokeballCaught.PokemonNPC;
                 //old_2 = pokeballCaught.PokemonName;
                 modPlayer.secondslotname = pokeballCaught.PokemonName;
-                modPlayer.PartySlot2 = pokeballCaught.Save();
+                modPlayer.PartySlot2 =new PokemonData(pokeballCaught.Save());
             }
 
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot3.Item.IsAir)
             {
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass) partyslot3.Item.modItem;
-                modPlayer.thirdslottype = pokeballCaught.PokemonNPC;
+                //modPlayer.thirdslottype = pokeballCaught.PokemonNPC;
                 //old_3 = pokeballCaught.PokemonName;
                 modPlayer.thirdslotname = pokeballCaught.PokemonName;
-                modPlayer.PartySlot3 = pokeballCaught.Save();
+                modPlayer.PartySlot3 =new PokemonData(pokeballCaught.Save());
             }
 
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot4.Item.IsAir)
             {
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass) partyslot4.Item.modItem;
-                modPlayer.fourthslottype = pokeballCaught.PokemonNPC;
+                //modPlayer.fourthslottype = pokeballCaught.PokemonNPC;
                 //old_4 = pokeballCaught.PokemonName;
                 modPlayer.fourthslotname = pokeballCaught.PokemonName;
-                modPlayer.PartySlot4 = pokeballCaught.Save();
+                modPlayer.PartySlot4 =new PokemonData(pokeballCaught.Save());
             }
 
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot5.Item.IsAir)
             {
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass) partyslot5.Item.modItem;
-                modPlayer.fifthslottype = pokeballCaught.PokemonNPC;
+                //modPlayer.fifthslottype = pokeballCaught.PokemonNPC;
                 //old_5 = pokeballCaught.PokemonName;
                 modPlayer.fifthslotname = pokeballCaught.PokemonName;
-                modPlayer.PartySlot5 = pokeballCaught.Save();
+                modPlayer.PartySlot5 =new PokemonData(pokeballCaught.Save());
             }
 
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot6.Item.IsAir)
             {
                 //var type = TerramonMod.GetPokeballType(partyslot1.Item.modItem);
                 var pokeballCaught = (BaseCaughtClass) partyslot6.Item.modItem;
-                modPlayer.sixthslottype = pokeballCaught.PokemonNPC;
+                //modPlayer.sixthslottype = pokeballCaught.PokemonNPC;
                 //old_6 = pokeballCaught.PokemonName;
                 modPlayer.sixthslotname = pokeballCaught.PokemonName;
-                modPlayer.PartySlot6 = pokeballCaught.Save();
+                modPlayer.PartySlot6 =new PokemonData(pokeballCaught.Save());
             }
 
             //Main.NewText("Party Saved!");

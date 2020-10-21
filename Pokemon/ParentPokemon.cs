@@ -46,6 +46,7 @@ namespace Terramon.Pokemon
 
         public int TotalPoints => MaxHP + PhysicalDamage + PhysicalDefence + SpecialDamage + SpecialDefence + Speed;
 
+        internal bool Wild;
 
         private string iconName;
 
@@ -76,7 +77,15 @@ namespace Terramon.Pokemon
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            var path = $"Pokemon/FirstGeneration/Normal/{projectile.Name}/{projectile.Name}";
+            //var path = $"Pokemon/FirstGeneration/Normal/{projectile.Name}/{projectile.Name}";
+            var arr = GetType().Namespace.Split('.');
+            string path = String.Empty;
+            for(int i = 1; i < arr.Length && i < 4; i++)// We skip "Terramon" at 0 pos
+            {
+                path += path.Length > 0 ? $"/{arr[i]}" : arr[i];
+            }
+            path += $"/{projectile.Name}/{projectile.Name}";
+
             if (shiny)
             {
                 path += "_Shiny";
@@ -135,7 +144,7 @@ namespace Terramon.Pokemon
             }
 
             SpawnTime++;
-            if (SpawnTime == 1)
+            if (SpawnTime == 1 && player.active)
             {
                 if (player.direction == -1) // direction right
                 {
@@ -146,13 +155,25 @@ namespace Terramon.Pokemon
                     projectile.direction = 1;
                 }
                 if(!Main.dedServ)
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Cries/Kanto/cry" + projectile.Name).WithVolume(0.55f));
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Cries/Kanto/cry" + projectile.Name)?.WithVolume(0.55f));
                 
                 for (int i = 0; i < 18; i++)
                 {
                     Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("SmokeTransformDust"));
                 }
             }
+
+            if (Wild)
+            {
+                projectile.timeLeft = 5;
+                projectile.tileCollide = false;
+                return;
+            }
+            else if (!player.active)
+            {
+                projectile.timeLeft = 0;
+            }
+
 
             if (player.dead)
             {
@@ -164,8 +185,19 @@ namespace Terramon.Pokemon
 
             if (modPlayer.ActiveMove != null)
             {
-                if (modPlayer.ActiveMove.OverrideAI(projectile, this, modPlayer))
+                if (modPlayer.ActiveMove.OverrideAI(this, modPlayer))
                     aiType = 0;
+            }
+            else if (modPlayer.Battle?.AIOverride(this) != null)//If used inside battle
+            {
+                var t = modPlayer.Battle?.AIOverride(this);
+                t.TurnAnimation = true;
+                if (t.OverrideAI(this, modPlayer))
+                {
+                    aiType = 0;
+                }
+
+                t.TurnAnimation = false;
             }
             else if (aiType == 0)
             {

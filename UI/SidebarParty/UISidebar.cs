@@ -4,6 +4,8 @@ using Razorwing.Framework.Localisation;
 using Terramon.Items.Pokeballs;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Players;
+using Terramon.Pokemon;
+using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -39,6 +41,7 @@ namespace Terramon.UI.SidebarParty
 
 
         public UIOpaqueButton choose;
+        public UIOpaqueButton battle;
 
         //sidebar pkmn textures
         public Texture2D firstpkmntexture;
@@ -91,6 +94,30 @@ namespace Terramon.UI.SidebarParty
             choose.Height.Set(32, 0);
             choose.OnClick += HelpClicked;
             Append(choose);
+
+            chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/PremierBallSidebar");
+            battle = new UIOpaqueButton(chooseTexture, "[PH] Start Battle");
+            battle.HAlign = 0.007f; // 1
+            battle.VAlign = 0.9f; // 1
+            battle.Width.Set(20, 0);
+            battle.Height.Set(32, 0);
+            battle.OnClick += (e, x) =>
+            {
+                var player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+                if (player.ActivePet.Fainted)
+                {
+                    Main.NewText($"Your {player.ActivePet.Pokemon} is fainted and can't fight!");
+                    return;
+                }
+
+                var id = BaseMove.GetNearestPokemon(Main.LocalPlayer.position);
+                if(id != null)
+                    player.Battle = new BattleMode(player, BattleState.BattleWithWild, npc: (ParentPokemonNPC)id.modNPC, second: new PokemonData()
+                    {
+                        Pokemon = ((ParentPokemonNPC)id.modNPC).HomeClass().Name,
+                    });
+            };
+            Append(battle);
 
             firstpkmntexture = ModContent.GetTexture("Terraria/Item_0");
             firstpkmn = new SidebarClass(firstpkmntexture, "");
@@ -198,13 +225,7 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                firstpkmn.SetImage(
-                    ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slotName));
-                firstpkmn.HoverText = pokemonName1.Value + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
-                                      $"\nLVL: {slotTag.GetInt(nameof(BaseCaughtClass.Level))}" +
-                                      $"\nEXP: {slotTag.GetInt(nameof(BaseCaughtClass.Exp))}" +
-                                      $"\n{sendOutText.Value}";
-                firstpkmn.Recalculate();
+                updateSlot(slotTag, firstpkmn, pokemonName1.Value);//move copypaste to method, so we can modify display data from one place
             }
 
             slotName = modPlayer.secondslotname;
@@ -219,13 +240,7 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                secondpkmn.SetImage(
-                    ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slotName));
-                secondpkmn.HoverText = pokemonName2.Value + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
-                                       $"\nLVL: {slotTag.GetInt(nameof(BaseCaughtClass.Level))}" +
-                                       $"\nEXP: {slotTag.GetInt(nameof(BaseCaughtClass.Exp))}" +
-                                       $"\n{sendOutText.Value}";
-                secondpkmn.Recalculate();
+                updateSlot(slotTag, secondpkmn, pokemonName2.Value);
             }
 
             slotName = modPlayer.thirdslotname;
@@ -240,13 +255,7 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                thirdpkmn.SetImage(
-                    ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slotName));
-                thirdpkmn.HoverText = pokemonName3.Value + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
-                                      $"\nLVL: {slotTag.GetInt(nameof(BaseCaughtClass.Level))}" +
-                                      $"\nEXP: {slotTag.GetInt(nameof(BaseCaughtClass.Exp))}" +
-                                      $"\n{sendOutText.Value}";
-                thirdpkmn.Recalculate();
+                updateSlot(slotTag, thirdpkmn, pokemonName3.Value);
             }
 
             slotName = modPlayer.fourthslotname;
@@ -261,13 +270,7 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                fourthpkmn.SetImage(
-                    ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slotName));
-                fourthpkmn.HoverText = pokemonName4.Value + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
-                                       $"\nLVL: {slotTag.GetInt(nameof(BaseCaughtClass.Level))}" +
-                                       $"\nEXP: {slotTag.GetInt(nameof(BaseCaughtClass.Exp))}" +
-                                       $"\n{sendOutText.Value}";
-                fourthpkmn.Recalculate();
+                updateSlot(slotTag, fourthpkmn, pokemonName4.Value);
             }
 
             slotName = modPlayer.fifthslotname;
@@ -282,13 +285,8 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                fifthpkmn.SetImage(
-                    ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slotName));
-                fifthpkmn.HoverText = pokemonName5.Value + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
-                                      $"\nLVL: {slotTag.GetInt(nameof(BaseCaughtClass.Level))}" +
-                                      $"\nEXP: {slotTag.GetInt(nameof(BaseCaughtClass.Exp))}" +
-                                      $"\n{sendOutText.Value}";
-                fifthpkmn.Recalculate();
+                updateSlot(slotTag, fifthpkmn, pokemonName5.Value);
+
             }
 
             slotName = modPlayer.sixthslotname;
@@ -303,14 +301,20 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                sixthpkmn.SetImage(
-                    ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slotName));
-                sixthpkmn.HoverText = pokemonName6.Value + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
-                                      $"\nLVL: {slotTag.GetInt(nameof(BaseCaughtClass.Level))}" +
-                                      $"\nEXP: {slotTag.GetInt(nameof(BaseCaughtClass.Exp))}" +
-                                      $"\n{sendOutText.Value}";
-                sixthpkmn.Recalculate();
+                updateSlot(slotTag, sixthpkmn, pokemonName6.Value);
             }
+        }
+
+        private void updateSlot(PokemonData slot, SidebarClass side, string name)
+        {
+            side.SetImage(
+                    ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slot.Pokemon));
+            side.HoverText = name + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
+                                      $"\nLVL: {slot.Level}" +
+                                      $"\nEXP: {slot.Exp}" +
+                                      $"\nHP: {slot.HP}/{slot.MaxHP}" +
+                                      $"\n{sendOutText.Value}";
+            side.Recalculate();
         }
 
         private void HelpClicked(UIMouseEvent evt, UIElement listeningElement)
@@ -339,7 +343,7 @@ namespace Terramon.UI.SidebarParty
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            var pet = modPlayer.PartySlot1.GetString(nameof(BaseCaughtClass.PokemonName));
+            var pet = modPlayer.PartySlot1.Pokemon;
             if (modPlayer.ActivePetName != pet)
             {
                 if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
@@ -369,7 +373,7 @@ namespace Terramon.UI.SidebarParty
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            var pet = modPlayer.PartySlot2.GetString(nameof(BaseCaughtClass.PokemonName));
+            var pet = modPlayer.PartySlot2.Pokemon;
             if (modPlayer.ActivePetName != pet)
             {
                 if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
@@ -399,7 +403,7 @@ namespace Terramon.UI.SidebarParty
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            var pet = modPlayer.PartySlot3.GetString(nameof(BaseCaughtClass.PokemonName));
+            var pet = modPlayer.PartySlot3.Pokemon;
             if (modPlayer.ActivePetName != pet)
             {
                 if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
@@ -429,7 +433,7 @@ namespace Terramon.UI.SidebarParty
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            var pet = modPlayer.PartySlot4.GetString(nameof(BaseCaughtClass.PokemonName));
+            var pet = modPlayer.PartySlot4.Pokemon;
             if (modPlayer.ActivePetName != pet)
             {
                 if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
@@ -459,7 +463,7 @@ namespace Terramon.UI.SidebarParty
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            var pet = modPlayer.PartySlot5.GetString(nameof(BaseCaughtClass.PokemonName));
+            var pet = modPlayer.PartySlot5.Pokemon;
             if (modPlayer.ActivePetName != pet)
             {
                 if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")
@@ -489,7 +493,7 @@ namespace Terramon.UI.SidebarParty
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-            var pet = modPlayer.PartySlot6.GetString(nameof(BaseCaughtClass.PokemonName));
+            var pet = modPlayer.PartySlot6.Pokemon;
             if (modPlayer.ActivePetName != pet)
             {
                 if (!string.IsNullOrEmpty(modPlayer.ActivePetName) && modPlayer.ActivePetName != "*")

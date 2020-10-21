@@ -61,8 +61,8 @@ namespace Terramon.Pokemon
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            if (DrawHighRes(spriteBatch, drawColor))//Try use bigger texture with more frames if available
-                return false;
+            //if (DrawHighRes(spriteBatch, drawColor))//Try use bigger texture with more frames if available
+            //    return false;
 
 	        string n = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
             var path = $"Pokemon/FirstGeneration/Normal/{n}/{n}";

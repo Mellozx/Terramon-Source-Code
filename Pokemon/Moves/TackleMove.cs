@@ -13,7 +13,7 @@ namespace Terramon.Pokemon.Moves
 
         public bool moveDone = false;
 
-        public override int AutoUseWeight(Projectile proj, ParentPokemon mon, Vector2 pos, TerramonPlayer player)
+        public override int AutoUseWeight(ParentPokemon mon, Vector2 pos, TerramonPlayer player)
         {
             NPC target = GetNearestNPC(pos);
             if (target == null)
@@ -21,24 +21,24 @@ namespace Terramon.Pokemon.Moves
             return 40;
         }
 
-        public override bool Update(Projectile proj, ParentPokemon mon, TerramonPlayer player)
+        public override bool Update(ParentPokemon mon, TerramonPlayer player)
         {
             return !moveDone;
         }
 
-        public override bool OverrideAI(Projectile proj, ParentPokemon mon, TerramonPlayer player)
+        public override bool OverrideAI(ParentPokemon mon, TerramonPlayer player)
         {
             if (!moveDone)
             {
-                NPC target = GetNearestNPC(proj.position);
+                NPC target = GetNearestNPC(mon.projectile.position);
                 if (target == null)
                     moveDone = true;
-                proj.velocity = proj.position - target.position;        //gets a line and direction to the enemy
-                proj.velocity.Normalize();      //sets it to something between 0 and 1
-                proj.velocity *= 7f;        //multiplies that angle by 7
-                if (proj.Distance(target.Center) <= 10f)
+                mon.projectile.velocity = mon.projectile.position - target.position;        //gets a line and direction to the enemy
+                mon.projectile.velocity.Normalize();      //sets it to something between 0 and 1
+                mon.projectile.velocity *= 7f;        //multiplies that angle by 7
+                if (mon.projectile.Distance(target.Center) <= 10f)
                 {
-                    target.StrikeNPC(32, 6f, proj.direction);
+                    target.StrikeNPC(32, 6f, mon.projectile.direction);
                     moveDone = true;
                 }
             }
