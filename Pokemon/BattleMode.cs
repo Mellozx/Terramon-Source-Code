@@ -133,6 +133,7 @@ namespace Terramon.Pokemon
             }
 
             atackTimeout = atackTimeout > 0 ? atackTimeout - 1 : 0;
+            animWindow = animWindow > 0 ? animWindow - 1 : 0;
 
             if (pMove == null && atackTimeout <= 0)
             {
