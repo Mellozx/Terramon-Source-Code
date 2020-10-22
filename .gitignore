@@ -2,3 +2,4 @@
 bin/
 obj/
 /Terramon.csproj.user
+LocaleParser.exe
