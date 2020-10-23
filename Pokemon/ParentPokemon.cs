@@ -143,7 +143,7 @@ namespace Terramon.Pokemon
                     projectile.direction = 1;
                 }
                 if(!Main.dedServ)
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Cries/Kanto/cry" + projectile.Name).WithVolume(0.55f));
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Cries/cry" + projectile.Name).WithVolume(0.55f));
                 
                 for (int i = 0; i < 18; i++)
                 {
