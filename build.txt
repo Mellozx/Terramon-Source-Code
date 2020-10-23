@@ -1,7 +1,6 @@
 author = Terramon Team
-version = 0.4.0
-displayName = Terramon Mod
-version = 0.4.0
+version = 0.4.1
+displayName = Terramon Mod - Halloween Update!
 homepage = https://discord.gg/U8skDEA
 buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*, Items\Eggs*, *.exe
 dllReferences = DiscordRPC

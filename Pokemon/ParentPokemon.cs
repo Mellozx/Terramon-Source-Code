@@ -77,15 +77,13 @@ namespace Terramon.Pokemon
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            //var path = $"Pokemon/FirstGeneration/Normal/{projectile.Name}/{projectile.Name}";
             var arr = GetType().Namespace.Split('.');
             string path = String.Empty;
-            for(int i = 1; i < arr.Length && i < 4; i++)// We skip "Terramon" at 0 pos
+            for (int i = 1; i < arr.Length && i < 4; i++)// We skip "Terramon" at 0 pos
             {
                 path += path.Length > 0 ? $"/{arr[i]}" : arr[i];
             }
             path += $"/{projectile.Name}/{projectile.Name}";
-
             if (shiny)
             {
                 path += "_Shiny";
@@ -155,7 +153,7 @@ namespace Terramon.Pokemon
                     projectile.direction = 1;
                 }
                 if(!Main.dedServ)
-                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Cries/Kanto/cry" + projectile.Name)?.WithVolume(0.55f));
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Cries/cry" + projectile.Name).WithVolume(0.55f));
                 
                 for (int i = 0; i < 18; i++)
                 {

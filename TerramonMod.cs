@@ -131,7 +131,8 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
-                    State = "Playing v0.4.1",Assets = new Assets()
+                    State = "Playing v0.4.1",
+                    Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
                         LargeImageText = "Terramon Mod",
@@ -151,7 +152,7 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
-                    State = "Playing v0.4.1", 
+                    State = "Playing v0.4.1",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
@@ -221,7 +222,7 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
-                    State = "Playing v0.4.1", 
+                    State = "Playing v0.4.1",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
