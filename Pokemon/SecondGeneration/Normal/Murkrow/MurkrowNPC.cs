@@ -39,7 +39,7 @@ public static bool PlayerIsInForest(Player player){
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             Player player = spawnInfo.player;
-            if (PlayerIsInForest(player) && !Main.dayTime)
+            if (PlayerIsInForest(player) && !Main.dayTime && Main.halloween)
                 return 0.09f;
             return 0f;
         }

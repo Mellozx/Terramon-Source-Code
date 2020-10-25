@@ -12,8 +12,7 @@ namespace Terramon.Items.Pokeballs.Parts
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Ultra Ball Cap");
-            Tooltip.SetDefault("Crafted from iron and Black & Yellow Apricorns."
-                               + "\nCombine it with a button and a base to create an [c/f5da53:Ultra Ball.]");
+            Tooltip.SetDefault("Combine it with a button and base to create an [c/f5da53:Ultra Ball.]");
         }
 
         public override void SetDefaults()

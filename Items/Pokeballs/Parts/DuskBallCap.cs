@@ -12,8 +12,7 @@ namespace Terramon.Items.Pokeballs.Parts
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Dusk Ball Cap");
-            Tooltip.SetDefault("Crafted from iron and Black & Green Apricorns."
-                               + "\nCombine it with a button and a base to create a [c/82e063:Dusk Ball.]");
+            Tooltip.SetDefault("Combine it with a button and base to create a [c/82e063:Dusk Ball.]");
         }
 
         public override void SetDefaults()

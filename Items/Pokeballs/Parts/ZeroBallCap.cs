@@ -12,8 +12,7 @@ namespace Terramon.Items.Pokeballs.Parts
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Zero Ball Cap");
-            Tooltip.SetDefault("Crafted from a Poké Ball Cap and Blue and Black Apricorns."
-                               + "\nCombine it with a dark button and a base to create a [c/FF5757:Zero Ball.]");
+            Tooltip.SetDefault("Combine it with a dark button and base to create a [c/FF5757:Zero Ball.]");
         }
 
         public override void SetDefaults()

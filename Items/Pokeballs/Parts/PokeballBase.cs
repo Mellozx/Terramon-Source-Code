@@ -12,8 +12,7 @@ namespace Terramon.Items.Pokeballs.Parts
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Poké Ball Base");
-            Tooltip.SetDefault("A sturdy, iron base."
-                               + "\nCombine it with a button and a cap to create different kinds of Poké Balls.");
+            Tooltip.SetDefault("Combine it with a button and a cap to create different kinds of Poké Balls.");
         }
 
         public override void SetDefaults()

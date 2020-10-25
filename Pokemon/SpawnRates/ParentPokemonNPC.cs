@@ -378,28 +378,56 @@ namespace Terramon.Pokemon
                                 return;
                             }
                     }
-
+                    else if (ballProjectiles[i] == "PumpkinBallProjectile")
                     {
-                        ballUsage++;
-                        for (int j = 0; j < catchChances[i].Length; j++) // Retain loop for improvement later
-                            if (Main.rand.NextFloat() < catchChances[i][j])
+                        string name = GetType().ToString().Substring(0, GetType().ToString().Length - 3);
+                        ModProjectile pokemonProj = mod.GetProjectile(name);
+                        ParentPokemon pkmn = pokemonProj as ParentPokemon;
+                        if (!Main.dayTime && Main.halloween)
+                        {
+                            if (Main.rand.Next(0, 100) < 45)
                             {
-                                if (projectile.type == ModContent.ProjectileType<PokeballProjectile>()
-                                ) // Special Condition
-                                    Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<PokeballCaught>());
-                                if (projectile.type == ModContent.ProjectileType<GreatBallProjectile>()
-                                ) // Special Condition
-                                    Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<GreatBallCaught>());
-                                if (projectile.type == ModContent.ProjectileType<UltraBallProjectile>()
-                                ) // Special Condition
-                                    Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<UltraBallCaught>());
-                                if (projectile.type == ModContent.ProjectileType<PremierBallProjectile>()
-                                ) // Special Condition
-                                    Catch(ref projectile, ref crit, ref damage,
-                                        ModContent.ItemType<PremierBallCaught>());
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<PumpkinBallCaught>());
                                 return;
                             }
+                        }
+                        else if (Main.halloween)
+                        {
+                            if (Main.rand.Next(0, 100) < 30)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<PumpkinBallCaught>());
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            if (Main.rand.Next(0, 100) < 15)
+                            {
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<PumpkinBallCaught>());
+                                return;
+                            }
+                        }
                     }
+
+                    ballUsage++;
+                    for (int j = 0; j < catchChances[i].Length; j++) // Retain loop for improvement later
+                        if (Main.rand.NextFloat() < catchChances[i][j])
+                        {
+                            if (projectile.type == ModContent.ProjectileType<PokeballProjectile>()
+                            ) // Special Condition
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<PokeballCaught>());
+                            if (projectile.type == ModContent.ProjectileType<GreatBallProjectile>()
+                            ) // Special Condition
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<GreatBallCaught>());
+                            if (projectile.type == ModContent.ProjectileType<UltraBallProjectile>()
+                            ) // Special Condition
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<UltraBallCaught>());
+                            if (projectile.type == ModContent.ProjectileType<PremierBallProjectile>()
+                            ) // Special Condition
+                                Catch(ref projectile, ref crit, ref damage,
+                                    ModContent.ItemType<PremierBallCaught>());
+                            return;
+                        }
                     break;
                 }
 
@@ -429,6 +457,9 @@ namespace Terramon.Pokemon
             if (projectile.type == ModContent.ProjectileType<ZeroBallProjectile>()) // Special Condition
                 if (Main.rand.Next(3) == 0)
                     Item.NewItem(npc.getRect(), ModContent.ItemType<ZeroBallItem>());
+            if (projectile.type == ModContent.ProjectileType<PumpkinBallProjectile>())
+                if (Main.rand.Next(3) == 0)
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<PumpkinBallItem>());
 
             damage = 0;
             npc.life = npc.lifeMax + 1;
