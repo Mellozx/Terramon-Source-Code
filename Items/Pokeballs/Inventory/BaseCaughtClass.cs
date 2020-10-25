@@ -261,7 +261,11 @@ namespace Terramon.Items.Pokeballs.Inventory
         public override TagCompound Save()
         {
             if (PokeData != null)
+            {
+                PokeData.pokeballType = (byte)TerramonMod.PokeballFactory.GetEnum(this);
                 return PokeData.GetCompound();
+
+            }
             var tag = new TagCompound
             {
                 //[nameof(PokemonNPC)] = PokemonNPC,
