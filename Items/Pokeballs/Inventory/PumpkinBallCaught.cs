@@ -5,12 +5,12 @@ using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
-    public class ShadowBallCaught : BaseCaughtClass
+    public class PumpkinBallCaught : BaseCaughtClass
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Shadow Ball");
+            DisplayName.SetDefault("Pumpkinn Ball");
             Tooltip.SetDefault(pokeballTooltip?.Value ?? "");
         }
 
@@ -22,7 +22,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             }
 
             TooltipLine nameLine = tooltips.FirstOrDefault(t => t.Name == "ItemName" && t.mod == "Terraria");
-            if (nameLine != null) nameLine.text = "Shadow Ball (" + PokemonName + (isShiny ? " ✦)" : ")");
+            if (nameLine != null) nameLine.text = "Pumpkin Ball (" + PokemonName + (isShiny ? " ✦)" : ")");
 
             pokeballTooltip.Args = new object[] { isShiny ? pokeName.Value + " ✦" : pokeName.Value };
             tooltips.Find(x => x.Name == "Tooltip0").text = pokeballTooltip.Value;

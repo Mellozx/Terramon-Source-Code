@@ -12,8 +12,7 @@ namespace Terramon.Items.Pokeballs.Parts
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Dark Button");
-            Tooltip.SetDefault("It's an alternate type of button."
-                               + "\nCombine it with a base and a cap to create different kinds of Poké Balls.");
+            Tooltip.SetDefault("Combine it with a base and a cap to create different kinds of Poké Balls.");
         }
 
         public override void SetDefaults()

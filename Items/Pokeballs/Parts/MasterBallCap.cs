@@ -12,8 +12,7 @@ namespace Terramon.Items.Pokeballs.Parts
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Master Ball Cap");
-            Tooltip.SetDefault("Forged from Luminite, as well as Red, Blue and Pink Apricorns."
-                               + "\nCombine it with a button and a base to create the fabled [c/f553da:Master Ball.]");
+            Tooltip.SetDefault("Combine it with a button and base to create the fabled [c/f553da:Master Ball.]");
         }
 
         public override void SetDefaults()

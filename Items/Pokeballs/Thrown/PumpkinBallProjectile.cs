@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Thrown
 {
-    public class ShadowBallProjectile : BasePokeballProjectile
+    public class PumpkinBallProjectile : BasePokeballProjectile
     {
         public override void AI()
         {

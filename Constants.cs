@@ -22,7 +22,7 @@
                     PREMIER_BALL = "premierBall",
                     QUICK_BALL = "quickBall",
                     ZERO_BALL = "zeroBall",
-                    SHADOW_BALL = "shadowBall";
+                    SHADOW_BALL = "PumpkinBall";
             }
 
             public static class CatchRates

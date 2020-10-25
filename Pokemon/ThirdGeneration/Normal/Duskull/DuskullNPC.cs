@@ -24,7 +24,7 @@ namespace Terramon.Pokemon.ThirdGeneration.Normal.Duskull
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             Player player = Main.LocalPlayer;
-            if (!Main.dayTime)
+            if (Main.halloween && !Main.dayTime)
                 return 0.05f;
             return 0f;
         }

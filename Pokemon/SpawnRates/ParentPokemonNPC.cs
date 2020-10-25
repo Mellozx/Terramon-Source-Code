@@ -377,32 +377,32 @@ namespace Terramon.Pokemon
                                 return;
                             }
                     }
-                    else if (ballProjectiles[i] == "ShadowBallProjectile")
+                    else if (ballProjectiles[i] == "PumpkinBallProjectile")
                     {
                         string name = GetType().ToString().Substring(0, GetType().ToString().Length - 3);
                         ModProjectile pokemonProj = mod.GetProjectile(name);
                         ParentPokemon pkmn = pokemonProj as ParentPokemon;
-                        for (int types = 0; types < pkmn.PokemonTypes.Length; types++)
+                        if (!Main.dayTime && Main.halloween)
                         {
-                            if (Main.halloween || pkmn.PokemonTypes[types] == PokemonType.Ghost || pkmn.PokemonTypes[types] == PokemonType.Dark)
+                            if (Main.rand.Next(0, 100) < 45)
                             {
-                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<PumpkinBallCaught>());
                                 return;
                             }
                         }
-                        if (!Main.dayTime)
+                        else if (Main.halloween)
                         {
-                            if (Main.rand.Next(0, 100) < 60)
+                            if (Main.rand.Next(0, 100) < 30)
                             {
-                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<PumpkinBallCaught>());
                                 return;
                             }
                         }
                         else
                         {
-                            if (Main.rand.Next(0, 100) < 20)
+                            if (Main.rand.Next(0, 100) < 15)
                             {
-                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<TimerBallCaught>());
+                                Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<PumpkinBallCaught>());
                                 return;
                             }
                         }
@@ -456,9 +456,9 @@ namespace Terramon.Pokemon
             if (projectile.type == ModContent.ProjectileType<ZeroBallProjectile>()) // Special Condition
                 if (Main.rand.Next(3) == 0)
                     Item.NewItem(npc.getRect(), ModContent.ItemType<ZeroBallItem>());
-            if (projectile.type == ModContent.ProjectileType<ShadowBallProjectile>())
+            if (projectile.type == ModContent.ProjectileType<PumpkinBallProjectile>())
                 if (Main.rand.Next(3) == 0)
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<ShadowBallItem>());
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<PumpkinBallItem>());
 
             damage = 0;
             npc.life = npc.lifeMax + 1;

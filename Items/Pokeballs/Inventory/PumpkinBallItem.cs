@@ -9,13 +9,13 @@ using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Inventory
 {
-    public class ShadowBallItem : BaseThrowablePokeballItem<ShadowBallProjectile>
+    public class PumpkinBallItem : BaseThrowablePokeballItem<PumpkinBallProjectile>
     {
-        public ShadowBallItem() : base(Constants.Pokeballs.UnlocalizedNames.PREMIER_BALL,
+        public PumpkinBallItem() : base(Constants.Pokeballs.UnlocalizedNames.PREMIER_BALL,
             new Dictionary<GameCulture, string>
             {
-                {GameCulture.English, "Shadow Ball"},
-                {GameCulture.French, "Ombre Ball"}
+                {GameCulture.English, "Pumpkin Ball"},
+                {GameCulture.French, "Citrouille Ball"}
             },
             new Dictionary<GameCulture, string>
             {
@@ -35,11 +35,19 @@ namespace Terramon.Items.Pokeballs.Inventory
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Pumpkin, 3);
-            recipe.AddIngredient(mod.ItemType("Button"));
+            recipe.AddIngredient(mod.ItemType("PumpkinBallCap"));
+            recipe.AddIngredient(mod.ItemType("DarkButton"));
             recipe.AddIngredient(mod.ItemType("PokeballBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();
+
+            ModRecipe recipe2 = new ModRecipe(mod);
+            recipe2.AddIngredient(mod.ItemType("WhiteApricorn"), 4);
+            recipe2.AddIngredient(ItemID.Pumpkin, 3);
+            recipe2.AddIngredient(ItemID.IronBar, 6);
+            recipe2.AddTile(TileID.Anvils);
+            recipe2.SetResult(this);
+            recipe2.AddRecipe();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
