@@ -181,7 +181,7 @@ namespace Terramon.UI.Starter
                 int index = Item.NewItem(player.getRect(), ModContent.ItemType<PokeballCaught>());
                 if (index >= 400)
                     return;
-                (Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<BulbasaurNPC>();
+                //(Main.item[index].modItem as PokeballCaught).PokemonNPC = ModContent.NPCType<BulbasaurNPC>();
                 (Main.item[index].modItem as PokeballCaught).PokemonName = "Bulbasaur";
                 (Main.item[index].modItem as PokeballCaught).SmallSpritePath =
                     "Terramon/Minisprites/Regular/miniBulbasaur";

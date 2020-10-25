@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Paras
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneOverworldHeight && spawnInfo.player.ZoneJungle)
                 return 0.06f;
             return 0f;

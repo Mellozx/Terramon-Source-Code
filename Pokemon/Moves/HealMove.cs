@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.Moves
 
         public override int Cooldown => 20 * 60; //20 sec cooldown
 
-        public override int AutoUseWeight(Projectile proj, ParentPokemon mon, Vector2 target, TerramonPlayer player)
+        public override int AutoUseWeight(ParentPokemon mon, Vector2 target, TerramonPlayer player)
         {
             Player pl = Main.player[player.whoAmI];
             if (!(pl.statLife < pl.statLifeMax - (100 * (pl.statLifeMax / 500f))))
@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.Moves
             return (int)Math.Round(100 * ((float)pl.statLife / pl.statLifeMax)); // The less hp left, the more chance to cast
         }
 
-        public override bool PerformInWorld(Projectile proj, ParentPokemon mon, Vector2 target, TerramonPlayer player)
+        public override bool PerformInWorld(ParentPokemon mon, Vector2 target, TerramonPlayer player)
         {
             Player pl = Main.player[player.whoAmI];
             if (pl.statLife < pl.statLifeMax - (100 * ((float)pl.statLifeMax / 500f))) //The more hp player have the more hp threshold

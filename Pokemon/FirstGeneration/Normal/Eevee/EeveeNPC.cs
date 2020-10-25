@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Eevee
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInForest(player))
                 return 0.045f;
             return 0f;

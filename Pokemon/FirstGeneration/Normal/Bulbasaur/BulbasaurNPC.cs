@@ -23,7 +23,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneOverworldHeight && spawnInfo.player.ZoneJungle)
                 return 0.03f;
             return 0f;

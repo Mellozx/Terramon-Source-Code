@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Alakazam
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneHoly)
                 return 0f;
             return 0f;

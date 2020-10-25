@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Razorwing.Framework.Localisation;
 using Terramon.Players;
+using Terramon.Pokemon;
+using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,11 +16,11 @@ namespace Terramon.Items.Pokeballs.Inventory
 {
     public abstract class BaseCaughtClass : ModItem
     {
-        /// <summary>
-        ///     I think this is not needed. I want  to store what mon are here
-        ///     we better need to store a type string <see cref="nameof(Charmander)" />
-        /// </summary>
-        public int PokemonNPC;
+        ///// <summary>
+        /////     I think this is not needed. I want  to store what mon are here
+        /////     we better need to store a type string <see cref="nameof(Charmander)" />
+        ///// </summary>
+        //public int PokemonNPC;
 
         public ILocalisedBindableString goText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("go", "Go {0}!")));
         public ILocalisedBindableString retire1Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("retire1", "{0}, switch out!\nCome back!")));
@@ -29,21 +31,47 @@ namespace Terramon.Items.Pokeballs.Inventory
             new LocalisedString(("pokeball.tooltip", "Contains {0} \nLeft click to send out this Pokémon (or return it to this ball).\nRight click to add to your party."), "*"));
 
 
-        public string CapturedPokemon;
-        public string PokemonName;
+        public string CapturedPokemon
+        {
+            get => PokeData.Pokemon;
+            set => PokeData.Pokemon = value;
+        }
+        public string PokemonName
+        {
+            get => PokeData.Pokemon;
+            set => PokeData.Pokemon = value;
+        }
         public string SmallSpritePath;
-        public int PartySlotNumber;
-        public int Level = 1;
-        public int Exp;
+        //public int PartySlotNumber;
+        public int Level
+        {
+            get => PokeData.Level;
+            set => PokeData.Level = value;
+        }
+        public int Exp
+        {
+            get => PokeData.Level;
+            set => PokeData.Level = value;
+        }
+        public bool isShiny
+        {
+            get => PokeData.IsShiny;
+            set => PokeData.IsShiny = value;
+        }
 
-        public bool isShiny;
-
-        public string[] Moves;
+        public BaseMove[] Moves
+        {
+            get => PokeData.Moves;
+            set => PokeData.Moves = value;
+        }
 
         public override bool CloneNewInstances => true;
 
         public override void SetDefaults()
         {
+            if(PokeData == null)
+                PokeData = new PokemonData();
+
             item.damage = 20;
 
             item.width = 24;
@@ -62,19 +90,19 @@ namespace Terramon.Items.Pokeballs.Inventory
             item.rare = 0;
 
             //I'l made a moves registry like i do it with mons after we done
-            Moves = new[] {"", "", "", ""};
+            //Moves = new[] {null, null, null, null};
 
 
             //Detour handle
             if (Main.netMode != NetmodeID.Server || det_CapturedPokemon == null)
                 return;
 
-            PokemonNPC = det_PokemonNPC;
-            det_PokemonNPC = 0;
+            //PokemonNPC = det_PokemonNPC;
+            //det_PokemonNPC = 0;
             PokemonName = det_PokemonName;
             det_PokemonName = null;
-            SmallSpritePath = det_SmallSpritePath;
-            det_SmallSpritePath = null;
+            //SmallSpritePath = det_SmallSpritePath; 
+            //det_SmallSpritePath = null;
             CapturedPokemon = det_CapturedPokemon;
             det_CapturedPokemon = null;
             isShiny = det_isShiny;
@@ -84,13 +112,11 @@ namespace Terramon.Items.Pokeballs.Inventory
                 var arr = det_Moves.Split('|');
                 for (int i = 0; i < arr.Length || i < 4; i++)
                     if (!string.IsNullOrEmpty(arr[i]))
-                        Moves[i] = arr[i];
+                        Moves[i] = TerramonMod.GetMove(arr[i]);
+
             }
 
             det_Moves = null;
-
-            //TODO: Assign this to your field
-            //Shiny = det_Shiny;
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
@@ -230,15 +256,19 @@ namespace Terramon.Items.Pokeballs.Inventory
         public const string MOVE3 = "Move3";
         public const string MOVE4 = "Move4";
 
+        public PokemonData PokeData;
+
         public override TagCompound Save()
         {
+            if (PokeData != null)
+                return PokeData.GetCompound();
             var tag = new TagCompound
             {
-                [nameof(PokemonNPC)] = PokemonNPC,
+                //[nameof(PokemonNPC)] = PokemonNPC,
                 [nameof(PokemonName)] = PokemonName,
-                [nameof(SmallSpritePath)] = SmallSpritePath,
-
-                [nameof(SmallSpritePath)] = SmallSpritePath, // what do i do here
+                //[nameof(SmallSpritePath)] = SmallSpritePath,
+                //
+                //[nameof(SmallSpritePath)] = SmallSpritePath, // what do i do here
                 //v2
 
                 [nameof(isShiny)] = isShiny,
@@ -246,13 +276,13 @@ namespace Terramon.Items.Pokeballs.Inventory
                 [nameof(Level)] = Level,
                 [nameof(Exp)] = Exp,
                 //Store move name
-                [MOVE1] = Moves[0] ?? "",
-                [MOVE2] = Moves[1] ?? "",
-                [MOVE3] = Moves[2] ?? "",
-                [MOVE4] = Moves[3] ?? "",
+                [MOVE1] = Moves[0]?.GetType().Name ?? "",
+                [MOVE2] = Moves[1]?.GetType().Name ?? "",
+                [MOVE3] = Moves[2]?.GetType().Name ?? "",
+                [MOVE4] = Moves[3]?.GetType().Name ?? "",
                 //[nameof(Moves)] = from it in Moves select it.MoveName,
                 //Used to restore items in sidebarUI
-                [POKEBAL_PROPERTY] = (byte) TerramonMod.PokeballFactory.GetEnum(this)
+                [POKEBAL_PROPERTY] = (byte)TerramonMod.PokeballFactory.GetEnum(this)
             };
 
 
@@ -261,31 +291,38 @@ namespace Terramon.Items.Pokeballs.Inventory
 
         public override void Load(TagCompound tag)
         {
-            PokemonNPC = tag.GetInt(nameof(PokemonNPC));
-            PokemonName = tag.GetString(nameof(PokemonName));
-            SmallSpritePath = tag.GetString(nameof(SmallSpritePath));
-            isShiny = tag.GetBool(nameof(isShiny));
-            //v2
-            CapturedPokemon = tag.ContainsKey(nameof(CapturedPokemon))
-                ? tag.GetString(nameof(CapturedPokemon))
-                : PokemonName;
-            Level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
-            Exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
+            PokeData = new PokemonData(tag);
+            if (PokeData.pokeballType == 0)
+            {
+                PokeData.pokeballType = (byte)TerramonMod.PokeballFactory.GetEnum(this);
+            }
+            return;
 
-            if (Moves == null)
-                Moves = new string[4];
-            Moves[0] = tag.ContainsKey(MOVE1) ? tag.GetString(MOVE1) : null;
-            Moves[1] = tag.ContainsKey(MOVE2) ? tag.GetString(MOVE2) : null;
-            Moves[2] = tag.ContainsKey(MOVE3) ? tag.GetString(MOVE3) : null;
-            Moves[3] = tag.ContainsKey(MOVE4) ? tag.GetString(MOVE4) : null;
+            ////PokemonNPC = tag.GetInt(nameof(PokemonNPC));
+            //PokemonName = tag.GetString(nameof(PokemonName));
+            ////SmallSpritePath = tag.GetString(nameof(SmallSpritePath));
+            //isShiny = tag.GetBool(nameof(isShiny));
+            ////v2
+            //CapturedPokemon = tag.ContainsKey(nameof(CapturedPokemon))
+            //    ? tag.GetString(nameof(CapturedPokemon))
+            //    : PokemonName;
+            //Level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
+            //Exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
 
-            //Update all old pokebals
-            bool retrofit = true;
-            foreach (var it in Moves)
-                if (!string.IsNullOrEmpty(it))
-                    retrofit = false;
-            if(retrofit)
-                Moves = TerramonMod.GetPokemon(PokemonName).DefaultMove;
+            //if (Moves == null)
+            //    Moves = new string[4];
+            //Moves[0] = tag.ContainsKey(MOVE1) ? tag.GetString(MOVE1) : null;
+            //Moves[1] = tag.ContainsKey(MOVE2) ? tag.GetString(MOVE2) : null;
+            //Moves[2] = tag.ContainsKey(MOVE3) ? tag.GetString(MOVE3) : null;
+            //Moves[3] = tag.ContainsKey(MOVE4) ? tag.GetString(MOVE4) : null;
+
+            ////Update all old pokebals
+            //bool retrofit = true;
+            //foreach (var it in Moves)
+            //    if (!string.IsNullOrEmpty(it))
+            //        retrofit = false;
+            //if(retrofit)
+            //    Moves = TerramonMod.GetPokemon(PokemonName).DefaultMove;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -359,7 +396,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             var movArr = reader.ReadString().Split('|');
             for (int i = 0; i < movArr.Length || i < 4; i++)
                 if (!string.IsNullOrEmpty(movArr[i]))
-                    Moves[i] = movArr[i];
+                    Moves[i] = TerramonMod.GetMove(movArr[i]);
         }
 
         //TODO: Take rid with it
@@ -377,7 +414,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         }
 
         internal static string det_CapturedPokemon;
-        internal static int det_PokemonNPC;
+        //internal static int det_PokemonNPC;
         internal static string det_PokemonName;
         internal static string det_SmallSpritePath;
         internal static int det_Lvl;

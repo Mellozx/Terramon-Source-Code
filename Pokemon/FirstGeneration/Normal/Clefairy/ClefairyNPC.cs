@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Clefairy
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneHoly && spawnInfo.player.ZoneOverworldHeight)
                 return 0.04f;
             return 0f;

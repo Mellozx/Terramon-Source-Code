@@ -37,6 +37,16 @@ namespace Terramon.Pokemon
         public virtual PokemonType[] PokemonTypes => new[] {PokemonType.Normal};
 
         public virtual string[] DefaultMove => new[] {"", "", "", ""};
+        public virtual int MaxHP => 45;
+        public virtual int PhysicalDamage => 50;
+        public virtual int PhysicalDefence => 50;
+        public virtual int SpecialDamage => 50;
+        public virtual int SpecialDefence => 50;
+        public virtual int Speed => 45;
+
+        public int TotalPoints => MaxHP + PhysicalDamage + PhysicalDefence + SpecialDamage + SpecialDefence + Speed;
+
+        internal bool Wild;
 
         private string iconName;
 
@@ -132,7 +142,7 @@ namespace Terramon.Pokemon
             }
 
             SpawnTime++;
-            if (SpawnTime == 1)
+            if (SpawnTime == 1 && player.active)
             {
                 if (player.direction == -1) // direction right
                 {
@@ -151,6 +161,18 @@ namespace Terramon.Pokemon
                 }
             }
 
+            if (Wild)
+            {
+                projectile.timeLeft = 5;
+                projectile.tileCollide = false;
+                return;
+            }
+            else if (!player.active)
+            {
+                projectile.timeLeft = 0;
+            }
+
+
             if (player.dead)
             {
                 modPlayer.ResetEffects();
@@ -161,8 +183,19 @@ namespace Terramon.Pokemon
 
             if (modPlayer.ActiveMove != null)
             {
-                if (modPlayer.ActiveMove.OverrideAI(projectile, this, modPlayer))
+                if (modPlayer.ActiveMove.OverrideAI(this, modPlayer))
                     aiType = 0;
+            }
+            else if (modPlayer.Battle?.AIOverride(this) != null)//If used inside battle
+            {
+                var t = modPlayer.Battle?.AIOverride(this);
+                t.TurnAnimation = true;
+                if (t.OverrideAI(this, modPlayer))
+                {
+                    aiType = 0;
+                }
+
+                t.TurnAnimation = false;
             }
             else if (aiType == 0)
             {
@@ -201,32 +234,7 @@ namespace Terramon.Pokemon
         }
     }
 
-    public enum PokemonType
-    {
-        Bug,
-        Dark,
-        Dragon,
-        Electric,
-        Fairy,
-        Fighting,
-        Fire,
-        Flying,
-        Ghost,
-        Grass,
-        Ground,
-        Ice,
-        Normal,
-        Poison,
-        Psychic,
-        Rock,
-        Steel,
-        Water,
-        Nuclear,
-        Light,
-        Machine,
-        Sound
-    }
-
+   
     public enum EvolveItem
     {
         RareCandy,

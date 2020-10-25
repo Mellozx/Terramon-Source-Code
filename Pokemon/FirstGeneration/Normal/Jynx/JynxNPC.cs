@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Jynx
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneSnow && spawnInfo.player.ZoneRockLayerHeight)
                 return 0.035f;
             return 0f;

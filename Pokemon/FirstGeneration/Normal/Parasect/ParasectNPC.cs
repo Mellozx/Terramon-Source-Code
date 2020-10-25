@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Parasect
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneRockLayerHeight && spawnInfo.player.ZoneJungle)
                 return 0.03f;
             return 0f;

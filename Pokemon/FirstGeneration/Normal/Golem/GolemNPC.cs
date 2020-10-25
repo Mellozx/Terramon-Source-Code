@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Golem
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneUndergroundDesert)
                 return 0f;
             return 0f;

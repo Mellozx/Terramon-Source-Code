@@ -63,11 +63,15 @@ namespace Terramon
         private UserInterface evolveUserInterfaceNew; // Pokegear Events Menu
         private UserInterface _uiSidebar;
         private UserInterface _moves;
+        private UserInterface _battle;
         public UserInterface _partySlots;
 
         public static ModHotKey PartyCycle;
         public static LocalisationManager Localisation;
-        public static IResourceStore<byte[]> Store;
+        public static ResourceStore<byte[]> Store;
+        public static Texture2DStore Textures;
+        public Storage storage;
+
 
         //evolution
 
@@ -239,10 +243,17 @@ namespace Terramon
                     Localisation = new LocalisationManager(locale);
                 }
                 locale = new Bindable<string>(Language.ActiveCulture.Name);
-                Store = new ResourceStore<byte[]>(new EmbeddedStore());
-                Localisation.AddLanguage(GameCulture.English.Name, new LocalisationStore(Store, GameCulture.English));
-                Localisation.AddLanguage(GameCulture.Russian.Name, new LocalisationStore(Store, GameCulture.Russian));
+
+                storage = new ModStorage("Terramon");//Initialise local resource store
+                Store = new ResourceStore<byte[]>(new EmbeddedStore());//Make new instance of ResourceStore with dependency what loads data from ModStore
+                Store.AddStore(new StorageCachableStore(storage, new WebStore()));//Add second dependency what checks if data exist in local store.
+                                                                                  //If not and provided URL load data from web and save it on drive
+                Textures = new Texture2DStore(Store);//Initialise cachable texture store in order not creating new texture each call
+
+                Localisation.AddLanguage(GameCulture.English.Name, new LocalisationStore(Store, GameCulture.English));//Adds en-US.lang file handling
+                Localisation.AddLanguage(GameCulture.Russian.Name, new LocalisationStore(Store, GameCulture.Russian));//Adds ru-RU.lang file handling
 #if DEBUG
+                UseWebAssets = true;
                 var ss = Localisation.GetLocalisedString(new LocalisedString(("title","Powered by broken code")));//It's terrible checking in ui from phone, so i can ensure everything works from version string
                 Main.versionNumber = ss.Value + "\n" + Main.versionNumber;
 #endif
@@ -274,6 +285,7 @@ namespace Terramon
                 _uiSidebar = new UserInterface();
                 _moves = new UserInterface();
                 _partySlots = new UserInterface();
+                _battle = new UserInterface();
 
 
                 _exampleUserInterface.SetState(ChooseStarter); // Choose Starter
@@ -283,6 +295,7 @@ namespace Terramon
                 _uiSidebar.SetState(UISidebar);
                 _moves.SetState(Moves);
                 _partySlots.SetState(PartySlots);
+                _battle.SetState(BattleMode.UI = new BattleUI());// Automatically assign shortcut
 
     
             }
@@ -312,6 +325,8 @@ namespace Terramon
             _uiSidebar.SetState(null);
             _partySlots.SetState(null);
             _moves.SetState(null);
+            _battle.SetState(null);
+            BattleMode.UI = null;
             PartySlots = null;
             pokemonStore = null;
             wildPokemonStore = null;
@@ -322,6 +337,7 @@ namespace Terramon
             _uiSidebar = null;
             _partySlots = null;
             _moves = null;
+            _battle = null;
 
 
 
@@ -351,6 +367,9 @@ namespace Terramon
             FourthPKMAbility = null;
 
             Localisation = null;
+            Textures = null;
+            storage = null;
+            Store.Dispose();
             Store = null;
         }
 
@@ -383,7 +402,8 @@ namespace Terramon
             if (ChooseStarterSquirtle.Visible) _exampleUserInterface?.Update(gameTime);
             if (UISidebar.Visible) _uiSidebar?.Update(gameTime);
             if (Moves.Visible) _moves?.Update(gameTime);
-            if (PartySlots.Visible) _partySlots?.Update(gameTime);
+            if (PartySlots.Visible && !BattleUI.Visible) _partySlots?.Update(gameTime);
+            if (BattleUI.Visible) _battle.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -406,7 +426,8 @@ namespace Terramon
                         if (ChooseStarterSquirtle.Visible) _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
                         if (UISidebar.Visible) _uiSidebar.Draw(Main.spriteBatch, new GameTime());
                         if (Moves.Visible) _moves.Draw(Main.spriteBatch, new GameTime());
-                        if (PartySlots.Visible) _partySlots.Draw(Main.spriteBatch, new GameTime());
+                        if (PartySlots.Visible && !BattleUI.Visible) _partySlots.Draw(Main.spriteBatch, new GameTime());
+                        if (BattleUI.Visible) _battle.Draw(Main.spriteBatch, new GameTime());
                         return true;
                     },
                     InterfaceScaleType.UI)
@@ -660,6 +681,7 @@ namespace Terramon
                     }
             }
         }
-
+        public static bool UseWebAssets = false;
+        public static bool WebResourceAvailable(string name) => Store.Get(name) != null;
     }
 }

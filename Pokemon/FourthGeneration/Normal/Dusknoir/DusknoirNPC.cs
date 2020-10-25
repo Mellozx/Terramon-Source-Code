@@ -23,7 +23,7 @@ namespace Terramon.Pokemon.FourthGeneration.Normal.Dusknoir
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (!Main.dayTime)
                 return 0f;
             return 0f;

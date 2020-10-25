@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Arbok
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInEvils(player) && spawnInfo.player.ZoneRockLayerHeight)
                 return 0.04f;
             return 0f;

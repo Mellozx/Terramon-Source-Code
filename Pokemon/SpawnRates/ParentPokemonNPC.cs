@@ -47,6 +47,7 @@ namespace Terramon.Pokemon
                    && player.ZoneOverworldHeight;
         }
 
+
         public static bool PlayerIsInEvils(Player player)
         {
             return player.ZoneCrimson
@@ -60,7 +61,7 @@ namespace Terramon.Pokemon
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-	    string n = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
+	        string n = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
             var arr = GetType().Namespace.Split('.');
             string path = String.Empty;
             for (int i = 1; i < arr.Length && i < 4; i++)// We skip "Terramon" at 0 pos

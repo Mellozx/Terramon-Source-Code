@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Krabby
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneBeach)
                 return 0.05f;
             return 0f;

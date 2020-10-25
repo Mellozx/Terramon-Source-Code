@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Victreebel
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneJungle)
                 return 0f;
             return 0f;

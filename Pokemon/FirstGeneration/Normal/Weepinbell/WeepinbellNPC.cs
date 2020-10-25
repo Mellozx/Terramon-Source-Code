@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Weepinbell
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneJungle && spawnInfo.player.ZoneRockLayerHeight)
                 return 0.03f;
             return 0f;

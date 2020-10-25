@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Pinsir
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneJungle && spawnInfo.player.ZoneOverworldHeight && Main.hardMode)
                 return 0.025f;
             return 0f;

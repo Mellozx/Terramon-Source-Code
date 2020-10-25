@@ -23,7 +23,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Butterfree
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneJungle)
                 return 0f;
             return 0f;

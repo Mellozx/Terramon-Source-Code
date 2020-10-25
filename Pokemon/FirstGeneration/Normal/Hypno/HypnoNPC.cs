@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Hypno
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneHoly && spawnInfo.player.ZoneRockLayerHeight)
                 return 0.045f;
             return 0f;
