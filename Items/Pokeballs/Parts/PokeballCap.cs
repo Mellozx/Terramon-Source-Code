@@ -12,8 +12,7 @@ namespace Terramon.Items.Pokeballs.Parts
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Poké Ball Cap");
-            Tooltip.SetDefault("Crafted from iron and Red Apricorns."
-                               + "\nCombine it with a button and a base to create a [c/FF5757:Poké Ball.]");
+            Tooltip.SetDefault("Combine it with a button and base to create a [c/FF5757:Poké Ball.]");
         }
 
         public override void SetDefaults()

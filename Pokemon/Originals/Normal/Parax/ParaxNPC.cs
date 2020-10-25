@@ -24,7 +24,7 @@ namespace Terramon.Pokemon.Originals.Normal.Parax
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             Player player = Main.LocalPlayer;
-            if (spawnInfo.player.ZoneOverworldHeight && Main.dayTime == false)
+            if (Main.halloween && spawnInfo.player.ZoneOverworldHeight && Main.dayTime == false)
                 return 0.03f;
             return 0f;
         }

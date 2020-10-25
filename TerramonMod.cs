@@ -94,10 +94,11 @@ namespace Terramon
             "QuickBall",
             "TimerBall",
             "MasterBall",
-            "ZeroBall"
+            "ZeroBall",
+            "PumpkinBall"
         };
 
-        // catch chance of the ball refers to the same index as the ball
+      // catch chance of the ball refers to the same index as the ball
         private static readonly float[][] catchChances =
         {
             new[] {.1190f}, //Pokeball
@@ -112,7 +113,8 @@ namespace Terramon
             new[] {.2380f}, //Quick Ball
             new[] {.2380f}, //Timer Ball
             new[] {1f}, //Master Ball
-            new[] {.1190f} //Zero Ball
+            new[] {.1190f}, //Zero Ball
+            new[] {.3f} //Shadow Ball
         };
 
         public static string[] GetBallProjectiles()
@@ -480,7 +482,8 @@ namespace Terramon
                 PremierBall,
                 QuickBall,
                 TimerBall,
-                ZeroBall
+                ZeroBall,
+                PumpkinBall
             }
 
             /// <summary>
@@ -511,6 +514,8 @@ namespace Terramon
                         return ModContent.ItemType<TimerBallCaught>();
                     case Pokebals.ZeroBall:
                         return ModContent.ItemType<ZeroBallCaught>();
+                    case Pokebals.PumpkinBall:
+                        return ModContent.ItemType<PumpkinBallCaught>();
                     default:
                         return 0;
                 }
@@ -536,6 +541,7 @@ namespace Terramon
                 if (item is QuickBallCaught) return Pokebals.QuickBall;
                 if (item is TimerBallCaught) return Pokebals.TimerBall;
                 if (item is ZeroBallCaught) return Pokebals.ZeroBall;
+                if (item is PumpkinBallCaught) return Pokebals.PumpkinBall;
                 return Pokebals.Nothing;
             }
 
@@ -555,6 +561,7 @@ namespace Terramon
                 if (item is TimerBallCaught) return ModContent.ItemType<TimerBallCaught>();
                 if (item is MasterBallCaught) return ModContent.ItemType<MasterBallCaught>();
                 if (item is ZeroBallCaught) return ModContent.ItemType<ZeroBallCaught>();
+                if (item is PumpkinBallCaught) return ModContent.ItemType<PumpkinBallCaught>();
                 return 0;
             }
         }
@@ -680,7 +687,6 @@ namespace Terramon
                     }
             }
         }
-
         public static bool UseWebAssets = false;
         public static bool WebResourceAvailable(string name) => Store.Get(name) != null;
     }

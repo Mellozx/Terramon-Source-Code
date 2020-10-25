@@ -6,13 +6,13 @@ using Terraria.ModLoader;
 
 namespace Terramon.Items.Pokeballs.Parts
 {
-    public class DuskBallBase : ModItem
+    public class PumpkinBallCap : ModItem
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Dusk Ball Base");
-            Tooltip.SetDefault("Combine it with a button and cap to create a [c/82e063:Dusk Ball.]");
+            DisplayName.SetDefault("Pumpkin Ball Cap");
+            Tooltip.SetDefault("Combine it with a dark button and a base to create a [c/ff7b00:Pumpkin Ball.]");
         }
 
         public override void SetDefaults()
@@ -20,21 +20,19 @@ namespace Terramon.Items.Pokeballs.Parts
             item.width = 24;
             item.height = 24;
             item.maxStack = 999;
-            item.value = 8000;
+            item.value = 9000;
             item.rare = 0;
         }
 
         /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("IronBar", 3);
-            recipe.AddIngredient(mod.ItemType("GreenApricorn"));
-            recipe.AddIngredient(mod.ItemType("BlackApricorn"));
+            recipe.AddRecipeGroup("IronBar", 2);
+            recipe.AddIngredient(mod.ItemType("RedApricorn"), 2);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }*/
-
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -42,7 +40,7 @@ namespace Terramon.Items.Pokeballs.Parts
 
             foreach (TooltipLine line2 in tooltips)
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                    line2.overrideColor = new Color(35, 176, 84);
+                    line2.overrideColor = new Color(192, 192, 192);
         }
     }
 }

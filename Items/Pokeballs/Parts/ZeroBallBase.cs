@@ -12,8 +12,7 @@ namespace Terramon.Items.Pokeballs.Parts
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Zero Ball Base");
-            Tooltip.SetDefault("A unique, iron base."
-                               + "\nCombine it with a dark button and a cap to create a Zero Ball.");
+            Tooltip.SetDefault("Combine it with a dark button and cap to create a Zero Ball.");
         }
 
         public override void SetDefaults()

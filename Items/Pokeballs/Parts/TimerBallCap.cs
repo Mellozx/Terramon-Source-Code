@@ -12,8 +12,7 @@ namespace Terramon.Items.Pokeballs.Parts
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Timer Ball Cap");
-            Tooltip.SetDefault("Crafted from iron and Red, Black and White Apricorns."
-                               + "\nCombine it with a button and a base to create a [c/ffa347:Timer Ball.]");
+            Tooltip.SetDefault("Combine it with a button and base to create a [c/ffa347:Timer Ball.]");
         }
 
         public override void SetDefaults()
