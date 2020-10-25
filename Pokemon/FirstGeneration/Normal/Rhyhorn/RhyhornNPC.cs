@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Rhyhorn
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneDesert)
                 return 0.055f;
             return 0f;

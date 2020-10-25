@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Snorlax
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInForest(player) && Main.hardMode)
                 return 0.03f;
             return 0f;

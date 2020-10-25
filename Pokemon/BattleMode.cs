@@ -46,6 +46,10 @@ namespace Terramon.Pokemon
 
         public BattleMode(TerramonPlayer fpl, BattleState state, PokemonData second = null, ParentPokemonNPC npc = null, TerramonPlayer spl = null)
         {
+#if !DEBUG
+            State = BattleState.None;
+#endif
+
             if (Main.netMode != NetmodeID.Server)
             {
                 if (UI == null)

@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bellsprout
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneJungle && spawnInfo.player.ZoneOverworldHeight)
                 return 0.06f;
             return 0f;

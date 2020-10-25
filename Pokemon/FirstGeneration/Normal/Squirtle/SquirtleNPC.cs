@@ -23,7 +23,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Squirtle
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneSnow && spawnInfo.player.ZoneRockLayerHeight)
                 return 0.03f;
             return 0f;

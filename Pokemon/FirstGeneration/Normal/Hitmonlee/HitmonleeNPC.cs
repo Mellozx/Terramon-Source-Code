@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Hitmonlee
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInForest(player) && !Main.dayTime)
                 return 0.05f;
             return 0f;

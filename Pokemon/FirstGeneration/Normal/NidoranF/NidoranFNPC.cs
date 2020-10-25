@@ -6,12 +6,12 @@ using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.NidoranF
 {
-    public class NidoranFNPC : ParentPokemonNPC
+    public class NidoranfNPC : ParentPokemonNPC
     {
-        public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/NidoranF/NidoranF";
+        public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Nidoranf/Nidoranf";
         public override Type HomeClass()
         {
-            return typeof(NidoranF);
+            return typeof(Nidoranf);
         }
 
         public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.NidoranF
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInForest(player))
                 return 0.055f;
             return 0f;

@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Nidoking
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInForest(player))
                 return 0f;
             return 0f;

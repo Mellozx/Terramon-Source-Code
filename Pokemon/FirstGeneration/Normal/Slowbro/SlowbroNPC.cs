@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Slowbro
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneBeach && Main.hardMode)
                 return 0.025f;
             return 0f;

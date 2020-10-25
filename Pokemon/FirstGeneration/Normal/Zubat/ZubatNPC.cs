@@ -43,7 +43,7 @@ public static bool PlayerIsInEvils(Player player){
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInForest(player))
                 return 0.05f;
             return 0f;

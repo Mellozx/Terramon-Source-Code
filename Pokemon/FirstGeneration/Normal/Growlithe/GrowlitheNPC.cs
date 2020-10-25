@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Growlithe
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneUnderworldHeight)
                 return 0.5f;
             return 0f;

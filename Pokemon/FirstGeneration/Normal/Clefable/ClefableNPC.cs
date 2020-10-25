@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Clefable
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneHoly && spawnInfo.player.ZoneOverworldHeight)
                 return 0.02f;
             return 0f;

@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gastly
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneDungeon)
                 return 0.07f;
             return 0f;

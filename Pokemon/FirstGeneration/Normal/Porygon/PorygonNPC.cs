@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Porygon
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneSkyHeight)
                 return 0.02f;
             return 0f;

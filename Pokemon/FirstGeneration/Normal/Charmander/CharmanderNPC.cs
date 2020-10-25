@@ -37,7 +37,7 @@ public static bool PlayerIsInForest(Player player){
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneRockLayerHeight && PlayerIsInForest(player))
                 return 0.03f;
             return 0f;

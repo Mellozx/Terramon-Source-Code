@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Doduo
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInForest(player))
                 return 0.035f;
             return 0f;

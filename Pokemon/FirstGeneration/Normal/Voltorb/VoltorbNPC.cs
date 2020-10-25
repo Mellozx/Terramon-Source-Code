@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Voltorb
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInForest(player) && spawnInfo.player.ZoneRain)
                 return 0.06f;
             return 0f;

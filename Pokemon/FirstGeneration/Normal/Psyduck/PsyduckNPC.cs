@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Psyduck
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneBeach)
                 return 0.6f;
             return 0f;

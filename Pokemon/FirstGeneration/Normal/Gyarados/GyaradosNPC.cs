@@ -27,7 +27,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gyarados
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneBeach && spawnInfo.water && Main.hardMode)
                 return 0.0125f;
             return 0f;

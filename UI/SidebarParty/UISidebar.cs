@@ -95,10 +95,13 @@ namespace Terramon.UI.SidebarParty
             choose.OnClick += HelpClicked;
             Append(choose);
 
+#if DEBUG
             chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/PremierBallSidebar");
-            battle = new UIOpaqueButton(chooseTexture, "[PH] Start Battle");
-            battle.HAlign = 0.007f; // 1
-            battle.VAlign = 0.9f; // 1
+            battle = new UIOpaqueButton(chooseTexture, "[PH] Start Battle")
+            {
+                HAlign = 0.007f, // 1
+                VAlign = 0.9f // 1
+            };
             battle.Width.Set(20, 0);
             battle.Height.Set(32, 0);
             battle.OnClick += (e, x) =>
@@ -118,6 +121,7 @@ namespace Terramon.UI.SidebarParty
                     });
             };
             Append(battle);
+#endif
 
             firstpkmntexture = ModContent.GetTexture("Terraria/Item_0");
             firstpkmn = new SidebarClass(firstpkmntexture, "");

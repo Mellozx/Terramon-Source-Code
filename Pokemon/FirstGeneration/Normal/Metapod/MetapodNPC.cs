@@ -23,7 +23,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Metapod
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneOverworldHeight && spawnInfo.player.ZoneJungle)
                 return 0.05f;
             return 0f;

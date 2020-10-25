@@ -38,7 +38,7 @@ public static bool PlayerIsInForest(Player player){
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInForest(player) && !Main.dayTime)
                 return 0f;
             return 0f;

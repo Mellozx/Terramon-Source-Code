@@ -25,7 +25,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Venomoth
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player player = spawnInfo.player;
             if (PlayerIsInEvils(player))
                 return 0.035f;
             return 0f;
