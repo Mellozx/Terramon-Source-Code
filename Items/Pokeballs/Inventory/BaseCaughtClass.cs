@@ -89,10 +89,6 @@ namespace Terramon.Items.Pokeballs.Inventory
 
             item.rare = 0;
 
-            //I'l made a moves registry like i do it with mons after we done
-            //Moves = new[] {null, null, null, null};
-
-
             //Detour handle
             if (Main.netMode != NetmodeID.Server || det_CapturedPokemon == null)
                 return;
@@ -115,8 +111,12 @@ namespace Terramon.Items.Pokeballs.Inventory
                         Moves[i] = TerramonMod.GetMove(arr[i]);
 
             }
-
             det_Moves = null;
+            if (det_Data != null)
+            {
+                PokeData = det_Data;
+                det_Data = null;
+            }
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
@@ -261,7 +261,11 @@ namespace Terramon.Items.Pokeballs.Inventory
         public override TagCompound Save()
         {
             if (PokeData != null)
+            {
+                PokeData.pokeballType = (byte)TerramonMod.PokeballFactory.GetEnum(this);
                 return PokeData.GetCompound();
+
+            }
             var tag = new TagCompound
             {
                 //[nameof(PokemonNPC)] = PokemonNPC,
@@ -420,6 +424,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         internal static int det_Lvl;
         internal static string det_Moves;
         internal static bool det_isShiny;
+        internal static PokemonData det_Data;
 
         #endregion
     }

@@ -514,6 +514,7 @@ namespace Terramon.Players
                 Cooldown--;
 #endif
 
+#if DEBUG
             //Moves logic
             if (CombatReady && ActivePartySlot > 0 && ActivePartySlot <= 6 && ActivePetId != -1
                 && Main.projectile[ActivePetId].modProjectile is ParentPokemon) //Integrity check
@@ -611,6 +612,7 @@ namespace Terramon.Players
 
                 }
             }
+#endif
         }
 
         public BaseMove ActiveMove;
@@ -754,11 +756,11 @@ namespace Terramon.Players
         {
             StarterChosen = tag.GetBool(nameof(StarterChosen));
             PartySlot1 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot1))) : null;
-            PartySlot2 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot2))) : null;
-            PartySlot3 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot3))) : null;
-            PartySlot4 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot4))) : null;
-            PartySlot5 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot5))) : null;
-            PartySlot6 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot6))) : null;
+            PartySlot2 = tag.ContainsKey(nameof(PartySlot2)) ? new PokemonData(tag.GetCompound(nameof(PartySlot2))) : null;
+            PartySlot3 = tag.ContainsKey(nameof(PartySlot3)) ? new PokemonData(tag.GetCompound(nameof(PartySlot3))) : null;
+            PartySlot4 = tag.ContainsKey(nameof(PartySlot4)) ? new PokemonData(tag.GetCompound(nameof(PartySlot4))) : null;
+            PartySlot5 = tag.ContainsKey(nameof(PartySlot5)) ? new PokemonData(tag.GetCompound(nameof(PartySlot5))) : null;
+            PartySlot6 = tag.ContainsKey(nameof(PartySlot6)) ? new PokemonData(tag.GetCompound(nameof(PartySlot6))) : null;
 
             LoadPokeballs(tag);
         }

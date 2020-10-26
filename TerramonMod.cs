@@ -285,8 +285,9 @@ namespace Terramon
                 _uiSidebar = new UserInterface();
                 _moves = new UserInterface();
                 _partySlots = new UserInterface();
+#if DEBUG
                 _battle = new UserInterface();
-
+#endif
 
                 _exampleUserInterface.SetState(ChooseStarter); // Choose Starter
                 _exampleUserInterfaceNew.SetState(PokegearUI); // Pokegear Main Menu
@@ -295,9 +296,10 @@ namespace Terramon
                 _uiSidebar.SetState(UISidebar);
                 _moves.SetState(Moves);
                 _partySlots.SetState(PartySlots);
+#if DEBUG
                 _battle.SetState(BattleMode.UI = new BattleUI());// Automatically assign shortcut
+#endif
 
-    
             }
 
 
@@ -325,7 +327,7 @@ namespace Terramon
             _uiSidebar.SetState(null);
             _partySlots.SetState(null);
             _moves.SetState(null);
-            _battle.SetState(null);
+            _battle?.SetState(null);
             BattleMode.UI = null;
             PartySlots = null;
             pokemonStore = null;
@@ -403,7 +405,9 @@ namespace Terramon
             if (UISidebar.Visible) _uiSidebar?.Update(gameTime);
             if (Moves.Visible) _moves?.Update(gameTime);
             if (PartySlots.Visible && !BattleUI.Visible) _partySlots?.Update(gameTime);
+#if DEBUG
             if (BattleUI.Visible) _battle.Update(gameTime);
+#endif
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -427,7 +431,9 @@ namespace Terramon
                         if (UISidebar.Visible) _uiSidebar.Draw(Main.spriteBatch, new GameTime());
                         if (Moves.Visible) _moves.Draw(Main.spriteBatch, new GameTime());
                         if (PartySlots.Visible && !BattleUI.Visible) _partySlots.Draw(Main.spriteBatch, new GameTime());
+#if DEBUG
                         if (BattleUI.Visible) _battle.Draw(Main.spriteBatch, new GameTime());
+#endif
                         return true;
                     },
                     InterfaceScaleType.UI)
