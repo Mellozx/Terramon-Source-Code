@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Terramon.Items.Pokeballs.Inventory;
+using Terramon.Network.Extensions;
 using Terramon.Pokemon;
 using Terraria;
 using Terraria.ModLoader;
@@ -127,14 +128,7 @@ namespace Terramon.Network.Catching
             }
         }
 
-        public static PokemonData ReadPokeData(BinaryReader r)
-        {
-            return new PokemonData(ReadTagCompound(r));
-        }
-
-        public static void WritePokeData(ModPacket p, PokemonData data)
-        {
-            WriteTagCompound(p, data.GetCompound());
-        }
+        public static PokemonData ReadPokeData(BinaryReader r) => r.ReadPokeData();
+        public static void WritePokeData(ModPacket p, PokemonData data) => p.Write(data);
     }
 }
