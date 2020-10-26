@@ -1,8 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.IO;
+using System.Linq;
 using Terramon.Items.Pokeballs.Inventory;
+using Terramon.Pokemon;
 using Terraria;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace Terramon.Network.Catching
 {
@@ -11,7 +15,7 @@ namespace Terramon.Network.Catching
         public const string NAME = "net_basecat";
         public override string PacketName => NAME;
 
-        public void Send(TerramonMod mod, int type, string name, string icon, Rectangle rect, int pokeType, bool shiny = false)
+        public void Send(TerramonMod mod, int type, string name, Rectangle rect, int pokeType, bool shiny = false)
         {
             try
             {
@@ -19,12 +23,36 @@ namespace Terramon.Network.Catching
                 packet.Write(type);
                 packet.Write(name);
                 packet.Write(shiny);
-                packet.Write(icon);
                 packet.Write(rect.X);
                 packet.Write(rect.Y);
                 packet.Write(rect.Width);
                 packet.Write(rect.Height);
                 packet.Write(pokeType);
+                packet.Write(false);//v3
+                packet.Send(256);
+            }
+            catch (Exception e)
+            {
+                mod.Logger.ErrorFormat("Please report this stacktrace to Terramon devs:\n\n{0}\n\n{1}", e.Message,
+                    e.StackTrace);
+            }
+        }
+
+        public void Send(TerramonMod mod, string type, string name, Rectangle rect, int pokeType, PokemonData data)
+        {
+            try
+            {
+                var packet = GetPacket(mod);
+                packet.Write(type);
+                packet.Write(name);
+                packet.Write(data.IsShiny);
+                packet.Write(rect.X);
+                packet.Write(rect.Y);
+                packet.Write(rect.Width);
+                packet.Write(rect.Height);
+                packet.Write(pokeType);
+                packet.Write(true);//v3
+                WritePokeData(packet, data);
                 packet.Send(256);
             }
             catch (Exception e)
@@ -48,6 +76,7 @@ namespace Terramon.Network.Catching
                 packet.Write(rect.Width);
                 packet.Write(rect.Height);
                 packet.Write(pokeType);
+                packet.Write(false);//v3
                 packet.Send(256);
             }
             catch (Exception e)
@@ -79,8 +108,14 @@ namespace Terramon.Network.Catching
 
 
                 var rect = new Rectangle(r.ReadInt32(), r.ReadInt32(), r.ReadInt32(), r.ReadInt32());
+                var typeID = r.ReadInt32();
+                if (r.ReadBoolean())
+                {
+                    BaseCaughtClass.det_Data = ReadPokeData(r);
+                }
 
-                int index = Item.NewItem(rect, r.ReadInt32());
+
+                int index = Item.NewItem(rect, typeID);
 
                 if (index >= 400 || !(Main.item[index].modItem is PokeballCaught modItem))
                     return;
@@ -90,6 +125,16 @@ namespace Terramon.Network.Catching
                 TerramonMod.Instance.Logger.ErrorFormat("Please report this stacktrace to Terramon devs:\n\n{0}\n\n{1}",
                     e.Message, e.StackTrace);
             }
+        }
+
+        public static PokemonData ReadPokeData(BinaryReader r)
+        {
+            return new PokemonData(ReadTagCompound(r));
+        }
+
+        public static void WritePokeData(ModPacket p, PokemonData data)
+        {
+            WriteTagCompound(p, data.GetCompound());
         }
     }
 }

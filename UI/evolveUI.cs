@@ -211,11 +211,13 @@ namespace Terramon.UI.SidebarParty
                     return;
                 }
 
+                pokeball.PokeData.Pokemon = evolved.GetType().Name;
+
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     BaseCatchPacket packet = new BaseCatchPacket();
                     packet.Send(TerramonMod.Instance, evolved.GetType().Name, evolved.GetType().Name,
-                        Main.LocalPlayer.getRect(), whicheverballtype);
+                        Main.LocalPlayer.getRect(), whicheverballtype, pokeball.PokeData);
                 }
                 else
                 {
@@ -226,6 +228,7 @@ namespace Terramon.UI.SidebarParty
                     {
                         item.PokemonName = evolved.GetType().Name;
                         item.CapturedPokemon = evolved.GetType().Name;
+                        item.PokeData = pokeball.PokeData;
                     }
                 }
             }
