@@ -53,7 +53,7 @@ namespace Terramon.Network.Catching
                 packet.Write(rect.Height);
                 packet.Write(pokeType);
                 packet.Write(true);//v3
-                WritePokeData(packet, data);
+                packet.Write(data);
                 packet.Send(256);
             }
             catch (Exception e)
@@ -112,7 +112,7 @@ namespace Terramon.Network.Catching
                 var typeID = r.ReadInt32();
                 if (r.ReadBoolean())
                 {
-                    BaseCaughtClass.det_Data = ReadPokeData(r);
+                    BaseCaughtClass.det_Data = r.ReadPokeData();
                 }
 
 
@@ -128,7 +128,5 @@ namespace Terramon.Network.Catching
             }
         }
 
-        public static PokemonData ReadPokeData(BinaryReader r) => r.ReadPokeData();
-        public static void WritePokeData(ModPacket p, PokemonData data) => p.Write(data);
     }
 }
