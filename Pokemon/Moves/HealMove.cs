@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Razorwing.Framework.Localisation;
 using Terramon.Players;
 using Terraria;
 
@@ -16,6 +17,11 @@ namespace Terramon.Pokemon.Moves
         public override Target Target => Target.Trainer;
 
         public override int Cooldown => 20 * 60; //20 sec cooldown
+
+        public HealMove()
+        {
+            PostTextLoc = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("moves.healText", "{0} healed by {1}")));
+        }
 
         public override int AutoUseWeight(ParentPokemon mon, Vector2 target, TerramonPlayer player)
         {
@@ -35,6 +41,24 @@ namespace Terramon.Pokemon.Moves
                 return true;
             }
             return false;
+        }
+
+        public override bool PerformInBattle(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
+            PokemonData deffender)
+        {
+            var heal = (int) (attacker.MaxHP * 0.35f);
+            var d = attacker.HP;
+            attacker.HP += heal;
+            d = attacker.HP - d;
+            CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, d, true);
+            PostTextLoc.Args = new object[] {attacker.PokemonName, d};
+            return true;
+        }
+
+        public override void AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
+            PokemonData deffender)
+        {
+            
         }
     }
 }

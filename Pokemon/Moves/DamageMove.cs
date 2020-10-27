@@ -14,6 +14,11 @@ namespace Terramon.Pokemon.Moves
         public abstract int Damage { get; }// Perc 200-100
         public virtual bool Special => false;
 
+        public DamageMove()
+        {
+            PostTextLoc =
+                TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("moves.baseDamageText", "{0} attacked {1} with {2} for {3} damage")));
+        }
 
         public override bool PerformInBattle(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
             PokemonData deffender)
@@ -43,7 +48,7 @@ namespace Terramon.Pokemon.Moves
             }
 
             d = deffender.Damage((int)Math.Abs(d));
-            Main.NewText($"{attacker.Pokemon} attacked {deffender.Pokemon} with {MoveName} for {d} damage");
+            PostTextLoc.Args = new object[] {attacker.PokemonName, deffender.PokemonName, MoveName, (int)d};
             return true;
         }
     }
