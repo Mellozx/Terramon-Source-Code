@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Jigglypuff
 {
     public class Jigglypuff : ParentPokemon
     {
-        public override int EvolveCost => 12;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.MoonStone;
 
         public override Type EvolveTo => typeof(Wigglytuff.Wigglytuff);
 

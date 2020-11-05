@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Weepinbell
 {
     public class Weepinbell : ParentPokemon
     {
-        public override int EvolveCost => 18;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.LeafStone;
 
         public override Type EvolveTo => typeof(Victreebel.Victreebel);
 

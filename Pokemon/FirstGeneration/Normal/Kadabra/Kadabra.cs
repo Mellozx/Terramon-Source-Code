@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Kadabra
 {
     public class Kadabra : ParentPokemon
     {
-        public override int EvolveCost => 16;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.LinkCable;
 
         public override Type EvolveTo => typeof(Alakazam.Alakazam);
 

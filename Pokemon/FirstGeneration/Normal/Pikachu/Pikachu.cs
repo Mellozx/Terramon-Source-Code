@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Pikachu
 {
     public class Pikachu : ParentPokemon
     {
-        public override int EvolveCost => 16;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.ThunderStone;
 
         public override Type EvolveTo => typeof(Raichu.Raichu);
 

@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Shellder
 {
     public class Shellder : ParentPokemon
     {
-        public override int EvolveCost => 23;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.WaterStone;
 
         public override Type EvolveTo => typeof(Cloyster.Cloyster);
 

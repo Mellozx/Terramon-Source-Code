@@ -120,15 +120,21 @@ namespace Terramon.UI.SidebarParty
             // Since mainPanel will move, this proper organization will move playButton, closeButton, and moneyDiplay properly when mainPanel moves.
         }
 
+        public int eeveelution = 0;
+        public int i;
+
         public override void Update(GameTime gameTime)
         {
             // Don't delete this or the UIElements attached to this UIState will cease to function.
             base.Update(gameTime);
+
             if (partyslot1.Item.IsAir)
             {
                 //PokemonGoesHere.SetText("Place a Pokémon in the first slot.");
                 PokemonGoesHere.SetText(placeMonString.Value);
+                PokemonGoesHere.TextColor = Color.White;
                 mainPanel.RemoveChild(partyslot2);
+                i = 0;
             }
             else
             {
@@ -144,12 +150,14 @@ namespace Terramon.UI.SidebarParty
                             //PokemonGoesHere.SetText($"Place {mon.EvolveCost} Rare Candies in the second slot.");
                             placeCandyText.Args = new object[] {mon.EvolveCost, rareCandyText.Value};
                             PokemonGoesHere.SetText(placeCandyText.Value);
+                            PokemonGoesHere.TextColor = Color.White;
                             mainPanel.Append(partyslot2);
                             if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is RareCandy &&
                                 partyslot2.Item.stack == mon.EvolveCost)
                             {
                                 //PokemonGoesHere.SetText("Great! Press the evolve button!");
                                 PokemonGoesHere.SetText(pressEvolveText.Value);
+                                PokemonGoesHere.TextColor = Color.White;
 
                                 mainPanel.Append(SaveButton);
                             }
@@ -163,18 +171,160 @@ namespace Terramon.UI.SidebarParty
                             //Set preference to LinkCable
                             partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is LinkCable;
 
-                            //PokemonGoesHere.SetText($"Place {mon.EvolveCost} Link Cable in the second slot.");
-
-                            placeCandyText.Args = new object[] { mon.EvolveCost, linkCableText.Value };
-                            PokemonGoesHere.SetText(placeCandyText.Value);
+                            PokemonGoesHere.SetText("Place a Link Cable in the second slot.");
+                            PokemonGoesHere.TextColor = new Color(60, 171, 70);
                             mainPanel.Append(partyslot2);
                             if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is LinkCable &&
                                 partyslot2.Item.stack == mon.EvolveCost)
                             {
                                 //PokemonGoesHere.SetText("Great! Press the evolve button!");
                                 PokemonGoesHere.SetText(pressEvolveText.Value);
+                                PokemonGoesHere.TextColor = Color.White;
 
                                 mainPanel.Append(SaveButton);
+                            }
+                            else
+                            {
+                                mainPanel.RemoveChild(SaveButton);
+                            }
+                        }
+                        else if (mon.EvolveItem == EvolveItem.FireStone)
+                        {
+                            //Set preference to FireStone
+                            partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is FireStone;
+
+                            PokemonGoesHere.SetText("Place a Fire Stone in the second slot.");
+                            PokemonGoesHere.TextColor = new Color(255, 202, 99);
+                            mainPanel.Append(partyslot2);
+                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is FireStone &&
+                                partyslot2.Item.stack == mon.EvolveCost)
+                            {
+                                //PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                PokemonGoesHere.SetText(pressEvolveText.Value);
+                                PokemonGoesHere.TextColor = Color.White;
+
+                                mainPanel.Append(SaveButton);
+                            }
+                            else
+                            {
+                                mainPanel.RemoveChild(SaveButton);
+                            }
+                        }
+                        else if (mon.EvolveItem == EvolveItem.ThunderStone)
+                        {
+                            //Set preference to ThunderStone
+                            partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is ThunderStone;
+
+                            PokemonGoesHere.SetText("Place a Thunder Stone in the second slot.");
+                            PokemonGoesHere.TextColor = new Color(97, 255, 69);
+                            mainPanel.Append(partyslot2);
+                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is ThunderStone &&
+                                partyslot2.Item.stack == mon.EvolveCost)
+                            {
+                                //PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                PokemonGoesHere.SetText(pressEvolveText.Value);
+                                PokemonGoesHere.TextColor = Color.White;
+
+                                mainPanel.Append(SaveButton);
+                            }
+                            else
+                            {
+                                mainPanel.RemoveChild(SaveButton);
+                            }
+                        }
+                        else if (mon.EvolveItem == EvolveItem.WaterStone)
+                        {
+                            //Set preference to WaterStone
+                            partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is WaterStone;
+
+                            PokemonGoesHere.SetText("Place a Water Stone in the second slot.");
+                            PokemonGoesHere.TextColor = new Color(10, 120, 255);
+                            mainPanel.Append(partyslot2);
+                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is WaterStone &&
+                                partyslot2.Item.stack == mon.EvolveCost)
+                            {
+                                //PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                PokemonGoesHere.SetText(pressEvolveText.Value);
+                                PokemonGoesHere.TextColor = Color.White;
+
+                                mainPanel.Append(SaveButton);
+                            }
+                            else
+                            {
+                                mainPanel.RemoveChild(SaveButton);
+                            }
+                        }
+                        else if (mon.EvolveItem == EvolveItem.LeafStone)
+                        {
+                            //Set preference to LeafStone
+                            partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is LeafStone;
+
+                            PokemonGoesHere.SetText("Place a Leaf Stone in the second slot.");
+                            PokemonGoesHere.TextColor = new Color(55, 176, 115);
+                            mainPanel.Append(partyslot2);
+                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is LeafStone &&
+                                partyslot2.Item.stack == mon.EvolveCost)
+                            {
+                                //PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                PokemonGoesHere.SetText(pressEvolveText.Value);
+                                PokemonGoesHere.TextColor = Color.White;
+
+                                mainPanel.Append(SaveButton);
+                            }
+                            else
+                            {
+                                mainPanel.RemoveChild(SaveButton);
+                            }
+                        }
+                        else if (mon.EvolveItem == EvolveItem.MoonStone)
+                        {
+                            //Set preference to MoonStone
+                            partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is MoonStone;
+
+                            PokemonGoesHere.SetText("Place a Moon Stone in the second slot.");
+                            PokemonGoesHere.TextColor = new Color(64, 67, 71);
+                            mainPanel.Append(partyslot2);
+                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is MoonStone &&
+                                partyslot2.Item.stack == mon.EvolveCost)
+                            {
+                                //PokemonGoesHere.SetText("Great! Press the evolve button!");
+                                PokemonGoesHere.SetText(pressEvolveText.Value);
+                                PokemonGoesHere.TextColor = Color.White;
+
+                                mainPanel.Append(SaveButton);
+                            }
+                            else
+                            {
+                                mainPanel.RemoveChild(SaveButton);
+                            }
+                        }
+                        else if (mon.EvolveItem == EvolveItem.Eeveelution)
+                        {
+                            //This a special evolve condition applying to only Eevee with custom logic
+                            partyslot2.ValidItemFunc = item => item.IsAir || item.modItem is FireStone || item.modItem is ThunderStone || item.modItem is WaterStone;
+
+                            PokemonGoesHere.SetText("Place an evolution stone in the second slot.");
+                            PokemonGoesHere.TextColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB);
+
+                            mainPanel.Append(partyslot2);
+                            if (!partyslot2.Item.IsAir && partyslot2.Item.modItem is FireStone || partyslot2.Item.modItem is ThunderStone || partyslot2.Item.modItem is WaterStone &&
+                                partyslot2.Item.stack == mon.EvolveCost)
+                            {
+                                if (partyslot2.Item.modItem is FireStone)
+                                {
+                                    eeveelution = 1; // Evolve to Flareon
+                                } else if (partyslot2.Item.modItem is ThunderStone)
+                                {
+                                    eeveelution = 2; // Evolve to Jolteon
+                                } else
+                                {
+                                    eeveelution = 3; // Evolve to Vaporeon
+                                }
+                                PokemonGoesHere.SetText(pressEvolveText.Value);
+                                PokemonGoesHere.TextColor = Color.White;
+
+                                mainPanel.Append(SaveButton);
+                                i = 0;
                             }
                             else
                             {
@@ -185,6 +335,7 @@ namespace Terramon.UI.SidebarParty
                     else
                     {
                         PokemonGoesHere.SetText(cannotEvolveText.Value);
+                        PokemonGoesHere.TextColor = Color.White;
                     }
                 }
             }
@@ -205,6 +356,22 @@ namespace Terramon.UI.SidebarParty
                 }
 
                 var evolved = TerramonMod.GetPokemon(mon.EvolveTo.Name);
+                string evolvedname = evolved.GetType().Name;
+
+                if (evolved.GetType().Name == "Flareon")
+                {
+                    if (eeveelution == 1)
+                    {
+                        evolvedname = "Flareon";
+                    } else if (eeveelution == 2)
+                    {
+                        evolvedname = "Jolteon";
+                    } else
+                    {
+                        evolvedname = "Vaporeon";
+                    }
+                }
+
                 if (evolved == null)
                 {
                     Main.NewText(cannotEvolveText.Value);
@@ -231,6 +398,8 @@ namespace Terramon.UI.SidebarParty
                         item.PokeData = pokeball.PokeData;
                     }
                 }
+
+                eeveelution = 0;
             }
 
             Visible = false;

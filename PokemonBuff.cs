@@ -53,7 +53,13 @@ namespace Terramon
 
         public override void ModifyBuffTip(ref string tip, ref int rare)
         {
-            tip = $"{ProjectileName} is following you around!";
+            if (ProjectileName.StartsWith("A") || ProjectileName.StartsWith("E") || ProjectileName.StartsWith("I") || ProjectileName.StartsWith("O") || ProjectileName.StartsWith("U"))
+            {
+                tip = $"An {ProjectileName} is following you around!";
+            } else
+            {
+                tip = $"A {ProjectileName} is following you around!";
+            }
             rare = 0;
         }
     }

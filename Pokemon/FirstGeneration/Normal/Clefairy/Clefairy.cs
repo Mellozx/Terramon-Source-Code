@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Clefairy
 {
     public class Clefairy : ParentPokemon
     {
-        public override int EvolveCost => 12;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.MoonStone;
 
         public override Type EvolveTo => typeof(Clefable.Clefable);
 

@@ -10,9 +10,11 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Eevee
 {
     public class Eevee : ParentPokemon
     {
-        public override int EvolveCost => 25;
+        public override int EvolveCost => 1;
 
-        public override Type EvolveTo => typeof(Vaporeon.Vaporeon);
+        public override EvolveItem EvolveItem => EvolveItem.Eeveelution;
+
+        public override Type EvolveTo => typeof(Flareon.Flareon);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
 

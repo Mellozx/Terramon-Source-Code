@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Nidorina
 {
     public class Nidorina : ParentPokemon
     {
-        public override int EvolveCost => 12;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.MoonStone;
 
         public override Type EvolveTo => typeof(Nidoqueen.Nidoqueen);
 

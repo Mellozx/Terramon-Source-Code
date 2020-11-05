@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Exeggcute
 {
     public class Exeggcute : ParentPokemon
     {
-        public override int EvolveCost => 26;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.LeafStone;
 
         public override Type EvolveTo => typeof(Exeggutor.Exeggutor);
 

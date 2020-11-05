@@ -10,9 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Machoke
 {
     public class Machoke : ParentPokemon
     {
-        public override int EvolveCost => 16;
+        public override int EvolveCost => 1;
 
-        public override Type EvolveTo => typeof(Machamp.Machamp);
+        public override EvolveItem EvolveItem => EvolveItem.LinkCable;
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Fighting };
 
