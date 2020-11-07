@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Razorwing.Framework.Localisation;
 using System;
 using System.Collections.Generic;
@@ -391,6 +392,9 @@ namespace Terramon.Players
             }
         }
 
+        // Store opening sfx
+        public SoundEffectInstance openingSfx;
+
         public override void OnEnterWorld(Player player)
         {
             // Call to Mod class to enable in-world Rich Presence
@@ -430,10 +434,12 @@ namespace Terramon.Players
 
             if (StarterChosen == false)
             {
+                openingSfx = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/opening"));
                 GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarter());
                 ChooseStarter.Visible = true;
                 PartySlots.Visible = false;
                 UISidebar.Visible = false;
+                player.frozen = true;
             }
             else
             {

@@ -187,7 +187,6 @@ namespace Terramon.UI.Starter
                     "Terramon/Minisprites/Regular/miniBulbasaur";
             }
 
-            Main.NewText("You chose [c/33FF33:Bulbasaur, the Seed Pokemon.] Great choice!");
             ChooseStarter.Visible = false;
             UISidebar.Visible = true;
         }
