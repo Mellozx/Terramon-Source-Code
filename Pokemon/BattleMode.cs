@@ -150,6 +150,25 @@ namespace Terramon.Pokemon
                 oMove = new ShootMove();
             }
 
+            if (animWindow == 0)
+            {
+                if (animMode == 1 || animMode == 4)
+                {
+                    Main.NewText(pMove?.PostText);
+                }
+                else if (animMode == 2 || animMode == 3)
+                {
+                    Main.NewText(oMove?.PostText);
+                }
+
+                if (animMode > 2)
+                {
+                    oMove = null;
+                    pMove = null;
+                    animMode = 0;
+                }
+            }
+
             if (animWindow > 0)
             {
                 if (player1.ActivePet.Fainted ||
@@ -164,10 +183,12 @@ namespace Terramon.Pokemon
                 else
                 if (animMode == 1 || animMode == 4)
                 {
+                    pMove.AnimationFrame = animWindow - 120 * -1; 
                     pMove?.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild);
                 }
                 else if(animMode == 2 || animMode == 3)
                 {
+                    oMove.AnimationFrame = animWindow - 120 * -1;
                     oMove?.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
                         player1.ActivePet);
                 }
@@ -182,24 +203,33 @@ namespace Terramon.Pokemon
                         {
                             case BattleState.BattleWithWild:
                             case BattleState.BattleWithTrainer:
-                                if(!Wild.Fainted)
+                                if (!Wild.Fainted)
+                                {
+                                    oMove.AnimationFrame = 0;
                                     oMove?.PerformInBattle(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
                                         player1.ActivePet);
+                                }
                                 break;
                             case BattleState.BattleWithPlayer:
-                                if(!player2.ActivePet.Fainted)
+                                if (!player2.ActivePet.Fainted)
+                                {
+                                    oMove.AnimationFrame = 0;
                                     oMove?.PerformInBattle((ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile
                                         , (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player2,
                                         player2.ActivePet, player1.ActivePet);
+                                }
                                 break;
                         }
                         
                         break;
                     case 4:
-                        if(!player1.ActivePet.Fainted)
+                        if (!player1.ActivePet.Fainted)
+                        {
+                            pMove.AnimationFrame = 0;
                             pMove?.PerformInBattle((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile
                                 , WildNPC, player1,
                                 player1.ActivePet, Wild);
+                        }
                         break;
                 }
             }
@@ -211,12 +241,14 @@ namespace Terramon.Pokemon
 
                 if (!useCheck)
                 {
+                    pMove.AnimationFrame = 0;
                     pMove?.PerformInBattle((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC,
                         player1, player1.ActivePet, Wild);
                     animMode = 1;
                 }
                 else
                 {
+                    oMove.AnimationFrame = 0;
                     oMove?.PerformInBattle(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile),
                         null, Wild, player1.ActivePet);
                     animMode = 2;

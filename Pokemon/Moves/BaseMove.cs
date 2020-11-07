@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Razorwing.Framework.Localisation;
 using Terramon.Players;
 using Terraria;
 
@@ -14,6 +15,20 @@ namespace Terramon.Pokemon.Moves
         public virtual int MaxPP { get; } = 20;
 
         public bool TurnAnimation { get; set; } = false;
+
+        /// <summary>
+        /// Used for turn based battle animations
+        /// </summary>
+        public int AnimationFrame { get; set; }
+
+        /// <summary>
+        /// This text will be printed when turn animation ends
+        /// </summary>
+        public ILocalisedBindableString PostTextLoc { get; set; }
+        /// <summary>
+        /// Shortcut for text printing
+        /// </summary>
+        public string PostText => PostTextLoc?.Value;
 
         /// <summary>
         /// Weight of current move when <see cref="TerramonPlayer.AutoUse"/> enabled.
