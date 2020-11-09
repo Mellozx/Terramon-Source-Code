@@ -198,10 +198,7 @@ namespace Terramon
         public override void PreSaveAndQuit()
         {
             TerramonPlayer p = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-            if (p.openingSfx != null)
-            {
-                p.openingSfx.Stop();
-            }
+            p.openingSfx?.Stop();
             client?.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
