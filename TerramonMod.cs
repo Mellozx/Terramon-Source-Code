@@ -569,10 +569,14 @@ namespace Terramon
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
+
             //In case i f*ck the code
             try
             {
                 string type = reader.ReadString();
+#if DEBUG
+                Main.NewText($"Received packet: [c/ff3333:{type}]");
+#endif
                 switch (type)
                 {
                     case SpawnStarterPacket.NAME:
@@ -593,13 +597,26 @@ namespace Terramon
                         packet.HandleFromClient(reader, whoAmI);
                     }
                         break;
+                    default:
+                        if (packetStore.ContainsKey(type))
+                        {
+                            if (whoAmI == 256)
+                                packetStore[type].HandleFromServer(reader);
+                            else
+                                packetStore[type].HandleFromClient(reader, whoAmI);
+                        }
+                        break;
                 }
+                
             }
             catch (Exception e)
             {
                 Logger.ErrorFormat(
                     "Exception appear in HandlePacket. Please, contact mod devs with folowing stacktrace:\n\n{0}\n\n{1}",
                     e.Message, e.StackTrace);
+#if DEBUG
+                Main.NewText($"[c/ff3322:{e.Message}]");
+#endif
             }
         }
 
@@ -639,12 +656,14 @@ namespace Terramon
         private Dictionary<string, ParentPokemon> pokemonStore;
         private Dictionary<string, ParentPokemonNPC> wildPokemonStore;
         private Dictionary<string, BaseMove> movesStore;
+        private Dictionary<string, Packet> packetStore;
 
         private void LoadPokemons()
         {
             pokemonStore = new Dictionary<string, ParentPokemon>();
             wildPokemonStore = new Dictionary<string, ParentPokemonNPC>();
             movesStore = new Dictionary<string, BaseMove>();
+            packetStore = new Dictionary<string, Packet>();
             foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
             {
                 var baseType = it.BaseType;
@@ -652,14 +671,14 @@ namespace Terramon
                     continue;
                 bool valid = false;
                 if (baseType == typeof(ParentPokemon) || baseType == typeof(ParentPokemonNPC) ||
-                    baseType == typeof(BaseMove))
+                    baseType == typeof(BaseMove) || baseType == typeof(Packet))
                     valid = true;
                 else
                     //Recurrent seek for our class
                     while (baseType != null && baseType != typeof(object))
                     {
                         if (baseType == typeof(ParentPokemon) || baseType == typeof(ParentPokemonNPC) ||
-                            baseType == typeof(BaseMove))
+                            baseType == typeof(BaseMove) || baseType == typeof(Packet))
                         {
                             valid = true;
                             break;
@@ -677,6 +696,11 @@ namespace Terramon
                             wildPokemonStore.Add(it.Name, (ParentPokemonNPC) Activator.CreateInstance(it));
                         else if (baseType == typeof(BaseMove))
                             movesStore.Add(it.Name, (BaseMove) Activator.CreateInstance(it));
+                        else if (baseType == typeof(Packet))
+                        {
+                            var p = (Packet) Activator.CreateInstance(it);
+                            packetStore.Add(p.PacketName, p);
+                        }
                     }
                     catch (Exception e)
                     {
