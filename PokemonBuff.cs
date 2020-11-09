@@ -9,7 +9,8 @@ namespace Terramon
     public class PokemonBuff : ModBuff
     {
         protected ILocalisedBindableString PokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString("*"));
-        protected ILocalisedBindableString Following = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("buff.following", "{0} is following you around!")));
+        protected ILocalisedBindableString Following = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("buff.followinga", "A {0} is following you around!")));
+
         public virtual string ProjectileName { get; set; }
 
         public override void SetDefaults()
@@ -33,6 +34,14 @@ namespace Terramon
             {
                 ProjectileName = modPlayer.ActivePetName;
                 PokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(ProjectileName));
+                if (ProjectileName.StartsWith("A") || ProjectileName.StartsWith("E") || ProjectileName.StartsWith("I") || ProjectileName.StartsWith("O") || ProjectileName.StartsWith("U"))
+                {
+                    Following = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("buff.followingAn", "An {0} is following you around!")));
+                }
+                else
+                {
+                    Following = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("buff.following", "A {0} is following you around!")));
+                }
                 Following.Args = new object[] {PokeName.Value};
             }
 
@@ -65,13 +74,7 @@ namespace Terramon
 
         public override void ModifyBuffTip(ref string tip, ref int rare)
         {
-            if (ProjectileName.StartsWith("A") || ProjectileName.StartsWith("E") || ProjectileName.StartsWith("I") || ProjectileName.StartsWith("O") || ProjectileName.StartsWith("U"))
-            {
-                tip = $"An {ProjectileName} is following you around!";
-            } else
-            {
-                tip = $"A {ProjectileName} is following you around!";
-            }
+            tip = Following.Value;
             rare = 0;
         }
     }
