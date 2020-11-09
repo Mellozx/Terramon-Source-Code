@@ -12,6 +12,7 @@ using Razorwing.Framework.Configuration;
 using Razorwing.Framework.IO.Stores;
 using Razorwing.Framework.Localisation;
 using Terramon.Items.Pokeballs.Inventory;
+using Terramon.Network;
 using Terramon.Network.Catching;
 using Terramon.Network.Starter;
 using Terramon.Pokemon;
@@ -129,7 +130,10 @@ namespace Terramon
 
         public virtual void EnterWorldRP()
         {
-                timestamp = Timestamps.Now;
+#if DEBUG
+            return;
+#endif
+            timestamp = Timestamps.Now;
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
@@ -147,28 +151,34 @@ namespace Terramon
 
         public virtual void DisplayPokemonNameRP(string name, bool shinyness)
         {
+#if DEBUG
+            return;   
+#endif
             if (shinyness)
             {
                 name = name += " ✨";
             }
-                client.SetPresence(new RichPresence()
+            client?.SetPresence(new RichPresence()
+            {
+                Details = "In-Game",
+                State = "Playing v0.4.1",
+                Assets = new Assets()
                 {
-                    Details = "In-Game",
-                    State = "Playing v0.4.1",
-                    Assets = new Assets()
-                    {
-                        LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod",
-                        SmallImageKey = "pokeball",
-                        SmallImageText = "Using " + name
-                    },
-                    Timestamps = timestamp
-                });
+                    LargeImageKey = "largeimage2",
+                    LargeImageText = "Terramon Mod",
+                    SmallImageKey = "pokeball",
+                    SmallImageText = "Using " + name
+                },
+                Timestamps = timestamp
+            });
         }
 
         public virtual void RemoveDisplayPokemonNameRP()
         {
-                client.SetPresence(new RichPresence()
+#if DEBUG
+            return;
+#endif
+            client?.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
                     State = "Playing v0.4.1",
@@ -185,7 +195,10 @@ namespace Terramon
 
         public override void PreSaveAndQuit()
         {
-                client.SetPresence(new RichPresence()
+#if DEBUG
+            return;
+#endif
+            client?.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
                     State = "Playing v0.4.1",
@@ -202,7 +215,11 @@ namespace Terramon
 
         public override void Load()
         {
-                // Initalize Discord RP on Mod Load
+            //Disable loading rich presence while debugging 
+#if !DEBUG
+            // Initalize Discord RP on Mod Load
+            if (!Main.dedServ)
+            {
                 client = new DiscordRpcClient("749707767203233792");
                 client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
                 //
@@ -231,6 +248,8 @@ namespace Terramon
                         LargeImageText = "Terramon Mod"
                     }
                 });
+            }
+#endif
 
             //Load all mons to a store
             LoadPokemons();
