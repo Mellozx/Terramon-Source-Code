@@ -8,7 +8,7 @@ using Terramon.Pokemon;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace Terramon.Network.Extensions
+namespace Terramon.Network
 {
     public static class PacketExtensions
     {
@@ -49,6 +49,11 @@ namespace Terramon.Network.Extensions
                         packet.Write(it.Key);
                         packet.Write(bt);
                         break;
+                    case TagCompound ctag:
+                        packet.Write((byte)6);
+                        packet.Write(it.Key);
+                        packet.Write(ctag);
+                        break;
                 }
             }
         }
@@ -79,6 +84,9 @@ namespace Terramon.Network.Extensions
                         break;
                     case 5://byte
                         tag.Add(r.ReadString(), r.ReadByte());
+                        break;
+                    case 6://TagCompound
+                        tag.Add(r.ReadString(), r.ReadTag());
                         break;
                 }
             }
