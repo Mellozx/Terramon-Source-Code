@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gloom
 {
     public class Gloom : ParentPokemon
     {
-        public override int EvolveCost => 12;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.LeafStone;
 
         public override Type EvolveTo => typeof(Vileplume.Vileplume);
 

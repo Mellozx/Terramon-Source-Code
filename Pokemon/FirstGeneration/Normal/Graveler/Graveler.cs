@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Graveler
 {
     public class Graveler : ParentPokemon
     {
-        public override int EvolveCost => 16;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.LinkCable;
 
         public override Type EvolveTo => typeof(Golem.Golem);
 

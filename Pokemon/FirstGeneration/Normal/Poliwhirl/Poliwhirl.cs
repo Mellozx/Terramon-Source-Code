@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Poliwhirl
 {
     public class Poliwhirl : ParentPokemon
     {
-        public override int EvolveCost => 12;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.WaterStone;
 
         public override Type EvolveTo => typeof(Poliwrath.Poliwrath);
 

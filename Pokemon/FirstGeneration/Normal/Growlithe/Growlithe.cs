@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Growlithe
 {
     public class Growlithe : ParentPokemon
     {
-        public override int EvolveCost => 26;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.FireStone;
 
         public override Type EvolveTo => typeof(Arcanine.Arcanine);
 

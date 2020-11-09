@@ -10,7 +10,9 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Staryu
 {
     public class Staryu : ParentPokemon
     {
-        public override int EvolveCost => 28;
+        public override int EvolveCost => 1;
+
+        public override EvolveItem EvolveItem => EvolveItem.WaterStone;
 
         public override Type EvolveTo => typeof(Starmie.Starmie);
 

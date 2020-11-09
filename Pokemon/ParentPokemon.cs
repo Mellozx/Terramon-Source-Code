@@ -27,7 +27,7 @@ namespace Terramon.Pokemon
         /// <summary>
         ///     Item what used for evolution
         /// </summary>
-        public virtual EvolveItem EvolveItem { get; } = EvolveItem.RareCandy;
+        public virtual EvolveItem EvolveItem => EvolveItem.RareCandy;
 
         /// <summary>
         ///     Just for checking if this mon can evolve or not
@@ -252,6 +252,12 @@ namespace Terramon.Pokemon
     public enum EvolveItem
     {
         RareCandy,
-        LinkCable
+        LinkCable,
+        FireStone,
+        ThunderStone,
+        WaterStone,
+        LeafStone,
+        MoonStone,
+        Eeveelution
     }
 }

@@ -12,6 +12,8 @@ namespace Terramon.UI
     {
         internal string HoverText;
 
+        public float _visibilityActive = 1f;
+
         public UIHoverImageButton(Texture2D texture, string hoverText) : base(texture)
         {
             HoverText = hoverText;
@@ -20,6 +22,8 @@ namespace Terramon.UI
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             base.DrawSelf(spriteBatch);
+
+            SetVisibility(_visibilityActive, _visibilityActive);
 
             if (IsMouseHovering) Main.hoverItemName = HoverText;
         }

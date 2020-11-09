@@ -27,6 +27,8 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Terramon.Sounds.Custom;
+using Terramon.Players;
 
 namespace Terramon
 {
@@ -195,9 +197,11 @@ namespace Terramon
 
         public override void PreSaveAndQuit()
         {
-#if DEBUG
-            return;
-#endif
+            TerramonPlayer p = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+            if (p.openingSfx != null)
+            {
+                p.openingSfx.Stop();
+            }
             client?.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
@@ -224,7 +228,7 @@ namespace Terramon
                 client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
                 //
 
-                //Subscribe to events
+                // Subscribe to events
                 client.OnReady += (sender, e) =>
                 {
                     Console.WriteLine("Received Ready from user {0}", e.User.Username);
