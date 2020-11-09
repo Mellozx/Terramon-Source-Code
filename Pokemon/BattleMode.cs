@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
@@ -9,6 +10,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Razorwing.Framework.Localisation;
+using Terramon.Network.Sync;
+using Terramon.Network.Sync.Battle;
 using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terramon.UI;
@@ -33,7 +36,9 @@ namespace Terramon.Pokemon
         public PokemonData Wild;
         public ParentPokemon WildNPC;
         public int wildID;
+        public bool awaitSync = false;
         protected BaseMove pMove, oMove;
+        public bool MoveDone => pMove != null;
         protected int atackTimeout;
 
         protected ILocalisedBindableString playerChallenge =
@@ -44,21 +49,23 @@ namespace Terramon.Pokemon
         protected ILocalisedBindableString pokeName1, pokeName2;
 
 
-        public BattleMode(TerramonPlayer fpl, BattleState state, PokemonData second = null, ParentPokemonNPC npc = null, TerramonPlayer spl = null)
+        public BattleMode(TerramonPlayer fpl, BattleState state, PokemonData second = null, ParentPokemonNPC npc = null, TerramonPlayer spl = null, bool lazy = false)
         {
 #if !DEBUG
             State = BattleState.None;
+            return;
 #endif
 
-            if (Main.netMode != NetmodeID.Server)
+            if (fpl.player == Main.LocalPlayer) //If this is client player
             {
+                //Initialize battle UI
                 if (UI == null)
                     UI = new BattleUI();
                 else
                 {
                     UI.ResetData();
                 }
-
+                //And make it visible
                 BattleUI.Visible = true;
             }
 
@@ -66,42 +73,89 @@ namespace Terramon.Pokemon
             player1 = fpl;
             player2 = spl;
             Wild = second;
-            if (npc != null)
-            {
-                //Wild = new PokemonData()
-                //{
-                //    Pokemon = npc.HomeClass().Name,
-                //};
-                wildID = Projectile.NewProjectile(npc.npc.position, Vector2.Zero,
-                    TerramonMod.Instance.ProjectileType(npc.HomeClass().Name), 0, 0, fpl.whoAmI);
-                npc.npc.active = false;
-                WildNPC = (ParentPokemon)Main.projectile[wildID].modProjectile;
-                WildNPC.Wild = true;
-               
-            }
+
+            //Guard some code from repeating
+            if(!lazy)
+            //If we received npc argument
+                if (npc != null)
+                {
+                    Wild = new PokemonData()
+                    {
+                        Pokemon = npc.HomeClass().Name,
+                    };
+                    //Replace NPC with projectile
+                    if (Main.netMode == NetmodeID.SinglePlayer || player1.player == Main.LocalPlayer)
+                    {
+
+                        wildID = Projectile.NewProjectile(npc.npc.position, Vector2.Zero,
+                            TerramonMod.Instance.ProjectileType(npc.HomeClass().Name), 0, 0, fpl.whoAmI);
+                        npc.npc.active = false;
+                        WildNPC = (ParentPokemon)Main.projectile[wildID].modProjectile;
+                        WildNPC.Wild = true;
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            var packet = new WildNPCTransformPacket();
+                            int i;
+                            for (i = 0; i < Main.maxNPCs; i++)
+                            {
+                                if (Main.npc[i] == npc.npc)
+                                    break;
+                            }
+                            packet.Send(TerramonMod.Instance, i, wildID);
+
+                        }
+                    }
+                    //else
+                    //{
+                    //    //Make proj packet
+                    //    var packet = new WildNPCTransformPacket();
+                    //    int i;
+                    //    for (i = 0; i < Main.maxNPCs; i++)
+                    //    {
+                    //        if(Main.npc[i] == npc.npc)
+                    //            break;
+                    //    }
+                    //    packet.Send(TerramonMod.Instance, i);
+                    //    awaitSync = true;
+                    //}
+                   
+                }
+
             pokeName1 = TerramonMod.Localisation.GetLocalisedString(fpl.ActivePetName);
-
-            switch (State)
+            if (!Main.dedServ && player1.player == Main.LocalPlayer)
             {
-                case BattleState.BattleWithPlayer:
-                    pokeName2 = TerramonMod.Localisation.GetLocalisedString(spl?.ActivePetName);
-                    UI.HP1.PokeData = fpl.ActivePet;
-                    UI.HP2.PokeData = spl?.ActivePet;
-                    UI.MovesPanel.PokeData = fpl.ActivePet;
-                    playerChallenge.Args = new object[] {spl?.player.name};
-                    Main.NewText(playerChallenge.Value);
-                    break;
-                case BattleState.BattleWithWild:
-                    pokeName2 = TerramonMod.Localisation.GetLocalisedString(second?.Pokemon);
-                    UI.HP1.PokeData = fpl.ActivePet;
-                    UI.HP2.PokeData = Wild;
-                    UI.MovesPanel.PokeData = fpl.ActivePet;
-                    wildChallenge.Args = new object[] { second?.Pokemon };
-                    Main.NewText(playerChallenge.Value);
-                    break;
+                switch (State)
+                {
+                    case BattleState.BattleWithPlayer:
+                        pokeName2 = TerramonMod.Localisation.GetLocalisedString(spl?.ActivePetName);
+                        UI.HP1.PokeData = fpl.ActivePet;
+                        UI.HP2.PokeData = spl?.ActivePet;
+                        UI.MovesPanel.PokeData = fpl.ActivePet;
+                        playerChallenge.Args = new object[] { spl?.player.name };
+                        Text(playerChallenge.Value, true);
+                        break;
+                    case BattleState.BattleWithWild:
+                        pokeName2 = TerramonMod.Localisation.GetLocalisedString(second?.Pokemon);
+                        UI.HP1.PokeData = fpl.ActivePet;
+                        UI.HP2.PokeData = Wild;
+                        UI.MovesPanel.PokeData = fpl.ActivePet;
+                        wildChallenge.Args = new object[] { second?.Pokemon };
+                        Text(wildChallenge.Value);
+                        break;
+                }
+
+                UI.MovePresed = (move) =>
+                {
+                    pMove = move;
+                    //Move chose packet
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        var p = new MoveChangePacket();
+                        p.Send(TerramonMod.Instance, move);
+                    }
+                };
             }
 
-            UI.MovePresed = (move) => { pMove = move; };
         }
 
         private int escapeCountdown = 0;
@@ -110,31 +164,48 @@ namespace Terramon.Pokemon
 
         public void Update()
         {
-            if (Main.keyState.IsKeyDown(Keys.Escape))
+            if (player1.player == Main.LocalPlayer && Main.keyState.IsKeyDown(Keys.Escape))
             {
                 if (escapeCountdown == 0)
                     escapeCountdown = 5*60;
                 if (escapeCountdown == 3*60)
-                    Main.NewText("Trying to escape...",200,50,70);
+                    Text("Trying to escape...",new Color(200,50,70), true);
                 escapeCountdown -= 1;
 
                 if (escapeCountdown == 0)
                 {
-                    Main.NewText("Escaped!", 200, 50, 70);
+                    if (State == BattleState.BattleWithPlayer)
+                    {
+                        if(Text("You escaped, but lost some money...", true))
+                            new BattleEndPacket().Send(TerramonMod.Instance);
+                        //Escape packet
+                    }
+                    Text("Escaped!", new Color(200, 50, 70), true);
                     State = BattleState.None;
                 }
             }
-            if(State == BattleState.None)
+
+            switch (State)
             {
-                BattleUI.Visible = false;
-                return;
+                case BattleState.None:
+                    BattleUI.Visible = false;
+                    return;
+                case BattleState.BattleWithWild when !WildNPC?.projectile.active ?? !awaitSync:
+                    Text($"Pokemon disappear!");
+                    //End packet
+                    State = BattleState.None;
+                    break;
             }
 
-            if (State == BattleState.BattleWithWild && !WildNPC.projectile.active)
+            if (awaitSync)
             {
-                Main.NewText($"Pokemon disappear!");
-                State = BattleState.None;
+                return;
             }
+            else
+            {
+                faintedPrinted = false;
+            }
+
 
             atackTimeout = atackTimeout > 0 ? atackTimeout - 1 : 0;
             animWindow = animWindow > 0 ? animWindow - 1 : 0;
@@ -154,12 +225,13 @@ namespace Terramon.Pokemon
             {
                 if (animMode == 1 || animMode == 4)
                 {
-                    Main.NewText(pMove?.PostText);
+                    Text(pMove?.PostText);
                 }
                 else if (animMode == 2 || animMode == 3)
                 {
-                    Main.NewText(oMove?.PostText);
-                }
+                    if(State != BattleState.BattleWithPlayer)
+                        Text(oMove?.PostText);
+                }   
 
                 if (animMode > 2)
                 {
@@ -183,14 +255,22 @@ namespace Terramon.Pokemon
                 else
                 if (animMode == 1 || animMode == 4)
                 {
-                    pMove.AnimationFrame = animWindow - 120 * -1; 
-                    pMove?.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild);
+                    if (pMove != null)
+                    {
+                        pMove.AnimationFrame = (animWindow - 120) * -1;
+                        pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild);
+                    }
                 }
                 else if(animMode == 2 || animMode == 3)
                 {
-                    oMove.AnimationFrame = animWindow - 120 * -1;
-                    oMove?.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
-                        player1.ActivePet);
+                    if (State != BattleState.BattleWithPlayer)
+                        if (oMove != null)
+                        {
+                            oMove.AnimationFrame = (animWindow - 120) * -1;
+                            oMove.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
+                                player1.ActivePet);
+                        }
+                        
                 }
             }else if (animMode != 0 && animMode < 3)
             {
@@ -205,18 +285,24 @@ namespace Terramon.Pokemon
                             case BattleState.BattleWithTrainer:
                                 if (!Wild.Fainted)
                                 {
-                                    oMove.AnimationFrame = 0;
-                                    oMove?.PerformInBattle(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
-                                        player1.ActivePet);
+                                    if (oMove != null)
+                                    {
+                                        oMove.AnimationFrame = 0;
+                                        oMove.PerformInBattle(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
+                                            player1.ActivePet);
+                                    }                                    
                                 }
                                 break;
                             case BattleState.BattleWithPlayer:
                                 if (!player2.ActivePet.Fainted)
                                 {
-                                    oMove.AnimationFrame = 0;
-                                    oMove?.PerformInBattle((ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile
-                                        , (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player2,
-                                        player2.ActivePet, player1.ActivePet);
+                                    if (oMove != null)
+                                    {
+                                        oMove.AnimationFrame = 0;
+                                        //oMove?.PerformInBattle((ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile
+                                        //    , (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player2,
+                                        //    player2.ActivePet, player1.ActivePet);
+                                    }
                                 }
                                 break;
                         }
@@ -225,10 +311,13 @@ namespace Terramon.Pokemon
                     case 4:
                         if (!player1.ActivePet.Fainted)
                         {
-                            pMove.AnimationFrame = 0;
-                            pMove?.PerformInBattle((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile
-                                , WildNPC, player1,
-                                player1.ActivePet, Wild);
+                            if (pMove != null)
+                            {
+                                pMove.AnimationFrame = 0;
+                                pMove.PerformInBattle((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile
+                                    , WildNPC, player1,
+                                    player1.ActivePet, Wild);
+                            }
                         }
                         break;
                 }
@@ -249,56 +338,31 @@ namespace Terramon.Pokemon
                 else
                 {
                     oMove.AnimationFrame = 0;
-                    oMove?.PerformInBattle(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile),
+                    if (State != BattleState.BattleWithPlayer)
+                        oMove?.PerformInBattle(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile),
                         null, Wild, player1.ActivePet);
                     animMode = 2;
                 }
                 animWindow = 120;
-
-                //if (!useCheck)
-                //{
-                //    pMove?.PerformInBattle((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile
-                //        , WildNPC, player1,
-                //        player1.ActivePet, Wild);
-
-                //    pMove = null;
-
-
-                //    if (!Wild.Fainted)
-                //    {
-                //        oMove?.PerformInBattle(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
-                //            player1.ActivePet);
-                //        oMove = null;
-                //    }
-                //}
-                //else
-                //{
-                //    oMove?.PerformInBattle(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
-                //        player1.ActivePet);
-                //    oMove = null;
-
-                //    if (!player1.ActivePet.Fainted)
-                //    {
-                //        pMove?.PerformInBattle((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile
-                //            , WildNPC, player1,
-                //            player1.ActivePet, Wild);
-
-                //        pMove = null;
-                //    }
-                //}
-
                 atackTimeout = 260;
             }
 
-            if (player1.ActivePet.Fainted)
+            if (player1.ActivePet?.Fainted ?? false)
             {
-                if ((player1.PartySlot1 != null && !player1.PartySlot1.Fainted) || (player1.PartySlot2 != null && !player1.PartySlot2.Fainted) ||
-                    (player1.PartySlot3 != null && !player1.PartySlot3.Fainted) || (player1.PartySlot4 != null && !player1.PartySlot4.Fainted) ||
-                    (player1.PartySlot5 != null && !player1.PartySlot5.Fainted) || (player1.PartySlot6 != null && !player1.PartySlot6.Fainted))
-                    Main.NewText($"Your {player1.ActivePet.PokemonName} was fainted! Please, send out another pokemon!"); // TODO: Change this placeholders to LocalisedString
+                if (!faintedPrinted && (player1.PartySlot1 != null && !player1.PartySlot1.Fainted) ||
+                    (player1.PartySlot2 != null && !player1.PartySlot2.Fainted) ||
+                    (player1.PartySlot3 != null && !player1.PartySlot3.Fainted) ||
+                    (player1.PartySlot4 != null && !player1.PartySlot4.Fainted) ||
+                    (player1.PartySlot5 != null && !player1.PartySlot5.Fainted) ||
+                    (player1.PartySlot6 != null && !player1.PartySlot6.Fainted))
+                {
+                    Text($"Your {player1.ActivePet.PokemonName} was fainted! Please, send out another pokemon!"); // TODO: Change this placeholders to LocalisedString
+                    awaitSync = true;
+                }
                 else
                 {
-                    Main.NewText($"Your {player1.ActivePet.PokemonName} was fainted! You loose this battle!");
+                    if(Text($"Your {player1.ActivePet.PokemonName} was fainted! You loose this battle!") && Main.netMode == NetmodeID.MultiplayerClient)
+                        new BattleEndPacket().Send(TerramonMod.Instance);
                     State = BattleState.None;
                 }
             }
@@ -307,19 +371,162 @@ namespace Terramon.Pokemon
             {
                 case BattleState.BattleWithWild:
                     if (Wild.Fainted)
-                    {
-                        Main.NewText($"Wild {Wild.PokemonName} was fainted! [PH] Your {player1.ActivePet?.PokemonName} received 50 XP!");
-                        player1.ActivePet.Exp += 50;
+                    { 
+                        if(Text($"Wild {Wild.PokemonName} was fainted! [PH] Your {player1.ActivePet?.PokemonName} received 50 XP!", true))
+                            player1.ActivePet.Exp += 50;
                         State = BattleState.None;
                     }
-
                     break;
                 case BattleState.BattleWithPlayer:
-                    Main.NewText("PvP not supported rn");
-                    State = BattleState.None;
+                    if (!player2.player.active)
+                    {
+                        Text("Your opponent just disappear!", true);
+                        //End packet
+                        player2.Battle?.Cleanup();
+                        player2.Battle = null;
+                        new BattleEndPacket().Send(TerramonMod.Instance);
+                        State = BattleState.None;
+                    }
+                    else if (!faintedPrinted && (player2.ActivePet.Fainted &&
+                              ((player2.PartySlot1 != null && !player2.PartySlot1.Fainted) ||
+                               (player2.PartySlot2 != null && !player2.PartySlot2.Fainted) ||
+                               (player2.PartySlot3 != null && !player2.PartySlot3.Fainted) ||
+                               (player2.PartySlot4 != null && !player2.PartySlot4.Fainted) ||
+                               (player2.PartySlot5 != null && !player2.PartySlot5.Fainted) ||
+                               (player2.PartySlot6 != null && !player2.PartySlot6.Fainted))))
+                    {
+                        if (Text(
+                            $"Opponent pokemon was fainted. [PH] Your {player1.ActivePet?.PokemonName} received 50xp",
+                            true))
+                        {
+                            faintedPrinted = true;
+                            player1.ActivePet.Exp += 50;
+                            awaitSync = true;
+                            var pac = new PlayerSidebarSync();
+                            pac.Send(TerramonMod.Instance, player1);
+                            //send sync packet
+                        }
+                    }
+                    else
+                    {
+                        if (Text($"All oponent pokemons was fainted. [PH] Your {player1.ActivePet?.PokemonName} received 50xp", true))
+                        {
+                            player1.ActivePet.Exp += 50;
+                            var pac = new PlayerSidebarSync();
+                            pac.Send(TerramonMod.Instance, player1);
+                            //send sync packet
+                        }
+                        if(Text($"You received 10s for winning", true))
+                        {
+                            //do reward stuff;
+                            new BattleEndPacket().Send(TerramonMod.Instance);
+
+                        }
+                    }
+
+                    //Text("PvP not supported rn");
+                    //State = BattleState.None;
                     break;
             }
 
+        }
+
+        private bool faintedPrinted;
+
+        //This print's text only for players what actually in battle.
+        //If text get printed return true
+        private bool Text(string text, bool localOnly =false)
+        {
+            if (Main.LocalPlayer == player1?.player || Main.LocalPlayer == player2?.player)
+            {
+                if(!localOnly)
+                    Main.NewText(text);
+                else
+                {
+                    if (player1?.player == Main.LocalPlayer)
+                    {
+                        Main.NewText(text);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private bool Text(string text,Color color, bool localOnly = false)
+        {
+            if (Main.LocalPlayer == player1?.player || Main.LocalPlayer == player2?.player)
+            {
+                if (!localOnly)
+                    Main.NewText(text);
+                else
+                {
+                    if (player1?.player == Main.LocalPlayer)
+                    {
+                        Main.NewText(text, color);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        internal void SyncMove(string MoveName, bool p1 = true)
+        {
+            if (p1)
+            {
+                foreach (BaseMove it in player1.ActivePet.Moves)
+                {
+                    if (it.GetType().Name == MoveName)
+                    {
+                        pMove = it;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                foreach (BaseMove it in player2.ActivePet.Moves)
+                {
+                    if (it.GetType().Name == MoveName)
+                    {
+                        oMove = it;
+                        break;
+                    }
+                }
+
+            }
+        }
+
+
+
+        public void HandleChange()
+        {
+            switch (State)
+            {
+                case BattleState.BattleWithPlayer:
+                    pokeName2 = TerramonMod.Localisation.GetLocalisedString(player2?.ActivePetName);
+                    pokeName1 = TerramonMod.Localisation.GetLocalisedString(player1?.ActivePetName);
+                    UI.HP1.PokeData = player1.ActivePet;
+                    UI.HP2.PokeData = player2?.ActivePet;
+                    UI.MovesPanel.PokeData = player1.ActivePet;
+                    playerChallenge.Args = new object[] { player2?.player.name };
+                    Text(playerChallenge.Value, true);
+                    break;
+                case BattleState.BattleWithWild:
+                    pokeName1 = TerramonMod.Localisation.GetLocalisedString(player1?.ActivePetName);
+                    UI.HP1.PokeData = player1.ActivePet;
+                    UI.MovesPanel.PokeData = player1.ActivePet;
+                    break;
+            }
         }
 
         public BaseMove AIOverride(ParentPokemon mon)
@@ -338,6 +545,7 @@ namespace Terramon.Pokemon
                             break;
                         case BattleState.BattleWithPlayer:
                             return player2?.ActiveMove;
+                        case BattleState.None:
                         default:
                             return null;
                     

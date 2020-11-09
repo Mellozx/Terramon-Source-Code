@@ -5,6 +5,7 @@ namespace Razorwing.Framework.Graphics
         None,
         Out,
         In,
+        InOut,
         InQuad,
         OutQuad,
         InOutQuad,

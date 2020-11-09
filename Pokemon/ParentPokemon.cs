@@ -73,6 +73,10 @@ namespace Terramon.Pokemon
             aiType = ProjectileID.Puppy;
             projectile.owner = Main.myPlayer;
             drawOffsetX = 100;
+            if (Main.dedServ)
+            {
+                Wild = det_Wild;
+            }
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -179,7 +183,14 @@ namespace Terramon.Pokemon
                 modPlayer.ActivePetId = -1;
             }
 
-            if (modPlayer.IsPetActive(GetType().Name)) projectile.timeLeft = 2;
+            if (modPlayer.IsPetActive(GetType().Name))
+            {
+                projectile.timeLeft = 2;
+            }else if ((modPlayer.Battle?.awaitSync ?? false) || modPlayer.Battle?.WildNPC == this)
+            {
+                projectile.timeLeft = 2;
+                Wild = true;
+            }
 
             if (modPlayer.ActiveMove != null)
             {
@@ -232,6 +243,9 @@ namespace Terramon.Pokemon
             }
             return true;
         }
+
+
+        public static bool det_Wild;
     }
 
    

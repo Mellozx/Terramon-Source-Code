@@ -53,7 +53,6 @@ namespace Terramon.Pokemon.Moves
                     ProjectileID.DD2PhoenixBowShot, 0, 0);
                 Main.projectile[id].maxPenetrate = 99;
                 Main.projectile[id].penetrate = 99;
-                Main.projectile[id].maxPenetrate = 99;
                 Main.projectile[id].tileCollide = false;
                 
                 if (attacker.CustomData.ContainsKey(PROJID_KEY))
@@ -80,7 +79,7 @@ namespace Terramon.Pokemon.Moves
                 //var l = vel.Length();
                 //vel.Normalize();
                 //Main.projectile[id].position = mon.projectile.position + (vel * (l * (AnimationFrame / 120)));
-                Main.projectile[id].position = Interpolation.ValueAt(AnimationFrame, mon.projectile.position + (mon.projectile.Size / 2), target.projectile.position + (target.projectile.Size / 2), 0, 120,
+                Main.projectile[id].position = Interpolation.ValueAt(AnimationFrame, mon.projectile.position, target.projectile.position, 0, 120,
                     Easing.Out);
 
             }
