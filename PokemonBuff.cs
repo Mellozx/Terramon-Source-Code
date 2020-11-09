@@ -1,4 +1,6 @@
-﻿using Terramon.Players;
+﻿using Razorwing.Framework.Localisation;
+using Terramon.Network.Sync;
+using Terramon.Players;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -6,14 +8,16 @@ namespace Terramon
 {
     public class PokemonBuff : ModBuff
     {
+        protected ILocalisedBindableString PokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString("*"));
+        protected ILocalisedBindableString Following = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("buff.following", "{0} is following you around!")));
         public virtual string ProjectileName { get; set; }
 
         public override void SetDefaults()
         {
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
-            DisplayName.SetDefault($"{ProjectileName}");
-            Description.SetDefault($"{ProjectileName} is following you around!");
+            DisplayName.SetDefault(PokeName.Value);
+            Description.SetDefault(Following.Value);
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -25,7 +29,14 @@ namespace Terramon
                 return;
             }
 
-            ProjectileName = modPlayer.ActivePetName;
+            if (ProjectileName != modPlayer.ActivePetName)
+            {
+                ProjectileName = modPlayer.ActivePetName;
+                PokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(ProjectileName));
+                Following.Args = new object[] {PokeName.Value};
+            }
+
+
 
             player.buffTime[buffIndex] = 40000;
 
@@ -47,13 +58,14 @@ namespace Terramon
                     player.position.Y - 8, 0f, 0f, mod.ProjectileType(ProjectileName), 0, 0f,
                     player.whoAmI, 0f, 0f);
                 }
+                new PetIDSyncPacket().Send((TerramonMod)mod, modPlayer.ActivePetId);
             }
         }
 
 
         public override void ModifyBuffTip(ref string tip, ref int rare)
         {
-            tip = $"{ProjectileName} is following you around!";
+            tip = Following.Value;
             rare = 0;
         }
     }
