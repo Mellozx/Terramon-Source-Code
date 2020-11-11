@@ -64,7 +64,7 @@ namespace Terramon.Pokemon.Moves
                     attacker.CustomData.Add(PROJID_KEY, id.ToString());
                 }
             }
-            else if(AnimationFrame == 119)//At Last frame we destroy new proj
+            else if(AnimationFrame == 120)//At Last frame we destroy new proj
             {
                 var id = int.Parse(attacker.CustomData[PROJID_KEY]);
                 if(PostTextLoc.Args.Length >= 4)//If we can extract damage number

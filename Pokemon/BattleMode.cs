@@ -264,7 +264,7 @@ namespace Terramon.Pokemon
                 {
                     if (pMove != null)
                     {
-                        pMove.AnimationFrame = (animWindow - 120) * -1;
+                        pMove.AnimationFrame = (animWindow - 121) * -1;
                         switch (State)
                         {
                             case BattleState.BattleWithWild:
@@ -281,7 +281,7 @@ namespace Terramon.Pokemon
                     if (State != BattleState.BattleWithPlayer)
                         if (oMove != null)
                         {
-                            oMove.AnimationFrame = (animWindow - 120) * -1;
+                            oMove.AnimationFrame = (animWindow - 121) * -1;
                             switch (State)
                             {
                                 case BattleState.BattleWithWild:
@@ -300,7 +300,7 @@ namespace Terramon.Pokemon
             }else if (animMode != 0 && animMode < 3)
             {
                 animMode += 2;//Shift to second casts
-                animWindow = 120;
+                animWindow = 121;
                 switch (animMode)
                 {
                     case 3:
