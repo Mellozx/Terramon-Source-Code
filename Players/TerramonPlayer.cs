@@ -93,7 +93,7 @@ namespace Terramon.Players
                 //MoveSet[2] = !string.IsNullOrEmpty(m3) ? TerramonMod.GetMove(m3) : null;
                 //MoveSet[3] = !string.IsNullOrEmpty(m4) ? TerramonMod.GetMove(m4) : null;
 
-                MoveSet = tag.Moves;
+                MoveSet = tag?.Moves;
 
                 if (Main.netMode == NetmodeID.MultiplayerClient && Main.LocalPlayer == player && !loading)
                 {
@@ -155,17 +155,25 @@ namespace Terramon.Players
             set
             {
                 _partySlot1 = value;
-                if (value == null)
+                if (player == Main.LocalPlayer)
                 {
-                    ((TerramonMod) mod).PartySlots.partyslot1.Item.TurnToAir();
-                    return;
-                }
+                    if (value == null)
+                    {
+                        ((TerramonMod)mod).PartySlots.partyslot1.Item.TurnToAir();
+                        return;
+                    }
 
-                if (!((TerramonMod) mod).PartySlots?.partyslot1?.Item?.IsAir ?? false)
-                {
-                    //We need to update data inside item
-                    var modItem = ((TerramonMod) mod).PartySlots.partyslot1.Item.modItem;
-                    if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    if (!((TerramonMod)mod).PartySlots?.partyslot1?.Item?.IsAir ?? false)
+                    {
+                        //We need to update data inside item
+                        var modItem = ((TerramonMod)mod).PartySlots.partyslot1.Item.modItem;
+                        if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    }
+                    else
+                    {
+                        LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot1.Item, value);
+                    }
+       
                 }
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -181,17 +189,24 @@ namespace Terramon.Players
             set
             {
                 _partySlot2 = value;
-                if (value == null)
+                if (player == Main.LocalPlayer)
                 {
-                    ((TerramonMod) mod).PartySlots.partyslot2.Item.TurnToAir();
-                    return;
-                }
+                    if (value == null)
+                    {
+                        ((TerramonMod) mod).PartySlots.partyslot2.Item.TurnToAir();
+                        return;
+                    }
 
-                if (!((TerramonMod) mod).PartySlots?.partyslot2?.Item?.IsAir ?? false)
-                {
-                    //We need to update data inside item
-                    var modItem = ((TerramonMod) mod).PartySlots.partyslot2.Item.modItem;
-                    if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    if (!((TerramonMod) mod).PartySlots?.partyslot2?.Item?.IsAir ?? false)
+                    {
+                        //We need to update data inside item
+                        var modItem = ((TerramonMod) mod).PartySlots.partyslot2.Item.modItem;
+                        if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    }
+                    else
+                    {
+                        LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot2.Item, value);
+                    }
                 }
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -207,17 +222,24 @@ namespace Terramon.Players
             set
             {
                 _partySlot3 = value;
-                if (value == null)
+                if (player == Main.LocalPlayer)
                 {
-                    ((TerramonMod) mod).PartySlots.partyslot3.Item.TurnToAir();
-                    return;
-                }
+                    if (value == null)
+                    {
+                        ((TerramonMod) mod).PartySlots.partyslot3.Item.TurnToAir();
+                        return;
+                    }
 
-                if (!((TerramonMod) mod).PartySlots?.partyslot3?.Item?.IsAir ?? false)
-                {
-                    //We need to update data inside item
-                    var modItem = ((TerramonMod) mod).PartySlots.partyslot3.Item.modItem;
-                    if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    if (!((TerramonMod) mod).PartySlots?.partyslot3?.Item?.IsAir ?? false)
+                    {
+                        //We need to update data inside item
+                        var modItem = ((TerramonMod) mod).PartySlots.partyslot3.Item.modItem;
+                        if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    }
+                    else
+                    {
+                        LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot3.Item, value);
+                    }
                 }
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -233,17 +255,24 @@ namespace Terramon.Players
             set
             {
                 _partySlot4 = value;
-                if (value == null)
+                if (player == Main.LocalPlayer)
                 {
-                    ((TerramonMod) mod).PartySlots.partyslot4.Item.TurnToAir();
-                    return;
-                }
+                    if (value == null)
+                    {
+                        ((TerramonMod) mod).PartySlots.partyslot4.Item.TurnToAir();
+                        return;
+                    }
 
-                if (!((TerramonMod) mod).PartySlots?.partyslot4?.Item?.IsAir ?? false)
-                {
-                    //We need to update data inside item
-                    var modItem = ((TerramonMod) mod).PartySlots.partyslot4.Item.modItem;
-                    if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    if (!((TerramonMod) mod).PartySlots?.partyslot4?.Item?.IsAir ?? false)
+                    {
+                        //We need to update data inside item
+                        var modItem = ((TerramonMod) mod).PartySlots.partyslot4.Item.modItem;
+                        if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    }
+                    else
+                    {
+                        LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot4.Item, value);
+                    }
                 }
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -258,18 +287,25 @@ namespace Terramon.Players
             get => _partySlot5;
             set
             {
-                _partySlot5 = value;
-                if (value == null)
+                if (player == Main.LocalPlayer)
                 {
-                    ((TerramonMod) mod).PartySlots.partyslot5.Item.TurnToAir();
-                    return;
-                }
+                    _partySlot5 = value;
+                    if (value == null)
+                    {
+                        ((TerramonMod) mod).PartySlots.partyslot5.Item.TurnToAir();
+                        return;
+                    }
 
-                if (!((TerramonMod) mod).PartySlots?.partyslot5?.Item?.IsAir ?? false)
-                {
-                    //We need to update data inside item
-                    var modItem = ((TerramonMod) mod).PartySlots.partyslot5.Item.modItem;
-                    if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    if (!((TerramonMod) mod).PartySlots?.partyslot5?.Item?.IsAir ?? false)
+                    {
+                        //We need to update data inside item
+                        var modItem = ((TerramonMod) mod).PartySlots.partyslot5.Item.modItem;
+                        if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    }
+                    else
+                    {
+                        LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot5.Item, value);
+                    }
                 }
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -285,19 +321,26 @@ namespace Terramon.Players
             set
             {
                 _partySlot6 = value;
-                if (value == null)
+                if (player == Main.LocalPlayer)
                 {
-                    ((TerramonMod) mod).PartySlots.partyslot6.Item.TurnToAir();
-                    return;
-                }
+                    if (value == null)
+                    {
+                        ((TerramonMod) mod).PartySlots.partyslot6.Item.TurnToAir();
+                        return;
+                    }
 
-                if (!((TerramonMod) mod).PartySlots?.partyslot6?.Item?.IsAir ?? false)
-                {
-                    //We need to update data inside item
-                    var modItem = ((TerramonMod) mod).PartySlots.partyslot6.Item.modItem;
-                    if (modItem != null && modItem.item != null && modItem.item.active) modItem.Load(value);
+                    if (!((TerramonMod) mod).PartySlots?.partyslot6?.Item?.IsAir ?? false)
+                    {
+                        //We need to update data inside item
+                        var modItem = ((TerramonMod) mod).PartySlots.partyslot6.Item.modItem;
+                        if (modItem?.item != null && modItem.item.active) modItem.Load(value);
+                    }
+                    else
+                    {
+                        LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot6.Item, value);
+                    }
                 }
-
+                
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     sidebarSync = true;
@@ -444,7 +487,7 @@ namespace Terramon.Players
             // Call to Mod class to enable in-world Rich Presence
             GetInstance<TerramonMod>().EnterWorldRP();
             //
-
+            Battle?.Cleanup();
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             modPlayer.Attacking = false;
             Moves.Visible = false; // Ignore for v0.3
@@ -478,7 +521,7 @@ namespace Terramon.Players
 
             if (StarterChosen == false)
             {
-                openingSfx = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/opening"));
+                openingSfx = Main.PlaySound(SoundLoader.customSoundType, Style: mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/opening"));
                 GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarter());
                 ChooseStarter.Visible = true;
                 PartySlots.Visible = false;
@@ -491,6 +534,9 @@ namespace Terramon.Players
             }
 
             loading = false;
+
+            if(Main.netMode == NetmodeID.MultiplayerClient)
+                new RequestSyncPacket().Send();
         }
 
         //fishing for pokemon
@@ -515,6 +561,8 @@ namespace Terramon.Players
                     CombatText.NewText(player.Hitbox, Color.White, "Go! " + firstslotname + "!", true);
                 }
         }
+
+
         string lastmon = "";
         public override void PreUpdate()
         {
@@ -818,15 +866,14 @@ namespace Terramon.Players
             if (PartySlot6 != null && PartySlot6.pokeballType != 0)
                 tag.Add(nameof(PartySlot6), PartySlot6.GetCompound());
 
-
             SavePokeballs(tag);
 
             return tag;
         }
 
-
         public override void Load(TagCompound tag)
         {
+            var n = player.name;
             loading = true;
             Battle?.Cleanup();
             Battle = null;
@@ -851,7 +898,7 @@ namespace Terramon.Players
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            if (newPlayer && fromWho == player.whoAmI)
+            if (newPlayer && !Main.dedServ)
             {
                 var p = new PlayerSidebarSync();
                 p.Send((TerramonMod)mod, this, toWho);

@@ -2,6 +2,7 @@
 using Terramon.Network.Sync;
 using Terramon.Players;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Terramon
@@ -67,7 +68,8 @@ namespace Terramon
                     player.position.Y - 8, 0f, 0f, mod.ProjectileType(ProjectileName), 0, 0f,
                     player.whoAmI, 0f, 0f);
                 }
-                new PetIDSyncPacket().Send((TerramonMod)mod, modPlayer.ActivePetId);
+                if(Main.netMode == NetmodeID.MultiplayerClient)
+                    new PetIDSyncPacket().Send((TerramonMod)mod, modPlayer.ActivePetId);
             }
         }
 

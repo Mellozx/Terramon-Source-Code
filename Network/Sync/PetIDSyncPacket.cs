@@ -25,7 +25,7 @@ namespace Terramon.Network.Sync
             var p = GetPacket(TerramonMod.Instance);
             p.Write(whoAmI);
             p.Write(id);
-            p.Send();
+            p.Send(ignoreClient: whoAmI);
         }
 
         public override void HandleFromClient(BinaryReader reader, int whoAmI)

@@ -63,8 +63,7 @@ namespace Terramon.Network.Sync.Battle
                 var pl1 = Main.player[whoAmI]?.GetModPlayer<TerramonPlayer>();
                 var pl2 = Main.player[battleWith]?.GetModPlayer<TerramonPlayer>();
                 if (pl1 != null)
-                    pl1.Battle = new BattleMode(pl1, state, pl2?.ActivePet, null, pl2,
-                        Main.player[battleWith] != Main.LocalPlayer);
+                    pl1.Battle = new BattleMode(pl1, state, pl2?.ActivePet, null, pl2, true);
                 else
                 {
                     return;
@@ -104,13 +103,13 @@ namespace Terramon.Network.Sync.Battle
                 var pl2 = Main.player[battleWith]?.GetModPlayer<TerramonPlayer>();
                 if (pl1 != null)
                     pl1.Battle = new BattleMode(pl1, state, pl2?.ActivePet, null, pl2,
-                        Main.player[battleWith] != Main.LocalPlayer);
+                        true);
                 else
                 {
                     return;
                 }
                 if (pl2 != null)
-                    pl2.Battle = new BattleMode(pl2, state, pl1?.ActivePet, null, pl1, true);
+                    pl2.Battle = new BattleMode(pl2, state, pl1?.ActivePet, null, pl1, Main.player[battleWith] != Main.LocalPlayer);
             }
             else if (state == BattleState.BattleWithWild)
             {

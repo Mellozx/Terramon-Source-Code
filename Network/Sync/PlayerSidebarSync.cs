@@ -21,7 +21,7 @@ namespace Terramon.Network.Sync
                 return;
             var p = GetPacket(mod);
             p.Write(pl.Save());
-            p.Send(target);
+            p.Send();
         }
 
         protected void Resend(TagCompound tag, int whoAmI)

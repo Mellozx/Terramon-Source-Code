@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using On.Terraria.Achievements;
 using Terramon.Players;
 using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
+using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,7 +38,11 @@ namespace Terramon.Pokemon
 
         public virtual PokemonType[] PokemonTypes => new[] {PokemonType.Normal};
 
+#if DEBUG
+        public virtual string[] DefaultMove => new[] {nameof(ShootMove), nameof(HealMove), "", ""};
+#else
         public virtual string[] DefaultMove => new[] {"", "", "", ""};
+#endif
         public virtual int MaxHP => 45;
         public virtual int PhysicalDamage => 50;
         public virtual int PhysicalDefence => 50;

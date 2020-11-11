@@ -116,20 +116,39 @@ namespace Terramon.UI.SidebarParty
                     return;
                 }
 
-                var id = BaseMove.GetNearestPokemon(Main.LocalPlayer.position);
-                if (id != null)
+                if (Main.keyState.PressingShift())
                 {
-                    var data = new PokemonData()
+                    var pl = BaseMove.GetNearestPlayer(Main.LocalPlayer.position, Main.LocalPlayer);
+                    if (pl != null)
                     {
-                        Pokemon = ((ParentPokemonNPC)id.modNPC).HomeClass().Name,
-                    };
-                    player.Battle = new BattleMode(player, BattleState.BattleWithWild, npc: (ParentPokemonNPC)id.modNPC, second: data);
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                    {
-                        var p = new StartBattlePacket();
-                        p.Send(TerramonMod.Instance, BattleState.BattleWithWild, data, player.Battle.wildID);
+                        player.Battle = new BattleMode(player, BattleState.BattleWithPlayer, spl: pl.GetModPlayer<TerramonPlayer>());
+                        pl.GetModPlayer<TerramonPlayer>().Battle = new BattleMode(pl.GetModPlayer<TerramonPlayer>(), BattleState.BattleWithPlayer, spl: player);
+
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            var p = new StartBattlePacket();
+                            p.Send(TerramonMod.Instance, BattleState.BattleWithPlayer, pl);
+                        }
                     }
                 }
+                else
+                {
+                    var id = BaseMove.GetNearestPokemon(Main.LocalPlayer.position);
+                    if (id != null)
+                    {
+                        var data = new PokemonData()
+                        {
+                            Pokemon = ((ParentPokemonNPC)id.modNPC).HomeClass().Name,
+                        };
+                        player.Battle = new BattleMode(player, BattleState.BattleWithWild, npc: (ParentPokemonNPC)id.modNPC, second: data);
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            var p = new StartBattlePacket();
+                            p.Send(TerramonMod.Instance, BattleState.BattleWithWild, data, player.Battle.wildID);
+                        }
+                    }
+                }
+
             };
             Append(battle);
 #endif
