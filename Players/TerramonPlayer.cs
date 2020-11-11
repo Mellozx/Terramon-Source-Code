@@ -213,6 +213,10 @@ namespace Terramon.Players
                 {
                     sidebarSync = true;
                 }
+                else
+                {
+                    LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot2.Item, value);
+                }
             }
         }
 
@@ -245,6 +249,10 @@ namespace Terramon.Players
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     sidebarSync = true;
+                }
+                else
+                {
+                    LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot3.Item, value);
                 }
             }
         }
@@ -279,6 +287,10 @@ namespace Terramon.Players
                 {
                     sidebarSync = true;
                 }
+                else
+                {
+                    LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot4.Item, value);
+                }
             }
         }
 
@@ -312,6 +324,10 @@ namespace Terramon.Players
                 {
                     sidebarSync = true;
                 }
+                else
+                {
+                    LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot5.Item, value);
+                }
             }
         }
 
@@ -344,6 +360,10 @@ namespace Terramon.Players
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     sidebarSync = true;
+                }
+                else
+                {
+                    LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot6.Item, value);
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace Terramon.Pokemon
         private int exp;
         private int maxHp;
         private int hp;
-        private string pokemon;
+        public string pokemon;
 
         private ILocalisedBindableString localised;
         public string PokemonName => localised?.Value ?? Pokemon;
