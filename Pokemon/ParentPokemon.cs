@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using On.Terraria.Achievements;
 using Terramon.Players;
 using Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur;
+using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,7 +38,11 @@ namespace Terramon.Pokemon
 
         public virtual PokemonType[] PokemonTypes => new[] {PokemonType.Normal};
 
+#if DEBUG
+        public virtual string[] DefaultMove => new[] {nameof(ShootMove), nameof(HealMove), "", ""};
+#else
         public virtual string[] DefaultMove => new[] {"", "", "", ""};
+#endif
         public virtual int MaxHP => 45;
         public virtual int PhysicalDamage => 50;
         public virtual int PhysicalDefence => 50;
@@ -73,6 +79,10 @@ namespace Terramon.Pokemon
             aiType = ProjectileID.Puppy;
             projectile.owner = Main.myPlayer;
             drawOffsetX = 100;
+            if (Main.dedServ)
+            {
+                Wild = det_Wild;
+            }
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -179,7 +189,14 @@ namespace Terramon.Pokemon
                 modPlayer.ActivePetId = -1;
             }
 
-            if (modPlayer.IsPetActive(GetType().Name)) projectile.timeLeft = 2;
+            if (modPlayer.IsPetActive(GetType().Name))
+            {
+                projectile.timeLeft = 2;
+            }else if ((modPlayer.Battle?.awaitSync ?? false) || modPlayer.Battle?.WildNPC == this)
+            {
+                projectile.timeLeft = 2;
+                Wild = true;
+            }
 
             if (modPlayer.ActiveMove != null)
             {
@@ -232,6 +249,9 @@ namespace Terramon.Pokemon
             }
             return true;
         }
+
+
+        public static bool det_Wild;
     }
 
    

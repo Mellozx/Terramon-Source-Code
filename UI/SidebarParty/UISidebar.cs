@@ -3,10 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Razorwing.Framework.Localisation;
 using Terramon.Items.Pokeballs;
 using Terramon.Items.Pokeballs.Inventory;
+using Terramon.Network.Sync;
+using Terramon.Network.Sync.Battle;
 using Terramon.Players;
 using Terramon.Pokemon;
 using Terramon.Pokemon.Moves;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -113,12 +116,39 @@ namespace Terramon.UI.SidebarParty
                     return;
                 }
 
-                var id = BaseMove.GetNearestPokemon(Main.LocalPlayer.position);
-                if(id != null)
-                    player.Battle = new BattleMode(player, BattleState.BattleWithWild, npc: (ParentPokemonNPC)id.modNPC, second: new PokemonData()
+                if (Main.keyState.PressingShift())
+                {
+                    var pl = BaseMove.GetNearestPlayer(Main.LocalPlayer.position, Main.LocalPlayer);
+                    if (pl != null)
                     {
-                        Pokemon = ((ParentPokemonNPC)id.modNPC).HomeClass().Name,
-                    });
+                        player.Battle = new BattleMode(player, BattleState.BattleWithPlayer, spl: pl.GetModPlayer<TerramonPlayer>());
+                        pl.GetModPlayer<TerramonPlayer>().Battle = new BattleMode(pl.GetModPlayer<TerramonPlayer>(), BattleState.BattleWithPlayer, spl: player);
+
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            var p = new StartBattlePacket();
+                            p.Send(TerramonMod.Instance, BattleState.BattleWithPlayer, pl);
+                        }
+                    }
+                }
+                else
+                {
+                    var id = BaseMove.GetNearestPokemon(Main.LocalPlayer.position);
+                    if (id != null)
+                    {
+                        var data = new PokemonData()
+                        {
+                            Pokemon = ((ParentPokemonNPC)id.modNPC).HomeClass().Name,
+                        };
+                        player.Battle = new BattleMode(player, BattleState.BattleWithWild, npc: (ParentPokemonNPC)id.modNPC, second: data);
+                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        {
+                            var p = new StartBattlePacket();
+                            p.Send(TerramonMod.Instance, BattleState.BattleWithWild, data, player.Battle.wildID);
+                        }
+                    }
+                }
+
             };
             Append(battle);
 #endif
@@ -339,11 +369,37 @@ namespace Terramon.UI.SidebarParty
             }
         }
 
+        private bool UpdateBattle(TerramonPlayer pl)
+        {
+            if (pl.Battle != null)//If player in battle
+            {
+                if ((pl.Battle.awaitSync && (pl.ActivePet.Fainted)) || (!pl.Battle.MoveDone))
+                {
+                    //Change mon packet
+                    pl.Battle.awaitSync = false;
+                    if (pl.Battle.State == BattleState.BattleWithPlayer)
+                    {
+                        pl.Battle.player2.Battle.awaitSync = false;
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;//We don't allow change mon if move was selected
+                }
+            }
+
+            return true;
+        }
+
         private void SpawnPKMN1(UIMouseEvent evt, UIElement listeningElement)
         {
             Player player = Main.LocalPlayer;
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (modPlayer.firstslotname == "*")
+                return;
+
+            if (!UpdateBattle(modPlayer))
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
@@ -358,7 +414,7 @@ namespace Terramon.UI.SidebarParty
                 CombatText.NewText(player.Hitbox, Color.White, goText.Value, true);
                 Main.PlaySound(ModContent.GetInstance<TerramonMod>()
                     .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
-                modPlayer.ActivePartySlot = 1;
+                modPlayer.ActivePartySlot = 1; //This automatically sync active pet
             }
             else
             {
@@ -374,6 +430,9 @@ namespace Terramon.UI.SidebarParty
             Player player = Main.LocalPlayer;
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (modPlayer.secondslotname == "*")
+                return;
+
+            if (!UpdateBattle(modPlayer))
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
@@ -406,6 +465,9 @@ namespace Terramon.UI.SidebarParty
             if (modPlayer.thirdslotname == "*")
                 return;
 
+            if (!UpdateBattle(modPlayer))
+                return;
+
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
             var pet = modPlayer.PartySlot3.Pokemon;
             if (modPlayer.ActivePetName != pet)
@@ -434,6 +496,9 @@ namespace Terramon.UI.SidebarParty
             Player player = Main.LocalPlayer;
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (modPlayer.fourthslotname == "*")
+                return;
+
+            if (!UpdateBattle(modPlayer))
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
@@ -466,6 +531,9 @@ namespace Terramon.UI.SidebarParty
             if (modPlayer.fifthslotname == "*")
                 return;
 
+            if (!UpdateBattle(modPlayer))
+                return;
+
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
             var pet = modPlayer.PartySlot5.Pokemon;
             if (modPlayer.ActivePetName != pet)
@@ -494,6 +562,9 @@ namespace Terramon.UI.SidebarParty
             Player player = Main.LocalPlayer;
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (modPlayer.sixthslotname == "*")
+                return;
+
+            if (!UpdateBattle(modPlayer))
                 return;
 
             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));

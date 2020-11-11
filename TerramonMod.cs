@@ -12,6 +12,7 @@ using Razorwing.Framework.Configuration;
 using Razorwing.Framework.IO.Stores;
 using Razorwing.Framework.Localisation;
 using Terramon.Items.Pokeballs.Inventory;
+using Terramon.Network;
 using Terramon.Network.Catching;
 using Terramon.Network.Starter;
 using Terramon.Pokemon;
@@ -131,7 +132,10 @@ namespace Terramon
 
         public virtual void EnterWorldRP()
         {
-                timestamp = Timestamps.Now;
+#if DEBUG
+            return;
+#endif
+            timestamp = Timestamps.Now;
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
@@ -149,28 +153,34 @@ namespace Terramon
 
         public virtual void DisplayPokemonNameRP(string name, bool shinyness)
         {
+#if DEBUG
+            return;   
+#endif
             if (shinyness)
             {
                 name = name += " ✨";
             }
-                client.SetPresence(new RichPresence()
+            client?.SetPresence(new RichPresence()
+            {
+                Details = "In-Game",
+                State = "Playing v0.4.1",
+                Assets = new Assets()
                 {
-                    Details = "In-Game",
-                    State = "Playing v0.4.1",
-                    Assets = new Assets()
-                    {
-                        LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod",
-                        SmallImageKey = "pokeball",
-                        SmallImageText = "Using " + name
-                    },
-                    Timestamps = timestamp
-                });
+                    LargeImageKey = "largeimage2",
+                    LargeImageText = "Terramon Mod",
+                    SmallImageKey = "pokeball",
+                    SmallImageText = "Using " + name
+                },
+                Timestamps = timestamp
+            });
         }
 
         public virtual void RemoveDisplayPokemonNameRP()
         {
-                client.SetPresence(new RichPresence()
+#if DEBUG
+            return;
+#endif
+            client?.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
                     State = "Playing v0.4.1",
@@ -188,11 +198,8 @@ namespace Terramon
         public override void PreSaveAndQuit()
         {
             TerramonPlayer p = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-            if (p.openingSfx != null)
-            {
-                p.openingSfx.Stop();
-            }
-            client.SetPresence(new RichPresence()
+            p.openingSfx?.Stop();
+            client?.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
                     State = "Playing v0.4.1",
@@ -209,7 +216,11 @@ namespace Terramon
 
         public override void Load()
         {
-                // Initalize Discord RP on Mod Load
+            //Disable loading rich presence while debugging 
+#if !DEBUG
+            // Initalize Discord RP on Mod Load
+            if (!Main.dedServ)
+            {
                 client = new DiscordRpcClient("749707767203233792");
                 client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
                 //
@@ -238,6 +249,8 @@ namespace Terramon
                         LargeImageText = "Terramon Mod"
                     }
                 });
+            }
+#endif
 
             //Load all mons to a store
             LoadPokemons();
@@ -576,10 +589,14 @@ namespace Terramon
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
+
             //In case i f*ck the code
             try
             {
                 string type = reader.ReadString();
+#if DEBUG
+                Main.NewText($"Received packet: [c/ff3333:{type}]");
+#endif
                 switch (type)
                 {
                     case SpawnStarterPacket.NAME:
@@ -600,13 +617,26 @@ namespace Terramon
                         packet.HandleFromClient(reader, whoAmI);
                     }
                         break;
+                    default:
+                        if (packetStore.ContainsKey(type))
+                        {
+                            if (whoAmI == 256)
+                                packetStore[type].HandleFromServer(reader);
+                            else
+                                packetStore[type].HandleFromClient(reader, whoAmI);
+                        }
+                        break;
                 }
+                
             }
             catch (Exception e)
             {
                 Logger.ErrorFormat(
                     "Exception appear in HandlePacket. Please, contact mod devs with folowing stacktrace:\n\n{0}\n\n{1}",
                     e.Message, e.StackTrace);
+#if DEBUG
+                Main.NewText($"[c/ff3322:{e.Message}]");
+#endif
             }
         }
 
@@ -646,12 +676,14 @@ namespace Terramon
         private Dictionary<string, ParentPokemon> pokemonStore;
         private Dictionary<string, ParentPokemonNPC> wildPokemonStore;
         private Dictionary<string, BaseMove> movesStore;
+        private Dictionary<string, Packet> packetStore;
 
         private void LoadPokemons()
         {
             pokemonStore = new Dictionary<string, ParentPokemon>();
             wildPokemonStore = new Dictionary<string, ParentPokemonNPC>();
             movesStore = new Dictionary<string, BaseMove>();
+            packetStore = new Dictionary<string, Packet>();
             foreach (TypeInfo it in GetType().Assembly.DefinedTypes)
             {
                 var baseType = it.BaseType;
@@ -659,14 +691,14 @@ namespace Terramon
                     continue;
                 bool valid = false;
                 if (baseType == typeof(ParentPokemon) || baseType == typeof(ParentPokemonNPC) ||
-                    baseType == typeof(BaseMove))
+                    baseType == typeof(BaseMove) || baseType == typeof(Packet))
                     valid = true;
                 else
                     //Recurrent seek for our class
                     while (baseType != null && baseType != typeof(object))
                     {
                         if (baseType == typeof(ParentPokemon) || baseType == typeof(ParentPokemonNPC) ||
-                            baseType == typeof(BaseMove))
+                            baseType == typeof(BaseMove) || baseType == typeof(Packet))
                         {
                             valid = true;
                             break;
@@ -684,6 +716,11 @@ namespace Terramon
                             wildPokemonStore.Add(it.Name, (ParentPokemonNPC) Activator.CreateInstance(it));
                         else if (baseType == typeof(BaseMove))
                             movesStore.Add(it.Name, (BaseMove) Activator.CreateInstance(it));
+                        else if (baseType == typeof(Packet))
+                        {
+                            var p = (Packet) Activator.CreateInstance(it);
+                            packetStore.Add(p.PacketName, p);
+                        }
                     }
                     catch (Exception e)
                     {

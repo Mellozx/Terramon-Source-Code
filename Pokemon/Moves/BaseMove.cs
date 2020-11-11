@@ -152,6 +152,30 @@ namespace Terramon.Pokemon.Moves
 
             return Main.npc[closest];
         }
+
+        /// <summary>
+        /// Return nearest player around point, excluding caller
+        /// </summary>
+        public static Player GetNearestPlayer(Vector2 pos, Player caller)
+        {
+            int closest = -1;
+            float lenght = float.MaxValue, buf;
+            for (int i = 0; i < Main.maxNPCs; i++)
+                if (Main.player[i].active && Main.player[i] != caller)
+                {
+                    buf = (pos - Main.player[i].position).LengthSquared();
+                    if (buf < lenght)
+                    {
+                        closest = i;
+                        lenght = buf;
+                    }
+                }
+
+            if (closest == -1 || (pos - Main.player[closest].position).LengthSquared() > 60000)//400^2
+                return null;
+
+            return Main.player[closest];
+        }
     }
 
     public enum Target
