@@ -1138,20 +1138,13 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             Main.PlaySound(SoundID.Coins);
             p.StarterChosen = true;
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                SpawnStarterPacket packet = new SpawnStarterPacket();
-                packet.Send((TerramonMod)mod, SpawnStarterPacket.BULBASAUR);
-            }
-            else
-            {
-                p.PartySlot1 = new PokemonData
-                {
-                    pokemon = "Bulbasaur",
-                    pokeballType = 1
-                };
-            }
             UISidebar.Visible = true;
+            p.firstslotname = "Bulbasaur";
+            p.PartySlot1 = new PokemonData
+            {
+                pokemon = "Bulbasaur",
+                pokeballType = 1
+            };
             Visible = false;
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
         }
@@ -1167,20 +1160,14 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             Main.PlaySound(SoundID.Coins);
             p.StarterChosen = true;
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                SpawnStarterPacket packet = new SpawnStarterPacket();
-                packet.Send((TerramonMod)mod, SpawnStarterPacket.CHARMANDER);
-            }
-            else
-            {
-                p.PartySlot1 = new PokemonData
-                {
-                    pokemon = "Charmander",
-                    pokeballType = 1
-                };
-            }
             UISidebar.Visible = true;
+            p.firstslotname = "Charmander";
+            p.PartySlot1 = new PokemonData
+            {
+                pokemon = "Charmander",
+                pokeballType = 1
+            };
+
             Visible = false;
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
         }
@@ -1196,20 +1183,14 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             Main.PlaySound(SoundID.Coins);
             p.StarterChosen = true;
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                SpawnStarterPacket packet = new SpawnStarterPacket();
-                packet.Send((TerramonMod)mod, SpawnStarterPacket.SQUIRTLE);
-            }
-            else
-            {
-                p.PartySlot1 = new PokemonData
-                {
-                    pokemon = "Squirtle",
-                    pokeballType = 1
-                };
-            }
             UISidebar.Visible = true;
+            p.firstslotname = "Squirtle";
+            p.PartySlot1 = new PokemonData
+            {
+                pokemon = "Squirtle",
+                pokeballType = 1
+            };
+
             Visible = false;
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
         }
