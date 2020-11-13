@@ -153,12 +153,14 @@ namespace Terramon.UI.SidebarParty
             Append(battle);
 #endif
 
-            firstpkmntexture = ModContent.GetTexture("Terraria/Item_0");
-            firstpkmn = new SidebarClass(firstpkmntexture, "");
-            firstpkmn.HAlign = 0.6f; // 1
-            firstpkmn.VAlign = 0.08888f; // 1
-            firstpkmn.Width.Set(40, 0);
-            firstpkmn.Height.Set(40, 0);
+            //firstpkmntexture = ModContent.GetTexture("Terraria/Item_0");
+            firstpkmn = new SidebarClass("")
+            {
+                HAlign = 0.6f,
+                VAlign = 0.08888f,
+                Size = new Vector2(40,40),
+                TextureName = "Terraria/Item_0"
+            };
             firstpkmn.OnClick += SpawnPKMN1;
             mainPanel.Append(firstpkmn);
 
@@ -341,8 +343,9 @@ namespace Terramon.UI.SidebarParty
 
         private void updateSlot(PokemonData slot, SidebarClass side, string name)
         {
-            side.SetImage(
-                    ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slot.Pokemon));
+        //    side.SetImage(
+        //            ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slot.Pokemon));
+            side.TextureName = "Terramon/Minisprites/Regular/SidebarSprites/" + slot.Pokemon;
             side.HoverText = name + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
                                       $"\nLVL: {slot.Level}" +
                                       $"\nEXP: {slot.Exp}" +

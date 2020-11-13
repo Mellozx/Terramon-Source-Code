@@ -804,7 +804,7 @@ namespace Terramon.Players
             if (partySlots.partyslot1.Item.IsAir)
             {
                 firstslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.firstpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.firstpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.firstpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.firstpkmn.Recalculate();
             }
@@ -812,7 +812,7 @@ namespace Terramon.Players
             if (partySlots.partyslot2.Item.IsAir)
             {
                 secondslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.secondpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.secondpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.secondpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.secondpkmn.Recalculate();
             }
@@ -820,7 +820,7 @@ namespace Terramon.Players
             if (partySlots.partyslot3.Item.IsAir)
             {
                 thirdslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.thirdpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.thirdpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.thirdpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.thirdpkmn.Recalculate();
             }
@@ -828,7 +828,7 @@ namespace Terramon.Players
             if (partySlots.partyslot4.Item.IsAir)
             {
                 fourthslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.fourthpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.fourthpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.fourthpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.fourthpkmn.Recalculate();
             }
@@ -836,7 +836,7 @@ namespace Terramon.Players
             if (partySlots.partyslot5.Item.IsAir)
             {
                 fifthslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.fifthpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.fifthpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.fifthpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.fifthpkmn.Recalculate();
             }
@@ -844,7 +844,7 @@ namespace Terramon.Players
             if (partySlots.partyslot6.Item.IsAir)
             {
                 sixthslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.sixthpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.sixthpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.sixthpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.sixthpkmn.Recalculate();
             }
