@@ -8,9 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using Razorwing.Framework.Configuration;
 using Razorwing.Framework.IO.Stores;
 using Razorwing.Framework.Localisation;
+using Razorwing.Framework.Threading;
+using Razorwing.Framework.Timing;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network;
 using Terramon.Network.Catching;
@@ -74,8 +77,10 @@ namespace Terramon
         public static ResourceStore<byte[]> Store;
         public static Texture2DStore Textures;
         public Storage storage;
+        public Scheduler Scheduler;
+        private GameTimeClock schedulerClock;
 
-
+        public GameTimeClock GameClock => schedulerClock;
         //evolution
 
 
@@ -326,6 +331,8 @@ namespace Terramon
             if (Main.dedServ)
                 return;
 
+            Scheduler = new Scheduler(Thread.CurrentThread, schedulerClock = new GameTimeClock());
+
             FirstPKMAbility = RegisterHotKey("First Pokémon Move", Keys.Z.ToString());
             SecondPKMAbility = RegisterHotKey("Second Pokémon Move", Keys.X.ToString());
             ThirdPKMAbility = RegisterHotKey("Third Pokémon Move", Keys.C.ToString());
@@ -393,6 +400,9 @@ namespace Terramon
             storage = null;
             Store.Dispose();
             Store = null;
+            Scheduler?.CancelDelayedTasks();
+            Scheduler = null;
+            schedulerClock = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)
@@ -414,6 +424,9 @@ namespace Terramon
 
         public override void UpdateUI(GameTime gameTime)
         {
+            //Update scheduler clock time for transform sequences
+            schedulerClock.UpdateTime(gameTime);
+
             if (ChooseStarter.Visible) _exampleUserInterface?.Update(gameTime);
             if (PokegearUI.Visible) _exampleUserInterfaceNew?.Update(gameTime);
             if (PokegearUIEvents.Visible) PokegearUserInterfaceNew?.Update(gameTime);
@@ -428,6 +441,7 @@ namespace Terramon
 #if DEBUG
             if (BattleUI.Visible) _battle.Update(gameTime);
 #endif
+            Scheduler.Update();//Update all transform sequences after updates
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
