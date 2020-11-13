@@ -27,7 +27,7 @@ namespace Razorwing.Framework.Graphics
                 if(texture == value)
                     return;
                 texture = value;
-                Size = texture.Bounds.Size();
+                Size = texture?.Bounds.Size() ?? Vector2.Zero;
             }
         }
 
@@ -35,18 +35,18 @@ namespace Razorwing.Framework.Graphics
         {
             set
             {
-                if (ModContent.FileExists(value))
-                {
+                //if (ModContent.FileExists(value))
+                //{
                     Texture = ModContent.GetTexture(value);
-                }
-                else
-                {
-                    Texture = null;
-#if DEBUG
-                    if(value.StartsWith("Terramon"))
-                        throw new FileNotFoundException($"Resource {value} does not exist!");
-#endif
-                }
+//                }
+//                else
+//                {
+//                    Texture = null;
+//#if DEBUG
+//                    if(value.StartsWith("Terramon"))
+//                        throw new FileNotFoundException($"Resource {value} does not exist!");
+//#endif
+//                }
             }
         }
 
