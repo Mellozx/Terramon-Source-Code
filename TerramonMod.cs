@@ -32,6 +32,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terramon.Sounds.Custom;
 using Terramon.Players;
+using Terramon.UI.Test;
 
 namespace Terramon
 {
@@ -314,7 +315,8 @@ namespace Terramon
                 _battle = new UserInterface();
 #endif
 
-                _exampleUserInterface.SetState(ChooseStarter); // Choose Starter
+                //_exampleUserInterface.SetState(ChooseStarter); // Choose Starter
+                _exampleUserInterface.SetState(new TestState());
                 _exampleUserInterfaceNew.SetState(PokegearUI); // Pokegear Main Menu
                 PokegearUserInterfaceNew.SetState(PokegearUIEvents); // Pokegear Events Menu
                 evolveUserInterfaceNew.SetState(evolveUI);
@@ -440,6 +442,7 @@ namespace Terramon
             if (PartySlots.Visible && !BattleUI.Visible) _partySlots?.Update(gameTime);
 #if DEBUG
             if (BattleUI.Visible) _battle.Update(gameTime);
+            if (TestState.Visible) _exampleUserInterface?.Update(gameTime);
 #endif
             Scheduler.Update();//Update all transform sequences after updates
         }
@@ -467,6 +470,7 @@ namespace Terramon
                         if (PartySlots.Visible && !BattleUI.Visible) _partySlots.Draw(Main.spriteBatch, new GameTime());
 #if DEBUG
                         if (BattleUI.Visible) _battle.Draw(Main.spriteBatch, new GameTime());
+                        if (TestState.Visible) _exampleUserInterface?.Draw(Main.spriteBatch, new GameTime());
 #endif
                         return true;
                     },
