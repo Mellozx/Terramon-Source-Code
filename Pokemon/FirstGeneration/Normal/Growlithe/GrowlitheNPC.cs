@@ -27,7 +27,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Growlithe
         {
             Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneUnderworldHeight)
-                return 0.5f;
+                return 0.05f;
             return 0f;
         }
     }
