@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Razorwing.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 
@@ -9,26 +10,41 @@ namespace Terramon.UI
     // Inheriting is a great tool for UI design. 
     // By inheriting, we get the Image drawing, MouseOver sound, and fading for free from UIImageButton
     // We've added some code to allow the Button to show a text tooltip while hovered. 
-    internal class SidebarClass : UIImage
+    internal class SidebarClass : Drawable
     {
         internal string HoverText;
 
-        public SidebarClass(Texture2D texture, string hoverText) : base(texture)
+        public SidebarClass(Texture2D texture, string hoverText)
+        {
+            HoverText = hoverText;
+            Texture = texture;
+        }
+
+        public SidebarClass(string hoverText)
         {
             HoverText = hoverText;
         }
 
+        private bool hovered = false;
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             if (IsMouseHovering)
             {
-                ImageScale = 1.2f;
+                if (!hovered)
+                {
+                    this.ScaleTo(1.2f, 200);
+                    //this.FlashColour(Color.LightCoral, 200);
+                    hovered = true;
+                }
                 Main.hoverItemName = HoverText;
-                ImageScale = 1.2f;
             }
             else
             {
-                ImageScale = 1f;
+                if (hovered)
+                {
+                    this.ScaleTo(1, 50);
+                    hovered = false;
+                }
             }
             base.DrawSelf(spriteBatch);
         }

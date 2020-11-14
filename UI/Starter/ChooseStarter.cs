@@ -970,7 +970,7 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             {
                 fanMadeModText.SetText("");
                 fanMadeModTextShown = true;
-
+                
                 //append everything else!
 
                 testmenu.SetText("Welcome to the world of Pokémon! Thank you for downloading this mod!", 1.1f, false);
@@ -1005,6 +1005,10 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             if (didSelectStarter == 1)
             {
                 start = gameTime.TotalGameTime.TotalSeconds;
+                charmanderTextureButton.FadeOut(1000);
+                squirtleTextureButton.FadeOut(1000);
+                bulbasaurTextureButton.FadeOut(1000);
+
                 end = start + 2;
                 didSelectStarter = 2;
             }
@@ -1029,15 +1033,15 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
 
                 // fade out pkmn
 
-                bulbasaurTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f, start, end - 1, Easing.None);
+                //bulbasaurTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f, start, end - 1, Easing.None);
                 chikoritaTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
                 treeckoTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
                 turtwigTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
                 snivyTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
                 chespinTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
                 rowletTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
-                
-                squirtleTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f, start, end - 1, Easing.None);
+
+                //squirtleTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f, start, end - 1, Easing.None);
                 totodileTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
                 mudkipTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
                 piplupTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
@@ -1045,7 +1049,7 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
                 froakieTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
                 popplioTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
 
-                charmanderTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f, start, end - 1, Easing.None);
+                //charmanderTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f, start, end - 1, Easing.None);
                 cyndaquilTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
                 torchicTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
                 chimcharTextureButton._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0.4f, 0f, start, end - 1, Easing.None);
@@ -1138,20 +1142,13 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             Main.PlaySound(SoundID.Coins);
             p.StarterChosen = true;
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                SpawnStarterPacket packet = new SpawnStarterPacket();
-                packet.Send((TerramonMod)mod, SpawnStarterPacket.BULBASAUR);
-            }
-            else
-            {
-                p.PartySlot1 = new PokemonData
-                {
-                    pokemon = "Bulbasaur",
-                    pokeballType = 1
-                };
-            }
             UISidebar.Visible = true;
+            p.firstslotname = "Bulbasaur";
+            p.PartySlot1 = new PokemonData
+            {
+                pokemon = "Bulbasaur",
+                pokeballType = 1
+            };
             Visible = false;
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
         }
@@ -1167,20 +1164,14 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             Main.PlaySound(SoundID.Coins);
             p.StarterChosen = true;
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                SpawnStarterPacket packet = new SpawnStarterPacket();
-                packet.Send((TerramonMod)mod, SpawnStarterPacket.CHARMANDER);
-            }
-            else
-            {
-                p.PartySlot1 = new PokemonData
-                {
-                    pokemon = "Charmander",
-                    pokeballType = 1
-                };
-            }
             UISidebar.Visible = true;
+            p.firstslotname = "Charmander";
+            p.PartySlot1 = new PokemonData
+            {
+                pokemon = "Charmander",
+                pokeballType = 1
+            };
+
             Visible = false;
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
         }
@@ -1196,20 +1187,14 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             Main.PlaySound(SoundID.Coins);
             p.StarterChosen = true;
 
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                SpawnStarterPacket packet = new SpawnStarterPacket();
-                packet.Send((TerramonMod)mod, SpawnStarterPacket.SQUIRTLE);
-            }
-            else
-            {
-                p.PartySlot1 = new PokemonData
-                {
-                    pokemon = "Squirtle",
-                    pokeballType = 1
-                };
-            }
             UISidebar.Visible = true;
+            p.firstslotname = "Squirtle";
+            p.PartySlot1 = new PokemonData
+            {
+                pokemon = "Squirtle",
+                pokeballType = 1
+            };
+
             Visible = false;
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
         }

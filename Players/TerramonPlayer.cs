@@ -213,10 +213,6 @@ namespace Terramon.Players
                 {
                     sidebarSync = true;
                 }
-                else
-                {
-                    LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot2.Item, value);
-                }
             }
         }
 
@@ -249,10 +245,6 @@ namespace Terramon.Players
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     sidebarSync = true;
-                }
-                else
-                {
-                    LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot3.Item, value);
                 }
             }
         }
@@ -287,10 +279,6 @@ namespace Terramon.Players
                 {
                     sidebarSync = true;
                 }
-                else
-                {
-                    LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot4.Item, value);
-                }
             }
         }
 
@@ -324,10 +312,6 @@ namespace Terramon.Players
                 {
                     sidebarSync = true;
                 }
-                else
-                {
-                    LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot5.Item, value);
-                }
             }
         }
 
@@ -360,10 +344,6 @@ namespace Terramon.Players
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     sidebarSync = true;
-                }
-                else
-                {
-                    LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot6.Item, value);
                 }
             }
         }
@@ -525,6 +505,7 @@ namespace Terramon.Players
             //TODO: Override sidebarUI here
             if (PartySlot1 != null)
                 LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot1.Item, PartySlot1);
+            else
             if (PartySlot2 != null)
                 LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot2.Item, PartySlot2);
             if (PartySlot3 != null)
@@ -823,7 +804,7 @@ namespace Terramon.Players
             if (partySlots.partyslot1.Item.IsAir)
             {
                 firstslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.firstpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.firstpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.firstpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.firstpkmn.Recalculate();
             }
@@ -831,7 +812,7 @@ namespace Terramon.Players
             if (partySlots.partyslot2.Item.IsAir)
             {
                 secondslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.secondpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.secondpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.secondpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.secondpkmn.Recalculate();
             }
@@ -839,7 +820,7 @@ namespace Terramon.Players
             if (partySlots.partyslot3.Item.IsAir)
             {
                 thirdslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.thirdpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.thirdpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.thirdpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.thirdpkmn.Recalculate();
             }
@@ -847,7 +828,7 @@ namespace Terramon.Players
             if (partySlots.partyslot4.Item.IsAir)
             {
                 fourthslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.fourthpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.fourthpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.fourthpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.fourthpkmn.Recalculate();
             }
@@ -855,7 +836,7 @@ namespace Terramon.Players
             if (partySlots.partyslot5.Item.IsAir)
             {
                 fifthslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.fifthpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.fifthpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.fifthpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.fifthpkmn.Recalculate();
             }
@@ -863,7 +844,7 @@ namespace Terramon.Players
             if (partySlots.partyslot6.Item.IsAir)
             {
                 sixthslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.sixthpkmn.SetImage(GetTexture("Terraria/Item_0"));
+                GetInstance<TerramonMod>().UISidebar.sixthpkmn.TextureName = "Terraria/Item_0";
                 GetInstance<TerramonMod>().UISidebar.sixthpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.sixthpkmn.Recalculate();
             }
@@ -899,17 +880,31 @@ namespace Terramon.Players
             Battle = null;
             StarterChosen = tag.GetBool(nameof(StarterChosen));
             if (tag.ContainsKey(nameof(PartySlot1)))
-                PartySlot1 = tag.ContainsKey(nameof(PartySlot1)) ? new PokemonData(tag.GetCompound(nameof(PartySlot1))) : null;
+                PartySlot1 = tag.ContainsKey(nameof(PartySlot1))
+                    ? new PokemonData(tag.GetCompound(nameof(PartySlot1)))
+                    : null;
+            else
+                PartySlot1 = null;
             if (tag.ContainsKey(nameof(PartySlot2)))
                 PartySlot2 = tag.ContainsKey(nameof(PartySlot2)) ? new PokemonData(tag.GetCompound(nameof(PartySlot2))) : null;
+            else
+                PartySlot2 = null;
             if (tag.ContainsKey(nameof(PartySlot3)))
                 PartySlot3 = tag.ContainsKey(nameof(PartySlot3)) ? new PokemonData(tag.GetCompound(nameof(PartySlot3))) : null;
+            else
+                PartySlot3 = null;
             if (tag.ContainsKey(nameof(PartySlot4)))
                 PartySlot4 = tag.ContainsKey(nameof(PartySlot4)) ? new PokemonData(tag.GetCompound(nameof(PartySlot4))) : null;
+            else
+                PartySlot4 = null;
             if (tag.ContainsKey(nameof(PartySlot5)))
                 PartySlot5 = tag.ContainsKey(nameof(PartySlot5)) ? new PokemonData(tag.GetCompound(nameof(PartySlot5))) : null;
+            else
+                PartySlot5 = null;
             if (tag.ContainsKey(nameof(PartySlot6)))
                 PartySlot6 = tag.ContainsKey(nameof(PartySlot6)) ? new PokemonData(tag.GetCompound(nameof(PartySlot6))) : null;
+            else
+                PartySlot6 = null;
 
             LoadPokeballs(tag);
             loading = false;

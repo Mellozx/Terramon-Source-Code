@@ -8,9 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using Razorwing.Framework.Configuration;
 using Razorwing.Framework.IO.Stores;
 using Razorwing.Framework.Localisation;
+using Razorwing.Framework.Threading;
+using Razorwing.Framework.Timing;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network;
 using Terramon.Network.Catching;
@@ -29,6 +32,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terramon.Sounds.Custom;
 using Terramon.Players;
+using Terramon.UI.Test;
 
 namespace Terramon
 {
@@ -74,8 +78,10 @@ namespace Terramon
         public static ResourceStore<byte[]> Store;
         public static Texture2DStore Textures;
         public Storage storage;
+        public Scheduler Scheduler;
+        private GameTimeClock schedulerClock;
 
-
+        public GameTimeClock GameClock => schedulerClock;
         //evolution
 
 
@@ -309,7 +315,8 @@ namespace Terramon
                 _battle = new UserInterface();
 #endif
 
-                _exampleUserInterface.SetState(ChooseStarter); // Choose Starter
+                //_exampleUserInterface.SetState(ChooseStarter); // Choose Starter
+                _exampleUserInterface.SetState(new TestState());
                 _exampleUserInterfaceNew.SetState(PokegearUI); // Pokegear Main Menu
                 PokegearUserInterfaceNew.SetState(PokegearUIEvents); // Pokegear Events Menu
                 evolveUserInterfaceNew.SetState(evolveUI);
@@ -326,6 +333,8 @@ namespace Terramon
             if (Main.dedServ)
                 return;
 
+            Scheduler = new Scheduler(Thread.CurrentThread, schedulerClock = new GameTimeClock());
+
             FirstPKMAbility = RegisterHotKey("First Pokémon Move", Keys.Z.ToString());
             SecondPKMAbility = RegisterHotKey("Second Pokémon Move", Keys.X.ToString());
             ThirdPKMAbility = RegisterHotKey("Third Pokémon Move", Keys.C.ToString());
@@ -337,7 +346,7 @@ namespace Terramon
 
         public override void Unload()
         {
-            client.Dispose();
+            client?.Dispose();
             client = null;
             Instance = null;
             _exampleUserInterface.SetState(null); // Choose Starter
@@ -393,6 +402,9 @@ namespace Terramon
             storage = null;
             Store.Dispose();
             Store = null;
+            Scheduler?.CancelDelayedTasks();
+            Scheduler = null;
+            schedulerClock = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)
@@ -414,6 +426,9 @@ namespace Terramon
 
         public override void UpdateUI(GameTime gameTime)
         {
+            //Update scheduler clock time for transform sequences
+            schedulerClock.UpdateTime(gameTime);
+
             if (ChooseStarter.Visible) _exampleUserInterface?.Update(gameTime);
             if (PokegearUI.Visible) _exampleUserInterfaceNew?.Update(gameTime);
             if (PokegearUIEvents.Visible) PokegearUserInterfaceNew?.Update(gameTime);
@@ -427,7 +442,9 @@ namespace Terramon
             if (PartySlots.Visible && !BattleUI.Visible) _partySlots?.Update(gameTime);
 #if DEBUG
             if (BattleUI.Visible) _battle.Update(gameTime);
+            if (TestState.Visible) _exampleUserInterface?.Update(gameTime);
 #endif
+            Scheduler.Update();//Update all transform sequences after updates
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -453,6 +470,7 @@ namespace Terramon
                         if (PartySlots.Visible && !BattleUI.Visible) _partySlots.Draw(Main.spriteBatch, new GameTime());
 #if DEBUG
                         if (BattleUI.Visible) _battle.Draw(Main.spriteBatch, new GameTime());
+                        if (TestState.Visible) _exampleUserInterface?.Draw(Main.spriteBatch, new GameTime());
 #endif
                         return true;
                     },
