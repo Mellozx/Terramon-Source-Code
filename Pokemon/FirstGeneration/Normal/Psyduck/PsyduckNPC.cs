@@ -27,7 +27,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Psyduck
         {
             Player player = spawnInfo.player;
             if (spawnInfo.player.ZoneBeach)
-                return 0.6f;
+                return 0.06f;
             return 0f;
         }
     }
