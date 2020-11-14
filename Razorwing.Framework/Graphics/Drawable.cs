@@ -33,26 +33,13 @@ namespace Razorwing.Framework.Graphics
 
         public string TextureName
         {
-            set
-            {
-                //if (ModContent.FileExists(value))
-                //{
-                    Texture = ModContent.GetTexture(value);
-//                }
-//                else
-//                {
-//                    Texture = null;
-//#if DEBUG
-//                    if(value.StartsWith("Terramon"))
-//                        throw new FileNotFoundException($"Resource {value} does not exist!");
-//#endif
-//                }
-            }
+            get => Texture?.Name ?? "";
+            set => Texture = ModContent.GetTexture(value);
         }
 
         public override GameTimeClock Clock
         {
-            get => TerramonMod.Instance.GameClock;
+            get => TerramonMod.Instance?.GameClock;
             set
             {
 
@@ -98,10 +85,10 @@ namespace Razorwing.Framework.Graphics
             set => colour = value;
         }
 
-        public byte Alpha
+        public float Alpha
         {
-            get => colour.A;
-            set => colour.A = value;
+            get => (float)colour.A / 255f;
+            set => colour.A = (byte)MathHelper.Clamp(value * 255, 0, 255);
         }
 
         private float rotation;
@@ -150,7 +137,7 @@ namespace Razorwing.Framework.Graphics
             get => textureRect;
             set
             {
-                TextureRect = value;
+                textureRect = value;
                 if (value.HasValue)
                     Size = value.Value.Size();
             }
@@ -171,7 +158,7 @@ namespace Razorwing.Framework.Graphics
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             base.DrawSelf(spriteBatch);
-            if (Texture != null && Alpha > 1)// Don't render if we have nothing to render or this can't be seen
+            if (Texture != null && Alpha > 0.01f)// Don't render if we have nothing to render or this can't be seen
             {
                 Vector2 position = GetDimensions().Position();
                 position += texture.Size() * (new Vector2(1) - Scale) / 2f;

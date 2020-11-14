@@ -344,7 +344,7 @@ namespace Terramon
 
         public override void Unload()
         {
-            client.Dispose();
+            client?.Dispose();
             client = null;
             Instance = null;
             _exampleUserInterface.SetState(null); // Choose Starter

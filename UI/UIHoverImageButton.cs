@@ -13,7 +13,6 @@ namespace Terramon.UI
     {
         internal string HoverText;
 
-        public float _visibilityActive = 1f;
 
         public UIHoverImageButton(Texture2D texture, string hoverText) 
         {

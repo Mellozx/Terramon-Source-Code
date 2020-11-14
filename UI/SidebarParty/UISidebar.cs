@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Razorwing.Framework.Graphics;
 using Razorwing.Framework.Localisation;
 using Terramon.Items.Pokeballs;
 using Terramon.Items.Pokeballs.Inventory;
@@ -64,6 +65,7 @@ namespace Terramon.UI.SidebarParty
 
         public Texture2D sixthpkmntexture;
         public SidebarClass sixthpkmn;
+
 
 
         public int CycleIndex;
@@ -151,6 +153,7 @@ namespace Terramon.UI.SidebarParty
 
             };
             Append(battle);
+
 #endif
 
             //firstpkmntexture = ModContent.GetTexture("Terraria/Item_0");

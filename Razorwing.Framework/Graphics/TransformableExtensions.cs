@@ -340,6 +340,13 @@ namespace Razorwing.Framework.Graphics
         public static TransformSequence<T> MoveToOffset<T>(this T drawable, Vector2 offset, double duration = 0, Easing easing = Easing.None) where T : Drawable =>
             drawable.MoveTo(((drawable.Transforms.LastOrDefault(t => t.TargetMember == nameof(drawable.Position)) as Transform<Vector2>)?.EndValue ?? drawable.Position) + offset, duration, easing);
 
+        /// <summary>
+        /// Smoothly adjusts <see cref="Drawable.RelativePosition"/> over time.
+        /// </summary>
+        /// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
+        public static TransformSequence<T> MoveToRelative<T>(this T drawable, Vector2 destination, double duration = 0, Easing easing = Easing.None) where T : Drawable =>
+            drawable.TransformTo(nameof(drawable.RelativePosition), destination, duration, easing);
+
         ///// <summary>
         ///// Smoothly adjusts <see cref="IContainer.RelativeChildSize"/> over time.
         ///// </summary>

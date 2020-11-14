@@ -181,6 +181,13 @@ namespace Razorwing.Framework.Graphics
             where T : Drawable =>
             t.Append(o => o.MoveToOffset(offset, duration, easing));
 
+        /// <summary>
+        /// Smoothly adjusts <see cref="Drawable.RelativePosition"/> over time.
+        /// </summary>
+        /// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
+        public static TransformSequence<T> MoveToRelative<T>(this TransformSequence<T> t, Vector2 destination, double duration = 0, Easing easing = Easing.None) where T : Drawable =>
+            t.Append(o => o.MoveToRelative(destination, duration, easing));
+
         ///// <summary>
         ///// Smoothly adjusts the alpha channel of the colour of <see cref="IContainer.EdgeEffect"/> over time.
         ///// </summary>
