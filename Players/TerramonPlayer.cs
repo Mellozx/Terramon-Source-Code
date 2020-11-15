@@ -505,7 +505,6 @@ namespace Terramon.Players
             //TODO: Override sidebarUI here
             if (PartySlot1 != null)
                 LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot1.Item, PartySlot1);
-            else
             if (PartySlot2 != null)
                 LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot2.Item, PartySlot2);
             if (PartySlot3 != null)
@@ -622,7 +621,6 @@ namespace Terramon.Players
                 Cooldown--;
 #endif
 
-#if DEBUG
             //Moves logic
             if (Main.LocalPlayer == player && CombatReady && ActivePartySlot > 0 && ActivePartySlot <= 6 && ActivePetId != -1
                 && Main.projectile[ActivePetId].modProjectile is ParentPokemon) //Integrity check
@@ -733,7 +731,6 @@ namespace Terramon.Players
                     }
                 }
             }
-#endif
         }
 
         public BaseMove ActiveMove;
