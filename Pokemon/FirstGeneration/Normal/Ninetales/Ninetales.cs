@@ -10,9 +10,6 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Ninetales
 {
     public class Ninetales : ParentPokemon
     {
-        
-
-        
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire };
 

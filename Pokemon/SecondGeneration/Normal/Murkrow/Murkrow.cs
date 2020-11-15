@@ -12,10 +12,8 @@ namespace Terramon.Pokemon.SecondGeneration.Normal.Murkrow
     public class Murkrow : ParentPokemon
     {
         public override int EvolveCost => 16;
-
-        //public override EvolveItem EvolveItem => typeof(ItemID.LinkCable);
         
-        public override Type EvolveTo => typeof(Honchkrow);
+        public override Type EvolveTo => typeof(Honchkrow.Honchkrow);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Dark, PokemonType.Flying };
 

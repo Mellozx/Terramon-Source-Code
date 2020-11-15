@@ -27,7 +27,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Machoke
         {
             Player player = spawnInfo.player;
             if (PlayerIsInForest(player) && !Main.dayTime)
-                return 0.2f;
+                return 0.02f;
             return 0f;
         }
     }

@@ -13,6 +13,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Vulpix
         public override int EvolveCost => 1;
 
         public override EvolveItem EvolveItem => EvolveItem.FireStone;
+        
+        public override Type EvolveTo => typeof(Ninetales.Ninetales);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire };
 
