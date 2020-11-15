@@ -143,7 +143,7 @@ namespace Terramon.UI.SidebarParty
         //        modPlayer.firstslotname = "*";
         //        modPlayer.PartySlot1 = null;
         //        ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn
-        //            .TextureName = "Terraria/Item_0";
+        //            .TextureName = "Terramon/UI/SidebarParty/Empty";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn.HoverText = "";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn.Recalculate();
         //    }
@@ -153,7 +153,7 @@ namespace Terramon.UI.SidebarParty
         //        modPlayer.secondslotname = "*";
         //        modPlayer.PartySlot2 = null;
         //        ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn
-        //            .TextureName = "Terraria/Item_0";
+        //            .TextureName = "Terramon/UI/SidebarParty/Empty";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn.HoverText = "";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn.Recalculate();
         //    }
@@ -163,7 +163,7 @@ namespace Terramon.UI.SidebarParty
         //        modPlayer.thirdslotname = "*";
         //        modPlayer.PartySlot3 = null;
         //        ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn
-        //            .TextureName = "Terraria/Item_0";
+        //            .TextureName = "Terramon/UI/SidebarParty/Empty";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn.HoverText = "";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn.Recalculate();
         //    }
@@ -173,7 +173,7 @@ namespace Terramon.UI.SidebarParty
         //        modPlayer.fourthslotname = "*";
         //        modPlayer.PartySlot4 = null;
         //        ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn
-        //            .TextureName = "Terraria/Item_0";
+        //            .TextureName = "Terramon/UI/SidebarParty/Empty";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn.HoverText = "";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn.Recalculate();
         //    }
@@ -183,7 +183,7 @@ namespace Terramon.UI.SidebarParty
         //        modPlayer.fifthslotname = "*";
         //        modPlayer.PartySlot5 = null;
         //        ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn
-        //            .TextureName = "Terraria/Item_0";
+        //            .TextureName = "Terramon/UI/SidebarParty/Empty";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn.HoverText = "";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn.Recalculate();
         //    }
@@ -193,7 +193,7 @@ namespace Terramon.UI.SidebarParty
         //        modPlayer.sixthslotname = "*";
         //        modPlayer.PartySlot6 = null;
         //        ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn
-        //            .TextureName = "Terraria/Item_0";
+        //            .TextureName = "Terramon/UI/SidebarParty/Empty";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.HoverText = "";
         //        ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.Recalculate();
         //    }
@@ -222,9 +222,11 @@ namespace Terramon.UI.SidebarParty
                 //old_1 = "*";
                 modPlayer.PartySlot1 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn
-                    .TextureName = "Terraria/Item_0";
+                    .TextureName = "Terramon/UI/SidebarParty/Empty";
                 ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmn.Recalculate();
+                ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmnring.SetImage(ModContent.GetTexture("Terraria/Item_0"));
+                ModContent.GetInstance<TerramonMod>().UISidebar.firstpkmnring.Recalculate();
             }
 
             if (partyslot2.Item.IsAir)
@@ -233,9 +235,11 @@ namespace Terramon.UI.SidebarParty
                 //old_2 = "*";
                 modPlayer.PartySlot2 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn
-                    .TextureName = "Terraria/Item_0";
+                    .TextureName = "Terramon/UI/SidebarParty/Empty";
                 ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmn.Recalculate();
+                ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmnring.SetImage(ModContent.GetTexture("Terraria/Item_0"));
+                ModContent.GetInstance<TerramonMod>().UISidebar.secondpkmnring.Recalculate();
             }
 
             if (partyslot3.Item.IsAir)
@@ -244,9 +248,11 @@ namespace Terramon.UI.SidebarParty
                 modPlayer.thirdslotname = "*";
                 modPlayer.PartySlot3 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn
-                    .TextureName = "Terraria/Item_0";
+                    .TextureName = "Terramon/UI/SidebarParty/Empty";
                 ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmn.Recalculate();
+                ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmnring.SetImage(ModContent.GetTexture("Terraria/Item_0"));
+                ModContent.GetInstance<TerramonMod>().UISidebar.thirdpkmnring.Recalculate();
             }
 
             if (partyslot4.Item.IsAir)
@@ -255,9 +261,11 @@ namespace Terramon.UI.SidebarParty
                 modPlayer.fourthslotname = "*";
                 modPlayer.PartySlot4 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn
-                    .TextureName = "Terraria/Item_0";
+                    .TextureName = "Terramon/UI/SidebarParty/Empty";
                 ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmn.Recalculate();
+                ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmnring.SetImage(ModContent.GetTexture("Terraria/Item_0"));
+                ModContent.GetInstance<TerramonMod>().UISidebar.fourthpkmnring.Recalculate();
             }
 
             if (partyslot5.Item.IsAir)
@@ -266,9 +274,11 @@ namespace Terramon.UI.SidebarParty
                 modPlayer.fifthslotname = "*";
                 modPlayer.PartySlot5 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn
-                    .TextureName = "Terraria/Item_0";
+                    .TextureName = "Terramon/UI/SidebarParty/Empty";
                 ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmn.Recalculate();
+                ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmnring.SetImage(ModContent.GetTexture("Terraria/Item_0"));
+                ModContent.GetInstance<TerramonMod>().UISidebar.fifthpkmnring.Recalculate();
             }
 
             if (partyslot6.Item.IsAir)
@@ -277,9 +287,11 @@ namespace Terramon.UI.SidebarParty
                 modPlayer.sixthslotname = "*";
                 modPlayer.PartySlot6 = null;
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn
-                    .TextureName = "Terraria/Item_0";
+                    .TextureName = "Terramon/UI/SidebarParty/Empty";
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.HoverText = "";
                 ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmn.Recalculate();
+                ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmnring.SetImage(ModContent.GetTexture("Terraria/Item_0"));
+                ModContent.GetInstance<TerramonMod>().UISidebar.sixthpkmnring.Recalculate();
             }
 
             if (!ModContent.GetInstance<TerramonMod>().PartySlots.partyslot1.Item.IsAir)

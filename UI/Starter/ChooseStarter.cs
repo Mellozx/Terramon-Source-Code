@@ -566,7 +566,7 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
         double startBlackCover = 0;
         double endBlackCover = 0;
 
-        bool movieFinished = false;
+        public static bool movieFinished = false;
 
         bool fanMadeModTextShown = false;
 
@@ -574,6 +574,8 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
 
         byte didSelectStarter = 0;
         bool render = true;
+
+        bool playedIntroMusic = false;
 
         double start;
         double end;
@@ -595,6 +597,13 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             if (flashWhite2 == 1)
             {
                 scrollFastTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+
+            if (shaderBar1Timer > 0 && !playedIntroMusic)
+            {
+                playedIntroMusic = true;
+                TerramonPlayer p = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+                p.openingSfx = Main.PlaySound(SoundLoader.customSoundType, Style: ModContent.GetInstance<TerramonMod>().GetSoundSlot(SoundType.Custom, "Sounds/Custom/opening"));
             }
 
             if (shaderBar1Timer >= 1)
