@@ -13,7 +13,7 @@ namespace Terramon.Pokemon.SecondGeneration.Normal.Murkrow
     {
         public override int EvolveCost => 16;
         
-        public override Type EvolveTo => typeof(Honchkrow.Honchkrow);
+        public override Type EvolveTo => typeof(Honchkrow);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Dark, PokemonType.Flying };
 
