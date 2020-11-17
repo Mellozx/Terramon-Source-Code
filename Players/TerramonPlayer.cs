@@ -652,7 +652,6 @@ namespace Terramon.Players
                 Cooldown--;
 #endif
 
-#if DEBUG
             //Moves logic
             if (Main.LocalPlayer == player && CombatReady && ActivePartySlot > 0 && ActivePartySlot <= 6 && ActivePetId != -1
                 && Main.projectile[ActivePetId].modProjectile is ParentPokemon) //Integrity check
@@ -763,7 +762,6 @@ namespace Terramon.Players
                     }
                 }
             }
-#endif
         }
 
         public BaseMove ActiveMove;

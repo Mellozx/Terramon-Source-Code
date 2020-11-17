@@ -256,7 +256,7 @@ namespace Terramon.Items.Pokeballs.Inventory
         public const string MOVE3 = "Move3";
         public const string MOVE4 = "Move4";
 
-        public PokemonData PokeData;
+        public PokemonData PokeData = new PokemonData();
 
         public override TagCompound Save()
         {

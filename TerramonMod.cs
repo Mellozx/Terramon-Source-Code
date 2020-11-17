@@ -313,21 +313,19 @@ namespace Terramon
                 _uiSidebar = new UserInterface();
                 _moves = new UserInterface();
                 _partySlots = new UserInterface();
-#if DEBUG
                 _battle = new UserInterface();
-#endif
 
                 //_exampleUserInterface.SetState(ChooseStarter); // Choose Starter
+#if DEBUG
                 _exampleUserInterface.SetState(new TestState());
+#endif
                 _exampleUserInterfaceNew.SetState(PokegearUI); // Pokegear Main Menu
                 PokegearUserInterfaceNew.SetState(PokegearUIEvents); // Pokegear Events Menu
                 evolveUserInterfaceNew.SetState(evolveUI);
                 _uiSidebar.SetState(UISidebar);
                 _moves.SetState(Moves);
                 _partySlots.SetState(PartySlots);
-#if DEBUG
                 _battle.SetState(BattleMode.UI = new BattleUI());// Automatically assign shortcut
-#endif
 
             }
 
@@ -444,8 +442,8 @@ namespace Terramon
             if (UISidebar.Visible) _uiSidebar?.Update(gameTime);
             if (Moves.Visible) _moves?.Update(gameTime);
             if (PartySlots.Visible && !BattleUI.Visible) _partySlots?.Update(gameTime);
-#if DEBUG
             if (BattleUI.Visible) _battle.Update(gameTime);
+#if DEBUG
             if (TestState.Visible) _exampleUserInterface?.Update(gameTime);
 #endif
             Scheduler.Update();//Update all transform sequences after updates
@@ -460,21 +458,21 @@ namespace Terramon
                     "Terramon: Pokemon Interfaces",
                     delegate
                     {
-                        if (ChooseStarter.Visible) _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        if (PokegearUI.Visible) _exampleUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
-                        if (PokegearUIEvents.Visible) PokegearUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
-                        if (EvolveUI.Visible) evolveUserInterfaceNew.Draw(Main.spriteBatch, new GameTime());
+                        if (ChooseStarter.Visible) _exampleUserInterface.Draw(Main.spriteBatch, GameClock?.GameTime);
+                        if (PokegearUI.Visible) _exampleUserInterfaceNew.Draw(Main.spriteBatch, GameClock?.GameTime);
+                        if (PokegearUIEvents.Visible) PokegearUserInterfaceNew.Draw(Main.spriteBatch, GameClock?.GameTime);
+                        if (EvolveUI.Visible) evolveUserInterfaceNew.Draw(Main.spriteBatch, GameClock?.GameTime);
                         if (ChooseStarterBulbasaur.Visible)
-                            _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
+                            _exampleUserInterface.Draw(Main.spriteBatch, GameClock?.GameTime);
                         if (ChooseStarterCharmander.Visible)
-                            _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        if (ChooseStarterSquirtle.Visible) _exampleUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        if (UISidebar.Visible) _uiSidebar.Draw(Main.spriteBatch, new GameTime());
+                            _exampleUserInterface.Draw(Main.spriteBatch, GameClock?.GameTime);
+                        if (ChooseStarterSquirtle.Visible) _exampleUserInterface.Draw(Main.spriteBatch, GameClock?.GameTime);
+                        if (UISidebar.Visible) _uiSidebar.Draw(Main.spriteBatch, GameClock?.GameTime);
                         if (Moves.Visible) _moves.Draw(Main.spriteBatch, new GameTime());
-                        if (PartySlots.Visible && !BattleUI.Visible) _partySlots.Draw(Main.spriteBatch, new GameTime());
+                        if (PartySlots.Visible && !BattleUI.Visible) _partySlots.Draw(Main.spriteBatch, GameClock?.GameTime);
+                        if (BattleUI.Visible) _battle.Draw(Main.spriteBatch, GameClock?.GameTime);
 #if DEBUG
-                        if (BattleUI.Visible) _battle.Draw(Main.spriteBatch, new GameTime());
-                        if (TestState.Visible) _exampleUserInterface?.Draw(Main.spriteBatch, new GameTime());
+                        if (TestState.Visible) _exampleUserInterface?.Draw(Main.spriteBatch, GameClock?.GameTime);
 #endif
                         return true;
                     },

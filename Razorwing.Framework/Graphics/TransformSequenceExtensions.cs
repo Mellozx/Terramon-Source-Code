@@ -188,53 +188,27 @@ namespace Razorwing.Framework.Graphics
         public static TransformSequence<T> MoveToRelative<T>(this TransformSequence<T> t, Vector2 destination, double duration = 0, Easing easing = Easing.None) where T : Drawable =>
             t.Append(o => o.MoveToRelative(destination, duration, easing));
 
-        ///// <summary>
-        ///// Smoothly adjusts the alpha channel of the colour of <see cref="IContainer.EdgeEffect"/> over time.
-        ///// </summary>
-        ///// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
-        //public static TransformSequence<T> FadeEdgeEffectTo<T>(this TransformSequence<T> t, float newAlpha, double duration, Easing easing = Easing.None)
-        //    where T : IContainer =>
-        //    t.Append(o => o.FadeEdgeEffectTo(newAlpha, duration, easing));
+        /// <summary>
+        /// Smoothly adjusts <see cref="Drawable.VAlign"/> and <see cref="Drawable.HAlign"/> over time.
+        /// </summary>
+        /// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
+        public static TransformSequence<T> MoveAlign<T>(this TransformSequence<T> t, Vector2 destination, double duration = 0, Easing easing = Easing.None) where T : Drawable =>
+            t.Append(o => o.MoveAlign(destination, duration, easing));
 
-        ///// <summary>
-        ///// Smoothly adjusts the colour of <see cref="IContainer.EdgeEffect"/> over time.
-        ///// </summary>
-        ///// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
-        //public static TransformSequence<T> FadeEdgeEffectTo<T>(this TransformSequence<T> t, Color newColour, double duration = 0, Easing easing = Easing.None)
-        //    where T : IContainer =>
-        //    t.Append(o => o.FadeEdgeEffectTo(newColour, duration, easing));
 
-        ///// <summary>
-        ///// Smoothly adjusts <see cref="IContainer.RelativeChildSize"/> over time.
-        ///// </summary>
-        ///// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
-        //public static TransformSequence<T> TransformRelativeChildSizeTo<T>(this TransformSequence<T> t, Vector2 newSize, double duration = 0, Easing easing = Easing.None)
-        //    where T : IContainer =>
-        //    t.Append(o => o.TransformRelativeChildSizeTo(newSize, duration, easing));
+        /// <summary>
+        /// Smoothly adjusts <see cref="Drawable.VAlign"/> over time.
+        /// </summary>
+        /// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
+        public static TransformSequence<T> MoveVAlign<T>(this TransformSequence<T> t, float destination, double duration = 0, Easing easing = Easing.None) where T : Drawable =>
+            t.Append(o => o.MoveVAlign(destination, duration, easing));
 
-        ///// <summary>
-        ///// Smoothly adjusts <see cref="IContainer.RelativeChildOffset"/> over time.
-        ///// </summary>
-        ///// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
-        //public static TransformSequence<T> TransformRelativeChildOffsetTo<T>(this TransformSequence<T> t, Vector2 newOffset, double duration = 0, Easing easing = Easing.None)
-        //    where T : IContainer =>
-        //    t.Append(o => o.TransformRelativeChildOffsetTo(newOffset, duration, easing));
-
-        ///// <summary>
-        ///// Smoothly adjusts <see cref="IBufferedContainer.BlurSigma"/> over time.
-        ///// </summary>
-        ///// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
-        //public static TransformSequence<T> BlurTo<T>(this TransformSequence<T> t, Vector2 newBlurSigma, double duration = 0, Easing easing = Easing.None)
-        //    where T : IBufferedContainer =>
-        //    t.Append(o => o.BlurTo(newBlurSigma, duration, easing));
-
-        ///// <summary>
-        ///// Smoothly adjusts <see cref="IFillFlowContainer.Spacing"/> over time.
-        ///// </summary>
-        ///// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
-        //public static TransformSequence<T> TransformSpacingTo<T>(this TransformSequence<T> t, Vector2 newSpacing, double duration = 0, Easing easing = Easing.None)
-        //    where T : IFillFlowContainer =>
-        //    t.Append(o => o.TransformSpacingTo(newSpacing, duration, easing));
+        /// <summary>
+        /// Smoothly adjusts <see cref="Drawable.HAlign"/> over time.
+        /// </summary>
+        /// <returns>A <see cref="TransformSequence{T}"/> to which further transforms can be added.</returns>
+        public static TransformSequence<T> MoveHAlign<T>(this TransformSequence<T> t, float destination, double duration = 0, Easing easing = Easing.None) where T : Drawable =>
+            t.Append(o => o.MoveHAlign(destination, duration, easing));
 
         /// <summary>
         /// Smoothly adjusts the value of a <see cref="Bindable{TValue}"/> over time.

@@ -113,7 +113,7 @@ namespace Terramon.UI.SidebarParty
             choose.OnClick += HelpClicked;
             Append(choose);
 
-#if DEBUG
+//#if DEBUG
             chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/PremierBallSidebar");
             battle = new UIOpaqueButton(chooseTexture, "[PH] Start Battle")
             {
@@ -167,7 +167,7 @@ namespace Terramon.UI.SidebarParty
             };
             Append(battle);
 
-#endif
+//#endif
 
             //firstpkmntexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Empty");
             firstpkmn = new SidebarClass("")
