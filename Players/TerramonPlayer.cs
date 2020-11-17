@@ -3,7 +3,9 @@ using Microsoft.Xna.Framework.Audio;
 using Razorwing.Framework.Localisation;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using Terramon.Items.MiscItems;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network.Sync;
@@ -521,7 +523,6 @@ namespace Terramon.Players
 
             if (StarterChosen == false)
             {
-                openingSfx = Main.PlaySound(SoundLoader.customSoundType, Style: mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/opening"));
                 GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarter());
                 ChooseStarter.Visible = true;
                 PartySlots.Visible = false;
@@ -537,6 +538,29 @@ namespace Terramon.Players
 
             if(Main.netMode == NetmodeID.MultiplayerClient)
                 new RequestSyncPacket().Send();
+
+            // Check if update is available!
+
+            var mod_version = Get("https://api.terramonmod.com/mod/ver");
+            var current_version = $"v{mod.Version}";
+
+            if (current_version != mod_version)
+            {
+                //Main.NewText($"[c/f3cc61:Terramon >] A new update is available to download ({mod_version})");
+                //Main.NewText($"Go the the Mod Browser to update!");
+            }
+        }
+        public string Get(string uri)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         //fishing for pokemon
@@ -553,6 +577,7 @@ namespace Terramon.Players
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             if (TerramonMod.PartyCycle.JustPressed)
+            {
                 if (!player.HasBuff(mod.BuffType(firstslotname + "Buff")) && firstslotname != "*")
                 {
                     player.AddBuff(mod.BuffType(firstslotname + "Buff"), 2);
@@ -560,6 +585,12 @@ namespace Terramon.Players
                         .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
                     CombatText.NewText(player.Hitbox, Color.White, "Go! " + firstslotname + "!", true);
                 }
+            }
+            if (TerramonMod.CompressSidebar.JustPressed)
+            {
+                if (GetInstance<TerramonMod>().UISidebar.compressing) return;
+                GetInstance<TerramonMod>().UISidebar.isCompressed = !GetInstance<TerramonMod>().UISidebar.isCompressed;
+            }
         }
 
 
@@ -801,7 +832,7 @@ namespace Terramon.Players
             if (partySlots.partyslot1.Item.IsAir)
             {
                 firstslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.firstpkmn.TextureName = "Terraria/Item_0";
+                GetInstance<TerramonMod>().UISidebar.firstpkmn.TextureName = "Terramon/UI/SidebarParty/Empty";
                 GetInstance<TerramonMod>().UISidebar.firstpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.firstpkmn.Recalculate();
             }
@@ -809,7 +840,7 @@ namespace Terramon.Players
             if (partySlots.partyslot2.Item.IsAir)
             {
                 secondslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.secondpkmn.TextureName = "Terraria/Item_0";
+                GetInstance<TerramonMod>().UISidebar.secondpkmn.TextureName = "Terramon/UI/SidebarParty/Empty";
                 GetInstance<TerramonMod>().UISidebar.secondpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.secondpkmn.Recalculate();
             }
@@ -817,7 +848,7 @@ namespace Terramon.Players
             if (partySlots.partyslot3.Item.IsAir)
             {
                 thirdslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.thirdpkmn.TextureName = "Terraria/Item_0";
+                GetInstance<TerramonMod>().UISidebar.thirdpkmn.TextureName = "Terramon/UI/SidebarParty/Empty";
                 GetInstance<TerramonMod>().UISidebar.thirdpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.thirdpkmn.Recalculate();
             }
@@ -825,7 +856,7 @@ namespace Terramon.Players
             if (partySlots.partyslot4.Item.IsAir)
             {
                 fourthslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.fourthpkmn.TextureName = "Terraria/Item_0";
+                GetInstance<TerramonMod>().UISidebar.fourthpkmn.TextureName = "Terramon/UI/SidebarParty/Empty";
                 GetInstance<TerramonMod>().UISidebar.fourthpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.fourthpkmn.Recalculate();
             }
@@ -833,7 +864,7 @@ namespace Terramon.Players
             if (partySlots.partyslot5.Item.IsAir)
             {
                 fifthslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.fifthpkmn.TextureName = "Terraria/Item_0";
+                GetInstance<TerramonMod>().UISidebar.fifthpkmn.TextureName = "Terramon/UI/SidebarParty/Empty";
                 GetInstance<TerramonMod>().UISidebar.fifthpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.fifthpkmn.Recalculate();
             }
@@ -841,7 +872,7 @@ namespace Terramon.Players
             if (partySlots.partyslot6.Item.IsAir)
             {
                 sixthslotname = "*";
-                GetInstance<TerramonMod>().UISidebar.sixthpkmn.TextureName = "Terraria/Item_0";
+                GetInstance<TerramonMod>().UISidebar.sixthpkmn.TextureName = "Terramon/UI/SidebarParty/Empty";
                 GetInstance<TerramonMod>().UISidebar.sixthpkmn.HoverText = "";
                 GetInstance<TerramonMod>().UISidebar.sixthpkmn.Recalculate();
             }

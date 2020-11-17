@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Razorwing.Framework.Graphics;
 using Razorwing.Framework.Localisation;
+using Razorwing.Framework.Utils;
 using Terramon.Items.Pokeballs;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network.Sync;
@@ -50,26 +51,38 @@ namespace Terramon.UI.SidebarParty
         //sidebar pkmn textures
         public Texture2D firstpkmntexture;
         public SidebarClass firstpkmn;
+        public Texture2D firstpkmnringtexture;
+        public UIImagez firstpkmnring;
 
         public Texture2D secondpkmntexture;
         public SidebarClass secondpkmn;
+        public Texture2D secondpkmnringtexture;
+        public UIImagez secondpkmnring;
 
         public Texture2D thirdpkmntexture;
         public SidebarClass thirdpkmn;
+        public Texture2D thirdpkmnringtexture;
+        public UIImagez thirdpkmnring;
 
         public Texture2D fourthpkmntexture;
         public SidebarClass fourthpkmn;
+        public Texture2D fourthpkmnringtexture;
+        public UIImagez fourthpkmnring;
 
         public Texture2D fifthpkmntexture;
         public SidebarClass fifthpkmn;
+        public Texture2D fifthpkmnringtexture;
+        public UIImagez fifthpkmnring;
 
         public Texture2D sixthpkmntexture;
         public SidebarClass sixthpkmn;
-
-
+        public Texture2D sixthpkmnringtexture;
+        public UIImagez sixthpkmnring;
 
         public int CycleIndex;
         public int HelpListCycler;
+
+        public bool isCompressed = false;
 
         // In OnInitialize, we place various UIElements onto our UIState (this class).
         // UIState classes have width and height equal to the full screen, because of this, usually we first define a UIElement that will act as the container for our UI.
@@ -86,10 +99,10 @@ namespace Terramon.UI.SidebarParty
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
             // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             mainPanel.HAlign = 0f - 0.01f;
-            mainPanel.VAlign = 0.6f;
-            mainPanel.Width.Set(95, 0f);
-            mainPanel.Height.Set(385f, 0f);
-            mainPanel.BackgroundColor = new Color(15, 20, 46) * 0.65f;
+            mainPanel.VAlign = 0.65f;
+            mainPanel.Width.Set(94, 0f);
+            mainPanel.Height.Set(400, 0f);
+            mainPanel.BackgroundColor = new Color(15, 15, 15) * 0.65f;
 
             Texture2D chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Help");
             choose = new UIOpaqueButton(chooseTexture, helpText.Value);
@@ -156,61 +169,119 @@ namespace Terramon.UI.SidebarParty
 
 //#endif
 
-            //firstpkmntexture = ModContent.GetTexture("Terraria/Item_0");
+            //firstpkmntexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Empty");
             firstpkmn = new SidebarClass("")
             {
                 HAlign = 0.6f,
                 VAlign = 0.08888f,
-                Size = new Vector2(40,40),
-                TextureName = "Terraria/Item_0"
+                Size = new Vector2(50, 40),
+                TextureName = "Terramon/UI/SidebarParty/Empty"
             };
             firstpkmn.OnClick += SpawnPKMN1;
             mainPanel.Append(firstpkmn);
 
-            secondpkmntexture = ModContent.GetTexture("Terraria/Item_0");
-            secondpkmn = new SidebarClass(secondpkmntexture, "");
-            secondpkmn.HAlign = 0.6f; // 1
-            secondpkmn.VAlign = 0.25555f; // 1
-            secondpkmn.Width.Set(40, 0);
-            secondpkmn.Height.Set(40, 0);
+            firstpkmnringtexture = ModContent.GetTexture("Terraria/Item_0");
+            firstpkmnring = new UIImagez(firstpkmnringtexture);
+            firstpkmnring.HAlign = 0.6f; // 1
+            firstpkmnring.VAlign = 0.06666f; // 1
+            firstpkmnring.Width.Set(40, 0);
+            firstpkmnring.Height.Set(40, 0);
+            mainPanel.Append(firstpkmnring);
+
+            //secondpkmntexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Empty");
+            secondpkmn = new SidebarClass("")
+            {
+                HAlign = 0.6f,
+                VAlign = 0.25555f,
+                Size = new Vector2(50, 40),
+                TextureName = "Terramon/UI/SidebarParty/Empty"
+            };
             secondpkmn.OnClick += SpawnPKMN2;
             mainPanel.Append(secondpkmn);
 
-            thirdpkmntexture = ModContent.GetTexture("Terraria/Item_0");
-            thirdpkmn = new SidebarClass(thirdpkmntexture, "");
-            thirdpkmn.HAlign = 0.6f; // 1
-            thirdpkmn.VAlign = 0.41111f; // 1
-            thirdpkmn.Width.Set(40, 0);
-            thirdpkmn.Height.Set(40, 0);
+            secondpkmnringtexture = ModContent.GetTexture("Terraria/Item_0");
+            secondpkmnring = new UIImagez(secondpkmnringtexture);
+            secondpkmnring.HAlign = 0.6f; // 1
+            secondpkmnring.VAlign = 0.25555f; // 1
+            secondpkmnring.Width.Set(40, 0);
+            secondpkmnring.Height.Set(40, 0);
+            mainPanel.Append(secondpkmnring);
+
+            //thirdpkmntexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Empty");
+            thirdpkmn = new SidebarClass("")
+            {
+                HAlign = 0.6f,
+                VAlign = 0.41111f,
+                Size = new Vector2(50, 40),
+                TextureName = "Terramon/UI/SidebarParty/Empty"
+            };
             thirdpkmn.OnClick += SpawnPKMN3;
             mainPanel.Append(thirdpkmn);
 
-            fourthpkmntexture = ModContent.GetTexture("Terraria/Item_0");
-            fourthpkmn = new SidebarClass(fourthpkmntexture, "");
-            fourthpkmn.HAlign = 0.6f; // 1
-            fourthpkmn.VAlign = 0.58888f; // 1
-            fourthpkmn.Width.Set(40, 0);
-            fourthpkmn.Height.Set(40, 0);
+            thirdpkmnringtexture = ModContent.GetTexture("Terraria/Item_0");
+            thirdpkmnring = new UIImagez(thirdpkmnringtexture);
+            thirdpkmnring.HAlign = 0.6f; // 1
+            thirdpkmnring.VAlign = 0.41111f; // 1
+            thirdpkmnring.Width.Set(40, 0);
+            thirdpkmnring.Height.Set(40, 0);
+            mainPanel.Append(thirdpkmnring);
+
+            //fourthpkmntexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Empty");
+            fourthpkmn = new SidebarClass("")
+            {
+                HAlign = 0.6f,
+                VAlign = 0.58888f,
+                Size = new Vector2(50, 40),
+                TextureName = "Terramon/UI/SidebarParty/Empty"
+            };
             fourthpkmn.OnClick += SpawnPKMN4;
             mainPanel.Append(fourthpkmn);
 
-            fifthpkmntexture = ModContent.GetTexture("Terraria/Item_0");
-            fifthpkmn = new SidebarClass(fifthpkmntexture, "");
-            fifthpkmn.HAlign = 0.6f; // 1
-            fifthpkmn.VAlign = 0.75555f; // 1
-            fifthpkmn.Width.Set(40, 0);
-            fifthpkmn.Height.Set(40, 0);
+            fourthpkmnringtexture = ModContent.GetTexture("Terraria/Item_0");
+            fourthpkmnring = new UIImagez(fourthpkmnringtexture);
+            fourthpkmnring.HAlign = 0.6f; // 1
+            fourthpkmnring.VAlign = 0.58888f; // 1
+            fourthpkmnring.Width.Set(40, 0);
+            fourthpkmnring.Height.Set(40, 0);
+            mainPanel.Append(fourthpkmnring);
+
+            //fifthpkmntexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Empty");
+            fifthpkmn = new SidebarClass("")
+            {
+                HAlign = 0.6f,
+                VAlign = 0.75555f,
+                Size = new Vector2(50, 40),
+                TextureName = "Terramon/UI/SidebarParty/Empty"
+            };
             fifthpkmn.OnClick += SpawnPKMN5;
             mainPanel.Append(fifthpkmn);
 
-            sixthpkmntexture = ModContent.GetTexture("Terraria/Item_0");
-            sixthpkmn = new SidebarClass(sixthpkmntexture, "");
-            sixthpkmn.HAlign = 0.6f; // 1
-            sixthpkmn.VAlign = 0.91111f; // 1
-            sixthpkmn.Width.Set(40, 0);
-            sixthpkmn.Height.Set(40, 0);
+            fifthpkmnringtexture = ModContent.GetTexture("Terraria/Item_0");
+            fifthpkmnring = new UIImagez(fifthpkmnringtexture);
+            fifthpkmnring.HAlign = 0.6f; // 1
+            fifthpkmnring.VAlign = 0.75555f; // 1
+            fifthpkmnring.Width.Set(40, 0);
+            fifthpkmnring.Height.Set(40, 0);
+            mainPanel.Append(fifthpkmnring);
+
+            //sixthpkmntexture = ModContent.GetTexture("Terramon/UI/SidebarParty/Empty");
+            sixthpkmn = new SidebarClass("")
+            {
+                HAlign = 0.6f,
+                VAlign = 0.91111f,
+                Size = new Vector2(50, 40),
+                TextureName = "Terramon/UI/SidebarParty/Empty"
+            };
             sixthpkmn.OnClick += SpawnPKMN6;
             mainPanel.Append(sixthpkmn);
+
+            sixthpkmnringtexture = ModContent.GetTexture("Terraria/Item_0");
+            sixthpkmnring = new UIImagez(sixthpkmnringtexture);
+            sixthpkmnring.HAlign = 0.6f; // 1
+            sixthpkmnring.VAlign = 0.93333f; // 1
+            sixthpkmnring.Width.Set(40, 0);
+            sixthpkmnring.Height.Set(40, 0);
+            mainPanel.Append(sixthpkmnring);
 
             Append(mainPanel);
             // As a recap, ExampleUI is a UIState, meaning it covers the whole screen. We attach mainPanel to ExampleUI some distance from the top left corner.
@@ -218,38 +289,103 @@ namespace Terramon.UI.SidebarParty
             // Since mainPanel will move, this proper organization will move playButton, closeButton, and moneyDiplay properly when mainPanel moves.
         }
 
+        byte compressAnimation = 0;
+
+        public bool compressing = false;
+        public bool isReallyCompressed = false;
+
+        double startCompressAnimation = 0;
+        double endCompressAnimation = 0;
+
+        bool finishedIn = false;
+        bool finishedOut = false;
+
         public override void Update(GameTime gameTime)
         {
             // Don't delete this or the UIElements attached to this UIState will cease to function.
             base.Update(gameTime);
-            if (TerramonMod.PartyUIAutoMode == false || TerramonMod.PartyUIReverseAutoMode == false)
+
+            if (isCompressed && !finishedIn)
             {
-                if (TerramonMod.PartyUITheme == false)
-                    mainPanel.BackgroundColor = new Color(255, 250, 250) * 0.5f;
-                else
+                if (compressAnimation == 0)
                 {
-                    mainPanel.BackgroundColor = new Color(44, 61, 158) * 0.5f;
+                    startCompressAnimation = gameTime.TotalGameTime.TotalSeconds;
+                    endCompressAnimation = startCompressAnimation + 1;
+                    compressing = true;
+                    compressAnimation = 1;
+
+                    firstpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    secondpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    thirdpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    fourthpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    fifthpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    sixthpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                }
+                if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation)
+                {
+                    mainPanel.Width.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 94, 52, startCompressAnimation, endCompressAnimation, Easing.OutExpo);
+                }
+                if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
+                {
+                    isReallyCompressed = true;
+                    firstpkmn.ScaleTo(1f, 500, Easing.Out);
+                    secondpkmn.ScaleTo(1f, 500, Easing.Out);
+                    thirdpkmn.ScaleTo(1f, 500, Easing.Out);
+                    fourthpkmn.ScaleTo(1f, 500, Easing.Out);
+                    fifthpkmn.ScaleTo(1f, 500, Easing.Out);
+                    sixthpkmn.ScaleTo(1f, 500, Easing.Out);
+                }
+                if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation)
+                {
+                    compressing = false;
+                    compressAnimation = 0;
+                    startCompressAnimation = 0;
+                    endCompressAnimation = 0;
+                    finishedIn = true;
                 }
             }
 
-            if (TerramonMod.PartyUIAutoMode)
+            if (!isCompressed && finishedIn)
             {
-                if (!Main.dayTime)
+                if (compressAnimation == 0)
                 {
-                    mainPanel.BackgroundColor = new Color(44, 61, 158) * 0.5f;
+                    startCompressAnimation = gameTime.TotalGameTime.TotalSeconds;
+                    endCompressAnimation = startCompressAnimation + 1;
+                    compressing = true;
+                    compressAnimation = 1;
+
+                    firstpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    secondpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    thirdpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    fourthpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    fifthpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    sixthpkmn.ScaleTo(0.001f, 500, Easing.Out);
                 }
-                else
-                    mainPanel.BackgroundColor = new Color(255, 250, 250) * 0.5f;
-            }
-            else if (TerramonMod.PartyUIReverseAutoMode)
-            {
-                if (!Main.dayTime)
-                    mainPanel.BackgroundColor = new Color(255, 250, 250) * 0.5f;
-                else
+                if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation)
                 {
-                    mainPanel.BackgroundColor = new Color(44, 61, 158) * 0.5f;
+                    mainPanel.Width.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 52, 94, startCompressAnimation, endCompressAnimation, Easing.OutExpo);
+                }
+                if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
+                {
+                    isReallyCompressed = false;
+                    firstpkmn.ScaleTo(1f, 500, Easing.Out);
+                    secondpkmn.ScaleTo(1f, 500, Easing.Out);
+                    thirdpkmn.ScaleTo(1f, 500, Easing.Out);
+                    fourthpkmn.ScaleTo(1f, 500, Easing.Out);
+                    fifthpkmn.ScaleTo(1f, 500, Easing.Out);
+                    sixthpkmn.ScaleTo(1f, 500, Easing.Out);
+                }
+                if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation)
+                {
+                    compressing = false;
+                    compressAnimation = 0;
+                    startCompressAnimation = 0;
+                    endCompressAnimation = 0;
+                    finishedIn = false;
                 }
             }
+
+            mainPanel.Height.Set(0, 0.7f);
 
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             var slotName = modPlayer.firstslotname;
@@ -264,7 +400,7 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                updateSlot(slotTag, firstpkmn, pokemonName1.Value);//move copypaste to method, so we can modify display data from one place
+                updateSlot(slotTag, firstpkmn, firstpkmnring, pokemonName1.Value);//move copypaste to method, so we can modify display data from one place
             }
 
             slotName = modPlayer.secondslotname;
@@ -279,7 +415,7 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                updateSlot(slotTag, secondpkmn, pokemonName2.Value);
+                updateSlot(slotTag, secondpkmn, secondpkmnring, pokemonName2.Value);
             }
 
             slotName = modPlayer.thirdslotname;
@@ -294,7 +430,7 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                updateSlot(slotTag, thirdpkmn, pokemonName3.Value);
+                updateSlot(slotTag, thirdpkmn, thirdpkmnring, pokemonName3.Value);
             }
 
             slotName = modPlayer.fourthslotname;
@@ -309,7 +445,7 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                updateSlot(slotTag, fourthpkmn, pokemonName4.Value);
+                updateSlot(slotTag, fourthpkmn, fourthpkmnring, pokemonName4.Value);
             }
 
             slotName = modPlayer.fifthslotname;
@@ -324,7 +460,7 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                updateSlot(slotTag, fifthpkmn, pokemonName5.Value);
+                updateSlot(slotTag, fifthpkmn, fifthpkmnring, pokemonName5.Value);
 
             }
 
@@ -340,15 +476,21 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                updateSlot(slotTag, sixthpkmn, pokemonName6.Value);
+                updateSlot(slotTag, sixthpkmn, sixthpkmnring, pokemonName6.Value);
             }
         }
 
-        private void updateSlot(PokemonData slot, SidebarClass side, string name)
+        private void updateSlot(PokemonData slot, SidebarClass side, UIImagez ring, string name)
         {
         //    side.SetImage(
         //            ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slot.Pokemon));
-            side.TextureName = "Terramon/Minisprites/Regular/SidebarSprites/" + slot.Pokemon;
+            if (!isReallyCompressed)
+            {
+                side.TextureName = "Terramon/Minisprites/Regular/SidebarSprites/" + slot.Pokemon;
+            } else
+            {
+                side.TextureName = "Terramon/UI/SidebarParty/CaughtIn/" + slot.pokeballType;
+            }
             side.HoverText = name + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
                                       $"\nLVL: {slot.Level}" +
                                       $"\nEXP: {slot.Exp}" +

@@ -59,6 +59,8 @@ namespace Terramon
         internal Moves Moves;
         public PartySlots PartySlots { get; private set; }
 
+        public static ModHotKey CompressSidebar;
+
         // UI SIDEBAR //
 
         internal PokegearUI PokegearUI;
@@ -338,6 +340,7 @@ namespace Terramon
             ThirdPKMAbility = RegisterHotKey("Third Pokémon Move", Keys.C.ToString());
             FourthPKMAbility = RegisterHotKey("Fourth Pokémon Move", Keys.V.ToString());
 
+            CompressSidebar = RegisterHotKey("Compress Sidebar", Keys.RightShift.ToString());
 
             PartyCycle = RegisterHotKey("Quick Spawn First Party Pokémon", Keys.RightAlt.ToString());
         }
@@ -394,6 +397,7 @@ namespace Terramon
             SecondPKMAbility = null;
             ThirdPKMAbility = null;
             FourthPKMAbility = null;
+            CompressSidebar = null;
 
             Localisation = null;
             Textures = null;
@@ -485,7 +489,14 @@ namespace Terramon
         {
             if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active) return;
 
-            if (MyUIStateActive(Main.LocalPlayer)) music = GetSoundSlot(SoundType.Music, null);
+            if (MyUIStateActive(Main.LocalPlayer) && !ChooseStarter.movieFinished)
+            {
+                music = GetSoundSlot(SoundType.Music, null);
+            }
+            if (MyUIStateActive(Main.LocalPlayer) && ChooseStarter.movieFinished)
+            {
+                music = GetSoundSlot(SoundType.Music, "Sounds/Music/wifi");
+            }
         }
 
         // END UI STUFF
