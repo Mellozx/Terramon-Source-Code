@@ -314,27 +314,37 @@ namespace Terramon.UI.SidebarParty
                     compressing = true;
                     compressAnimation = 1;
 
-                    firstpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    secondpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    thirdpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    fourthpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    fifthpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    sixthpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    firstpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .Schedule(() =>
+                        {
+                            isReallyCompressed = true;
+                        }).Then()//Apply changes from mid time
+                        .ScaleTo(1f, 500f, Easing.Out);//This will be called at same frame as Append bc no delay specified in Then method
+                    secondpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    thirdpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    fourthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    fifthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    sixthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
                 }
                 if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation)
                 {
                     mainPanel.Width.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 94, 52, startCompressAnimation, endCompressAnimation, Easing.OutExpo);
                 }
-                if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
-                {
-                    isReallyCompressed = true;
-                    firstpkmn.ScaleTo(1f, 500, Easing.Out);
-                    secondpkmn.ScaleTo(1f, 500, Easing.Out);
-                    thirdpkmn.ScaleTo(1f, 500, Easing.Out);
-                    fourthpkmn.ScaleTo(1f, 500, Easing.Out);
-                    fifthpkmn.ScaleTo(1f, 500, Easing.Out);
-                    sixthpkmn.ScaleTo(1f, 500, Easing.Out);
-                }
+                //if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
+                //{
+                //    isReallyCompressed = true;
+                //    firstpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    secondpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    thirdpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    fourthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    fifthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    sixthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //}
                 if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation)
                 {
                     compressing = false;
@@ -354,27 +364,37 @@ namespace Terramon.UI.SidebarParty
                     compressing = true;
                     compressAnimation = 1;
 
-                    firstpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    secondpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    thirdpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    fourthpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    fifthpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    sixthpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    firstpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .Schedule(() =>
+                        {
+                            isReallyCompressed = false;
+                        }).Then()//Apply changes from mid time
+                        .ScaleTo(1f, 500f, Easing.Out);//This will be called at same frame as Append bc no delay specified in Then method
+                    secondpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    thirdpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    fourthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    fifthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    sixthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
                 }
                 if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation)
                 {
                     mainPanel.Width.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 52, 94, startCompressAnimation, endCompressAnimation, Easing.OutExpo);
                 }
-                if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
-                {
-                    isReallyCompressed = false;
-                    firstpkmn.ScaleTo(1f, 500, Easing.Out);
-                    secondpkmn.ScaleTo(1f, 500, Easing.Out);
-                    thirdpkmn.ScaleTo(1f, 500, Easing.Out);
-                    fourthpkmn.ScaleTo(1f, 500, Easing.Out);
-                    fifthpkmn.ScaleTo(1f, 500, Easing.Out);
-                    sixthpkmn.ScaleTo(1f, 500, Easing.Out);
-                }
+                //if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
+                //{
+                //    isReallyCompressed = false;
+                //    firstpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    secondpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    thirdpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    fourthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    fifthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    sixthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //}
                 if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation)
                 {
                     compressing = false;
