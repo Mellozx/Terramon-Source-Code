@@ -1,6 +1,6 @@
 author = Terramon Team
-version = 0.4.2
+version = 0.5
 displayName = Terramon Mod
-homepage = https://discord.gg/U8skDEA
+homepage = https://terramonmod.com/wiki/#/
 buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*, Items\Eggs*, *.exe
 dllReferences = DiscordRPC
