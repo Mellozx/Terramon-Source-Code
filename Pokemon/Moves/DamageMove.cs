@@ -12,7 +12,6 @@ namespace Terramon.Pokemon.Moves
     public abstract class DamageMove : BaseMove
     {
         public abstract int Damage { get; }// Perc 200-100
-        public abstract int Accuracy { get; }
         public virtual bool Special => false;
 
         public DamageMove()
