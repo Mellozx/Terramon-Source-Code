@@ -80,28 +80,44 @@ namespace Terramon.Pokemon
                 nextSlot++;
             }
 
-            if (NPC.downedBoss1)
+            var modExpanse = ModLoader.GetMod("tmonadds");
+            if (modExpanse != null)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyGray"));
+                shop.item[nextSlot].SetDefaults(modExpanse.ItemType("GameBoyGray"));
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyRed"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyBlue"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyYellow"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyTeal"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyPink"));
-                nextSlot++;
-                if (!Main.bloodMoon)
+                if (NPC.downedBoss1)
                 {
-                    shop.item[nextSlot].SetDefaults(mod.ItemType("GameBoyDark"));
+                    shop.item[nextSlot].SetDefaults(modExpanse.ItemType("GameBoyRed"));
+                    nextSlot++;
+                }
+                int merchant = NPC.FindFirstNPC(NPCID.Merchant);
+                if (merchant >= 0)
+                {
+                    shop.item[nextSlot].SetDefaults(modExpanse.ItemType("GameBoyBlue"));
+                    nextSlot++;
+                }
+                if (NPC.downedMoonlord)
+                {
+                    shop.item[nextSlot].SetDefaults(modExpanse.ItemType("GameBoyYellow"));
+                    nextSlot++;
+                }
+                if (NPC.downedSlimeKing)
+                {
+                    shop.item[nextSlot].SetDefaults(modExpanse.ItemType("GameBoyTeal"));
+                    nextSlot++;
+                }
+                int nurse = NPC.FindFirstNPC(NPCID.Nurse);
+                if (nurse >= 0)
+                {
+                    shop.item[nextSlot].SetDefaults(modExpanse.ItemType("GameBoyPink"));
+                    nextSlot++;
+                }
+                if (Main.bloodMoon || NPC.downedHalloweenKing)
+                {
+                    shop.item[nextSlot].SetDefaults(modExpanse.ItemType("GameBoyDark"));
                     nextSlot++;
                 }
             }
-
-            //gray blue pink purple turquoise yellow
         }
 
         public override string GetChat()

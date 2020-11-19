@@ -1,6 +1,6 @@
 ﻿[c/ff7857:== Gotta catch 'em all! ==]
 
-✧ Terramon is a mod that adds Pokémon to Terraria! It also adds many aspects and mechanics of the Pokémon games as well, including Poké Balls, your own Pokémon party and much more!
+✧ Terramon is a cross between Terraria and the awesome Pokémon franchise. The mod adds many Pokémon and your mission is to catch 'em all! Featuring 145+ diverse Pokémon to catch with a wide range of different Poké Balls, Terramon is the perfect mod to spice up your playthrough.
 
 ✧ Currently in the mod, there's...
 • Over 100 Pokémon!
@@ -12,6 +12,9 @@ Jamz: Team Founder & Developer
 InfinaMii: Developer, Spriter, ^
 KindRed-Sand: Developer, Mod Networking
 AnotherGuy: Developer
+ItzSylvium: Spriter
+Mello: Trial Developer
+Aeterna: Trial Developer
 Solemn: Music, Trial Developer
 
 
