@@ -125,7 +125,7 @@ namespace Terramon.UI.SidebarParty
             battle.OnClick += (e, x) =>
             {
                 var player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-                if (player.ActivePet.Fainted)
+                if (player.ActivePet?.Fainted ?? false)
                 {
                     Main.NewText($"Your {player.ActivePet.Pokemon} is fainted and can't fight!");
                     return;
@@ -315,11 +315,11 @@ namespace Terramon.UI.SidebarParty
                     compressAnimation = 1;
 
                     firstpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
-                        .Schedule(() =>
+                        .Schedule(() =>//Apply changes from mid time
                         {
                             isReallyCompressed = true;
-                        }).Then()//Apply changes from mid time
-                        .ScaleTo(1f, 500f, Easing.Out);//This will be called at same frame as Append bc no delay specified in Then method
+                        }).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);//This will be called at same frame as Schedule bc no delay specified in Then method
                     secondpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
                         .ScaleTo(1f, 500f, Easing.Out);
                     thirdpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
@@ -365,11 +365,11 @@ namespace Terramon.UI.SidebarParty
                     compressAnimation = 1;
 
                     firstpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
-                        .Schedule(() =>
+                        .Schedule(() =>//Apply changes from mid time
                         {
                             isReallyCompressed = false;
-                        }).Then()//Apply changes from mid time
-                        .ScaleTo(1f, 500f, Easing.Out);//This will be called at same frame as Append bc no delay specified in Then method
+                        }).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);//This will be called at same frame as Schedule bc no delay specified in Then method
                     secondpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
                         .ScaleTo(1f, 500f, Easing.Out);
                     thirdpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
