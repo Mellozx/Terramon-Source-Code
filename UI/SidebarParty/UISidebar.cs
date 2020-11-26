@@ -37,7 +37,7 @@ namespace Terramon.UI.SidebarParty
         public ILocalisedBindableString pokemonName5 = TerramonMod.Localisation.GetLocalisedString("*");
         public ILocalisedBindableString pokemonName6 = TerramonMod.Localisation.GetLocalisedString("*");
         public ILocalisedBindableString helpText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help", "Terramon Help")));
-        public ILocalisedBindableString help1Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help1", $"(1/3) Welcome to Terramon {TerramonMod.Instance.Version}, where you can discover and catch Pokémon in Terraria! Keep pressing this button for more tips and tricks.")));
+        public ILocalisedBindableString help1Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help1", "(1/3) Welcome to Terramon {0}, where you can discover and catch Pokémon in Terraria! Keep pressing this button for more tips and tricks.")));
         public ILocalisedBindableString help2Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help2", "(2/3) For support, join the official Discord server using the [c/f7e34d:/discord] command. Or, access our wiki with the [c/f7e34d:/wiki] command.")));
         public ILocalisedBindableString help3Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help3", "(3/3) Also, feel free to customize your experience with the Mod Config in [c/ff8f33:Settings > Mod Configuration] or from the Mods menu.")));
 
@@ -89,11 +89,14 @@ namespace Terramon.UI.SidebarParty
         // We then place various other UIElement onto that container UIElement positioned relative to the container UIElement.
         public override void OnInitialize()
         {
+            //Add version string as argument so it can be passed in other locales
+            help1Text.Args = new object[] { TerramonMod.Instance.Version };
+
+
             //pokemon icons
 
             // Next, we create another UIElement that we will place. Since we will be calling `mainPanel.Append(playButton);`, Left and Top are relative to the top left of the mainPanel UIElement. 
             // By properly nesting UIElements, we can position things relatively to each other easily.
-
             mainPanel = new SidebarPanel();
             mainPanel.SetPadding(0);
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
