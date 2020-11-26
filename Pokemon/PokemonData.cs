@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using Razorwing.Framework.Extensions;
 using Razorwing.Framework.Localisation;
 using Steamworks;
 using Terramon.Items.Pokeballs.Inventory;
@@ -19,7 +20,7 @@ namespace Terramon.Pokemon
     /// <summary>
     /// Class what simplify access to pokemon <see cref="PokeballCaught"/>'s <see cref="TagCompound"/> data
     /// </summary>
-    public class PokemonData
+    public class PokemonData : ITagLoadable
     {
         
         internal bool needUpdate = false;
@@ -247,63 +248,7 @@ namespace Terramon.Pokemon
 
         public PokemonData(TagCompound tag)
         {
-            IsShiny = tag.GetBool(nameof(BaseCaughtClass.isShiny));
-            //v2
-            pokemon = tag.ContainsKey(nameof(BaseCaughtClass.CapturedPokemon))
-                ? tag.GetString(nameof(BaseCaughtClass.CapturedPokemon))
-                : tag.GetString(nameof(BaseCaughtClass.PokemonName));
-
-            if(!string.IsNullOrEmpty(pokemon))
-            {
-                Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
-
-                level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
-                exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
-
-                //Average values from bulbasaur
-                MaxHP = tag.ContainsKey(nameof(MaxHP)) ? tag.GetInt(nameof(MaxHP)) : 45;
-                HP = tag.ContainsKey(nameof(HP)) ? tag.GetInt(nameof(HP)) : 45;
-                Fainted = tag.ContainsKey(nameof(Fainted)) && tag.GetBool(nameof(Fainted));//ReSharper changes
-                PhysDef = tag.ContainsKey(nameof(PhysDef)) ? tag.GetInt(nameof(PhysDef)) : 50;
-                PhysDmg = tag.ContainsKey(nameof(PhysDmg)) ? tag.GetInt(nameof(PhysDmg)) : 50;
-                SpDef = tag.ContainsKey(nameof(SpDef)) ? tag.GetInt(nameof(SpDef)) : 50;
-                SpDmg = tag.ContainsKey(nameof(SpDmg)) ? tag.GetInt(nameof(SpDmg)) : 65;
-
-                if (Moves == null)
-                    Moves = new BaseMove[4];
-                Moves[0] = tag.ContainsKey(BaseCaughtClass.MOVE1) ? TerramonMod.GetMove(tag.GetString(BaseCaughtClass.MOVE1)) : null;
-                Moves[1] = tag.ContainsKey(BaseCaughtClass.MOVE2) ? TerramonMod.GetMove(tag.GetString(BaseCaughtClass.MOVE2)) : null;
-                Moves[2] = tag.ContainsKey(BaseCaughtClass.MOVE3) ? TerramonMod.GetMove(tag.GetString(BaseCaughtClass.MOVE3)) : null;
-                Moves[3] = tag.ContainsKey(BaseCaughtClass.MOVE4) ? TerramonMod.GetMove(tag.GetString(BaseCaughtClass.MOVE4)) : null;
-
-                //Update all old pokebals
-                bool retrofit = true;
-                foreach (var it in Moves)
-                    if (it != null)
-                        retrofit = false;
-                if (retrofit)
-                {
-                    var def = TerramonMod.GetPokemon(Pokemon).DefaultMove;
-                    try //In case someone forgot leave nulls at empty moves 
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-
-                            Moves[i] = TerramonMod.GetMove(def[i]);
-
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        TerramonMod.Instance.Logger.Error($"Looks like someone from dev team don't fill moves field properly for {Pokemon} pokemon.\n" +
-                                                          $"Please, report this to Terramon Team!");
-                        TerramonMod.Instance.Logger.Error(e);
-                    }
-                }
-                
-                pokeballType = tag.GetByte(BaseCaughtClass.POKEBAL_PROPERTY);
-            }
-            
+            Load(tag);
         }
 
         public PokemonData(BaseCaughtClass tag)
@@ -397,6 +342,67 @@ namespace Terramon.Pokemon
         {
             return new PokemonData(tag);
         }
+
+        public void Load(TagCompound tag)
+        {
+            IsShiny = tag.GetBool(nameof(BaseCaughtClass.isShiny));
+            //v2
+            pokemon = tag.ContainsKey(nameof(BaseCaughtClass.CapturedPokemon))
+                ? tag.GetString(nameof(BaseCaughtClass.CapturedPokemon))
+                : tag.GetString(nameof(BaseCaughtClass.PokemonName));
+
+            if (!string.IsNullOrEmpty(pokemon))
+            {
+                Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
+
+                level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
+                exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
+
+                //Average values from bulbasaur
+                MaxHP = tag.ContainsKey(nameof(MaxHP)) ? tag.GetInt(nameof(MaxHP)) : 45;
+                HP = tag.ContainsKey(nameof(HP)) ? tag.GetInt(nameof(HP)) : 45;
+                Fainted = tag.ContainsKey(nameof(Fainted)) && tag.GetBool(nameof(Fainted));//ReSharper changes
+                PhysDef = tag.ContainsKey(nameof(PhysDef)) ? tag.GetInt(nameof(PhysDef)) : 50;
+                PhysDmg = tag.ContainsKey(nameof(PhysDmg)) ? tag.GetInt(nameof(PhysDmg)) : 50;
+                SpDef = tag.ContainsKey(nameof(SpDef)) ? tag.GetInt(nameof(SpDef)) : 50;
+                SpDmg = tag.ContainsKey(nameof(SpDmg)) ? tag.GetInt(nameof(SpDmg)) : 65;
+
+                if (Moves == null)
+                    Moves = new BaseMove[4];
+                Moves[0] = tag.ContainsKey(BaseCaughtClass.MOVE1) ? TerramonMod.GetMove(tag.GetString(BaseCaughtClass.MOVE1)) : null;
+                Moves[1] = tag.ContainsKey(BaseCaughtClass.MOVE2) ? TerramonMod.GetMove(tag.GetString(BaseCaughtClass.MOVE2)) : null;
+                Moves[2] = tag.ContainsKey(BaseCaughtClass.MOVE3) ? TerramonMod.GetMove(tag.GetString(BaseCaughtClass.MOVE3)) : null;
+                Moves[3] = tag.ContainsKey(BaseCaughtClass.MOVE4) ? TerramonMod.GetMove(tag.GetString(BaseCaughtClass.MOVE4)) : null;
+
+                //Update all old pokebals
+                bool retrofit = true;
+                foreach (var it in Moves)
+                    if (it != null)
+                        retrofit = false;
+                if (retrofit)
+                {
+                    var def = TerramonMod.GetPokemon(Pokemon).DefaultMove;
+                    try //In case someone forgot leave nulls at empty moves 
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+
+                            Moves[i] = TerramonMod.GetMove(def[i]);
+
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        TerramonMod.Instance.Logger.Error($"Looks like someone from dev team don't fill moves field properly for {Pokemon} pokemon.\n" +
+                                                          $"Please, report this to Terramon Team!");
+                        TerramonMod.Instance.Logger.Error(e);
+                    }
+                }
+
+                pokeballType = tag.GetByte(BaseCaughtClass.POKEBAL_PROPERTY);
+            }
+        }
+
         public TagCompound GetCompound() => new TagCompound()
         {
             [nameof(BaseCaughtClass.PokemonName)] = this.Pokemon,

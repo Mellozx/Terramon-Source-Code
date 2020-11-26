@@ -39,6 +39,8 @@ namespace Terramon.Players
         public int premierBallRewardCounter;
 
         private Dictionary<string, bool> ActivePets = new Dictionary<string, bool>();
+        private List<PokemonData> pokemonStorage = new List<PokemonData>();
+        public IEnumerable<PokemonData> PokemonStorage => pokemonStorage; 
         public int ActivePetId = -1;
         public bool ActivePetShiny;
         public string ActivePetName = string.Empty;
@@ -534,6 +536,8 @@ namespace Terramon.Players
                 UISidebar.Visible = true;
             }
 
+
+
             loading = false;
 
             if(Main.netMode == NetmodeID.MultiplayerClient)
@@ -902,7 +906,6 @@ namespace Terramon.Players
 
         public override void Load(TagCompound tag)
         {
-            var n = player.name;
             loading = true;
             Battle?.Cleanup();
             Battle = null;
