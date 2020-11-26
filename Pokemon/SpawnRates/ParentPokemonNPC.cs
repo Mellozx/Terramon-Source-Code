@@ -96,7 +96,7 @@ namespace Terramon.Pokemon
             npc.scale = 1f;
 
             //Detect right click on pokemon
-            if (npc.Hitbox.Contains(Main.MouseWorld.ToPoint()) && Main.mouseRight)
+            if ((npc.Hitbox.Contains(Main.MouseWorld.ToPoint()) && Main.mouseRight))
             {
                 if (Main.mouseRightRelease)
                 {
