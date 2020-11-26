@@ -145,10 +145,7 @@ namespace Terramon.Pokemon
                     pMove = move;
                     if (State == BattleState.BattleWithPlayer)
                     {
-                        if (player2?.Battle != null)
-                        {
-                            player2.Battle.SyncMove(move.GetType().Name, false);
-                        }
+                        player2?.Battle?.SyncMove(move.GetType().Name, false);
                     }
                     //Move chose packet
                     if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -401,7 +398,7 @@ namespace Terramon.Pokemon
                         
                     animMode = 2;
                 }
-                animWindow = 120;
+                animWindow = 121;
                 atackTimeout = 260;
             }
 
