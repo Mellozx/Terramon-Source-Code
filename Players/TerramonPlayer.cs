@@ -47,6 +47,8 @@ namespace Terramon.Players
         public bool sidebarSync = false;
         private bool loading = true; 
 
+        public bool healingAtHealerBed = false;
+
 
         public ILocalisedBindableString pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("*")));
 
@@ -382,6 +384,7 @@ namespace Terramon.Players
 
         public override void Initialize()
         {
+	    healingAtHealerBed = false;
             InitializePokeballs();
             //Initialise active pets bools
             // ReSharper disable once LocalVariableHidesMember
@@ -486,6 +489,8 @@ namespace Terramon.Players
 
         public override void OnEnterWorld(Player player)
         {
+            healingAtHealerBed = false;
+
             // Call to Mod class to enable in-world Rich Presence
             GetInstance<TerramonMod>().EnterWorldRP();
             //
