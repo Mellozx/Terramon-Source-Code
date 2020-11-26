@@ -487,9 +487,11 @@ namespace Terramon
 
         public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
+            var player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+
             if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active) return;
 
-            if (MyUIStateActive(Main.LocalPlayer) && !ChooseStarter.movieFinished)
+            if (MyUIStateActive(Main.LocalPlayer) && !ChooseStarter.movieFinished || player.healingAtHealerBed )
             {
                 music = GetSoundSlot(SoundType.Music, null);
             }
