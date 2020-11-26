@@ -114,14 +114,14 @@ namespace Terramon.UI.SidebarParty
             Append(choose);
 
 //#if DEBUG
-            chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/CaughtIn/9");
+            chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/LightMode");
             battle = new UIOpaqueButton(chooseTexture, "[PH] Start Battle")
             {
                 HAlign = 0.007f, // 1
                 VAlign = 0.9f // 1
             };
-            battle.Width.Set(20, 0);
-            battle.Height.Set(32, 0);
+            battle.Width.Set(28, 0);
+            battle.Height.Set(38, 0);
             battle.OnClick += (e, x) =>
             {
                 var player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
