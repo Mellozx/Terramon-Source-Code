@@ -101,7 +101,7 @@ namespace Terramon.Pokemon
                 if (Main.mouseRightRelease)
                 {
                     var player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-                    if (player.ActivePet == null) return;
+                    if (player.ActivePet == null || player.Battle != null) return;
                     if (player.ActivePet.Fainted)
                     {
                         Main.NewText($"Your {player.ActivePet.Pokemon} is fainted and can't fight!");
