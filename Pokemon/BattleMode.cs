@@ -51,10 +51,6 @@ namespace Terramon.Pokemon
 
         public BattleMode(TerramonPlayer fpl, BattleState state, PokemonData second = null, ParentPokemonNPC npc = null, TerramonPlayer spl = null, bool lazy = false)
         {
-#if !DEBUG
-            State = BattleState.None;
-            return;
-#endif
 
             if (fpl.player == Main.LocalPlayer) //If this is client player
             {
@@ -149,10 +145,7 @@ namespace Terramon.Pokemon
                     pMove = move;
                     if (State == BattleState.BattleWithPlayer)
                     {
-                        if (player2?.Battle != null)
-                        {
-                            player2.Battle.SyncMove(move.GetType().Name, false);
-                        }
+                        player2?.Battle?.SyncMove(move.GetType().Name, false);
                     }
                     //Move chose packet
                     if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -186,8 +179,9 @@ namespace Terramon.Pokemon
                         if (Text("You escaped, but lost some money...", true)) ;
                         //Escape packet
                     }
-                    Text("Escaped!", new Color(200, 50, 70), true);
-                    new BattleEndPacket().Send(TerramonMod.Instance);
+                    
+                    if(Text("Escaped!", new Color(200, 50, 70), true) && Main.netMode == NetmodeID.MultiplayerClient)
+                        new BattleEndPacket().Send(TerramonMod.Instance);
                     State = BattleState.None;
                 }
             }
@@ -404,7 +398,7 @@ namespace Terramon.Pokemon
                         
                     animMode = 2;
                 }
-                animWindow = 120;
+                animWindow = 121;
                 atackTimeout = 260;
             }
 
