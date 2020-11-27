@@ -177,7 +177,7 @@ namespace Terramon.Pokemon
                 projectile.tileCollide = false;
                 return;
             }
-            else if (!player.active)
+            if (!player.active)
             {
                 projectile.timeLeft = 0;
             }
