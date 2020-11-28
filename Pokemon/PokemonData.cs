@@ -238,7 +238,7 @@ namespace Terramon.Pokemon
 
         public PokemonData()
         {
-            Moves = new BaseMove[] {null, null, null,null};
+            Moves = new BaseMove[] {null, null, null, null};
             Types = new [] {PokemonType.Normal};
             MaxHP = 45 + Main.rand?.Next(20) ?? 0;
             HP = 45 + Main.rand?.Next(20) ?? 0;

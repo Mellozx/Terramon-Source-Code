@@ -190,6 +190,8 @@ namespace Terramon.Pokemon
                 projectile.timeLeft = 5;
                 aiType = 0;
                 PuppyAI();
+                //projectile.tileCollide = false;
+                projectile.direction = projectile.position.X > player.position.X ? -1 : 1;
                 return;
             }
 

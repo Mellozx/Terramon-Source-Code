@@ -86,6 +86,8 @@ namespace Terramon
         public GameTimeClock GameClock => schedulerClock;
         //evolution
 
+        // some battling stuff
+        public static Animator ZoomAnimator;
 
         public TerramonMod()
         {
@@ -430,6 +432,7 @@ namespace Terramon
         {
             //Update scheduler clock time for transform sequences
             schedulerClock.UpdateTime(gameTime);
+            ZoomAnimator.Update(gameTime);
 
             if (ChooseStarter.Visible) _exampleUserInterface?.Update(gameTime);
             if (PokegearUI.Visible) _exampleUserInterfaceNew?.Update(gameTime);
@@ -491,8 +494,18 @@ namespace Terramon
 
             var player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
 
+            if (player.Battle != null)
+            {
+                music = GetSoundSlot(SoundType.Music, "Sounds/Music/Battling/wildbattle");
+                return;
+            }
 
-            if (MyUIStateActive(Main.LocalPlayer) && !ChooseStarter.movieFinished || player.healingAtHealerBed )
+            if (MyUIStateActive(Main.LocalPlayer) && !ChooseStarter.movieFinished)
+            {
+                music = GetSoundSlot(SoundType.Music, null);
+            }
+
+            if (player.healingAtHealerBed)
             {
                 music = GetSoundSlot(SoundType.Music, null);
             }
