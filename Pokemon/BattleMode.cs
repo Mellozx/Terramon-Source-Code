@@ -9,13 +9,17 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Razorwing.Framework.Graphics;
+using Razorwing.Framework.Graphics.Transforms;
 using Razorwing.Framework.Localisation;
+using Razorwing.Framework.Utils;
 using Terramon.Network.Sync;
 using Terramon.Network.Sync.Battle;
 using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terramon.UI;
 using Terramon.UI.Moveset;
+using Terramon.UI.SidebarParty;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
@@ -41,12 +45,17 @@ namespace Terramon.Pokemon
         public bool MoveDone => pMove != null;
         protected int atackTimeout;
 
+        public bool battleJustStarted = false;
+
         protected ILocalisedBindableString playerChallenge =
             TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("playerChallenge", "{0} is challenging you!")));
         protected ILocalisedBindableString wildChallenge =
             TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("wildChallenge", "Wild {0} was appeared!")));
 
         protected ILocalisedBindableString pokeName1, pokeName2;
+
+        // This is for checking if in main menu which has the Fight, Bag, Pokemon and Run buttons
+        public static bool inMainMenu = false;
 
 
         public BattleMode(TerramonPlayer fpl, BattleState state, PokemonData second = null, ParentPokemonNPC npc = null, TerramonPlayer spl = null, bool lazy = false)
@@ -63,6 +72,8 @@ namespace Terramon.Pokemon
                 }
                 //And make it visible
                 BattleUI.Visible = true;
+                battleJustStarted = true;
+                inMainMenu = true;
             }
 
             State = state;
@@ -134,7 +145,11 @@ namespace Terramon.Pokemon
                         pokeName2 = TerramonMod.Localisation.GetLocalisedString(second?.Pokemon);
                         UI.HP1.PokeData = fpl.ActivePet;
                         UI.HP2.PokeData = Wild;
-                        UI.MovesPanel.PokeData = fpl.ActivePet;
+                        UI.MovesPanel.PokeData = new PokemonData()
+                        {
+                            Pokemon = npc.HomeClass().Name,
+                            Moves = new BaseMove[] { new ShootMove(), null, null, null }
+                        };
                         wildChallenge.Args = new object[] { second?.Pokemon };
                         Text(wildChallenge.Value);
                         break;
@@ -164,6 +179,12 @@ namespace Terramon.Pokemon
 
         public void Update()
         {
+            if (battleJustStarted)
+            {
+                TerramonMod.ZoomAnimator.GameZoom(1f).GameZoom(1.65f, 500, Easing.Out);
+                battleJustStarted = false;
+            }
+
             if (player1.player == Main.LocalPlayer && Main.keyState.IsKeyDown(Keys.Escape))
             {
                 if (escapeCountdown == 0)
@@ -182,6 +203,7 @@ namespace Terramon.Pokemon
                     
                     if(Text("Escaped!", new Color(200, 50, 70), true) && Main.netMode == NetmodeID.MultiplayerClient)
                         new BattleEndPacket().Send(TerramonMod.Instance);
+                    TerramonMod.ZoomAnimator.GameZoom(1f, 500, Easing.Out);
                     State = BattleState.None;
                 }
             }
@@ -670,7 +692,7 @@ namespace Terramon.Pokemon
 
     }
 
-    public class BattleUI :UIState
+    public class BattleUI : UIState
     {
         public MovesPanel MovesPanel;
         public HPPanel HP1, HP2;
@@ -691,15 +713,15 @@ namespace Terramon.Pokemon
                     }
                 }
             };
-            Append(MovesPanel);
+            //Append(MovesPanel);
 
             HP1 = new HPPanel();
-            HP1.Left.Set(100, 0);
+            HP1.Left.Set(80, 0);
             HP1.Top.Set(0, 0.7f);
             Append(HP1);
 
             HP2 = new HPPanel();
-            HP2.Left.Set(-200, 1);
+            HP2.Left.Set(-180, 1);
             HP2.Top.Set(0, 0.7f);
             Append(HP2);
 
@@ -718,6 +740,21 @@ namespace Terramon.Pokemon
             if(!Visible)
                 return;
             base.Draw(spriteBatch);
+        }
+
+        public bool movesAppended = true;
+        public override void Update(GameTime gameTime)
+        {
+            if (BattleMode.inMainMenu)
+            {
+                if (movesAppended) MovesPanel.Remove();
+                movesAppended = false;
+            } else
+            {
+                if (!movesAppended) Append(MovesPanel);
+                movesAppended = true;
+            }
+            base.Update(gameTime);
         }
     }
 
@@ -803,6 +840,7 @@ namespace Terramon.Pokemon
             }
         }
         private bool needUpdate;
+        public static bool Visible;
         public Action<BaseMove> OnMoveClick;
         private PokemonData pokeData;
 
@@ -815,7 +853,7 @@ namespace Terramon.Pokemon
         {
             this.Width.Set(400, 0f);
             this.Height.Set(100, 0f);
-            this.Top.Set(-400, 1f);
+            this.Top.Set(-160, 1f);
             this.Left.Set(-200, 0.5f);
             this.BackgroundColor = Color.Brown * 0.6f; 
             var size = new Vector2(170, 40);

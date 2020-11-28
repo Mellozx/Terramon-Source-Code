@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Razorwing.Framework.Graphics;
+using Razorwing.Framework.Graphics.Transforms;
 using Razorwing.Framework.Localisation;
 using Razorwing.Framework.Utils;
+using System;
 using Terramon.Items.Pokeballs;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network.Sync;
@@ -92,6 +94,7 @@ namespace Terramon.UI.SidebarParty
             //Add version string as argument so it can be passed in other locales
             help1Text.Args = new object[] { TerramonMod.Instance.Version };
 
+            Append(TerramonMod.ZoomAnimator = new Animator());
 
             //pokemon icons
 

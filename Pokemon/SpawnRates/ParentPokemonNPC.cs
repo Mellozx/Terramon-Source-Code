@@ -85,8 +85,9 @@ namespace Terramon.Pokemon
                 new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, npc.rotation,
                 new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
 
-            Utils.DrawBorderString(spriteBatch, npc.TypeName, npc.position - Main.screenPosition + new Vector2(-54, -48), drawColor, 1f);
-            Utils.DrawBorderString(spriteBatch, "Lvl: 5", npc.position - Main.screenPosition + new Vector2(-54, -32), drawColor, 0.9f);
+            // I dint like the look of this much
+            //Utils.DrawBorderString(spriteBatch, npc.TypeName, npc.position - Main.screenPosition + new Vector2(-54, -48), drawColor, 1f);
+            //Utils.DrawBorderString(spriteBatch, "Lvl: 5", npc.position - Main.screenPosition + new Vector2(-54, -32), drawColor, 0.9f);
 
             return false;
         }

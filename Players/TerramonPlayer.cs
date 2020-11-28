@@ -500,6 +500,7 @@ namespace Terramon.Players
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             modPlayer.Attacking = false;
             Moves.Visible = false; // Ignore for v0.3
+
             Mod leveledMod = ModLoader.GetMod("Leveled");
             Mod overhaulMod = ModLoader.GetMod("TerrariaOverhaul");
             if (leveledMod != null)
@@ -635,6 +636,14 @@ namespace Terramon.Players
 
             if (ChooseStarter.Visible || ChooseStarterBulbasaur.Visible || ChooseStarterCharmander.Visible ||
                 ChooseStarterSquirtle.Visible) ClearNPCs();
+            
+            if (Battle != null)
+            {
+                UISidebar.Visible = false;
+            } else
+            {
+                UISidebar.Visible = true;
+            }
 
             if (!Main.dedServ)
             {
