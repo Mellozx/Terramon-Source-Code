@@ -6,6 +6,8 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.ObjectData;
 using Terraria.DataStructures;
+using Razorwing.Framework.Graphics;
+using Terramon.UI;
 
 namespace Terramon.Tiles
 {

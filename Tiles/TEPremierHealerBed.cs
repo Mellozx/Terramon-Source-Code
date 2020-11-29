@@ -3,6 +3,8 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terramon.Players;
+using Terramon.UI;
+using Razorwing.Framework.Graphics;
 
 namespace Terramon.Tiles
 {
@@ -55,7 +57,9 @@ namespace Terramon.Tiles
 				if (anim <= 30)
 				{
 					drawFirstBall = true;
-					if (!playedFirstBwuip) Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/bwuip").WithVolume(.4f));
+					if (!playedFirstBwuip) {
+						Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/bwuip").WithVolume(.4f));
+					}
 					playedFirstBwuip = true;
 				} else if (anim > 30 && player.PartySlot2 != null)
 				{

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Razorwing.Framework.Graphics;
 using Razorwing.Framework.Localisation;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using Terramon.Network.Sync.Battle;
 using Terramon.Pokemon;
 using Terramon.Pokemon.FirstGeneration.Fishing;
 using Terramon.Pokemon.Moves;
+using Terramon.UI;
 using Terramon.UI.Moveset;
 using Terramon.UI.SidebarParty;
 using Terramon.UI.Starter;
@@ -637,12 +639,12 @@ namespace Terramon.Players
             if (ChooseStarter.Visible || ChooseStarterBulbasaur.Visible || ChooseStarterCharmander.Visible ||
                 ChooseStarterSquirtle.Visible) ClearNPCs();
             
-            if (Battle != null)
+            if (Battle != null && !Main.playerInventory)
             {
                 UISidebar.Visible = false;
             } else
             {
-                UISidebar.Visible = true;
+                if (!MyUIStateActive(player)) UISidebar.Visible = true;
             }
 
             if (!Main.dedServ)
@@ -819,6 +821,15 @@ namespace Terramon.Players
                 }
         }
 
+        public override void ModifyScreenPosition()
+        {
+            if (GetInstance<TerramonMod>().battleCamera != Vector2.Zero)
+            {
+                Main.screenPosition = GetInstance<TerramonMod>().battleCamera - new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
+            }
+            base.ModifyScreenPosition();
+        }
+
         private void AddStartItem(ref IList<Item> items, int itemType, int stack = 1)
         {
             Item item = new Item();
@@ -966,6 +977,21 @@ namespace Terramon.Players
             base.SyncPlayer(toWho, fromWho, newPlayer);
         }
 
+        // Prevent player movement in battle.
+        public override void PreUpdateMovement()
+        {
+            if (Battle != null)
+            {
+                player.velocity.X = 0;
+                if (player.mount.Active)
+                {
+                    player.velocity.Y = 0;
+                } else
+                {
+                    player.velocity.Y = 5f;
+                }
+            }
+        }
 
         public bool StarterChosen { get; set; }
 

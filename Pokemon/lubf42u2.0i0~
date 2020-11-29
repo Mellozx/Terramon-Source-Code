@@ -189,11 +189,7 @@ namespace Terramon.Pokemon
             // increment wild timer
             wildTimer++;
 
-            // make player1 pokemon face wildnpc projectile
-            if (State == BattleState.BattleWithWild)
-            {
-                Main.projectile[player1.ActivePetId].modProjectile.projectile.spriteDirection = Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X > WildNPC.projectile.position.X ? 1 : -1;
-            }
+            Main.NewText(doneWildIntro);
 
             if (battleJustStarted)
             {
@@ -817,15 +813,26 @@ namespace Terramon.Pokemon
                 return;
             base.Draw(spriteBatch);
         }
+
+        public bool movesAppended = true;
         public override void Update(GameTime gameTime)
         {
+            if (BattleMode.inMainMenu)
+            {
+                if (movesAppended) MovesPanel.Remove();
+                movesAppended = false;
+            } else
+            {
+                if (!movesAppended) Append(MovesPanel);
+                movesAppended = true;
+            }
+
             if (BattleMode.doneWildIntro && !doneWildIntro)
             {
-                var player1 = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-
-                splashText.SetText($"What will {player1.ActivePet.PokemonName} do?");
+                splashText.SetText("What will Pokémon do?");
 
                 // pan camera to local player pokemon
+                var player1 = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
                 TerramonMod.ZoomAnimator.ScreenPosX(Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X + 12, 500, Easing.OutExpo);
                 TerramonMod.ZoomAnimator.ScreenPosY(Main.projectile[player1.ActivePetId].modProjectile.projectile.position.Y, 500, Easing.OutExpo);
 
@@ -835,7 +842,6 @@ namespace Terramon.Pokemon
 
                 doneWildIntro = true;
             }
-
             base.Update(gameTime);
         }
     }
@@ -861,7 +867,6 @@ namespace Terramon.Pokemon
             this.BorderColor = Color.White * 0f;
 
             FightButton = new BattlingMenuButton(ModContent.GetTexture("Terramon/UI/Battling/FightButton"), ModContent.GetTexture("Terramon/UI/Battling/FightButton_Hover"));
-            FightButton.OnClick += fight;
             Append(FightButton);
 
             FightText = new UIText("Fight", 0.6f, true);
@@ -903,23 +908,6 @@ namespace Terramon.Pokemon
         {
             Recalculate();
             base.Update(gameTime);
-        }
-        private void fight(UIMouseEvent evt, UIElement listeningElement)
-        {
-            BattleMode.inMainMenu = false;
-            BattleMode.UI.MovesPanel = new MovesPanel()
-            {
-                OnMoveClick = (x) =>
-                {
-                    if (BattleMode.UI.Turn)
-                    {
-                        BattleMode.UI.Turn = false;
-                        BattleMode.UI.MovePresed?.Invoke(x);
-                    }
-                }
-            };
-            BattleMode.UI.MovesPanel.OnInitialize();
-            Append(BattleMode.UI.MovesPanel);
         }
 
         private void runAway(UIMouseEvent evt, UIElement listeningElement)
@@ -1017,6 +1005,7 @@ namespace Terramon.Pokemon
         public MovesPanel()
         {
         }
+
 
         public override void OnInitialize()
         {

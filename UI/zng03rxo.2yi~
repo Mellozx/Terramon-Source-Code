@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Terramon.UI.SidebarParty;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace Terramon.UI
@@ -46,13 +45,13 @@ namespace Terramon.UI
         }
         public float ScreenPosXTarget
         {
-            get => Main.screenPosition.X + (Main.screenWidth / 2);
-            set => ModContent.GetInstance<TerramonMod>().battleCamera.X = value;
+            get => Main.screenPosition.X;
+            set => Main.screenPosition.X = value;
         }
         public float ScreenPosYTarget
         {
-            get => Main.screenPosition.Y + (Main.screenHeight / 2);
-            set => ModContent.GetInstance<TerramonMod>().battleCamera.Y = value;
+            get => Main.screenPosition.Y;
+            set => Main.screenPosition.Y = value;
         }
     }
     public static class AnimatorExtensions
@@ -67,10 +66,5 @@ namespace Terramon.UI
         public static TransformSequence<T> ScreenPosX<T>(this TransformSequence<T> t, float newValue, double duration = 0, Easing easing = Easing.None)
                   where T : Animator =>
                   t.Append(o => o.ScreenPosX(newValue, duration, easing));
-        public static TransformSequence<T> ScreenPosY<T>(this T drawable, float newValue, double duration = 0, Easing easing = Easing.None) where T : Animator =>
-            drawable.TransformTo(nameof(drawable.ScreenPosYTarget), newValue, duration, easing);
-        public static TransformSequence<T> ScreenPosY<T>(this TransformSequence<T> t, float newValue, double duration = 0, Easing easing = Easing.None)
-                  where T : Animator =>
-                  t.Append(o => o.ScreenPosY(newValue, duration, easing));
     }
 }
