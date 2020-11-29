@@ -39,6 +39,8 @@ namespace Terramon.Players
         public int premierBallRewardCounter;
 
         private Dictionary<string, bool> ActivePets = new Dictionary<string, bool>();
+        private List<PokemonData> pokemonStorage = new List<PokemonData>();
+        public IEnumerable<PokemonData> PokemonStorage => pokemonStorage; 
         public int ActivePetId = -1;
         public bool ActivePetShiny;
         public string ActivePetName = string.Empty;
@@ -46,6 +48,8 @@ namespace Terramon.Players
         public bool AutoUse;
         public bool sidebarSync = false;
         private bool loading = true; 
+
+        public bool healingAtHealerBed = false;
 
 
         public ILocalisedBindableString pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("*")));
@@ -382,6 +386,7 @@ namespace Terramon.Players
 
         public override void Initialize()
         {
+	    healingAtHealerBed = false;
             InitializePokeballs();
             //Initialise active pets bools
             // ReSharper disable once LocalVariableHidesMember
@@ -486,6 +491,8 @@ namespace Terramon.Players
 
         public override void OnEnterWorld(Player player)
         {
+            healingAtHealerBed = false;
+
             // Call to Mod class to enable in-world Rich Presence
             GetInstance<TerramonMod>().EnterWorldRP();
             //
@@ -493,6 +500,7 @@ namespace Terramon.Players
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
             modPlayer.Attacking = false;
             Moves.Visible = false; // Ignore for v0.3
+
             Mod leveledMod = ModLoader.GetMod("Leveled");
             Mod overhaulMod = ModLoader.GetMod("TerrariaOverhaul");
             if (leveledMod != null)
@@ -533,6 +541,8 @@ namespace Terramon.Players
             {
                 UISidebar.Visible = true;
             }
+
+
 
             loading = false;
 
@@ -626,6 +636,14 @@ namespace Terramon.Players
 
             if (ChooseStarter.Visible || ChooseStarterBulbasaur.Visible || ChooseStarterCharmander.Visible ||
                 ChooseStarterSquirtle.Visible) ClearNPCs();
+            
+            if (Battle != null)
+            {
+                UISidebar.Visible = false;
+            } else
+            {
+                UISidebar.Visible = true;
+            }
 
             if (!Main.dedServ)
             {
@@ -902,7 +920,6 @@ namespace Terramon.Players
 
         public override void Load(TagCompound tag)
         {
-            var n = player.name;
             loading = true;
             Battle?.Cleanup();
             Battle = null;

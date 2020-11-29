@@ -9,6 +9,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Razorwing.Framework.Localisation;
+using Terramon.Tiles.ShelfBlocks;
+using Terramon.Players;
+using Terramon.Pokemon.Moves;
+using Terramon.Network.Sync.Battle;
 
 namespace Terramon.Pokemon
 {
@@ -61,7 +65,7 @@ namespace Terramon.Pokemon
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-	        string n = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
+            string n = Regex.Replace(HomeClass().Name, nameMatcher, "$1 ");
             var arr = GetType().Namespace.Split('.');
             string path = String.Empty;
             for (int i = 1; i < arr.Length && i < 4; i++)// We skip "Terramon" at 0 pos
@@ -80,12 +84,43 @@ namespace Terramon.Pokemon
             spriteBatch.Draw(pkmnTexture, npc.position - Main.screenPosition + new Vector2(0, -6),
                 new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, npc.rotation,
                 new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
+
+            // I dint like the look of this much
+            //Utils.DrawBorderString(spriteBatch, npc.TypeName, npc.position - Main.screenPosition + new Vector2(-54, -48), drawColor, 1f);
+            //Utils.DrawBorderString(spriteBatch, "Lvl: 5", npc.position - Main.screenPosition + new Vector2(-54, -32), drawColor, 0.9f);
+
             return false;
         }
 
         public override void AI()
         {
             npc.scale = 1f;
+
+            //Detect right click on pokemon
+            if (npc.Hitbox.Contains(Main.MouseWorld.ToPoint()) && Main.mouseRight)
+            {
+                if (Main.mouseRightRelease)
+                {
+                    var player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+                    if (player.ActivePet == null || player.Battle != null) return;
+                    if (player.ActivePet.Fainted)
+                    {
+                        Main.NewText($"Your {player.ActivePet.Pokemon} is fainted and can't fight!");
+                        return;
+                    }
+
+                    var data = new PokemonData()
+                    {
+                        Pokemon = HomeClass().Name,
+                    };
+                    player.Battle = new BattleMode(player, BattleState.BattleWithWild, npc: this, second: data);
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        var p = new StartBattlePacket();
+                        p.Send(TerramonMod.Instance, BattleState.BattleWithWild, data, player.Battle.wildID);
+                    }
+                }
+            }
 
             //Animations
 

@@ -175,6 +175,7 @@ namespace Terramon.Pokemon
             {
                 projectile.timeLeft = 5;
                 projectile.tileCollide = false;
+                projectile.direction = projectile.position.X > player.position.X ? -1 : 1;
                 return;
             }
             else if (!player.active)

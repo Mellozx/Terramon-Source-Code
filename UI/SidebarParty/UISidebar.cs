@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Razorwing.Framework.Graphics;
+using Razorwing.Framework.Graphics.Transforms;
 using Razorwing.Framework.Localisation;
 using Razorwing.Framework.Utils;
+using System;
 using Terramon.Items.Pokeballs;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network.Sync;
@@ -37,7 +39,7 @@ namespace Terramon.UI.SidebarParty
         public ILocalisedBindableString pokemonName5 = TerramonMod.Localisation.GetLocalisedString("*");
         public ILocalisedBindableString pokemonName6 = TerramonMod.Localisation.GetLocalisedString("*");
         public ILocalisedBindableString helpText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help", "Terramon Help")));
-        public ILocalisedBindableString help1Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help1", $"(1/3) Welcome to Terramon {TerramonMod.Instance.Version}, where you can discover and catch Pokémon in Terraria! Keep pressing this button for more tips and tricks.")));
+        public ILocalisedBindableString help1Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help1", "(1/3) Welcome to Terramon {0}, where you can discover and catch Pokémon in Terraria! Keep pressing this button for more tips and tricks.")));
         public ILocalisedBindableString help2Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help2", "(2/3) For support, join the official Discord server using the [c/f7e34d:/discord] command. Or, access our wiki with the [c/f7e34d:/wiki] command.")));
         public ILocalisedBindableString help3Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help3", "(3/3) Also, feel free to customize your experience with the Mod Config in [c/ff8f33:Settings > Mod Configuration] or from the Mods menu.")));
 
@@ -89,11 +91,15 @@ namespace Terramon.UI.SidebarParty
         // We then place various other UIElement onto that container UIElement positioned relative to the container UIElement.
         public override void OnInitialize()
         {
+            //Add version string as argument so it can be passed in other locales
+            help1Text.Args = new object[] { TerramonMod.Instance.Version };
+
+            Append(TerramonMod.ZoomAnimator = new Animator());
+
             //pokemon icons
 
             // Next, we create another UIElement that we will place. Since we will be calling `mainPanel.Append(playButton);`, Left and Top are relative to the top left of the mainPanel UIElement. 
             // By properly nesting UIElements, we can position things relatively to each other easily.
-
             mainPanel = new SidebarPanel();
             mainPanel.SetPadding(0);
             // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
@@ -120,12 +126,12 @@ namespace Terramon.UI.SidebarParty
                 HAlign = 0.007f, // 1
                 VAlign = 0.9f // 1
             };
-            battle.Width.Set(20, 0);
-            battle.Height.Set(32, 0);
+            battle.Width.Set(28, 0);
+            battle.Height.Set(38, 0);
             battle.OnClick += (e, x) =>
             {
                 var player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-                if (player.ActivePet.Fainted)
+                if (player.ActivePet?.Fainted ?? false)
                 {
                     Main.NewText($"Your {player.ActivePet.Pokemon} is fainted and can't fight!");
                     return;
@@ -314,27 +320,37 @@ namespace Terramon.UI.SidebarParty
                     compressing = true;
                     compressAnimation = 1;
 
-                    firstpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    secondpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    thirdpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    fourthpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    fifthpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    sixthpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    firstpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .Schedule(() =>//Apply changes from mid time
+                        {
+                            isReallyCompressed = true;
+                        }).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);//This will be called at same frame as Schedule bc no delay specified in Then method
+                    secondpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    thirdpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    fourthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    fifthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    sixthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
                 }
                 if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation)
                 {
                     mainPanel.Width.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 94, 52, startCompressAnimation, endCompressAnimation, Easing.OutExpo);
                 }
-                if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
-                {
-                    isReallyCompressed = true;
-                    firstpkmn.ScaleTo(1f, 500, Easing.Out);
-                    secondpkmn.ScaleTo(1f, 500, Easing.Out);
-                    thirdpkmn.ScaleTo(1f, 500, Easing.Out);
-                    fourthpkmn.ScaleTo(1f, 500, Easing.Out);
-                    fifthpkmn.ScaleTo(1f, 500, Easing.Out);
-                    sixthpkmn.ScaleTo(1f, 500, Easing.Out);
-                }
+                //if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
+                //{
+                //    isReallyCompressed = true;
+                //    firstpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    secondpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    thirdpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    fourthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    fifthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    sixthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //}
                 if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation)
                 {
                     compressing = false;
@@ -354,27 +370,37 @@ namespace Terramon.UI.SidebarParty
                     compressing = true;
                     compressAnimation = 1;
 
-                    firstpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    secondpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    thirdpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    fourthpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    fifthpkmn.ScaleTo(0.001f, 500, Easing.Out);
-                    sixthpkmn.ScaleTo(0.001f, 500, Easing.Out);
+                    firstpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .Schedule(() =>//Apply changes from mid time
+                        {
+                            isReallyCompressed = false;
+                        }).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);//This will be called at same frame as Schedule bc no delay specified in Then method
+                    secondpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    thirdpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    fourthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    fifthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
+                    sixthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
+                        .ScaleTo(1f, 500f, Easing.Out);
                 }
                 if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation)
                 {
                     mainPanel.Width.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 52, 94, startCompressAnimation, endCompressAnimation, Easing.OutExpo);
                 }
-                if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
-                {
-                    isReallyCompressed = false;
-                    firstpkmn.ScaleTo(1f, 500, Easing.Out);
-                    secondpkmn.ScaleTo(1f, 500, Easing.Out);
-                    thirdpkmn.ScaleTo(1f, 500, Easing.Out);
-                    fourthpkmn.ScaleTo(1f, 500, Easing.Out);
-                    fifthpkmn.ScaleTo(1f, 500, Easing.Out);
-                    sixthpkmn.ScaleTo(1f, 500, Easing.Out);
-                }
+                //if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
+                //{
+                //    isReallyCompressed = false;
+                //    firstpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    secondpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    thirdpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    fourthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    fifthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //    sixthpkmn.ScaleTo(1f, 500, Easing.Out);
+                //}
                 if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation)
                 {
                     compressing = false;
