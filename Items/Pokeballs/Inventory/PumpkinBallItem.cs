@@ -41,13 +41,13 @@ namespace Terramon.Items.Pokeballs.Inventory
             recipe.SetResult(this);
             recipe.AddRecipe();
 
-            ModRecipe recipe2 = new ModRecipe(mod);
+            /*ModRecipe recipe2 = new ModRecipe(mod);
             recipe2.AddIngredient(mod.ItemType("WhiteApricorn"), 4);
             recipe2.AddIngredient(ItemID.Pumpkin, 3);
             recipe2.AddIngredient(ItemID.IronBar, 6);
             recipe2.AddTile(TileID.Anvils);
             recipe2.SetResult(this);
-            recipe2.AddRecipe();
+            recipe2.AddRecipe();*/
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
