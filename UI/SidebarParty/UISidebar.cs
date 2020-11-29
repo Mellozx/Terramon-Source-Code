@@ -114,7 +114,7 @@ namespace Terramon.UI.SidebarParty
             Append(choose);
 
 //#if DEBUG
-            chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/PremierBallSidebar");
+            chooseTexture = ModContent.GetTexture("Terramon/UI/SidebarParty/LightMode");
             battle = new UIOpaqueButton(chooseTexture, "[PH] Start Battle")
             {
                 HAlign = 0.007f, // 1
