@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace Terramon.Dusts
 {
-    class SmokeTransformDust : ModDust
+    public class SmokeTransformDust : ModDust
     {
         public override void OnSpawn(Dust dust)
         {
