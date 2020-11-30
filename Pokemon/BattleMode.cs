@@ -18,6 +18,7 @@ using Terramon.Network.Sync.Battle;
 using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terramon.UI;
+using Terramon.UI.Battling;
 using Terramon.UI.Moveset;
 using Terramon.UI.SidebarParty;
 using Terraria;
@@ -150,7 +151,7 @@ namespace Terramon.Pokemon
                         UI.MovesPanel.PokeData = new PokemonData()
                         {
                             Pokemon = npc.HomeClass().Name,
-                            Moves = new BaseMove[] { new ShootMove(), null, null, null }
+                            Moves = new BaseMove[] { new ShootMove(), new ShootMove(), new ShootMove(), new ShootMove() }
                         };
                         wildChallenge.Args = new object[] { second?.Pokemon };
                         //Text(wildChallenge.Value);
@@ -180,6 +181,9 @@ namespace Terramon.Pokemon
         private byte animMode = 0;//0 Idle, 1 playerMonAnim, 2 enemyMonAnim, 3 enemyMonContinue, 4 playerMonContinue
 
         private int wildTimer = 0;
+
+        // camera control
+        private Vector2 OffsetModifier;
         public void Update()
         {
             // prevent player from opening inventory during battle
@@ -194,6 +198,60 @@ namespace Terramon.Pokemon
             {
                 Main.projectile[player1.ActivePetId].modProjectile.projectile.spriteDirection = Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X > WildNPC.projectile.position.X ? 1 : -1;
             }
+
+            // return to main menu from moves select menu via escape key
+            if (Main.keyState.IsKeyDown(Keys.Escape) && !inMainMenu)
+            {
+                inMainMenu = true;
+            }
+
+
+
+            // CAMERA & ZOOM CONTROL //
+            if (Main.keyState.IsKeyDown(Keys.D) && doneWildIntro && UI.Turn)
+            {
+                if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
+                OffsetModifier.X += 4;
+                TerramonMod.ZoomAnimator.ScreenPosX((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X + 12) + OffsetModifier.X, 1, Easing.None);
+            }
+            if (Main.keyState.IsKeyDown(Keys.A) && doneWildIntro && UI.Turn)
+            {
+                if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
+                OffsetModifier.X -= 4;
+                TerramonMod.ZoomAnimator.ScreenPosX((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X + 12) + OffsetModifier.X, 1, Easing.None);
+            }
+            if (Main.keyState.IsKeyDown(Keys.W) && doneWildIntro && UI.Turn)
+            {
+                if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
+                OffsetModifier.Y -= 4;
+                TerramonMod.ZoomAnimator.ScreenPosY((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.Y) + OffsetModifier.Y, 1, Easing.None);
+            }
+            if (Main.keyState.IsKeyDown(Keys.S) && doneWildIntro && UI.Turn)
+            {
+                if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
+                OffsetModifier.Y += 4;
+                TerramonMod.ZoomAnimator.ScreenPosY((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.Y) + OffsetModifier.Y, 1, Easing.None);
+            }
+            if (Main.keyState.IsKeyDown(Keys.Space) && doneWildIntro && UI.Turn && OffsetModifier != Vector2.Zero)
+            {
+                if (UI.tipText.Text == "Press SPACE to reset the camera.") UI.tipText.SetText("Use UP and DOWN arrows to zoom in/out.");
+                OffsetModifier = Vector2.Zero;
+                TerramonMod.ZoomAnimator.ScreenPosX((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X + 12), 500, Easing.OutExpo);
+                TerramonMod.ZoomAnimator.ScreenPosY((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.Y), 500, Easing.OutExpo);
+            }
+            if (Main.keyState.IsKeyDown(Keys.Up) && doneWildIntro && UI.Turn && Main.GameZoomTarget < 2f)
+            {
+                if (UI.tipText.Text == "Use UP and DOWN arrows to zoom in/out.") UI.tipText.SetText("");
+                TerramonMod.ZoomAnimator.GameZoom(Main.GameZoomTarget + 0.03f, 1, Easing.None);
+            }
+            if (Main.keyState.IsKeyDown(Keys.Down) && doneWildIntro && UI.Turn && Main.GameZoomTarget > 1f)
+            {
+                if (UI.tipText.Text == "Use UP and DOWN arrows to zoom in/out.") UI.tipText.SetText("");
+                TerramonMod.ZoomAnimator.GameZoom(Main.GameZoomTarget - 0.03f, 1, Easing.None);
+            }
+            // END CAMERA & ZOOm CONTROL //
+
+
 
             if (battleJustStarted)
             {
@@ -229,26 +287,7 @@ namespace Terramon.Pokemon
                 if (Text("Got away safely!", new Color(200, 50, 70), true) && Main.netMode == NetmodeID.MultiplayerClient)
                     new BattleEndPacket().Send(TerramonMod.Instance);
 
-                // poof wild pokemon away in dust
-                if (State == BattleState.BattleWithWild)
-                {
-                    for (int i = 0; i < 18; i++)
-                    {
-                        Dust.NewDust(WildNPC.projectile.position, WildNPC.projectile.width, WildNPC.projectile.height, ModContent.GetInstance<TerramonMod>().DustType("SmokeTransformDust"));
-                    }
-                }
-                
-                // reset camera and game zoom
-                TerramonMod.ZoomAnimator.GameZoom(1f, 500, Easing.Out);
-                ModContent.GetInstance<TerramonMod>().battleCamera = Vector2.Zero;
-
-                // end battle, reset static variables
-                doneWildIntro = false;
-                wildTimer = 0;
-                BattleUI.doneWildIntro = false;
-                UI.ButtonMenuPanel.Remove();
-                UI.splashText.SetText("");
-                State = BattleState.None;
+                EndBattle(State);
             }
 
             if (player1.player == Main.LocalPlayer && Main.keyState.IsKeyDown(Keys.Escape))
@@ -579,6 +618,32 @@ namespace Terramon.Pokemon
             }
 
         }
+        
+        public virtual void EndBattle(BattleState battleState)
+        {
+            // poof wild pokemon away in dust
+            if (battleState == BattleState.BattleWithWild)
+            {
+                for (int i = 0; i < 18; i++)
+                {
+                    Dust.NewDust(WildNPC.projectile.position, WildNPC.projectile.width, WildNPC.projectile.height, ModContent.GetInstance<TerramonMod>().DustType("SmokeTransformDust"));
+                }
+            }
+
+            // reset camera and game zoom
+            TerramonMod.ZoomAnimator.GameZoom(1f, 500, Easing.Out);
+            ModContent.GetInstance<TerramonMod>().battleCamera = Vector2.Zero;
+
+            // end battle, reset static variables
+            doneWildIntro = false;
+            wildTimer = 0;
+            BattleUI.doneWildIntro = false;
+            UI.ButtonMenuPanel.Remove();
+            UI.splashText.SetText("");
+            UI.MovesPanel.Top.Set(500, 1f);
+
+            State = BattleState.None;
+        }
 
         private bool faintedPrinted;
 
@@ -761,6 +826,7 @@ namespace Terramon.Pokemon
     public class BattleUI : UIState
     {
         public UIText splashText;
+        public UIText tipText;
         public ButtonMenuPanel ButtonMenuPanel;
         public MovesPanel MovesPanel;
         public HPPanel HP1, HP2;
@@ -777,6 +843,12 @@ namespace Terramon.Pokemon
             splashText.HAlign = 0.5f;
             splashText.Top.Set(-246, 1f);
             Append(splashText);
+
+            tipText = new UIText("", 1.25f);
+            tipText.TextColor = new Color(189, 189, 189);
+            tipText.VAlign = 0.25f;
+            tipText.HAlign = 0.5f;
+            Append(tipText);
 
             HP1 = new HPPanel();
             HP1.Left.Set(80, 0);
@@ -799,7 +871,7 @@ namespace Terramon.Pokemon
                     }
                 }
             };
-            //Append(MovesPanel);
+            Append(MovesPanel);
 
             base.OnInitialize();
         }
@@ -822,6 +894,12 @@ namespace Terramon.Pokemon
             if (BattleMode.doneWildIntro && !doneWildIntro)
             {
                 var player1 = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+
+                if (player1.firstBattle)
+                {
+                    tipText.SetText("Use WASD to move the camera around.");
+                    player1.firstBattle = false;
+                }
 
                 splashText.SetText($"What will {player1.ActivePet.PokemonName} do?");
 
@@ -855,7 +933,7 @@ namespace Terramon.Pokemon
         {
             this.Width.Set(450, 0f);
             this.Height.Set(200, 0f);
-            this.Top.Set(-220, 1f);
+            this.Top.Set(500, 1f);
             this.Left.Set(-225, 0.5f);
             this.BackgroundColor = Color.White * 0f;
             this.BorderColor = Color.White * 0f;
@@ -901,25 +979,21 @@ namespace Terramon.Pokemon
 
         public override void Update(GameTime gameTime)
         {
+            if (BattleMode.inMainMenu)
+            {
+                Top.Set(-220, 1f);
+            }
+            else
+            {
+                Top.Set(500, 1f);
+            }
+
             Recalculate();
             base.Update(gameTime);
         }
         private void fight(UIMouseEvent evt, UIElement listeningElement)
         {
             BattleMode.inMainMenu = false;
-            BattleMode.UI.MovesPanel = new MovesPanel()
-            {
-                OnMoveClick = (x) =>
-                {
-                    if (BattleMode.UI.Turn)
-                    {
-                        BattleMode.UI.Turn = false;
-                        BattleMode.UI.MovePresed?.Invoke(x);
-                    }
-                }
-            };
-            BattleMode.UI.MovesPanel.OnInitialize();
-            Append(BattleMode.UI.MovesPanel);
         }
 
         private void runAway(UIMouseEvent evt, UIElement listeningElement)
@@ -971,7 +1045,7 @@ namespace Terramon.Pokemon
 
             PokeName = new UIText(LocPokemon?.Value ?? string.Empty);
             PokeName.Left.Set(5, 0f);
-            PokeName.Top.Set(5, 0f);
+            PokeName.Top.Set(500, 0f);
             Append(PokeName);
 
             HPText = new UIText("HP: 0/0");
@@ -1020,29 +1094,30 @@ namespace Terramon.Pokemon
 
         public override void OnInitialize()
         {
-            this.Width.Set(400, 0f);
-            this.Height.Set(100, 0f);
-            this.Top.Set(-160, 1f);
-            this.Left.Set(-200, 0.5f);
-            this.BackgroundColor = Color.Brown * 0.6f; 
+            this.Width.Set(450, 0f);
+            this.Height.Set(200, 0f);
+            this.Top.Set(500, 1f);
+            this.Left.Set(-225, 0.5f);
+            this.BackgroundColor = Color.White * 0f;
+            this.BorderColor = Color.White * 0f;
             var size = new Vector2(170, 40);
 
-            Move1 = new BattleMoveButton(PokeData?.Moves[0], new Vector2(10, 10), size, true)
+            Move1 = new BattleMoveButton(PokeData?.Moves[0], new Vector2(0, 0))
             {
                 OnClick = (x) => OnMoveClick?.Invoke(x),
             };
             Append(Move1);
-            Move3 = new BattleMoveButton(PokeData?.Moves[2], new Vector2(10, 60), size, true)
-            {
-                OnClick = (x) => OnMoveClick?.Invoke(x),
-            };
-            Append(Move3);
-            Move2 = new BattleMoveButton(PokeData?.Moves[1], new Vector2(220, 10), size, false)
+            Move2 = new BattleMoveButton(PokeData?.Moves[1], new Vector2(218, 0))
             {
                 OnClick = (x) => OnMoveClick?.Invoke(x),
             };
             Append(Move2);
-            Move4 = new BattleMoveButton(PokeData?.Moves[3], new Vector2(220, 60), size, false)
+            Move3 = new BattleMoveButton(PokeData?.Moves[2], new Vector2(0, 76))
+            {
+                OnClick = (x) => OnMoveClick?.Invoke(x),
+            };
+            Append(Move3);
+            Move4 = new BattleMoveButton(PokeData?.Moves[3], new Vector2(218, 76))
             {
                 OnClick = (x) => OnMoveClick?.Invoke(x),
             };
@@ -1061,6 +1136,12 @@ namespace Terramon.Pokemon
                 Move4.Move = pokeData.Moves[3];
             }
 
+            if (!BattleMode.inMainMenu) {
+                Top.Set(-220, 1f);
+            } else
+            {
+                Top.Set(500, 1f);
+            }
 
             base.Update(gameTime);
         }
