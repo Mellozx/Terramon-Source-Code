@@ -77,7 +77,12 @@ namespace Terramon.Pokemon
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.Puppy);
+            projectile.netImportant = true;
+            projectile.width = 28;
+            projectile.height = 28;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.timeLeft *= 5;
             aiType = ProjectileID.Puppy;
             projectile.owner = Main.myPlayer;
             drawOffsetX = 100;
@@ -123,8 +128,14 @@ namespace Terramon.Pokemon
 
         private int mainAi = ProjectileID.Puppy;
 
+        // for wild, walking pokemon
+        private int hopTimer;
+        private bool jumping = false;
+
         public override void AI()
         {
+            if (!Wild) PuppyAI();
+
             Player player = Main.player[projectile.owner];
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
 
@@ -139,11 +150,12 @@ namespace Terramon.Pokemon
 
             //Animations
 
-            projectile.spriteDirection = projectile.velocity.X > 0
-                ? -1
-                : (projectile.velocity.X < 0 ? 1 : projectile.spriteDirection);
+            if (!Wild)
+            {
+                projectile.spriteDirection = projectile.velocity.X > 0 ? -1 : (projectile.velocity.X < 0 ? 1 : projectile.spriteDirection);
+            }
 
-            if (projectile.velocity.X != 0 || projectile.velocity.Y > 1)
+            if (projectile.velocity.X != 0 || projectile.velocity.Y > 1 && !Wild)
             {
                 frameCounter++;
                 if (frameCounter > 15)
@@ -160,6 +172,20 @@ namespace Terramon.Pokemon
             {
                 frame = 1;
                 frameCounter = 0;
+            }
+
+            if (Wild)
+            {
+                frameCounter++;
+                if (frameCounter > 15)
+                {
+                    frame += 1;
+                    frameCounter = 0;
+                    if (frame >= Main.projFrames[projectile.type])
+                    {
+                        frame = 0;
+                    }
+                }
             }
 
             SpawnTime++;
@@ -187,11 +213,29 @@ namespace Terramon.Pokemon
 
             if (Wild)
             {
+                hopTimer++;
                 projectile.timeLeft = 5;
-                aiType = 0;
-                PuppyAI();
                 //projectile.tileCollide = false;
-                projectile.direction = projectile.position.X > player.position.X ? -1 : 1;
+                if (hopTimer >= 40 && hopTimer <= 48)
+                {
+                    projectile.velocity.Y += -0.4f;
+                    jumping = true;
+                }
+                if (hopTimer >= 48)
+                {
+                    jumping = false;
+                }
+                if (hopTimer >= 62 && hopTimer <= 72)
+                {
+                    projectile.velocity.Y += -0.4f;
+                    jumping = true;
+                }
+                if (hopTimer >= 72)
+                {
+                    jumping = false;
+                }
+                if (!jumping) projectile.velocity.Y = 1f;
+                projectile.spriteDirection = projectile.position.X > player.position.X ? 1 : -1;
                 return;
             }
 
@@ -432,15 +476,6 @@ namespace Terramon.Pokemon
                     }
                 }
 
-                if ((double) projectile.velocity.X > 0.5)
-                {
-                    projectile.spriteDirection = -1;
-                }
-                else if ((double) projectile.velocity.X < -0.5)
-                {
-                    projectile.spriteDirection = 1;
-                }
-
                 projectile.frameCounter++;
                 if (projectile.frameCounter > 1)
                 {
@@ -632,16 +667,6 @@ namespace Terramon.Pokemon
                 if (projectile.velocity.X < -num103 && flag)
                 {
                     projectile.direction = -1;
-                }
-
-                if (projectile.direction == -1)
-                {
-                    projectile.spriteDirection = 1;
-                }
-
-                if (projectile.direction == 1)
-                {
-                    projectile.spriteDirection = -1;
                 }
 
                 if (flag5)

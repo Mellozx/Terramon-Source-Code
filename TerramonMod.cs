@@ -88,6 +88,7 @@ namespace Terramon
 
         // some battling stuff
         public static Animator ZoomAnimator;
+        public Vector2 battleCamera;
 
         public TerramonMod()
         {
