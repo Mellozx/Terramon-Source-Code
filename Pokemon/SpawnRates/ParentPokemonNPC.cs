@@ -532,7 +532,10 @@ namespace Terramon.Pokemon
                     return;
 
                 if (!(Main.item[index].modItem is BaseCaughtClass item)) return;
-                item.PokemonName = npc.TypeName;
+                item.PokeData = new PokemonData()
+                {
+                    Pokemon = HomeClass().Name,
+                };
                 if (shiny)
                 {
                     item.isShiny = true;
