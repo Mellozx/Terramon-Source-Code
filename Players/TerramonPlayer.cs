@@ -53,7 +53,9 @@ namespace Terramon.Players
 
         public bool healingAtHealerBed = false;
 
-
+        // This bool save/load in TagCompound and determine whether this is the first battle the player has
+        public bool firstBattle = true;
+            
         public ILocalisedBindableString pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("*")));
 
         public bool Attacking;
@@ -541,7 +543,7 @@ namespace Terramon.Players
             }
             else
             {
-                UISidebar.Visible = true;
+                if (Battle == null) UISidebar.Visible = true;
             }
 
 
@@ -620,32 +622,27 @@ namespace Terramon.Players
             lastmon = monName;
             if (StarterChosen)
             {
-                if (Main.playerInventory)
+                if (Main.playerInventory || Battle != null)
                 {
                     if (player.chest != -1 || Main.npcShop != 0 || EvolveUI.Visible)
                         PartySlots.Visible = false;
                     else
-                        PartySlots.Visible = true;
+                        if(Battle == null) PartySlots.Visible = true;
                     UISidebar.Visible = false;
                 }
                 else
                 {
                     EvolveUI.Visible = false;
-                    UISidebar.Visible = true;
+                    if (Battle == null)
+                    {
+                        UISidebar.Visible = true;
+                    }
                     PartySlots.Visible = false;
                 }
             }
 
             if (ChooseStarter.Visible || ChooseStarterBulbasaur.Visible || ChooseStarterCharmander.Visible ||
                 ChooseStarterSquirtle.Visible) ClearNPCs();
-            
-            if (Battle != null && !Main.playerInventory)
-            {
-                UISidebar.Visible = false;
-            } else
-            {
-                if (!MyUIStateActive(player)) UISidebar.Visible = true;
-            }
 
             if (!Main.dedServ)
             {
@@ -963,6 +960,7 @@ namespace Terramon.Players
                 PartySlot6 = null;
 
             LoadPokeballs(tag);
+
             loading = false;
             sidebarSync = false;
         }

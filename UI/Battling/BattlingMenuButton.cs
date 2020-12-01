@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
-namespace Terramon.UI
+namespace Terramon.UI.Battling
 {
     // This UIHoverImageButton class inherits from UIImageButton. 
     // Inheriting is a great tool for UI design. 

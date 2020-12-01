@@ -83,7 +83,6 @@ namespace Terramon.Pokemon
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.timeLeft *= 5;
-            aiType = ProjectileID.Puppy;
             projectile.owner = Main.myPlayer;
             drawOffsetX = 100;
             if (Main.dedServ)
@@ -131,6 +130,8 @@ namespace Terramon.Pokemon
         // for wild, walking pokemon
         private int hopTimer;
         private bool jumping = false;
+
+        private float lockedPosX;
 
         public override void AI()
         {
@@ -211,6 +212,11 @@ namespace Terramon.Pokemon
                 }
             }
 
+            if (hopTimer <= 1)
+            {
+                lockedPosX = projectile.position.X;
+            }
+
             if (Wild)
             {
                 hopTimer++;
@@ -235,6 +241,7 @@ namespace Terramon.Pokemon
                     jumping = false;
                 }
                 if (!jumping) projectile.velocity.Y = 1f;
+                projectile.position.X = lockedPosX;
                 projectile.spriteDirection = projectile.position.X > player.position.X ? 1 : -1;
                 return;
             }
@@ -410,9 +417,9 @@ namespace Terramon.Pokemon
                 Vector2 vector7 = new Vector2(projectile.position.X + (float) projectile.width * 0.5f,
                     projectile.position.Y + (float) projectile.height * 0.5f);
                 float num42 = Main.player[projectile.owner].position.X +
-                              (float) (Main.player[projectile.owner].width / 2) - vector7.X;
+                              (float) (Main.player[projectile.owner].width / 4) - vector7.X;
                 float num48 = Main.player[projectile.owner].position.Y +
-                              (float) (Main.player[projectile.owner].height / 2) - vector7.Y;
+                              (float) (Main.player[projectile.owner].height / 4) - vector7.Y;
                 float num49 = (float) Math.Sqrt((double) (num42 * num42 + num48 * num48));
                 float num50 = 10f;
                 float num51 = num49;
