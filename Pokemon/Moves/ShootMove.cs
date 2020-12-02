@@ -41,7 +41,7 @@ namespace Terramon.Pokemon.Moves
         }
 
         public const string PROJID_KEY = "move.projID";
-        public override void AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
+        public override bool AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
             PokemonData deffender)
         {
             if (AnimationFrame == 1)//At initial frame we summon new projectile
@@ -71,6 +71,7 @@ namespace Terramon.Pokemon.Moves
                     CombatText.NewText(target.projectile.Hitbox, CombatText.DamagedHostile, (int)PostTextLoc.Args[3]);//Print combat text at attacked mon position
                 Main.projectile[id].timeLeft = 0;
                 Main.projectile[id].active = false;
+                return false;
             }
             else
             {
@@ -83,6 +84,8 @@ namespace Terramon.Pokemon.Moves
                     Easing.Out);
 
             }
+
+            return true;
         }
     }
 }

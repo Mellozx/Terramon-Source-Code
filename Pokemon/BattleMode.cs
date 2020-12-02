@@ -44,7 +44,8 @@ namespace Terramon.Pokemon
         public bool awaitSync = false;
         protected BaseMove pMove, oMove;
         public bool MoveDone => pMove != null;
-        protected int atackTimeout;
+        //protected int atackTimeout;
+        protected bool animInProggress;
 
         public bool battleJustStarted = false;
         public static bool doneWildIntro = false;
@@ -335,10 +336,10 @@ namespace Terramon.Pokemon
             }
 
 
-            atackTimeout = atackTimeout > 0 ? atackTimeout - 1 : 0;
-            animWindow = animWindow > 0 ? animWindow - 1 : 0;
+            //atackTimeout = atackTimeout > 0 ? atackTimeout - 1 : 0;
+            animWindow = animMode > 0 ? animWindow + 1 : animWindow;
 
-            if (pMove == null && atackTimeout <= 0 && Main.LocalPlayer == player1.player)
+            if (pMove == null && !animInProggress && Main.LocalPlayer == player1.player)
             {
                 UI.Turn = true;
             }
@@ -385,14 +386,14 @@ namespace Terramon.Pokemon
                 {
                     if (pMove != null)
                     {
-                        pMove.AnimationFrame = (animWindow - 121) * -1;
+                        pMove.AnimationFrame = animWindow;
                         switch (State)
                         {
                             case BattleState.BattleWithWild:
-                                pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild);
+                                animInProggress = pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild);
                                 break;
                             case BattleState.BattleWithPlayer:
-                                pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player1, player1.ActivePet, player2.ActivePet);
+                                animInProggress = pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player1, player1.ActivePet, player2.ActivePet);
                                 break;
                         }
                     }
@@ -402,11 +403,11 @@ namespace Terramon.Pokemon
                     if (State != BattleState.BattleWithPlayer)
                         if (oMove != null)
                         {
-                            oMove.AnimationFrame = (animWindow - 121) * -1;
+                            oMove.AnimationFrame = animWindow;
                             switch (State)
                             {
                                 case BattleState.BattleWithWild:
-                                    oMove.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
+                                    animInProggress = oMove.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
                                         player1.ActivePet);
                                     break;
                                 case BattleState.BattleWithPlayer:
@@ -421,7 +422,8 @@ namespace Terramon.Pokemon
             }else if (animMode != 0 && animMode < 3)
             {
                 animMode += 2;//Shift to second casts
-                animWindow = 121;
+                animWindow = 0;
+                animInProggress = true;
                 switch (animMode)
                 {
                     case 3:
@@ -525,8 +527,8 @@ namespace Terramon.Pokemon
                         
                     animMode = 2;
                 }
-                animWindow = 121;
-                atackTimeout = 260;
+                animWindow = 0;
+                //atackTimeout = 260;
             }
 
             if (player1.ActivePet?.Fainted ?? false)

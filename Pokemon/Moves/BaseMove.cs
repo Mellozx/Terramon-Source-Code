@@ -79,10 +79,11 @@ namespace Terramon.Pokemon.Moves
         /// <param name="player">Player class. CAN BE NULL for Wild pokemons, so or check for null or use ? operator like this: <code>player?.ActivePet</code></param>
         /// <param name="attacker">Attacker mon data like HP, Type, etc</param>
         /// <param name="deffender">Defender mon data</param>
-        public virtual void AnimateTurn(ParentPokemon mon, ParentPokemon target,
+        /// <returns>Return true if animation continues</returns>
+        public virtual bool AnimateTurn(ParentPokemon mon, ParentPokemon target,
             TerramonPlayer player, PokemonData attacker, PokemonData deffender)
         {
-
+            return false;
         }
 
         /// <summary>
