@@ -1049,13 +1049,15 @@ namespace Terramon.Pokemon
 
         private PokemonData pokeData;
 
+        private int hpScaleTarget = 0;
         public int displayHpNumber = 0;
-        public double lastDisplayHP = 0;
-        public double displayHp = 0;
+        public float lastDisplayHP = 0;
+        public float displayHp = 0;
 
-        public double fillval = 1f;
+        public float fillval = 1f;
 
         public bool firstLoadHP = true;
+        public bool adjusting = true;
 
         public bool local = true;
 
@@ -1155,9 +1157,11 @@ namespace Terramon.Pokemon
             LevelText.Top.Set(5, 0f);
             Append(LevelText);
 
-            if (pokeData?.HP != null && pokeData?.MaxHP != null)
+            if (pokeData != null)
             {
-                HPBar.fill = (float)fillval;
+                displayHp = pokeData.HP;
+                HPBar.Fill = fillval = ((float)pokeData.HP/pokeData.MaxHP);
+                hpScaleTarget = pokeData.HP;
             }
 
             base.OnInitialize();
@@ -1170,28 +1174,22 @@ namespace Terramon.Pokemon
 
             LocPokemon = TerramonMod.Localisation.GetLocalisedString(pokeData?.Pokemon ?? "MissingNO");
             PokeName.SetText(LocPokemon.Value);
-            if (pokeData?.HP != null && pokeData?.MaxHP != null)
+            if (PokeData != null && hpScaleTarget != PokeData?.HP)
             {
-                fillval = displayHp / (double)pokeData?.MaxHP;
-                HPBar.fill = (float)fillval;
+                hpScaleTarget = PokeData.HP;
+                fillval = hpScaleTarget / pokeData.MaxHP;
+                HPBar.Fill = (float)fillval;
             }
-            
+
+            if (hpLerpTimer > 3)
+            {
+                displayHpNumber = (int)Math.Abs(PokeData.MaxHP * HPBar.ActuallScale);
+                hpLerpTimer = 0;
+            }
+
             if (local)
             {
                 HPLocal?.SetText($"{displayHpNumber}/{pokeData?.MaxHP ?? 0}");
-            }
-
-            if (hpLerpTimer > 12)
-            {
-                if (pokeData?.HP > displayHp)
-                {
-                    displayHpNumber += 1;
-                }
-                if (pokeData?.HP < displayHp)
-                {
-                    displayHpNumber -= 1;
-                }
-                hpLerpTimer = 0;
             }
 
             displayHp = displayHpNumber;
