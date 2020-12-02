@@ -50,6 +50,7 @@ namespace Terramon.Pokemon
 
         public bool IsShiny { get; set; }
         public BaseMove[] Moves { get; set; }
+        public int[] MovesPP { get; set; }
         public PokemonType[] Types { get; private set; }// Auto filled
         public bool Fainted { get; set; }//TODO: Add saving HP, MaxHP and Fainted to pokeball TagCompound.
 
@@ -84,6 +85,7 @@ namespace Terramon.Pokemon
                         while (sum > 0)
                         {
                             sum--;
+                            //TODO: Make usage of MoveRandom here if needed
                             Random rand = new Random();//We don't want desync Main.random by this;
                             switch (rand.Next(6))
                             {

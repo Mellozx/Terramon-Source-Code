@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Razorwing.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
@@ -12,9 +13,10 @@ namespace Terramon.UI.Battling
     // Inheriting is a great tool for UI design. 
     // By inheriting, we get the Image drawing, MouseOver sound, and fading for free from UIImageButton
     // We've added some code to allow the Button to show a text tooltip while hovered. 
-    public class BattleHPBar : UIElement
+    public class BattleHPBar : Drawable
     {
-		private Texture2D _texture;
+		//private Texture2D _texture;
+        private Bar Health;
 		private Texture2D _textureBack;
 
 		private Texture2D _textureOutline;
@@ -33,10 +35,30 @@ namespace Terramon.UI.Battling
 		// If less than one fifth bar is red.
 		public Color drawcolor = Color.White;
 		public float fill = 1f;
+		public float Fill
+        {
+            get => fill;
+            set
+            {
+				if (fill == value)
+					return;
+                var d = value - fill;
+                if (d < 0)
+                    d *= -1;
+                Health.ScaleTo(new Vector2(value, 1), 1000 * d);
+            }
+        }
+
+        public float ActuallScale => Health.Scale.X;
 
 		public BattleHPBar(Color color, bool l)
-		{
-			_texture = ModContent.GetTexture("Terramon/UI/Battling/HPBarFill");
+        {
+            Append(Health = new Bar()
+            {
+                TextureName = "Terramon/UI/Battling/HPBarFill",
+                Parent = this,
+            });
+			//_texture = ModContent.GetTexture("Terramon/UI/Battling/HPBarFill");
 			_textureBack = ModContent.GetTexture("Terramon/UI/Battling/HPBarBack");
 			_textureOutline = ModContent.GetTexture("Terramon/UI/Battling/HPBar");
 			local = l;
@@ -45,13 +67,15 @@ namespace Terramon.UI.Battling
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(position: GetDimensions().Position() + _textureBack.Size() * (1f - ImageScale) / 2f, texture: _textureBack, sourceRectangle: null, color: Color.White, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(1f, 1f), effects: SpriteEffects.None, layerDepth: 0f);
-			spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - ImageScale) / 2f, texture: _texture, sourceRectangle: null, color: drawcolor, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(fill, 1f), effects: SpriteEffects.None, layerDepth: 0f);
+			Health.Draw(spriteBatch);//Manual drawing
+            //spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - ImageScale) / 2f, texture: _texture, sourceRectangle: null, color: drawcolor, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(fill, 1f), effects: SpriteEffects.None, layerDepth: 0f);
 			spriteBatch.Draw(position: GetDimensions().Position() + _textureOutline.Size() * (1f - ImageScale) / 2f, texture: _textureOutline, sourceRectangle: null, color: Color.White, rotation: 0f, origin: Vector2.Zero, scale: ImageScale, effects: SpriteEffects.None, layerDepth: 0f);
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
+			//Health.Update(gameTime);//Manual update
 
 			if (ContainsPoint(Main.MouseScreen)) Main.LocalPlayer.mouseInterface = true;
 
@@ -71,5 +95,22 @@ namespace Terramon.UI.Battling
 				drawcolor = new Color(255, 235, 84); // Yellow
 			}
 		}
+
+        protected override void DrawChildren(SpriteBatch spriteBatch)
+        {
+            //base.DrawChildren(spriteBatch);
+        }
+
+        public class Bar : Drawable
+        {
+            protected override void DrawSelf(SpriteBatch spriteBatch)
+            {
+                var ImageScale = 1f;
+                if (Parent is BattleHPBar bar)
+                    ImageScale = bar.ImageScale;
+				spriteBatch.Draw(position: GetDimensions().Position() + Texture.Size() * (1f - ImageScale) / 2f, texture: Texture, sourceRectangle: null, color: Color.White, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(Scale.X, 1f), effects: SpriteEffects.None, layerDepth: 0f);
+			}
+        }
+
 	}
 }
