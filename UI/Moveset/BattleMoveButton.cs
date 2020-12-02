@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Razorwing.Framework.Localisation;
+using Terramon.Players;
+using Terramon.Pokemon;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -27,7 +29,7 @@ namespace Terramon.UI.Moveset
         public float _visibilityActive = 1f;
 
         private UIText text;
-        private SidebarClass type;
+        private UIImagez mask;
         public int PPLeft;
         public BaseMove Move
         {
@@ -57,6 +59,7 @@ namespace Terramon.UI.Moveset
         private readonly bool leftSide;
         private bool needUpdate;
 
+        internal string HoverText;
 
         public new Action<BaseMove> OnClick;
 
@@ -82,7 +85,7 @@ namespace Terramon.UI.Moveset
 
         public override void OnInitialize()
         {
-            text = new UIText(MoveName.Value, 0.45f, true);
+            text = new UIText(MoveName.Value, 0.4f, true);
             text.VAlign = 0.5f;
             text.HAlign = 0.5f;
             //text.Left.Set(ChatManager.GetStringSize(Main.fontMouseText, MoveName.Value, 1.2f));
@@ -90,27 +93,12 @@ namespace Terramon.UI.Moveset
 
             if (move != null)
             {
-                var texture = ModContent.FileExists($"Terramon/UI/Moveset/{move.MoveType}Type") ?
-                    ModContent.GetTexture($"Terramon/UI/Moveset/{move.MoveType}Type") :
-                    ModContent.GetTexture($"Terramon/UI/Moveset/EmptyType");
-                type = new SidebarClass(texture, TypeName.Value);
-                type.Top.Set(-texture.Height / 2, 0.5f);
-                if (leftSide)
-                    type.Left.Set(-texture.Width - 20, 1f);
-                else
-                    type.Left.Set(texture.Width + 20, 0f);
-                //Append(type);
-            }
-            else
-            {
-                var texture = ModContent.GetTexture($"Terramon/UI/Moveset/EmptyType");
-                type = new SidebarClass(texture, TypeName.Value);
-                type.Top.Set(-texture.Height / 2, 0.5f);
-                if (leftSide)
-                    type.Left.Set(-texture.Width - 20, 1f);
-                else
-                    type.Left.Set(texture.Width + 20, 0f);
-                //Append(type);
+                if (ModContent.FileExists($"Terramon/UI/Battling/Masks/{move.MoveType}Mask"))
+                {
+                    var masktexture = ModContent.GetTexture($"Terramon/UI/Battling/Masks/{move.MoveType}Mask");
+                    mask = new UIImagez(masktexture);
+                    Append(mask);
+                }
             }
 
             base.OnInitialize();
@@ -126,6 +114,7 @@ namespace Terramon.UI.Moveset
             {
                 spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - ImageScale) / 2f, texture: _texture, sourceRectangle: null, color: Color.White * _visibilityActive, rotation: 0f, origin: Vector2.Zero, scale: ImageScale, effects: SpriteEffects.None, layerDepth: 0f);
             }
+            if (IsMouseHovering) Main.hoverItemName = HoverText;
         }
 
         public bool lk;
@@ -136,7 +125,11 @@ namespace Terramon.UI.Moveset
         {
             base.Click(evt);
             if(ContainsPoint(Main.MouseScreen))
+            {
+                BattleMode.inMainMenu = true;
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/uiselect").WithVolume(.55f));
                 OnClick?.Invoke(move);
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -151,38 +144,23 @@ namespace Terramon.UI.Moveset
 
                 if (move != null)
                 {
-                    var texture = ModContent.FileExists($"Terramon/UI/Moveset/{move.MoveType}Type") ?
-                        ModContent.GetTexture($"Terramon/UI/Moveset/{move.MoveType}Type") :
-                        ModContent.GetTexture($"Terramon/UI/Moveset/EmptyType");
-                    //RemoveChild(type);
-                    type = new SidebarClass(texture, TypeName.Value);
-                    type.Top.Set(-texture.Height / 2, 0.5f);
-                    if (leftSide)
-                        type.Left.Set(-texture.Width - 20, 1f);
-                    else
-                        type.Left.Set(texture.Width + 20, 0f);
-                    //Append(type);
-                }
-                else
-                {
-                    var texture = ModContent.GetTexture($"Terramon/UI/Moveset/EmptyType");
-                    //RemoveChild(type);
-                    type = new SidebarClass(texture, TypeName.Value);
-                    type.Top.Set(-texture.Height / 2, 0.5f);
-                    if (leftSide)
-                        type.Left.Set(-texture.Width - 20, 1f);
-                    else
-                        type.Left.Set(texture.Width + 20, 0f);
-                    //Append(type);
+                    if (HasChild(mask))
+                    {
+                        mask.SetImage(ModContent.GetTexture($"Terramon/UI/Battling/Masks/{move.MoveType}Mask"));
+                    } else
+                    {
+                        var masktexture = ModContent.GetTexture($"Terramon/UI/Battling/Masks/{move.MoveType}Mask");
+                        mask = new UIImagez(masktexture);
+                        Append(mask);
+                    }
                 }
 
-                type.HoverText = TypeName.Value;
                 text.SetText(MoveName.Value);
                 text.VAlign = 0.5f;
                 text.HAlign = 0.5f;
             }
 
-            type.HoverText = $"{TypeName.Value} PP: {PPLeft}/{move?.MaxPP}";
+            HoverText = $"{TypeName.Value} PP: {move?.MaxPP}/{move?.MaxPP}";
         }
     }
 }

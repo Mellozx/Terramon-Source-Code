@@ -286,7 +286,7 @@ namespace Terramon
 #if DEBUG
                 UseWebAssets = true;
                 var ss = Localisation.GetLocalisedString(new LocalisedString(("title","Powered by broken code")));//It's terrible checking in ui from phone, so i can ensure everything works from version string
-                Main.versionNumber = ss.Value + "\n" + Main.versionNumber;
+                //Main.versionNumber = ss.Value + "\n" + Main.versionNumber;
 #endif
 
                 ChooseStarter = new ChooseStarter();

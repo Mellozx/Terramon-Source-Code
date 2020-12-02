@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terramon.Pokemon;
 using Terramon.UI.SidebarParty;
 using Terraria;
 using Terraria.ModLoader;
@@ -60,6 +61,12 @@ namespace Terramon.UI
             get => Main.screenPosition;
             set => TerramonMod.Instance.battleCamera = value;
         }
+        
+        public float ButtonMenuPanelX
+        {
+            get => BattleMode.UI.ButtonMenuPanel.Top.Pixels;
+            set => BattleMode.UI.ButtonMenuPanel.Top.Pixels = value;
+        }
     }
     public static class AnimatorExtensions
     {
@@ -84,5 +91,11 @@ namespace Terramon.UI
         public static TransformSequence<T> ScreenPos<T>(this TransformSequence<T> t, Vector2 newValue, double duration = 0, Easing easing = Easing.None)
             where T : Animator =>
             t.Append(o => o.ScreenPos(newValue, duration, easing));
+
+        public static TransformSequence<T> ButtonMenuPanelX<T>(this T drawable, float newValue, double duration = 0, Easing easing = Easing.None) where T : Animator =>
+            drawable.TransformTo(nameof(drawable.ButtonMenuPanelX), newValue, duration, easing);
+        public static TransformSequence<T> ButtonMenuPanelX<T>(this TransformSequence<T> t, float newValue, double duration = 0, Easing easing = Easing.None)
+                  where T : Animator =>
+                  t.Append(o => o.ButtonMenuPanelX(newValue, duration, easing));
     }
 }

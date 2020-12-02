@@ -905,7 +905,8 @@ namespace Terramon.Players
 
             TagCompound tag = new TagCompound
             {
-                [nameof(StarterChosen)] = StarterChosen
+                [nameof(StarterChosen)] = StarterChosen,
+                [nameof(firstBattle)] = firstBattle
             };
 
             if (PartySlot1 != null && PartySlot1.pokeballType != 0)
@@ -932,6 +933,7 @@ namespace Terramon.Players
             Battle?.Cleanup();
             Battle = null;
             StarterChosen = tag.GetBool(nameof(StarterChosen));
+            firstBattle = tag.GetBool(nameof(firstBattle));
             if (tag.ContainsKey(nameof(PartySlot1)))
                 PartySlot1 = tag.ContainsKey(nameof(PartySlot1))
                     ? new PokemonData(tag.GetCompound(nameof(PartySlot1)))
