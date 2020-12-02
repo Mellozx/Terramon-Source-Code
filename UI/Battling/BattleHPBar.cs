@@ -106,9 +106,13 @@ namespace Terramon.UI.Battling
             protected override void DrawSelf(SpriteBatch spriteBatch)
             {
                 var ImageScale = 1f;
+                var drawcolor = Color.LightGreen;
                 if (Parent is BattleHPBar bar)
+                {
                     ImageScale = bar.ImageScale;
-				spriteBatch.Draw(position: GetDimensions().Position() + Texture.Size() * (1f - ImageScale) / 2f, texture: Texture, sourceRectangle: null, color: Color.White, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(Scale.X, 1f), effects: SpriteEffects.None, layerDepth: 0f);
+                    drawcolor = bar.drawcolor;
+                }
+				spriteBatch.Draw(position: GetDimensions().Position() + Texture.Size() * (1f - ImageScale) / 2f, texture: Texture, sourceRectangle: null, color: drawcolor, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(Scale.X, 1f), effects: SpriteEffects.None, layerDepth: 0f);
 			}
         }
 

@@ -1074,13 +1074,14 @@ namespace Terramon.Pokemon
 
                 if (firstLoadHP)
                 {
-                    if (pokeData?.HP != null)
+                    if (pokeData != null)
                     {
                         displayHpNumber = pokeData.HP;
                         firstLoadHP = false;
                     }
                 }
-
+                HPBar.Fill = fillval = ((float)pokeData.HP / pokeData.MaxHP);
+                hpScaleTarget = pokeData.HP;
                 LocPokemon = TerramonMod.Localisation.GetLocalisedString(pokeData?.Pokemon ?? "MissingNO");
                 PokeName?.SetText(LocPokemon.Value);
             }
@@ -1177,7 +1178,7 @@ namespace Terramon.Pokemon
             if (PokeData != null && hpScaleTarget != PokeData?.HP)
             {
                 hpScaleTarget = PokeData.HP;
-                fillval = hpScaleTarget / pokeData.MaxHP;
+                fillval = (float)hpScaleTarget / pokeData.MaxHP;
                 HPBar.Fill = (float)fillval;
             }
 
