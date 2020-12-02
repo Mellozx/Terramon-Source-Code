@@ -173,7 +173,7 @@ namespace Terramon.Pokemon.Moves
                     endMoveTimer++;
                     if (endMoveTimer >= 100 && endMoveTimer < 200)
                     {
-                        if (player.Battle.State == BattleState.BattleWithWild) BattleMode.UI.splashText.SetText($"Sucked life from the wild {deffender.PokemonName}!");
+                        if (player?.Battle.State == BattleState.BattleWithWild) BattleMode.UI.splashText.SetText($"Sucked life from the wild {deffender.PokemonName}!");
                         //TerramonMod.ZoomAnimator.ScreenPos(mon.projectile.position + new Vector2(12, 0), 500, Easing.OutExpo);
                         TerramonMod.ZoomAnimator.ScreenPosX(mon.projectile.position.X + 12, 500, Easing.OutExpo);
                         TerramonMod.ZoomAnimator.ScreenPosY(mon.projectile.position.Y, 500, Easing.OutExpo);
