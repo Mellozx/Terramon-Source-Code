@@ -2,6 +2,7 @@
 using Razorwing.Framework.Localisation;
 using Terramon.Players;
 using Terraria;
+using Terraria.Utilities;
 
 namespace Terramon.Pokemon.Moves
 {
@@ -13,6 +14,8 @@ namespace Terramon.Pokemon.Moves
         public virtual int Cooldown { get; } = 5 * 60; //5 seconds by default
         public virtual int Speed { get; } = 80;
         public virtual int MaxPP { get; } = 20;
+        public static UnifiedRandom _mrand;
+        public static int _seed;
 
         public bool TurnAnimation { get; set; } = false;
 
