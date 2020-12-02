@@ -44,8 +44,8 @@ namespace Terramon.Pokemon.Moves
 
         public int endMoveTimer;
         public const string PROJID_KEY = "move.projID";
-        public override void AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
-            PokemonData deffender, BattleState state)
+        public override bool AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
+            PokemonData deffender)
         {
             if (AnimationFrame == 1) //At initial frame we pan camera to attacker
             {
@@ -92,8 +92,7 @@ namespace Terramon.Pokemon.Moves
                 //Main.projectile[id].position = mon.projectile.position + (vel * (l * (AnimationFrame / 120)));
                 Main.projectile[id].position = Interpolation.ValueAt(AnimationFrame, mon.projectile.position, target.projectile.position, 140, 260,
                     Easing.Out);
-                TerramonMod.ZoomAnimator.ScreenPosX(Main.projectile[id].position.X, 1, Easing.None);
-                TerramonMod.ZoomAnimator.ScreenPosY(Main.projectile[id].position.Y, 1, Easing.None);
+                TerramonMod.ZoomAnimator.ScreenPos(Main.projectile[id].position, 1, Easing.None);
 
             }
 
@@ -105,10 +104,11 @@ namespace Terramon.Pokemon.Moves
                     if (endMoveTimer >= 100)
                     {
                         endMoveTimer = 0;
-                        BattleMode.animWindow = 0;
+                        return false;
                     }
                 }
             }
+            return true;
         }
     }
 }

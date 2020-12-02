@@ -57,8 +57,8 @@ namespace Terramon.Pokemon.Moves
         private int spore6;
 
         private float damageDealt;
-        public override void AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
-            PokemonData deffender, BattleState state)
+        public override bool AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
+            PokemonData deffender)
         {
             if (AnimationFrame == 1) //At initial frame we pan camera to attacker
             {
@@ -173,7 +173,8 @@ namespace Terramon.Pokemon.Moves
                     endMoveTimer++;
                     if (endMoveTimer >= 100 && endMoveTimer < 200)
                     {
-                        if (state == BattleState.BattleWithWild) BattleMode.UI.splashText.SetText($"Sucked life from the wild {deffender.PokemonName}!");
+                        if (player?.Battle.State == BattleState.BattleWithWild) BattleMode.UI.splashText.SetText($"Sucked life from the wild {deffender.PokemonName}!");
+                        //TerramonMod.ZoomAnimator.ScreenPos(mon.projectile.position + new Vector2(12, 0), 500, Easing.OutExpo);
                         TerramonMod.ZoomAnimator.ScreenPosX(mon.projectile.position.X + 12, 500, Easing.OutExpo);
                         TerramonMod.ZoomAnimator.ScreenPosY(mon.projectile.position.Y, 500, Easing.OutExpo);
                         //BattleMode.animWindow = 0;
@@ -187,10 +188,12 @@ namespace Terramon.Pokemon.Moves
                     if (endMoveTimer >= 300)
                     {
                         endMoveTimer = 0;
-                        BattleMode.animWindow = 0;
+                        return false;
                     }
                 }
             }
+
+            return true;
         }
     }
 

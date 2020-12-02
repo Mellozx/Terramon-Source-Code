@@ -6,8 +6,6 @@ using Razorwing.Framework.Localisation;
 using Razorwing.Framework.Utils;
 using System;
 using Terramon.Items.Pokeballs;
-using Terramon.Items.Pokeballs.Inventory;
-using Terramon.Network.Sync;
 using Terramon.Network.Sync.Battle;
 using Terramon.Players;
 using Terramon.Pokemon;
@@ -19,29 +17,51 @@ using Terraria.UI;
 
 namespace Terramon.UI.SidebarParty
 {
-    // ExampleUIs visibility is toggled by typing "/coin" in chat. (See CoinCommand.cs)
-    // ExampleUI is a simple UI example showing how to use UIPanel, UIImageButton, and even a custom UIElement.
     internal class UISidebar : UIState
     {
         public SidebarPanel mainPanel;
         public static bool Visible;
         public bool lightmode = true;
 
-        public ILocalisedBindableString sendOutText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.sendOut", "Left click to send out!")));
-        public ILocalisedBindableString goText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("go", "Go {0}!")));
-        public ILocalisedBindableString retire1Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("retire1", "{0}, switch out!\nCome back!")));
-        public ILocalisedBindableString retire2Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("retire2", "{0}, return!")));
-        public ILocalisedBindableString retire3Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("retire3", "That's enough for now, {0}!")));
+        public ILocalisedBindableString sendOutText =
+            TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.sendOut",
+                "Left click to send out!")));
+
+        public ILocalisedBindableString goText =
+            TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("go", "Go {0}!")));
+
+        public ILocalisedBindableString retire1Text =
+            TerramonMod.Localisation.GetLocalisedString(
+                new LocalisedString(("retire1", "{0}, switch out!\nCome back!")));
+
+        public ILocalisedBindableString retire2Text =
+            TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("retire2", "{0}, return!")));
+
+        public ILocalisedBindableString retire3Text =
+            TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("retire3",
+                "That's enough for now, {0}!")));
+
         public ILocalisedBindableString pokemonName1 = TerramonMod.Localisation.GetLocalisedString("*");
         public ILocalisedBindableString pokemonName2 = TerramonMod.Localisation.GetLocalisedString("*");
         public ILocalisedBindableString pokemonName3 = TerramonMod.Localisation.GetLocalisedString("*");
         public ILocalisedBindableString pokemonName4 = TerramonMod.Localisation.GetLocalisedString("*");
         public ILocalisedBindableString pokemonName5 = TerramonMod.Localisation.GetLocalisedString("*");
         public ILocalisedBindableString pokemonName6 = TerramonMod.Localisation.GetLocalisedString("*");
-        public ILocalisedBindableString helpText = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help", "Terramon Help")));
-        public ILocalisedBindableString help1Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help1", "(1/3) Welcome to Terramon {0}, where you can discover and catch Pokémon in Terraria! Keep pressing this button for more tips and tricks.")));
-        public ILocalisedBindableString help2Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help2", "(2/3) For support, join the official Discord server using the [c/f7e34d:/discord] command. Or, access our wiki with the [c/f7e34d:/wiki] command.")));
-        public ILocalisedBindableString help3Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help3", "(3/3) Also, feel free to customize your experience with the Mod Config in [c/ff8f33:Settings > Mod Configuration] or from the Mods menu.")));
+
+        public ILocalisedBindableString helpText =
+            TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("sidebar.help", "Terramon Help")));
+
+        public ILocalisedBindableString help1Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString((
+            "sidebar.help1",
+            "(1/3) Welcome to Terramon {0}, where you can discover and catch Pokémon in Terraria! Keep pressing this button for more tips and tricks.")));
+
+        public ILocalisedBindableString help2Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString((
+            "sidebar.help2",
+            "(2/3) For support, join the official Discord server using the [c/f7e34d:/discord] command. Or, access our wiki with the [c/f7e34d:/wiki] command.")));
+
+        public ILocalisedBindableString help3Text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString((
+            "sidebar.help3",
+            "(3/3) Also, feel free to customize your experience with the Mod Config in [c/ff8f33:Settings > Mod Configuration] or from the Mods menu.")));
 
 
         public string p1 = "*", p2 = "*", p3 = "*", p4 = "*", p5 = "*", p6 = "*";
@@ -51,32 +71,26 @@ namespace Terramon.UI.SidebarParty
         public UIOpaqueButton battle;
 
         //sidebar pkmn textures
-        public Texture2D firstpkmntexture;
         public SidebarClass firstpkmn;
         public Texture2D firstpkmnringtexture;
         public UIImagez firstpkmnring;
 
-        public Texture2D secondpkmntexture;
         public SidebarClass secondpkmn;
         public Texture2D secondpkmnringtexture;
         public UIImagez secondpkmnring;
 
-        public Texture2D thirdpkmntexture;
         public SidebarClass thirdpkmn;
         public Texture2D thirdpkmnringtexture;
         public UIImagez thirdpkmnring;
 
-        public Texture2D fourthpkmntexture;
         public SidebarClass fourthpkmn;
         public Texture2D fourthpkmnringtexture;
         public UIImagez fourthpkmnring;
 
-        public Texture2D fifthpkmntexture;
         public SidebarClass fifthpkmn;
         public Texture2D fifthpkmnringtexture;
         public UIImagez fifthpkmnring;
 
-        public Texture2D sixthpkmntexture;
         public SidebarClass sixthpkmn;
         public Texture2D sixthpkmnringtexture;
         public UIImagez sixthpkmnring;
@@ -86,24 +100,17 @@ namespace Terramon.UI.SidebarParty
 
         public bool isCompressed = false;
 
-        // In OnInitialize, we place various UIElements onto our UIState (this class).
-        // UIState classes have width and height equal to the full screen, because of this, usually we first define a UIElement that will act as the container for our UI.
-        // We then place various other UIElement onto that container UIElement positioned relative to the container UIElement.
+
         public override void OnInitialize()
         {
             //Add version string as argument so it can be passed in other locales
-            help1Text.Args = new object[] { TerramonMod.Instance.Version };
+            help1Text.Args = new object[] {TerramonMod.Instance.Version};
 
             Append(TerramonMod.ZoomAnimator = new Animator());
 
             //pokemon icons
-
-            // Next, we create another UIElement that we will place. Since we will be calling `mainPanel.Append(playButton);`, Left and Top are relative to the top left of the mainPanel UIElement. 
-            // By properly nesting UIElements, we can position things relatively to each other easily.
             mainPanel = new SidebarPanel();
             mainPanel.SetPadding(0);
-            // We need to place this UIElement in relation to its Parent. Later we will be calling `base.Append(mainPanel);`. 
-            // This means that this class, ExampleUI, will be our Parent. Since ExampleUI is a UIState, the Left and Top are relative to the top left of the screen.
             mainPanel.HAlign = 0f - 0.01f;
             mainPanel.VAlign = 0.65f;
             mainPanel.Width.Set(94, 0f);
@@ -142,8 +149,10 @@ namespace Terramon.UI.SidebarParty
                     var pl = BaseMove.GetNearestPlayer(Main.LocalPlayer.position, Main.LocalPlayer);
                     if (pl != null)
                     {
-                        player.Battle = new BattleMode(player, BattleState.BattleWithPlayer, spl: pl.GetModPlayer<TerramonPlayer>());
-                        pl.GetModPlayer<TerramonPlayer>().Battle = new BattleMode(pl.GetModPlayer<TerramonPlayer>(), BattleState.BattleWithPlayer, spl: player);
+                        player.Battle = new BattleMode(player, BattleState.BattleWithPlayer,
+                            spl: pl.GetModPlayer<TerramonPlayer>());
+                        pl.GetModPlayer<TerramonPlayer>().Battle = new BattleMode(pl.GetModPlayer<TerramonPlayer>(),
+                            BattleState.BattleWithPlayer, spl: player);
 
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
@@ -159,9 +168,10 @@ namespace Terramon.UI.SidebarParty
                     {
                         var data = new PokemonData()
                         {
-                            Pokemon = ((ParentPokemonNPC)id.modNPC).HomeClass().Name,
+                            Pokemon = ((ParentPokemonNPC) id.modNPC).HomeClass().Name,
                         };
-                        player.Battle = new BattleMode(player, BattleState.BattleWithWild, npc: (ParentPokemonNPC)id.modNPC, second: data);
+                        player.Battle = new BattleMode(player, BattleState.BattleWithWild,
+                            npc: (ParentPokemonNPC) id.modNPC, second: data);
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
                             var p = new StartBattlePacket();
@@ -290,21 +300,17 @@ namespace Terramon.UI.SidebarParty
             mainPanel.Append(sixthpkmnring);
 
             Append(mainPanel);
-            // As a recap, ExampleUI is a UIState, meaning it covers the whole screen. We attach mainPanel to ExampleUI some distance from the top left corner.
-            // We then place playButton, closeButton, and moneyDiplay onto mainPanel so we can easily place these UIElements relative to mainPanel.
-            // Since mainPanel will move, this proper organization will move playButton, closeButton, and moneyDiplay properly when mainPanel moves.
         }
 
-        byte compressAnimation = 0;
+        private byte compressAnimation;
 
-        public bool compressing = false;
-        public bool isReallyCompressed = false;
+        public bool compressing;
+        public bool isReallyCompressed;
 
-        double startCompressAnimation = 0;
-        double endCompressAnimation = 0;
+        private double startCompressAnimation;
+        private double endCompressAnimation;
 
-        bool finishedIn = false;
-        bool finishedOut = false;
+        private bool finishedIn;
 
         public override void Update(GameTime gameTime)
         {
@@ -321,11 +327,12 @@ namespace Terramon.UI.SidebarParty
                     compressAnimation = 1;
 
                     firstpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
-                        .Schedule(() =>//Apply changes from mid time
+                        .Schedule(() => //Apply changes from mid time
                         {
                             isReallyCompressed = true;
                         }).Then()
-                        .ScaleTo(1f, 500f, Easing.Out);//This will be called at same frame as Schedule bc no delay specified in Then method
+                        .ScaleTo(1f, 500f,
+                            Easing.Out); //This will be called at same frame as Schedule bc no delay specified in Then method
                     secondpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
                         .ScaleTo(1f, 500f, Easing.Out);
                     thirdpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
@@ -337,10 +344,13 @@ namespace Terramon.UI.SidebarParty
                     sixthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
                         .ScaleTo(1f, 500f, Easing.Out);
                 }
+
                 if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation)
                 {
-                    mainPanel.Width.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 94, 52, startCompressAnimation, endCompressAnimation, Easing.OutExpo);
+                    mainPanel.Width.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 94, 52,
+                        startCompressAnimation, endCompressAnimation, Easing.OutExpo);
                 }
+
                 //if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
                 //{
                 //    isReallyCompressed = true;
@@ -371,11 +381,12 @@ namespace Terramon.UI.SidebarParty
                     compressAnimation = 1;
 
                     firstpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
-                        .Schedule(() =>//Apply changes from mid time
+                        .Schedule(() => //Apply changes from mid time
                         {
                             isReallyCompressed = false;
                         }).Then()
-                        .ScaleTo(1f, 500f, Easing.Out);//This will be called at same frame as Schedule bc no delay specified in Then method
+                        .ScaleTo(1f, 500f,
+                            Easing.Out); //This will be called at same frame as Schedule bc no delay specified in Then method
                     secondpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
                         .ScaleTo(1f, 500f, Easing.Out);
                     thirdpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
@@ -387,10 +398,13 @@ namespace Terramon.UI.SidebarParty
                     sixthpkmn.ScaleTo(0.001f, 500, Easing.Out).Then()
                         .ScaleTo(1f, 500f, Easing.Out);
                 }
+
                 if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation)
                 {
-                    mainPanel.Width.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 52, 94, startCompressAnimation, endCompressAnimation, Easing.OutExpo);
+                    mainPanel.Width.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 52, 94,
+                        startCompressAnimation, endCompressAnimation, Easing.OutExpo);
                 }
+
                 //if (gameTime.TotalGameTime.TotalSeconds > endCompressAnimation - 0.5)
                 //{
                 //    isReallyCompressed = false;
@@ -426,7 +440,8 @@ namespace Terramon.UI.SidebarParty
                         TerramonMod.Localisation.GetLocalisedString(new LocalisedString(slotName));
                 }
 
-                updateSlot(slotTag, firstpkmn, firstpkmnring, pokemonName1.Value);//move copypaste to method, so we can modify display data from one place
+                updateSlot(slotTag, firstpkmn, firstpkmnring,
+                    pokemonName1.Value); //move copypaste to method, so we can modify display data from one place
             }
 
             slotName = modPlayer.secondslotname;
@@ -506,46 +521,47 @@ namespace Terramon.UI.SidebarParty
             }
         }
 
+        // ReSharper disable once UnusedParameter.Local
         private void updateSlot(PokemonData slot, SidebarClass side, UIImagez ring, string name)
         {
-        //    side.SetImage(
-        //            ModContent.GetTexture("Terramon/Minisprites/Regular/SidebarSprites/" + slot.Pokemon));
             if (!isReallyCompressed)
             {
                 side.TextureName = "Terramon/Minisprites/Regular/SidebarSprites/" + slot.Pokemon;
-            } else
+            }
+            else
             {
                 side.TextureName = "Terramon/UI/SidebarParty/CaughtIn/" + slot.pokeballType;
             }
+
             side.HoverText = name + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
-                                      $"\nLVL: {slot.Level}" +
-                                      $"\nEXP: {slot.Exp}" +
-                                      $"\nHP: {slot.HP}/{slot.MaxHP}" +
-                                      $"\n{sendOutText.Value}";
+                             $"\nLVL: {slot.Level}" +
+                             $"\nEXP: {slot.Exp}" +
+                             $"\nHP: {slot.HP}/{slot.MaxHP}" +
+                             $"\n{sendOutText.Value}";
             side.Recalculate();
         }
 
         private void HelpClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             HelpListCycler++;
-            if (HelpListCycler == 1)
+            switch (HelpListCycler)
             {
-                Main.NewText(help1Text.Value);
-            }
-            if (HelpListCycler == 2)
-            {
-                Main.NewText(help2Text.Value);
-            }
-            if (HelpListCycler == 3)
-            {
-                Main.NewText(help3Text.Value);
-                HelpListCycler = 0;
+                case 1:
+                    Main.NewText(help1Text.Value);
+                    break;
+                case 2:
+                    Main.NewText(help2Text.Value);
+                    break;
+                case 3:
+                    Main.NewText(help3Text.Value);
+                    HelpListCycler = 0;
+                    break;
             }
         }
 
         private bool UpdateBattle(TerramonPlayer pl)
         {
-            if (pl.Battle != null)//If player in battle
+            if (pl.Battle != null) //If player in battle
             {
                 if ((pl.Battle.awaitSync && (pl.ActivePet.Fainted)) || (!pl.Battle.MoveDone))
                 {
@@ -555,11 +571,12 @@ namespace Terramon.UI.SidebarParty
                     {
                         pl.Battle.player2.Battle.awaitSync = false;
                     }
+
                     return true;
                 }
                 else
                 {
-                    return false;//We don't allow change mon if move was selected
+                    return false; //We don't allow change mon if move was selected
                 }
             }
 
@@ -617,7 +634,7 @@ namespace Terramon.UI.SidebarParty
                     PrintSwitch(player, modPlayer);
                 if (!player.HasBuff(pokeBuff)) player.AddBuff(pokeBuff, 2);
                 modPlayer.ActivePetName = pet;
-                goText.Args = new object[] { pokemonName2.Value };
+                goText.Args = new object[] {pokemonName2.Value};
                 CombatText.NewText(player.Hitbox, Color.White, goText.Value, true);
                 Main.PlaySound(ModContent.GetInstance<TerramonMod>()
                     .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
@@ -650,7 +667,7 @@ namespace Terramon.UI.SidebarParty
                     PrintSwitch(player, modPlayer);
                 if (!player.HasBuff(pokeBuff)) player.AddBuff(pokeBuff, 2);
                 modPlayer.ActivePetName = pet;
-                goText.Args = new object[] { pokemonName3.Value };
+                goText.Args = new object[] {pokemonName3.Value};
                 CombatText.NewText(player.Hitbox, Color.White, goText.Value, true);
                 Main.PlaySound(ModContent.GetInstance<TerramonMod>()
                     .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
@@ -683,7 +700,7 @@ namespace Terramon.UI.SidebarParty
                     PrintSwitch(player, modPlayer);
                 if (!player.HasBuff(pokeBuff)) player.AddBuff(pokeBuff, 2);
                 modPlayer.ActivePetName = pet;
-                goText.Args = new object[] { pokemonName4.Value };
+                goText.Args = new object[] {pokemonName4.Value};
                 CombatText.NewText(player.Hitbox, Color.White, goText.Value, true);
                 Main.PlaySound(ModContent.GetInstance<TerramonMod>()
                     .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
@@ -716,7 +733,7 @@ namespace Terramon.UI.SidebarParty
                     PrintSwitch(player, modPlayer);
                 if (!player.HasBuff(pokeBuff)) player.AddBuff(pokeBuff, 2);
                 modPlayer.ActivePetName = pet;
-                goText.Args = new object[] { pokemonName5.Value };
+                goText.Args = new object[] {pokemonName5.Value};
                 CombatText.NewText(player.Hitbox, Color.White, goText.Value, true);
                 Main.PlaySound(ModContent.GetInstance<TerramonMod>()
                     .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
@@ -749,7 +766,7 @@ namespace Terramon.UI.SidebarParty
                     PrintSwitch(player, modPlayer);
                 if (!player.HasBuff(pokeBuff)) player.AddBuff(pokeBuff, 2);
                 modPlayer.ActivePetName = pet;
-                goText.Args = new object[] { pokemonName6.Value };
+                goText.Args = new object[] {pokemonName6.Value};
                 CombatText.NewText(player.Hitbox, Color.White, goText.Value, true);
                 Main.PlaySound(ModContent.GetInstance<TerramonMod>()
                     .GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/sendout"));
@@ -790,18 +807,19 @@ namespace Terramon.UI.SidebarParty
                     pet = pokemonName6.Value;
                     break;
             }
+
             switch (Main.rand.Next(3))
             {
                 case 0:
-                    retire1Text.Args = new object[]{pet};
+                    retire1Text.Args = new object[] {pet};
                     CombatText.NewText(rect, Color.White, retire1Text.Value, true);
                     break;
                 case 1:
-                    retire2Text.Args = new object[] { pet };
+                    retire2Text.Args = new object[] {pet};
                     CombatText.NewText(rect, Color.White, retire2Text.Value, true);
                     break;
                 default:
-                    retire3Text.Args = new object[] { pet };
+                    retire3Text.Args = new object[] {pet};
                     CombatText.NewText(rect, Color.White, retire3Text.Value, true);
                     break;
             }

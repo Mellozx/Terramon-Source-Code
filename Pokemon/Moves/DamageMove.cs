@@ -13,12 +13,16 @@ namespace Terramon.Pokemon.Moves
     public abstract class DamageMove : BaseMove
     {
         public abstract int Damage { get; }// Perc 200-100
+
+        public virtual int Accuracy => 100;
+        public bool Miss => _mrand.Next(100) > Accuracy;
         public virtual bool Special => false;
 
         public DamageMove()
         {
             PostTextLoc =
                 TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("moves.baseDamageText", "{0} attacked {1} with {2} for {3} damage")));
+            
         }
 
         public override bool PerformInBattle(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,

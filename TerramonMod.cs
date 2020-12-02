@@ -33,6 +33,7 @@ using Terraria.UI;
 using Terramon.Sounds.Custom;
 using Terramon.Players;
 using Terramon.UI.Test;
+using Terraria.Utilities;
 
 namespace Terramon
 {
@@ -262,7 +263,7 @@ namespace Terramon
                 });
             }
 #endif
-
+            BaseMove._mrand = new UnifiedRandom(BaseMove._seed = new Random().Next());
             //Load all mons to a store
             LoadPokemons();
 
@@ -373,7 +374,7 @@ namespace Terramon
             _partySlots = null;
             _moves = null;
             _battle = null;
-
+            BaseMove._mrand = null;
 
 
             ChooseStarter.Deactivate();

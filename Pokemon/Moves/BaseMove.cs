@@ -2,6 +2,7 @@
 using Razorwing.Framework.Localisation;
 using Terramon.Players;
 using Terraria;
+using Terraria.Utilities;
 
 namespace Terramon.Pokemon.Moves
 {
@@ -13,6 +14,8 @@ namespace Terramon.Pokemon.Moves
         public virtual int Cooldown { get; } = 5 * 60; //5 seconds by default
         public virtual int Speed { get; } = 80;
         public virtual int MaxPP { get; } = 20;
+        public static UnifiedRandom _mrand;
+        public static int _seed;
 
         public bool TurnAnimation { get; set; } = false;
 
@@ -79,11 +82,11 @@ namespace Terramon.Pokemon.Moves
         /// <param name="player">Player class. CAN BE NULL for Wild pokemons, so or check for null or use ? operator like this: <code>player?.ActivePet</code></param>
         /// <param name="attacker">Attacker mon data like HP, Type, etc</param>
         /// <param name="deffender">Defender mon data</param>
-        /// <param name="state">The battle state when this move is to start animating</param>
-        public virtual void AnimateTurn(ParentPokemon mon, ParentPokemon target,
-            TerramonPlayer player, PokemonData attacker, PokemonData deffender, BattleState state)
+        /// <returns>Return true if animation continues</returns>
+        public virtual bool AnimateTurn(ParentPokemon mon, ParentPokemon target,
+            TerramonPlayer player, PokemonData attacker, PokemonData deffender)
         {
-
+            return false;
         }
 
         /// <summary>

@@ -55,10 +55,10 @@ namespace Terramon.Pokemon.Moves
             return true;
         }
 
-        public override void AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
-            PokemonData deffender, BattleState state)
+        public override bool AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
+            PokemonData deffender)
         {
-            
+            return false;
         }
     }
 }

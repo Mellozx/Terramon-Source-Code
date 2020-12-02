@@ -44,7 +44,8 @@ namespace Terramon.Pokemon
         public bool awaitSync = false;
         protected BaseMove pMove, oMove;
         public bool MoveDone => pMove != null;
-        protected int atackTimeout;
+        //protected int atackTimeout;
+        protected byte animInProggress; // 0 idle, 1 casting, 2 done
 
         public bool battleJustStarted = false;
         public static bool doneWildIntro = false;
@@ -83,6 +84,7 @@ namespace Terramon.Pokemon
             player1 = fpl;
             player2 = spl;
             Wild = second;
+            animInProggress = 0;
 
             //Guard some code from repeating
             if(!lazy)
@@ -296,7 +298,7 @@ namespace Terramon.Pokemon
                 if (Text("Got away safely!", new Color(200, 50, 70), true) && Main.netMode == NetmodeID.MultiplayerClient)
                     new BattleEndPacket().Send(TerramonMod.Instance);
 
-                EndBattle(State);
+                EndBattle();
             }
 
             if (player1.player == Main.LocalPlayer && Main.keyState.IsKeyDown(Keys.Escape))
@@ -344,10 +346,10 @@ namespace Terramon.Pokemon
             }
 
 
-            atackTimeout = atackTimeout > 0 ? atackTimeout - 1 : 0;
-            animWindow = animWindow > 0 ? animWindow - 1 : 0;
+            //atackTimeout = atackTimeout > 0 ? atackTimeout - 1 : 0;
+            animWindow = animMode > 0 ? animWindow + 1 : animWindow;
 
-            if (pMove == null && atackTimeout <= 0 && Main.LocalPlayer == player1.player)
+            if (pMove == null && animInProggress == 0 && Main.LocalPlayer == player1.player)
             {
                 UI.Turn = true;
             }
@@ -358,7 +360,7 @@ namespace Terramon.Pokemon
                 oMove = new ShootMove();
             }
 
-            if (animWindow == 0)
+            if (animInProggress == 2)
             {
                 if (animMode == 1 || animMode == 4)
                 {
@@ -377,9 +379,11 @@ namespace Terramon.Pokemon
                     pMove = null;
                     animMode = 0;
                 }
+
+                animInProggress = 0;
             }
 
-            if (animWindow > 0)
+            if (animInProggress == 1)
             {
                 if (player1.ActivePet.Fainted ||
                     ((State == BattleState.BattleWithTrainer || State == BattleState.BattleWithWild) && Wild.Fainted) ||
@@ -395,14 +399,14 @@ namespace Terramon.Pokemon
                 {
                     if (pMove != null)
                     {
-                        pMove.AnimationFrame = (animWindow - 1600) * -1;
+                        pMove.AnimationFrame = animWindow;
                         switch (State)
                         {
                             case BattleState.BattleWithWild:
-                                pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild, State);
+                                animInProggress = (byte)(pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild) ? 1 : 2);
                                 break;
                             case BattleState.BattleWithPlayer:
-                                pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player1, player1.ActivePet, player2.ActivePet, State);
+                                animInProggress = (byte)(pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player1, player1.ActivePet, player2.ActivePet) ? 1 : 2);
                                 break;
                         }
                     }
@@ -412,12 +416,12 @@ namespace Terramon.Pokemon
                     if (State != BattleState.BattleWithPlayer)
                         if (oMove != null)
                         {
-                            oMove.AnimationFrame = (animWindow - 1600) * -1;
+                            oMove.AnimationFrame = animWindow;
                             switch (State)
                             {
                                 case BattleState.BattleWithWild:
-                                    oMove.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
-                                        player1.ActivePet, State);
+                                    animInProggress = (byte)(oMove.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
+                                        player1.ActivePet) ? 1 : 2);
                                     break;
                                 case BattleState.BattleWithPlayer:
                                     //oMove.AnimateTurn((ParentPokemon)(Main.projectile[player2.ActivePetId].modProjectile), (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), player2, player2.ActivePet,
@@ -428,10 +432,12 @@ namespace Terramon.Pokemon
                         }
                         
                 }
-            }else if (animMode != 0 && animMode < 3)
+
+            }else if (animMode > 0 && animMode < 3)
             {
                 animMode += 2;//Shift to second casts
-                animWindow = 1600;
+                animWindow = 0;
+                animInProggress = 1;
                 switch (animMode)
                 {
                     case 3:
@@ -535,8 +541,9 @@ namespace Terramon.Pokemon
                         
                     animMode = 2;
                 }
-                animWindow = 1600;
-                atackTimeout = 260;
+                animWindow = 0;
+                animInProggress = 1;
+                //atackTimeout = 260;
             }
 
             if (player1.ActivePet?.Fainted ?? false)
@@ -555,7 +562,8 @@ namespace Terramon.Pokemon
                 {
                     if(Text($"Your {player1.ActivePet.PokemonName} was fainted! You loose this battle!") && Main.netMode == NetmodeID.MultiplayerClient)
                         new BattleEndPacket().Send(TerramonMod.Instance);
-                    State = BattleState.None;
+                    EndBattle();
+                    //State = BattleState.None;
                 }
             }
 
@@ -566,6 +574,7 @@ namespace Terramon.Pokemon
                     { 
                         if(Text($"Wild {Wild.PokemonName} was fainted! [PH] Your {player1.ActivePet?.PokemonName} received 50 XP!", true))
                             player1.ActivePet.Exp += 50;
+                        EndBattle();
                         State = BattleState.None;
                     }
                     break;
@@ -576,8 +585,9 @@ namespace Terramon.Pokemon
                         //End packet
                         player2.Battle?.Cleanup();
                         player2.Battle = null;
+                        EndBattle();
                         new BattleEndPacket().Send(TerramonMod.Instance);
-                        State = BattleState.None;
+                        //State = BattleState.None;
                     }
                     else if (!faintedPrinted && (player2.ActivePet.Fainted &&
                               ((player2.PartySlot1 != null && !player2.PartySlot1.Fainted) ||
@@ -629,10 +639,10 @@ namespace Terramon.Pokemon
 
         }
         
-        public virtual void EndBattle(BattleState battleState)
+        public virtual void EndBattle()
         {
             // poof wild pokemon away in dust
-            if (battleState == BattleState.BattleWithWild)
+            if (State == BattleState.BattleWithWild)
             {
                 for (int i = 0; i < 18; i++)
                 {
