@@ -54,6 +54,12 @@ namespace Terramon.UI
             get => Main.screenPosition.Y + (Main.screenHeight / 2);
             set => ModContent.GetInstance<TerramonMod>().battleCamera.Y = value;
         }
+
+        public Vector2 ScreenPos
+        {
+            get => Main.screenPosition;
+            set => TerramonMod.Instance.battleCamera = value;
+        }
     }
     public static class AnimatorExtensions
     {
@@ -72,5 +78,11 @@ namespace Terramon.UI
         public static TransformSequence<T> ScreenPosY<T>(this TransformSequence<T> t, float newValue, double duration = 0, Easing easing = Easing.None)
                   where T : Animator =>
                   t.Append(o => o.ScreenPosY(newValue, duration, easing));
+
+        public static TransformSequence<T> ScreenPos<T>(this T drawable, Vector2 newValue, double duration = 0, Easing easing = Easing.None) where T : Animator =>
+            drawable.TransformTo(nameof(drawable.ScreenPos), newValue, duration, easing);
+        public static TransformSequence<T> ScreenPos<T>(this TransformSequence<T> t, Vector2 newValue, double duration = 0, Easing easing = Easing.None)
+            where T : Animator =>
+            t.Append(o => o.ScreenPos(newValue, duration, easing));
     }
 }
