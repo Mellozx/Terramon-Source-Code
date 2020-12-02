@@ -45,7 +45,7 @@ namespace Terramon.Pokemon
         protected BaseMove pMove, oMove;
         public bool MoveDone => pMove != null;
         //protected int atackTimeout;
-        protected bool animInProggress;
+        protected byte animInProggress; // 0 idle, 1 casting, 2 done
 
         public bool battleJustStarted = false;
         public static bool doneWildIntro = false;
@@ -84,6 +84,7 @@ namespace Terramon.Pokemon
             player1 = fpl;
             player2 = spl;
             Wild = second;
+            animInProggress = 0;
 
             //Guard some code from repeating
             if(!lazy)
@@ -339,7 +340,7 @@ namespace Terramon.Pokemon
             //atackTimeout = atackTimeout > 0 ? atackTimeout - 1 : 0;
             animWindow = animMode > 0 ? animWindow + 1 : animWindow;
 
-            if (pMove == null && !animInProggress && Main.LocalPlayer == player1.player)
+            if (pMove == null && animInProggress == 0 && Main.LocalPlayer == player1.player)
             {
                 UI.Turn = true;
             }
@@ -350,7 +351,7 @@ namespace Terramon.Pokemon
                 oMove = new ShootMove();
             }
 
-            if (animWindow == 0)
+            if (animInProggress == 2)
             {
                 if (animMode == 1 || animMode == 4)
                 {
@@ -368,9 +369,11 @@ namespace Terramon.Pokemon
                     pMove = null;
                     animMode = 0;
                 }
+
+                animInProggress = 0;
             }
 
-            if (animWindow > 0)
+            if (animInProggress == 1)
             {
                 if (player1.ActivePet.Fainted ||
                     ((State == BattleState.BattleWithTrainer || State == BattleState.BattleWithWild) && Wild.Fainted) ||
@@ -390,10 +393,10 @@ namespace Terramon.Pokemon
                         switch (State)
                         {
                             case BattleState.BattleWithWild:
-                                animInProggress = pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild);
+                                animInProggress = (byte)(pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild) ? 1 : 2);
                                 break;
                             case BattleState.BattleWithPlayer:
-                                animInProggress = pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player1, player1.ActivePet, player2.ActivePet);
+                                animInProggress = (byte)(pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player1, player1.ActivePet, player2.ActivePet) ? 1 : 2);
                                 break;
                         }
                     }
@@ -407,8 +410,8 @@ namespace Terramon.Pokemon
                             switch (State)
                             {
                                 case BattleState.BattleWithWild:
-                                    animInProggress = oMove.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
-                                        player1.ActivePet);
+                                    animInProggress = (byte)(oMove.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
+                                        player1.ActivePet) ? 1 : 2);
                                     break;
                                 case BattleState.BattleWithPlayer:
                                     //oMove.AnimateTurn((ParentPokemon)(Main.projectile[player2.ActivePetId].modProjectile), (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), player2, player2.ActivePet,
@@ -419,11 +422,12 @@ namespace Terramon.Pokemon
                         }
                         
                 }
-            }else if (animMode != 0 && animMode < 3)
+
+            }else if (animMode > 0 && animMode < 3)
             {
                 animMode += 2;//Shift to second casts
                 animWindow = 0;
-                animInProggress = true;
+                animInProggress = 1;
                 switch (animMode)
                 {
                     case 3:
@@ -528,6 +532,7 @@ namespace Terramon.Pokemon
                     animMode = 2;
                 }
                 animWindow = 0;
+                animInProggress = 1;
                 //atackTimeout = 260;
             }
 
