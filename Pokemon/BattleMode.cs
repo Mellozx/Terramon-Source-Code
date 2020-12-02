@@ -298,7 +298,7 @@ namespace Terramon.Pokemon
                 if (Text("Got away safely!", new Color(200, 50, 70), true) && Main.netMode == NetmodeID.MultiplayerClient)
                     new BattleEndPacket().Send(TerramonMod.Instance);
 
-                EndBattle(State);
+                EndBattle();
             }
 
             if (player1.player == Main.LocalPlayer && Main.keyState.IsKeyDown(Keys.Escape))
@@ -562,7 +562,8 @@ namespace Terramon.Pokemon
                 {
                     if(Text($"Your {player1.ActivePet.PokemonName} was fainted! You loose this battle!") && Main.netMode == NetmodeID.MultiplayerClient)
                         new BattleEndPacket().Send(TerramonMod.Instance);
-                    State = BattleState.None;
+                    EndBattle();
+                    //State = BattleState.None;
                 }
             }
 
@@ -573,6 +574,7 @@ namespace Terramon.Pokemon
                     { 
                         if(Text($"Wild {Wild.PokemonName} was fainted! [PH] Your {player1.ActivePet?.PokemonName} received 50 XP!", true))
                             player1.ActivePet.Exp += 50;
+                        EndBattle();
                         State = BattleState.None;
                     }
                     break;
@@ -583,8 +585,9 @@ namespace Terramon.Pokemon
                         //End packet
                         player2.Battle?.Cleanup();
                         player2.Battle = null;
+                        EndBattle();
                         new BattleEndPacket().Send(TerramonMod.Instance);
-                        State = BattleState.None;
+                        //State = BattleState.None;
                     }
                     else if (!faintedPrinted && (player2.ActivePet.Fainted &&
                               ((player2.PartySlot1 != null && !player2.PartySlot1.Fainted) ||
@@ -636,10 +639,10 @@ namespace Terramon.Pokemon
 
         }
         
-        public virtual void EndBattle(BattleState battleState)
+        public virtual void EndBattle()
         {
             // poof wild pokemon away in dust
-            if (battleState == BattleState.BattleWithWild)
+            if (State == BattleState.BattleWithWild)
             {
                 for (int i = 0; i < 18; i++)
                 {
