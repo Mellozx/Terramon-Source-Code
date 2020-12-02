@@ -84,7 +84,7 @@ namespace Terramon.Pokemon
             projectile.penetrate = -1;
             projectile.timeLeft *= 5;
             projectile.owner = Main.myPlayer;
-            drawOffsetX = 100;
+            drawOffsetX = 0;
             if (Main.dedServ)
             {
                 Wild = det_Wild;
@@ -106,13 +106,23 @@ namespace Terramon.Pokemon
                 path += "_Shiny";
             }
 
+            float scale = projectile.scale;
+
+            if (damageReceived)
+            {
+                if (flashFrame)
+                {
+                    scale = 0f;
+                }
+            }
+
             SpriteEffects effects =
                 projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Texture2D pkmnTexture = mod.GetTexture(path);
             int frameHeight = pkmnTexture.Height / Main.projFrames[projectile.type];
             spriteBatch.Draw(pkmnTexture, projectile.position - Main.screenPosition + new Vector2(14, 0),
                 new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, projectile.rotation,
-                new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), projectile.scale, effects, 0f);
+                new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), scale, effects, 0f);
             return true;
         }
 
@@ -128,8 +138,11 @@ namespace Terramon.Pokemon
         private int mainAi = ProjectileID.Puppy;
 
         // for wild, walking pokemon
-        private int hopTimer;
+        public int hopTimer;
         private bool jumping = false;
+        public bool damageReceived = false;
+        private int damageReceivedTimer;
+        private bool flashFrame;
 
         private float lockedPosX;
 
@@ -209,6 +222,38 @@ namespace Terramon.Pokemon
                 {
                     Dust.NewDust(projectile.position, projectile.width, projectile.height,
                         mod.DustType("SmokeTransformDust"));
+                }
+            }
+
+            // flash animation when damaged
+            if (damageReceived)
+            {
+                damageReceivedTimer++;
+                if (damageReceivedTimer <= 10)
+                {
+                    flashFrame = true;
+                }
+                if (damageReceivedTimer >= 11 && damageReceivedTimer <= 20)
+                {
+                    flashFrame = false;
+                }
+                if (damageReceivedTimer >= 21 && damageReceivedTimer <= 30)
+                {
+                    flashFrame = true;
+                }
+                if (damageReceivedTimer >= 31 && damageReceivedTimer <= 40)
+                {
+                    flashFrame = false;
+                }
+                if (damageReceivedTimer >= 41 && damageReceivedTimer <= 50)
+                {
+                    flashFrame = true;
+                }
+                if (damageReceivedTimer >= 51 && damageReceivedTimer <= 60)
+                {
+                    flashFrame = false;
+                    damageReceived = false;
+                    damageReceivedTimer = 0;
                 }
             }
 

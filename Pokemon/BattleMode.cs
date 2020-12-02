@@ -92,6 +92,8 @@ namespace Terramon.Pokemon
                     Wild = new PokemonData()
                     {
                         Pokemon = npc.HomeClass().Name,
+                        HP  = 10,
+                        MaxHP = 10
                     };
                     //Replace NPC with projectile
                     if (Main.netMode == NetmodeID.SinglePlayer || player1.player == Main.LocalPlayer)
@@ -151,7 +153,7 @@ namespace Terramon.Pokemon
                         UI.MovesPanel.PokeData = new PokemonData()
                         {
                             Pokemon = npc.HomeClass().Name,
-                            Moves = new BaseMove[] { new ShootMove(), new ShootMove(), new ShootMove(), new ShootMove() }
+                            Moves = new BaseMove[] { new Absorb(), new ShootMove(), new ShootMove(), new ShootMove() }
                         };
                         wildChallenge.Args = new object[] { second?.Pokemon };
                         //Text(wildChallenge.Value);
@@ -177,7 +179,7 @@ namespace Terramon.Pokemon
         }
 
         private int escapeCountdown = 0;
-        private int animWindow = 0;
+        public static int animWindow = 0;
         private byte animMode = 0;//0 Idle, 1 playerMonAnim, 2 enemyMonAnim, 3 enemyMonContinue, 4 playerMonContinue
 
         private int wildTimer = 0;
@@ -274,13 +276,20 @@ namespace Terramon.Pokemon
                 doneWildIntro = true;
             }
 
+            // Make wild pokemon jump every so often
+            if (wildTimer >= 1300 && UI.Turn)
+            {
+                wildTimer = 0;
+                WildNPC.hopTimer = 0;
+            }
+
             if (queueRunAway)
             {
                 queueRunAway = false;
 
                 if (State == BattleState.BattleWithPlayer)
                 {
-                    if (Text("You escaped, but lost some money...", true)) ;
+                    if (Text("You escaped, but lost some money...", true));
                     //Escape packet
                 }
 
@@ -353,12 +362,13 @@ namespace Terramon.Pokemon
             {
                 if (animMode == 1 || animMode == 4)
                 {
-                    Text(pMove?.PostText);
+                    //obsolete
+                    //Text(pMove?.PostText);
                 }
                 else if (animMode == 2 || animMode == 3)
                 {
-                    if(State != BattleState.BattleWithPlayer)
-                        Text(oMove?.PostText);
+                    //obsolete
+                    //Text(oMove?.PostText);
                 }   
 
                 if (animMode > 2)
@@ -385,14 +395,14 @@ namespace Terramon.Pokemon
                 {
                     if (pMove != null)
                     {
-                        pMove.AnimationFrame = (animWindow - 121) * -1;
+                        pMove.AnimationFrame = (animWindow - 1600) * -1;
                         switch (State)
                         {
                             case BattleState.BattleWithWild:
-                                pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild);
+                                pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild, State);
                                 break;
                             case BattleState.BattleWithPlayer:
-                                pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player1, player1.ActivePet, player2.ActivePet);
+                                pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player1, player1.ActivePet, player2.ActivePet, State);
                                 break;
                         }
                     }
@@ -402,12 +412,12 @@ namespace Terramon.Pokemon
                     if (State != BattleState.BattleWithPlayer)
                         if (oMove != null)
                         {
-                            oMove.AnimationFrame = (animWindow - 121) * -1;
+                            oMove.AnimationFrame = (animWindow - 1600) * -1;
                             switch (State)
                             {
                                 case BattleState.BattleWithWild:
                                     oMove.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
-                                        player1.ActivePet);
+                                        player1.ActivePet, State);
                                     break;
                                 case BattleState.BattleWithPlayer:
                                     //oMove.AnimateTurn((ParentPokemon)(Main.projectile[player2.ActivePetId].modProjectile), (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), player2, player2.ActivePet,
@@ -421,7 +431,7 @@ namespace Terramon.Pokemon
             }else if (animMode != 0 && animMode < 3)
             {
                 animMode += 2;//Shift to second casts
-                animWindow = 121;
+                animWindow = 1600;
                 switch (animMode)
                 {
                     case 3:
@@ -525,7 +535,7 @@ namespace Terramon.Pokemon
                         
                     animMode = 2;
                 }
-                animWindow = 121;
+                animWindow = 1600;
                 atackTimeout = 260;
             }
 
@@ -641,6 +651,9 @@ namespace Terramon.Pokemon
             UI.ButtonMenuPanel.Remove();
             UI.splashText.SetText("");
             UI.MovesPanel.Top.Set(500, 1f);
+            UI.HP1.firstLoadHP = true;
+            UI.HP2.firstLoadHP = true;
+            UI.HP1.HPBar.lowHPSoundInstance?.Stop();
 
             State = BattleState.None;
         }
@@ -850,14 +863,14 @@ namespace Terramon.Pokemon
             tipText.HAlign = 0.5f;
             Append(tipText);
 
-            HP1 = new HPPanel();
-            HP1.Left.Set(80, 0);
+            HP1 = new HPPanel(true);
+            HP1.Left.Set(-340, 1f);
             HP1.Top.Set(0, 0.6f);
             Append(HP1);
 
-            HP2 = new HPPanel();
-            HP2.Left.Set(-180, 1);
-            HP2.Top.Set(0, 0.6f);
+            HP2 = new HPPanel(false);
+            HP2.Left.Set(150, 0f);
+            HP2.Top.Set(0, 0.4f);
             Append(HP2);
 
             MovesPanel = new MovesPanel()
@@ -904,6 +917,7 @@ namespace Terramon.Pokemon
                 splashText.SetText($"What will {player1.ActivePet.PokemonName} do?");
 
                 // pan camera to local player pokemon
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/uislide").WithVolume(.6f));
                 TerramonMod.ZoomAnimator.ScreenPosX(Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X + 12, 500, Easing.OutExpo);
                 TerramonMod.ZoomAnimator.ScreenPosY(Main.projectile[player1.ActivePetId].modProjectile.projectile.position.Y, 500, Easing.OutExpo);
 
@@ -977,14 +991,25 @@ namespace Terramon.Pokemon
             RunButton.Append(RunText);
         }
 
+        public bool viewable = false;
         public override void Update(GameTime gameTime)
         {
-            if (BattleMode.inMainMenu)
+            if (BattleMode.inMainMenu && BattleMode.UI.Turn && BattleMode.doneWildIntro)
             {
-                Top.Set(-220, 1f);
+                var player1 = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+                BattleMode.UI.splashText.SetText($"What will {player1.ActivePet.PokemonName} do?");
+                if (!viewable)
+                {
+                    TerramonMod.ZoomAnimator.ScreenPosX((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X + 12), 500, Easing.OutExpo);
+                    TerramonMod.ZoomAnimator.ScreenPosY((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.Y), 500, Easing.OutExpo);
+                    Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/uislide").WithVolume(.6f));
+                    TerramonMod.ZoomAnimator.ButtonMenuPanelX(-220, 500, Easing.OutExpo);
+                }
+                viewable = true;
             }
             else
             {
+                viewable = false;
                 Top.Set(500, 1f);
             }
 
@@ -993,23 +1018,36 @@ namespace Terramon.Pokemon
         }
         private void fight(UIMouseEvent evt, UIElement listeningElement)
         {
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/uiselect").WithVolume(.55f));
             BattleMode.inMainMenu = false;
         }
 
         private void runAway(UIMouseEvent evt, UIElement listeningElement)
         {
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/uiselect").WithVolume(.55f));
             BattleMode.queueRunAway = true;
         }
     }
 
     public class HPPanel : UIPanel
     {
-        private UIText HPText, PokeName;
+        private UIText LevelText, HPText, HPLocal, PokeName;
         private UIImage HP, HPBack, Party, PartyExh;
+        public BattleHPBar HPBar;
 
         private ILocalisedBindableString LocPokemon;
 
         private PokemonData pokeData;
+
+        public int displayHpNumber = 0;
+        public double lastDisplayHP = 0;
+        public double displayHp = 0;
+
+        public double fillval = 1f;
+
+        public bool firstLoadHP = true;
+
+        public bool local = true;
 
         //private Texture HPTexture, HPBackTexture, PartyTexture, PartyExhausted;
         public PokemonData PokeData
@@ -1019,7 +1057,18 @@ namespace Terramon.Pokemon
             {
                 if(value == pokeData)
                     return;
+
                 pokeData = value;
+
+                if (firstLoadHP)
+                {
+                    if (pokeData?.HP != null)
+                    {
+                        displayHpNumber = pokeData.HP;
+                        firstLoadHP = false;
+                    }
+                }
+
                 LocPokemon = TerramonMod.Localisation.GetLocalisedString(pokeData?.Pokemon ?? "MissingNO");
                 PokeName?.SetText(LocPokemon.Value);
             }
@@ -1036,35 +1085,111 @@ namespace Terramon.Pokemon
             }
         }
 
+        public HPPanel(bool l)
+        {
+            local = l;
+        }
+
+        public bool AdjustingHP()
+        {
+            if (displayHpNumber != pokeData?.HP)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public override void OnInitialize()
         {
-            this.BackgroundColor = Color.Azure * 0.7f;
-            this.Width.Set(100, 0f);
-            this.Height.Set(75, 0f);
+            this.BackgroundColor = new Color(76, 78, 79);
+            this.Width.Set(174, 0f);
+            if (local)
+            {
+                this.Height.Set(94, 0f);
+            } else
+            {
+                this.Height.Set(75, 0f);
+            }
 
             PokeName = new UIText(LocPokemon?.Value ?? string.Empty);
             PokeName.Left.Set(5, 0f);
-            PokeName.Top.Set(500, 0f);
+            PokeName.Top.Set(5, 0f);
             Append(PokeName);
 
-            HPText = new UIText("HP: 0/0");
+            HPText = new UIText("HP", 0.6f, false);
+            HPText.Top.Set(32, 0f);
             HPText.Left.Set(5, 0f);
-            HPText.Top.Set(25, 0f);
             Append(HPText);
+
+            if (local)
+            {
+                HPLocal = new UIText("", 0.9f, false);
+                HPLocal.Top.Set(54, 0f);
+                HPLocal.Left.Set(5, 0f);
+                Append(HPLocal);
+            }
+
+            if (local) HPBar = new BattleHPBar(Color.LightGreen, true);
+            else HPBar = new BattleHPBar(Color.LightGreen, false);
+            HPBar.Top.Set(30, 0f);
+            HPBar.Left.Set(24, 0f);
+            HPBar.Height.Set(14, 0f);
+            HPBar.Width.Set(124, 0f);
+            Append(HPBar);
+
+            LevelText = new UIText("Lv 1");
+            LevelText.HAlign = 0.92f;
+            LevelText.Top.Set(5, 0f);
+            Append(LevelText);
+
+            if (pokeData?.HP != null && pokeData?.MaxHP != null)
+            {
+                HPBar.fill = (float)fillval;
+            }
 
             base.OnInitialize();
         }
 
+        public double hpLerpTimer;
         public override void Update(GameTime gameTime)
         {
-            HPText?.SetText($"HP: {pokeData?.HP ?? 0}/{pokeData?.MaxHP ?? 0}");
+            hpLerpTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            //TODO: Make an HP bar
+            LocPokemon = TerramonMod.Localisation.GetLocalisedString(pokeData?.Pokemon ?? "MissingNO");
+            PokeName.SetText(LocPokemon.Value);
+            if (pokeData?.HP != null && pokeData?.MaxHP != null)
+            {
+                fillval = displayHp / (double)pokeData?.MaxHP;
+                HPBar.fill = (float)fillval;
+            }
+            
+            if (local)
+            {
+                HPLocal?.SetText($"{displayHpNumber}/{pokeData?.MaxHP ?? 0}");
+            }
+
+            if (hpLerpTimer > 12)
+            {
+                if (pokeData?.HP > displayHp)
+                {
+                    displayHpNumber += 1;
+                }
+                if (pokeData?.HP < displayHp)
+                {
+                    displayHpNumber -= 1;
+                }
+                hpLerpTimer = 0;
+            }
+
+            displayHp = displayHpNumber;
+
+            LevelText.SetText($"Lv {pokeData?.Level ?? 1}");
 
             base.Update(gameTime);
         }
-
     }
 
     public class MovesPanel : UIPanel
@@ -1137,7 +1262,13 @@ namespace Terramon.Pokemon
             }
 
             if (!BattleMode.inMainMenu) {
-                Top.Set(-220, 1f);
+                if (BattleMode.UI.Turn)
+                {
+                    Top.Set(-220, 1f);
+                } else
+                {
+                    Top.Set(500, 1f);
+                }
             } else
             {
                 Top.Set(500, 1f);

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Razorwing.Framework.Localisation;
 using Terramon.Players;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Terramon.Pokemon.Moves
 {
@@ -23,16 +24,29 @@ namespace Terramon.Pokemon.Moves
         public override bool PerformInBattle(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
             PokemonData deffender)
         {
-            var p = (float) Damage / 100;
-            float d = -1;
-            if(!Special)
+            if (player == null)
             {
-                d = (((((float) attacker.Level * 2) / 5 + 2) * p * ((float) attacker.PhysDmg / deffender.PhysDef)) 
+                BattleMode.UI.splashText.SetText($"The wild {attacker.PokemonName} used {MoveName}!");
+            } else
+            {
+                BattleMode.UI.splashText.SetText($"{attacker.PokemonName} used {MoveName}!");
+            }
+            return true;
+        }
+
+        public float InflictDamage(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
+            PokemonData deffender)
+        {
+            var p = (float)Damage / 100;
+            float d = -1;
+            if (!Special)
+            {
+                d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.PhysDmg / deffender.PhysDef))
                      / 50) + 2;
             }
             else
             {
-                d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.SpDmg / deffender.SpDef)) 
+                d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.SpDmg / deffender.SpDef))
                      / 50) + 2;
             }
             //float d = !Special ? (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.PhysDmg / deffender.PhysDef)) / 50) + 2:
@@ -47,9 +61,11 @@ namespace Terramon.Pokemon.Moves
                 }
             }
 
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Damage1").WithVolume(.8f));
             d = deffender.Damage((int)Math.Abs(d));
-            PostTextLoc.Args = new object[] {attacker.PokemonName, deffender.PokemonName, MoveName, (int)d};
-            return true;
+            target.damageReceived = true;
+            PostTextLoc.Args = new object[] { attacker.PokemonName, deffender.PokemonName, MoveName, (int)d };
+            return d;
         }
     }
 }

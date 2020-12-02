@@ -56,7 +56,7 @@ namespace Terramon.Pokemon.Moves
         }
 
         public override void AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
-            PokemonData deffender)
+            PokemonData deffender, BattleState state)
         {
             
         }

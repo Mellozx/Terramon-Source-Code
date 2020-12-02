@@ -901,7 +901,7 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
                     nidorinoBattle._visibilityActive = 0f;
                     gengarBattle._visibilityActive = 0f;
                     whiteFlash._visibilityActive = 0f;
-		    treesScrolling1._visibilityActive = 0f;
+		            treesScrolling1._visibilityActive = 0f;
                 }
 
                 if (scrollFastTimer > 10.5 && !movieFinished)

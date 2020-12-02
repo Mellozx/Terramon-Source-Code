@@ -100,6 +100,16 @@ namespace Terramon.Tiles
 						var lp = Main.LocalPlayer;
 						CombatText.NewText(lp.Hitbox, new Color(75, 201, 96), "+", true);
 						Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/recovery").WithVolume(.4f));
+
+						// Heal mons
+						if (player.PartySlot1 != null) player.PartySlot1.HP = player.PartySlot1.MaxHP;
+						if (player.PartySlot2 != null) player.PartySlot2.HP = player.PartySlot2.MaxHP;
+						if (player.PartySlot3 != null) player.PartySlot3.HP = player.PartySlot3.MaxHP;
+						if (player.PartySlot4 != null) player.PartySlot4.HP = player.PartySlot4.MaxHP;
+						if (player.PartySlot5 != null) player.PartySlot5.HP = player.PartySlot5.MaxHP;
+						if (player.PartySlot6 != null) player.PartySlot6.HP = player.PartySlot6.MaxHP;
+
+						Main.NewText("All of your party Pokémon were healed to full health!", Color.LightGreen);
 					}
 					playedHealingSfx = true;
 				}
