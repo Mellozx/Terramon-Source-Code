@@ -186,7 +186,9 @@ namespace Terramon.Pokemon.Moves
                 if (endMoveTimer == 260)
                 {
                     BattleMode.UI.splashText.SetText("");
-                    attacker.HP += (int)damageDealt / 2;
+                    // If this attack deals 1 HP of damage, 1 HP will be restored to the user.
+                    if ((int)damageDealt == 1) attacker.HP += 1;
+                    else attacker.HP += (int)damageDealt / 2;
                     CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, (int)damageDealt / 2);
                 }
                 if (endMoveTimer >= 400)
