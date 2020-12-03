@@ -71,5 +71,10 @@ namespace Terramon.Pokemon.Moves
             PostTextLoc.Args = new object[] { attacker.PokemonName, deffender.PokemonName, MoveName, (int)d };
             return d;
         }
+
+        public void SelfHeal(PokemonData pokemon, int amount)
+        {
+            pokemon.HP += amount;
+        }
     }
 }

@@ -142,32 +142,53 @@ namespace Terramon.Pokemon.Moves
                 //var l = vel.Length();
                 //vel.Normalize();
                 //Main.projectile[id].position = mon.projectile.position + (vel * (l * (AnimationFrame / 120)));
-                if (AnimationFrame < 190) Main.projectile[spore1].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + a, mon.projectile.Hitbox.Center(), 140, 190,
+                if (AnimationFrame < 190)
+                {
+                    var pos = Main.projectile[spore1].position;
+                    Main.projectile[spore1].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + a, mon.projectile.Hitbox.Center(), 140, 190,
                     Easing.Out);
+                    AbsorbSpore ai = (AbsorbSpore)Main.projectile[spore1].modProjectile;
+                    ai.vel = Main.projectile[spore1].position - pos;
+                }
                 if (AnimationFrame > 155 && AnimationFrame < 205)
                 {
+                    var pos = Main.projectile[spore2].position;
                     Main.projectile[spore2].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + b, mon.projectile.Hitbox.Center(), 155, 205,
                     Easing.Out);
+                    AbsorbSpore bi = (AbsorbSpore)Main.projectile[spore2].modProjectile;
+                    bi.vel = Main.projectile[spore2].position - pos;
                 }
                 if (AnimationFrame > 170 && AnimationFrame < 220)
                 {
+                    var pos = Main.projectile[spore3].position;
                     Main.projectile[spore3].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + c, mon.projectile.Hitbox.Center(), 170, 220,
                     Easing.Out);
+                    AbsorbSpore ci = (AbsorbSpore)Main.projectile[spore3].modProjectile;
+                    ci.vel = Main.projectile[spore3].position - pos;
                 }
                 if (AnimationFrame > 185 && AnimationFrame < 235)
                 {
+                    var pos = Main.projectile[spore4].position;
                     Main.projectile[spore4].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + d, mon.projectile.Hitbox.Center(), 185, 235,
                     Easing.Out);
+                    AbsorbSpore di = (AbsorbSpore)Main.projectile[spore4].modProjectile;
+                    di.vel = Main.projectile[spore4].position - pos;
                 }
                 if (AnimationFrame > 200 && AnimationFrame < 250)
                 {
+                    var pos = Main.projectile[spore5].position;
                     Main.projectile[spore5].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + e, mon.projectile.Hitbox.Center(), 200, 250,
                     Easing.Out);
+                    AbsorbSpore ei = (AbsorbSpore)Main.projectile[spore5].modProjectile;
+                    ei.vel = Main.projectile[spore5].position - pos;
                 }
                 if (AnimationFrame > 215 && AnimationFrame < 265)
                 {
+                    var pos = Main.projectile[spore6].position;
                     Main.projectile[spore6].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + f, mon.projectile.Hitbox.Center(), 215, 265,
                     Easing.Out);
+                    AbsorbSpore fi = (AbsorbSpore)Main.projectile[spore6].modProjectile;
+                    fi.vel = Main.projectile[spore6].position - pos;
                 }
             }
 
@@ -175,7 +196,7 @@ namespace Terramon.Pokemon.Moves
             if (BattleMode.moveEnd)
             {
                 endMoveTimer++;
-                if (endMoveTimer >= 100 && endMoveTimer < 260)
+                if (endMoveTimer >= 100 && endMoveTimer < 240)
                 {
                     if (player?.Battle.State == BattleState.BattleWithWild) BattleMode.UI.splashText.SetText($"Sucked life from the wild {deffender.PokemonName}!");
                     //TerramonMod.ZoomAnimator.ScreenPos(mon.projectile.position + new Vector2(12, 0), 500, Easing.OutExpo);
@@ -183,15 +204,22 @@ namespace Terramon.Pokemon.Moves
                     TerramonMod.ZoomAnimator.ScreenPosY(mon.projectile.position.Y, 500, Easing.OutExpo);
                     //BattleMode.animWindow = 0;
                 }
-                if (endMoveTimer == 260)
+                if (endMoveTimer == 240)
                 {
                     BattleMode.UI.splashText.SetText("");
                     // If this attack deals 1 HP of damage, 1 HP will be restored to the user.
-                    if ((int)damageDealt == 1) attacker.HP += 1;
-                    else attacker.HP += (int)damageDealt / 2;
-                    CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, (int)damageDealt / 2);
+                    if ((int)damageDealt == 1)
+                    {
+                        SelfHeal(attacker, 1);
+                        CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, 1);
+                    }
+                    else
+                    {
+                        SelfHeal(attacker, (int)damageDealt / 2);
+                        CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, (int)damageDealt / 2);
+                    }
                 }
-                if (endMoveTimer >= 400)
+                if (endMoveTimer >= 380)
                 {
                     endMoveTimer = 0;
                     BattleMode.moveEnd = false;
@@ -217,17 +245,23 @@ namespace Terramon.Pokemon.Moves
             projectile.timeLeft = 10000;
         }
 
+        private int spawntimer;
         private int timer;
+
+        internal Vector2 vel;
 
         public override void AI()
         {
             timer++;
             if (timer >= 8)
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 75, 0f, 0f, 0);
-                dust.velocity *= 0.4f;
-                dust.velocity += projectile.velocity;
-                dust.noGravity = true;
+                for (int i = 0; i < 2; i++)
+                {
+                    Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 75, 0f, 0f, 0);
+                    dust.velocity *= 0.2f;
+                    dust.velocity = vel;
+                    dust.noGravity = true;
+                }
                 timer = 0;
             }
         }

@@ -93,8 +93,8 @@ namespace Terramon.Pokemon.Moves
                 //Main.projectile[id].position = mon.projectile.position + (vel * (l * (AnimationFrame / 120)));
                 Main.projectile[id].position = Interpolation.ValueAt(AnimationFrame, mon.projectile.position, target.projectile.position, 140, 260,
                     Easing.Out);
-                TerramonMod.ZoomAnimator.ScreenPos(Main.projectile[id].position, 1, Easing.None);
-
+                TerramonMod.ZoomAnimator.ScreenPosX(Main.projectile[id].position.X, 1, Easing.None);
+                TerramonMod.ZoomAnimator.ScreenPosY(Main.projectile[id].position.Y, 1, Easing.None);
             }
 
             // This should be at the very bottom of AnimateTurn() in every move.
