@@ -72,9 +72,11 @@ namespace Terramon.Pokemon.Moves
             return d;
         }
 
-        public void SelfHeal(PokemonData pokemon, int amount)
+        public void SelfHeal(PokemonData pokemon, ParentPokemon target, int amount)
         {
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Heal0").WithVolume(.8f));
             pokemon.HP += amount;
+            target.healedHealth = true;
         }
     }
 }

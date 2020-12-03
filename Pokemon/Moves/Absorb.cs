@@ -210,18 +210,19 @@ namespace Terramon.Pokemon.Moves
                     // If this attack deals 1 HP of damage, 1 HP will be restored to the user.
                     if ((int)damageDealt == 1)
                     {
-                        SelfHeal(attacker, 1);
+                        SelfHeal(attacker, mon, 1);
                         CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, 1);
                     }
                     else
                     {
-                        SelfHeal(attacker, (int)damageDealt / 2);
+                        SelfHeal(attacker, mon, (int)damageDealt / 2);
                         CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, (int)damageDealt / 2);
                     }
                 }
                 if (endMoveTimer >= 330)
                 {
                     endMoveTimer = 0;
+                    AnimationFrame = 0;
                     BattleMode.moveEnd = false;
                     return false;
                 }

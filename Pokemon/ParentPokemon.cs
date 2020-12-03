@@ -140,11 +140,26 @@ namespace Terramon.Pokemon
         // for wild, walking pokemon
         public int hopTimer;
         private bool jumping = false;
-        public bool damageReceived = false;
-        private int damageReceivedTimer;
         private bool flashFrame;
 
         private float lockedPosX;
+
+        // Battling properties
+        // There are a lot of these. These affect the Pokemon's appearance / behavior in various ways
+
+        /// <summary>
+        /// Activates when this Pokemon takes damage from any source. Used to play a flickering animation.
+        /// </summary>
+        public bool damageReceived = false;
+        private int damageReceivedTimer;
+
+        /// <summary>
+        /// Activates when this Pokemon has their HP healed by any source. Used to play a restoration animation.
+        /// </summary>
+        public bool healedHealth = false;
+        private int healedHealthTimer;
+
+        // End battling properties
 
         public override void AI()
         {
@@ -225,7 +240,12 @@ namespace Terramon.Pokemon
                 }
             }
 
-            // flash animation when damaged
+            /// <summary>
+            /// Battling animations
+            /// </summary>
+       
+            // Damage received
+
             if (damageReceived)
             {
                 damageReceivedTimer++;
@@ -256,6 +276,31 @@ namespace Terramon.Pokemon
                     damageReceivedTimer = 0;
                 }
             }
+
+            // Health restoration
+
+            if (healedHealth)
+            {
+                healedHealthTimer++;
+                if (healedHealthTimer < 90)
+                {
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Dust dust1 = Dust.NewDustDirect(projectile.position + new Vector2(Main.rand.Next(-7, 7), Main.rand.Next(-7, 7)), projectile.width, projectile.height, 74, 0f, 0f, 0, Color.White, 0.75f);
+                        dust1.alpha = 100;
+                        dust1.velocity.Y = -3f;
+                        dust1.noGravity = true;
+                    }
+                } else
+                {
+                    healedHealthTimer = 0;
+                    healedHealth = false;
+                }
+            }
+
+            /// <summary>
+            /// End battling animations
+            /// </summary>
 
             if (hopTimer <= 1)
             {

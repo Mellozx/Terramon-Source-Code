@@ -100,6 +100,7 @@ namespace Terramon.Pokemon.Moves
             // This should be at the very bottom of AnimateTurn() in every move.
             if (BattleMode.moveEnd)
             {
+                AnimationFrame = 0;
                 BattleMode.moveEnd = false;
                 return false;
             }

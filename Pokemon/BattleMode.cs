@@ -386,16 +386,6 @@ namespace Terramon.Pokemon
 
             if (animInProggress == 1)
             {
-                if (player1.ActivePet.Fainted ||
-                    ((State == BattleState.BattleWithTrainer || State == BattleState.BattleWithWild) && Wild.Fainted) ||
-                    (player2?.ActivePet?.Fainted ?? false))
-                {
-                    animMode = 5;
-                    animWindow = 0;
-                    pMove = null;
-                    oMove = null;
-                }
-                else
                 if (animMode == 1 || animMode == 4)
                 {
                     if (pMove != null)
@@ -547,6 +537,19 @@ namespace Terramon.Pokemon
                 //atackTimeout = 260;
             }
 
+            if (animInProggress != 1)
+            {
+                if (player1.ActivePet.Fainted ||
+                    ((State == BattleState.BattleWithTrainer || State == BattleState.BattleWithWild) && Wild.Fainted) ||
+                    (player2?.ActivePet?.Fainted ?? false))
+                {
+                    animMode = 5;
+                    animWindow = 0;
+                    pMove = null;
+                    oMove = null;
+                }
+            }
+
             if (player1.ActivePet?.Fainted ?? false)
             {
                 if (!faintedPrinted && (player1.PartySlot1 != null && !player1.PartySlot1.Fainted) ||
@@ -571,7 +574,7 @@ namespace Terramon.Pokemon
             switch (State)
             {
                 case BattleState.BattleWithWild:
-                    if (Wild.Fainted)
+                    if (Wild.Fainted && animInProggress != 1)
                     { 
                         if(Text($"Wild {Wild.PokemonName} was fainted! [PH] Your {player1.ActivePet?.PokemonName} received 50 XP!", true))
                             player1.ActivePet.Exp += 50;
@@ -1035,7 +1038,7 @@ namespace Terramon.Pokemon
 
         private void runAway(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/freeswitch").WithVolume(.65f));
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/fleeswitch").WithVolume(.55f));
             BattleMode.queueRunAway = true;
         }
     }
