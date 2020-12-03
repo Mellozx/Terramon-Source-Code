@@ -880,7 +880,7 @@ namespace Terramon.Pokemon
             Append(HP1);
 
             HP2 = new HPPanel(false);
-            HP2.Left.Set(150, 0f);
+            HP2.Left.Set(160, 0f);
             HP2.Top.Set(0, 0.4f);
             Append(HP2);
 
@@ -1035,7 +1035,7 @@ namespace Terramon.Pokemon
 
         private void runAway(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/uiselect").WithVolume(.55f));
+            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/freeswitch").WithVolume(.65f));
             BattleMode.queueRunAway = true;
         }
     }
