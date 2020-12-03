@@ -9,14 +9,17 @@ namespace Terramon.Pokemon.Moves
     public abstract class BaseMove
     {
         public abstract string MoveName { get; }
+        public abstract string MoveDescription { get; }
         public virtual PokemonType MoveType { get; } = PokemonType.Normal;
         public abstract Target Target { get; }
         public virtual int Cooldown { get; } = 5 * 60; //5 seconds by default
         public virtual int Speed { get; } = 80;
         public virtual int MaxPP { get; } = 20;
+
         public static UnifiedRandom _mrand;
         public static int _seed;
 
+        public bool moveDone = false;
         public bool TurnAnimation { get; set; } = false;
 
         /// <summary>
@@ -179,6 +182,14 @@ namespace Terramon.Pokemon.Moves
                 return null;
 
             return Main.player[closest];
+        }
+
+        /// <summary>
+        /// Call this from AnimateTurn after the animation is finished
+        /// </summary>
+        public void EndMove()
+        {
+           // obsolete
         }
     }
 

@@ -60,7 +60,7 @@ namespace Terramon.Pokemon
         // This is for checking if in main menu which has the Fight, Bag, Pokemon and Run buttons
         public static bool inMainMenu = false;
         public static bool queueRunAway = false;
-
+        public static bool queueEndMove = false;
 
         public BattleMode(TerramonPlayer fpl, BattleState state, PokemonData second = null, ParentPokemonNPC npc = null, TerramonPlayer spl = null, bool lazy = false)
         {
@@ -182,9 +182,10 @@ namespace Terramon.Pokemon
 
         private int escapeCountdown = 0;
         public static int animWindow = 0;
+        public static bool moveEnd = false;
         private byte animMode = 0;//0 Idle, 1 playerMonAnim, 2 enemyMonAnim, 3 enemyMonContinue, 4 playerMonContinue
-
         private int wildTimer = 0;
+        private int endMoveTimer;
 
         // camera control
         private Vector2 OffsetModifier;
@@ -362,17 +363,6 @@ namespace Terramon.Pokemon
 
             if (animInProggress == 2)
             {
-                if (animMode == 1 || animMode == 4)
-                {
-                    //obsolete
-                    //Text(pMove?.PostText);
-                }
-                else if (animMode == 2 || animMode == 3)
-                {
-                    //obsolete
-                    //Text(oMove?.PostText);
-                }   
-
                 if (animMode > 2)
                 {
                     oMove = null;
@@ -381,6 +371,17 @@ namespace Terramon.Pokemon
                 }
 
                 animInProggress = 0;
+            }
+
+            if (queueEndMove)
+            {
+                endMoveTimer++;
+                if (endMoveTimer > 100)
+                {
+                    moveEnd = true;
+                    queueEndMove = false;
+                    endMoveTimer = 0;
+                }
             }
 
             if (animInProggress == 1)
@@ -538,7 +539,7 @@ namespace Terramon.Pokemon
                                 player2, player2.ActivePet, player1.ActivePet);
                             break;
                     }
-                        
+
                     animMode = 2;
                 }
                 animWindow = 0;
@@ -1051,6 +1052,7 @@ namespace Terramon.Pokemon
 
         private int hpScaleTarget = 0;
         public int displayHpNumber = 0;
+        public int displayHpNumberLerp = 0;
         public float lastDisplayHP = 0;
         public float displayHp = 0;
 
@@ -1077,11 +1079,13 @@ namespace Terramon.Pokemon
                     if (pokeData != null)
                     {
                         displayHpNumber = pokeData.HP;
+                        displayHpNumberLerp = pokeData.HP;
+                        HPBar.fill = pokeData.HP;
                         firstLoadHP = false;
                     }
                 }
-                HPBar.Fill = fillval = ((float)pokeData.HP / pokeData.MaxHP);
-                hpScaleTarget = pokeData.HP;
+
+                if (pokeData != null) HPBar.fill = (float)pokeData?.HP / (float)pokeData?.MaxHP;
                 LocPokemon = TerramonMod.Localisation.GetLocalisedString(pokeData?.Pokemon ?? "MissingNO");
                 PokeName?.SetText(LocPokemon.Value);
             }
@@ -1105,14 +1109,7 @@ namespace Terramon.Pokemon
 
         public bool AdjustingHP()
         {
-            if (displayHpNumber != pokeData?.HP)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false; // later
         }
 
         public override void OnInitialize()
@@ -1161,7 +1158,7 @@ namespace Terramon.Pokemon
             if (pokeData != null)
             {
                 displayHp = pokeData.HP;
-                HPBar.Fill = fillval = ((float)pokeData.HP/pokeData.MaxHP);
+                HPBar.fill = (float)pokeData.HP/pokeData.MaxHP;
                 hpScaleTarget = pokeData.HP;
             }
 
@@ -1175,25 +1172,29 @@ namespace Terramon.Pokemon
 
             LocPokemon = TerramonMod.Localisation.GetLocalisedString(pokeData?.Pokemon ?? "MissingNO");
             PokeName.SetText(LocPokemon.Value);
-            if (PokeData != null && hpScaleTarget != PokeData?.HP)
-            {
-                hpScaleTarget = PokeData.HP;
-                fillval = (float)hpScaleTarget / pokeData.MaxHP;
-                HPBar.Fill = (float)fillval;
-            }
-
-            if (hpLerpTimer > 3)
-            {
-                displayHpNumber = (int)Math.Abs(PokeData.MaxHP * HPBar.ActuallScale);
-                hpLerpTimer = 0;
-            }
 
             if (local)
             {
-                HPLocal?.SetText($"{displayHpNumber}/{pokeData?.MaxHP ?? 0}");
+                HPLocal?.SetText($"{displayHpNumberLerp}/{pokeData?.MaxHP ?? 0}");
             }
 
-            displayHp = displayHpNumber;
+            // if display and actual hp are not equal...
+            if (displayHpNumber != pokeData?.HP)
+            {
+                // ... we need to update the hp bar fill + display number.
+                if (local)
+                {
+                    TerramonMod.ZoomAnimator.HPBar1Fill((float)pokeData.HP / pokeData.MaxHP, 1000, Easing.None);
+                    TerramonMod.ZoomAnimator.HPBar1DisplayNumber(pokeData.HP, 1000, Easing.None);
+                } else
+                {
+                    TerramonMod.ZoomAnimator.HPBar2Fill((float)pokeData.HP / pokeData.MaxHP, 1000, Easing.None);
+                    TerramonMod.ZoomAnimator.HPBar2DisplayNumber(pokeData.HP, 1000, Easing.None);
+                }
+            }
+
+            // it get set right after anyway to ensure the Above IF() does not get called more than once
+            if (pokeData?.HP != null) displayHpNumber = pokeData.HP;
 
             LevelText.SetText($"Lv {pokeData?.Level ?? 1}");
 

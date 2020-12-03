@@ -67,6 +67,30 @@ namespace Terramon.UI
             get => BattleMode.UI.ButtonMenuPanel.Top.Pixels;
             set => BattleMode.UI.ButtonMenuPanel.Top.Pixels = value;
         }
+
+        public float HPBar1Fill
+        {
+            get => BattleMode.UI.HP1.HPBar.fill;
+            set => BattleMode.UI.HP1.HPBar.fill = value;
+        }
+
+        public float HPBar2Fill
+        {
+            get => BattleMode.UI.HP2.HPBar.fill;
+            set => BattleMode.UI.HP2.HPBar.fill = value;
+        }
+
+        public int HPBar1DisplayNumber
+        {
+            get => BattleMode.UI.HP1.displayHpNumberLerp;
+            set => BattleMode.UI.HP1.displayHpNumberLerp = value;
+        }
+
+        public int HPBar2DisplayNumber
+        {
+            get => BattleMode.UI.HP2.displayHpNumberLerp;
+            set => BattleMode.UI.HP2.displayHpNumberLerp = value;
+        }
     }
     public static class AnimatorExtensions
     {
@@ -97,5 +121,27 @@ namespace Terramon.UI
         public static TransformSequence<T> ButtonMenuPanelX<T>(this TransformSequence<T> t, float newValue, double duration = 0, Easing easing = Easing.None)
                   where T : Animator =>
                   t.Append(o => o.ButtonMenuPanelX(newValue, duration, easing));
+
+        public static TransformSequence<T> HPBar1Fill<T>(this T drawable, float newValue, double duration = 0, Easing easing = Easing.None) where T : Animator =>
+            drawable.TransformTo(nameof(drawable.HPBar1Fill), newValue, duration, easing);
+        public static TransformSequence<T> HPBar1Fill<T>(this TransformSequence<T> t, float newValue, double duration = 0, Easing easing = Easing.None)
+                  where T : Animator =>
+                  t.Append(o => o.HPBar1Fill(newValue, duration, easing));
+        public static TransformSequence<T> HPBar2Fill<T>(this T drawable, float newValue, double duration = 0, Easing easing = Easing.None) where T : Animator =>
+            drawable.TransformTo(nameof(drawable.HPBar2Fill), newValue, duration, easing);
+        public static TransformSequence<T> HPBar2Fill<T>(this TransformSequence<T> t, float newValue, double duration = 0, Easing easing = Easing.None)
+                  where T : Animator =>
+                  t.Append(o => o.HPBar2Fill(newValue, duration, easing));
+
+        public static TransformSequence<T> HPBar1DisplayNumber<T>(this T drawable, int newValue, double duration = 0, Easing easing = Easing.None) where T : Animator =>
+            drawable.TransformTo(nameof(drawable.HPBar1DisplayNumber), newValue, duration, easing);
+        public static TransformSequence<T> HPBar1DisplayNumber<T>(this TransformSequence<T> t, int newValue, double duration = 0, Easing easing = Easing.None)
+                  where T : Animator =>
+                  t.Append(o => o.HPBar1DisplayNumber(newValue, duration, easing));
+        public static TransformSequence<T> HPBar2DisplayNumber<T>(this T drawable, int newValue, double duration = 0, Easing easing = Easing.None) where T : Animator =>
+            drawable.TransformTo(nameof(drawable.HPBar2DisplayNumber), newValue, duration, easing);
+        public static TransformSequence<T> HPBar2DisplayNumber<T>(this TransformSequence<T> t, int newValue, double duration = 0, Easing easing = Easing.None)
+                  where T : Animator =>
+                  t.Append(o => o.HPBar2DisplayNumber(newValue, duration, easing));
     }
 }

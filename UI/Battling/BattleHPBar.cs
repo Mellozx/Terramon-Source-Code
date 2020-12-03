@@ -17,6 +17,8 @@ namespace Terramon.UI.Battling
     {
 		//private Texture2D _texture;
         private Bar Health;
+
+		private Texture2D _texture;
 		private Texture2D _textureBack;
 
 		private Texture2D _textureOutline;
@@ -35,19 +37,7 @@ namespace Terramon.UI.Battling
 		// If less than one fifth bar is red.
 		public Color drawcolor = Color.White;
 		public float fill = 1f;
-		public float Fill
-        {
-            get => fill;
-            set
-            {
-				if (fill == value)
-					return;
-                var d = value - fill;
-                if (d < 0)
-                    d *= -1;
-                Health.ScaleTo(new Vector2(value, 1), 1000 * d);
-            }
-        }
+		public bool setFill = true;
 
         public float ActuallScale => Health.Scale.X;
 
@@ -58,7 +48,7 @@ namespace Terramon.UI.Battling
                 TextureName = "Terramon/UI/Battling/HPBarFill",
                 Parent = this,
             });
-			//_texture = ModContent.GetTexture("Terramon/UI/Battling/HPBarFill");
+			_texture = ModContent.GetTexture("Terramon/UI/Battling/HPBarFill");
 			_textureBack = ModContent.GetTexture("Terramon/UI/Battling/HPBarBack");
 			_textureOutline = ModContent.GetTexture("Terramon/UI/Battling/HPBar");
 			local = l;
@@ -67,8 +57,7 @@ namespace Terramon.UI.Battling
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(position: GetDimensions().Position() + _textureBack.Size() * (1f - ImageScale) / 2f, texture: _textureBack, sourceRectangle: null, color: Color.White, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(1f, 1f), effects: SpriteEffects.None, layerDepth: 0f);
-			Health.Draw(spriteBatch);//Manual drawing
-            //spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - ImageScale) / 2f, texture: _texture, sourceRectangle: null, color: drawcolor, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(fill, 1f), effects: SpriteEffects.None, layerDepth: 0f);
+			spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - ImageScale) / 2f, texture: _texture, sourceRectangle: null, color: drawcolor, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(fill, 1f), effects: SpriteEffects.None, layerDepth: 0f);
 			spriteBatch.Draw(position: GetDimensions().Position() + _textureOutline.Size() * (1f - ImageScale) / 2f, texture: _textureOutline, sourceRectangle: null, color: Color.White, rotation: 0f, origin: Vector2.Zero, scale: ImageScale, effects: SpriteEffects.None, layerDepth: 0f);
 		}
 
@@ -112,7 +101,7 @@ namespace Terramon.UI.Battling
                     ImageScale = bar.ImageScale;
                     drawcolor = bar.drawcolor;
                 }
-				spriteBatch.Draw(position: GetDimensions().Position() + Texture.Size() * (1f - ImageScale) / 2f, texture: Texture, sourceRectangle: null, color: drawcolor, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(Scale.X, 1f), effects: SpriteEffects.None, layerDepth: 0f);
+				
 			}
         }
 

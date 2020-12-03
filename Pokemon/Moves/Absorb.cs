@@ -17,6 +17,7 @@ namespace Terramon.Pokemon.Moves
     public class Absorb : DamageMove
     {
         public override string MoveName => "Absorb";
+        public override string MoveDescription => "A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.";
         public override int Damage => 20;
         public override Target Target => Target.Opponent;
         public override int Cooldown => 60 * 1; //Once per second
@@ -49,12 +50,9 @@ namespace Terramon.Pokemon.Moves
         public int endMoveTimer;
         public const string PROJID_KEY = "move.projID";
 
-        private int spore1;
-        private int spore2;
-        private int spore3;
-        private int spore4;
-        private int spore5;
-        private int spore6;
+        private int spore1, spore2, spore3, spore4, spore5, spore6;
+
+        private Vector2 a, b, c, d, e, f;
 
         private float damageDealt;
         public override bool AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
@@ -74,19 +72,22 @@ namespace Terramon.Pokemon.Moves
                 TerramonMod.ZoomAnimator.ScreenPosX(target.projectile.position.X + 12, 500, Easing.OutExpo);
                 TerramonMod.ZoomAnimator.ScreenPosY(target.projectile.position.Y, 500, Easing.OutExpo);
 
-                spore1 = Projectile.NewProjectile(target.projectile.Hitbox.Center(), new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
+                a = new Vector2(Main.rand.Next(-18, 18), Main.rand.Next(-18, 18));
+                spore1 = Projectile.NewProjectile(target.projectile.Hitbox.Center() + a, new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
                 Main.projectile[spore1].maxPenetrate = 99;
                 Main.projectile[spore1].penetrate = 99;
             }
             else if (AnimationFrame == 155)
             {
-                spore2 = Projectile.NewProjectile(target.projectile.Hitbox.Center(), new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
+                b = new Vector2(Main.rand.Next(-18, 18), Main.rand.Next(-18, 18));
+                spore2 = Projectile.NewProjectile(target.projectile.Hitbox.Center() + b, new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
                 Main.projectile[spore2].maxPenetrate = 99;
                 Main.projectile[spore2].penetrate = 99;
             }
             else if (AnimationFrame == 170)
             {
-                spore3 = Projectile.NewProjectile(target.projectile.Hitbox.Center(), new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
+                c = new Vector2(Main.rand.Next(-18, 18), Main.rand.Next(-18, 18));
+                spore3 = Projectile.NewProjectile(target.projectile.Hitbox.Center() + c, new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
                 Main.projectile[spore3].maxPenetrate = 99;
                 Main.projectile[spore3].penetrate = 99;
             }
@@ -94,19 +95,22 @@ namespace Terramon.Pokemon.Moves
             {
                 TerramonMod.ZoomAnimator.ScreenPosX(mon.projectile.position.X + 12, 500, Easing.OutExpo);
                 TerramonMod.ZoomAnimator.ScreenPosY(mon.projectile.position.Y, 500, Easing.OutExpo);
-                spore4 = Projectile.NewProjectile(target.projectile.Hitbox.Center(), new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
+                d = new Vector2(Main.rand.Next(-18, 18), Main.rand.Next(-18, 18));
+                spore4 = Projectile.NewProjectile(target.projectile.Hitbox.Center() + d, new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
                 Main.projectile[spore4].maxPenetrate = 99;
                 Main.projectile[spore4].penetrate = 99;
             }
             else if (AnimationFrame == 200)
             {
-                spore5 = Projectile.NewProjectile(target.projectile.Hitbox.Center(), new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
+                e = new Vector2(Main.rand.Next(-18, 18), Main.rand.Next(-18, 18));
+                spore5 = Projectile.NewProjectile(target.projectile.Hitbox.Center() + e, new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
                 Main.projectile[spore5].maxPenetrate = 99;
                 Main.projectile[spore5].penetrate = 99;
             }
             else if (AnimationFrame == 215)
             {
-                spore6 = Projectile.NewProjectile(target.projectile.Hitbox.Center(), new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
+                f = new Vector2(Main.rand.Next(-18, 18), Main.rand.Next(-18, 18));
+                spore6 = Projectile.NewProjectile(target.projectile.Hitbox.Center() + f, new Vector2(0, 0), ModContent.ProjectileType<AbsorbSpore>(), 0, 0);
                 Main.projectile[spore6].maxPenetrate = 99;
                 Main.projectile[spore6].penetrate = 99;
             }
@@ -129,6 +133,7 @@ namespace Terramon.Pokemon.Moves
                 Main.projectile[spore5].active = false;
                 Main.projectile[spore6].timeLeft = 0;
                 Main.projectile[spore6].active = false;
+                BattleMode.queueEndMove = true;
             }
 
             else if (AnimationFrame > 140 && AnimationFrame < 265)
@@ -137,59 +142,58 @@ namespace Terramon.Pokemon.Moves
                 //var l = vel.Length();
                 //vel.Normalize();
                 //Main.projectile[id].position = mon.projectile.position + (vel * (l * (AnimationFrame / 120)));
-                if (AnimationFrame < 190) Main.projectile[spore1].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center(), mon.projectile.Hitbox.Center(), 140, 190,
+                if (AnimationFrame < 190) Main.projectile[spore1].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + a, mon.projectile.Hitbox.Center(), 140, 190,
                     Easing.Out);
                 if (AnimationFrame > 155 && AnimationFrame < 205)
                 {
-                    Main.projectile[spore2].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center(), mon.projectile.Hitbox.Center(), 155, 205,
+                    Main.projectile[spore2].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + b, mon.projectile.Hitbox.Center(), 155, 205,
                     Easing.Out);
                 }
                 if (AnimationFrame > 170 && AnimationFrame < 220)
                 {
-                    Main.projectile[spore3].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center(), mon.projectile.Hitbox.Center(), 170, 220,
+                    Main.projectile[spore3].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + c, mon.projectile.Hitbox.Center(), 170, 220,
                     Easing.Out);
                 }
                 if (AnimationFrame > 185 && AnimationFrame < 235)
                 {
-                    Main.projectile[spore4].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center(), mon.projectile.Hitbox.Center(), 185, 235,
+                    Main.projectile[spore4].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + d, mon.projectile.Hitbox.Center(), 185, 235,
                     Easing.Out);
                 }
                 if (AnimationFrame > 200 && AnimationFrame < 250)
                 {
-                    Main.projectile[spore5].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center(), mon.projectile.Hitbox.Center(), 200, 250,
+                    Main.projectile[spore5].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + e, mon.projectile.Hitbox.Center(), 200, 250,
                     Easing.Out);
                 }
                 if (AnimationFrame > 215 && AnimationFrame < 265)
                 {
-                    Main.projectile[spore6].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center(), mon.projectile.Hitbox.Center(), 215, 265,
+                    Main.projectile[spore6].position = Interpolation.ValueAt(AnimationFrame, target.projectile.Hitbox.Center() + f, mon.projectile.Hitbox.Center(), 215, 265,
                     Easing.Out);
                 }
             }
 
-            if (AnimationFrame > 295)
+            // This should be at the very bottom of AnimateTurn() in every move.
+            if (BattleMode.moveEnd)
             {
-                if (!BattleMode.UI.HP1.AdjustingHP() && !BattleMode.UI.HP1.AdjustingHP())
+                endMoveTimer++;
+                if (endMoveTimer >= 100 && endMoveTimer < 260)
                 {
-                    endMoveTimer++;
-                    if (endMoveTimer >= 100 && endMoveTimer < 200)
-                    {
-                        if (player?.Battle.State == BattleState.BattleWithWild) BattleMode.UI.splashText.SetText($"Sucked life from the wild {deffender.PokemonName}!");
-                        //TerramonMod.ZoomAnimator.ScreenPos(mon.projectile.position + new Vector2(12, 0), 500, Easing.OutExpo);
-                        TerramonMod.ZoomAnimator.ScreenPosX(mon.projectile.position.X + 12, 500, Easing.OutExpo);
-                        TerramonMod.ZoomAnimator.ScreenPosY(mon.projectile.position.Y, 500, Easing.OutExpo);
-                        //BattleMode.animWindow = 0;
-                    }
-                    if (endMoveTimer == 200)
-                    {
-                        BattleMode.UI.splashText.SetText("");
-                        attacker.HP += (int)damageDealt / 2;
-                        CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, (int)damageDealt / 2);
-                    }
-                    if (endMoveTimer >= 300)
-                    {
-                        endMoveTimer = 0;
-                        return false;
-                    }
+                    if (player?.Battle.State == BattleState.BattleWithWild) BattleMode.UI.splashText.SetText($"Sucked life from the wild {deffender.PokemonName}!");
+                    //TerramonMod.ZoomAnimator.ScreenPos(mon.projectile.position + new Vector2(12, 0), 500, Easing.OutExpo);
+                    TerramonMod.ZoomAnimator.ScreenPosX(mon.projectile.position.X + 12, 500, Easing.OutExpo);
+                    TerramonMod.ZoomAnimator.ScreenPosY(mon.projectile.position.Y, 500, Easing.OutExpo);
+                    //BattleMode.animWindow = 0;
+                }
+                if (endMoveTimer == 260)
+                {
+                    BattleMode.UI.splashText.SetText("");
+                    attacker.HP += (int)damageDealt / 2;
+                    CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, (int)damageDealt / 2);
+                }
+                if (endMoveTimer >= 400)
+                {
+                    endMoveTimer = 0;
+                    BattleMode.moveEnd = false;
+                    return false;
                 }
             }
 

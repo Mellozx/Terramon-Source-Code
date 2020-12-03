@@ -8,6 +8,7 @@ namespace Terramon.Pokemon.Moves
     public class TackleMove : BaseMove
     {
         public override string MoveName => "Tackle";
+        public override string MoveDescription => "It's a move that physically damages the target.";
         public override Target Target => Target.Opponent;
         public override int Cooldown => 2 * 60;
 

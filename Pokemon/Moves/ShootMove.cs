@@ -13,6 +13,7 @@ namespace Terramon.Pokemon.Moves
     public class ShootMove : DamageMove
     {
         public override string MoveName => "Shoot";
+        public override string MoveDescription => "A powerful move. Launches a firebird projectile at the target.";
         public override int Damage => 80;
         public override Target Target => Target.Opponent;
         public override int Cooldown => 60 * 1; //Once per second
@@ -42,7 +43,6 @@ namespace Terramon.Pokemon.Moves
             return true;
         }
 
-        public int endMoveTimer;
         public const string PROJID_KEY = "move.projID";
         public override bool AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
             PokemonData deffender)
@@ -82,6 +82,7 @@ namespace Terramon.Pokemon.Moves
                     CombatText.NewText(target.projectile.Hitbox, CombatText.DamagedHostile, (int)PostTextLoc.Args[3]);//Print combat text at attacked mon position
                 Main.projectile[id].timeLeft = 0;
                 Main.projectile[id].active = false;
+                BattleMode.queueEndMove = true;
             }
             else if (AnimationFrame > 140 && AnimationFrame < 261)
             {
@@ -96,18 +97,13 @@ namespace Terramon.Pokemon.Moves
 
             }
 
-            if (AnimationFrame > 290)
+            // This should be at the very bottom of AnimateTurn() in every move.
+            if (BattleMode.moveEnd)
             {
-                if (!BattleMode.UI.HP1.AdjustingHP() && !BattleMode.UI.HP1.AdjustingHP())
-                {
-                    endMoveTimer++;
-                    if (endMoveTimer >= 100)
-                    {
-                        endMoveTimer = 0;
-                        return false;
-                    }
-                }
+                BattleMode.moveEnd = false;
+                return false;
             }
+
             return true;
         }
     }

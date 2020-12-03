@@ -13,6 +13,7 @@ namespace Terramon.Pokemon.Moves
     public class HealMove : BaseMove
     {
         public override string MoveName => "Heal";
+        public override string MoveDescription => "A healing move. It heals 35% of the user's max HP.";
 
         public override Target Target => Target.Trainer;
 
