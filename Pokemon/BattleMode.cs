@@ -576,7 +576,6 @@ namespace Terramon.Pokemon
                         if(Text($"Wild {Wild.PokemonName} was fainted! [PH] Your {player1.ActivePet?.PokemonName} received 50 XP!", true))
                             player1.ActivePet.Exp += 50;
                         EndBattle();
-                        State = BattleState.None;
                     }
                     break;
                 case BattleState.BattleWithPlayer:
@@ -653,7 +652,6 @@ namespace Terramon.Pokemon
 
             // reset camera and game zoom
             TerramonMod.ZoomAnimator.GameZoom(1f, 500, Easing.Out);
-            ModContent.GetInstance<TerramonMod>().battleCamera = Vector2.Zero;
 
             // end battle, reset static variables
             doneWildIntro = false;
@@ -665,6 +663,8 @@ namespace Terramon.Pokemon
             UI.HP1.firstLoadHP = true;
             UI.HP2.firstLoadHP = true;
             UI.HP1.HPBar.lowHPSoundInstance?.Stop();
+
+            ModContent.GetInstance<TerramonMod>().battleCamera = Vector2.Zero;
 
             State = BattleState.None;
         }

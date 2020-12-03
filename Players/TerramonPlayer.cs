@@ -820,7 +820,7 @@ namespace Terramon.Players
 
         public override void ModifyScreenPosition()
         {
-            if (GetInstance<TerramonMod>().battleCamera != Vector2.Zero)
+            if (GetInstance<TerramonMod>().battleCamera != Vector2.Zero && Battle != null)
             {
                 Main.screenPosition = GetInstance<TerramonMod>().battleCamera - new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
             }
