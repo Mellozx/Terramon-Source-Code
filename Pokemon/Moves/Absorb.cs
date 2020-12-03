@@ -196,7 +196,7 @@ namespace Terramon.Pokemon.Moves
             if (BattleMode.moveEnd)
             {
                 endMoveTimer++;
-                if (endMoveTimer >= 100 && endMoveTimer < 240)
+                if (endMoveTimer >= 50 && endMoveTimer < 190)
                 {
                     if (player?.Battle.State == BattleState.BattleWithWild) BattleMode.UI.splashText.SetText($"Sucked life from the wild {deffender.PokemonName}!");
                     //TerramonMod.ZoomAnimator.ScreenPos(mon.projectile.position + new Vector2(12, 0), 500, Easing.OutExpo);
@@ -204,7 +204,7 @@ namespace Terramon.Pokemon.Moves
                     TerramonMod.ZoomAnimator.ScreenPosY(mon.projectile.position.Y, 500, Easing.OutExpo);
                     //BattleMode.animWindow = 0;
                 }
-                if (endMoveTimer == 240)
+                if (endMoveTimer == 190)
                 {
                     BattleMode.UI.splashText.SetText("");
                     // If this attack deals 1 HP of damage, 1 HP will be restored to the user.
@@ -219,7 +219,7 @@ namespace Terramon.Pokemon.Moves
                         CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, (int)damageDealt / 2);
                     }
                 }
-                if (endMoveTimer >= 380)
+                if (endMoveTimer >= 330)
                 {
                     endMoveTimer = 0;
                     BattleMode.moveEnd = false;

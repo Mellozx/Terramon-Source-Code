@@ -93,9 +93,9 @@ namespace Terramon.UI.Moveset
 
             if (move != null)
             {
-                if (ModContent.FileExists($"Terramon/UI/Battling/Masks/{move.MoveType}Mask"))
+                if (ModContent.FileExists($"Terramon/UI/Battling/Masks/{move.MoveType}"))
                 {
-                    var masktexture = ModContent.GetTexture($"Terramon/UI/Battling/Masks/{move.MoveType}Mask");
+                    var masktexture = ModContent.GetTexture($"Terramon/UI/Battling/Masks/{move.MoveType}");
                     mask = new UIImagez(masktexture);
                     Append(mask);
                 }
@@ -146,10 +146,10 @@ namespace Terramon.UI.Moveset
                 {
                     if (HasChild(mask))
                     {
-                        mask.SetImage(ModContent.GetTexture($"Terramon/UI/Battling/Masks/{move.MoveType}Mask"));
+                        mask.SetImage(ModContent.GetTexture($"Terramon/UI/Battling/Masks/{move.MoveType}"));
                     } else
                     {
-                        var masktexture = ModContent.GetTexture($"Terramon/UI/Battling/Masks/{move.MoveType}Mask");
+                        var masktexture = ModContent.GetTexture($"Terramon/UI/Battling/Masks/{move.MoveType}");
                         mask = new UIImagez(masktexture);
                         Append(mask);
                     }
