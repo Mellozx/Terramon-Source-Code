@@ -17,6 +17,7 @@ namespace Terramon.Pokemon.Moves
         public virtual int Accuracy => 100;
         public bool Miss => _mrand.Next(100) > Accuracy;
         public virtual bool Special => false;
+        public virtual bool MakesContact => false;
 
         public DamageMove()
         {
@@ -41,13 +42,20 @@ namespace Terramon.Pokemon.Moves
         public float InflictDamage(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
             PokemonData deffender)
         {
+            float dmg;
+
             int deffenderphysDefModifier = 0;
             int deffenderspDefModifier = 0;
+
+            bool critical = false;
 
             if (deffender.CustomData.ContainsKey("PhysDefModifier")) deffenderphysDefModifier = int.Parse(deffender.CustomData["PhysDefModifier"]);
             if (deffender.CustomData.ContainsKey("SpDefModifier")) deffenderspDefModifier = int.Parse(deffender.CustomData["SpDefModifier"]);
 
-            var p = (float)Damage / 100;
+            // Same type attack bonus (STAB)
+            if (mon.PokemonTypes.Length > 1) { if (mon.PokemonTypes[0] == MoveType || mon.PokemonTypes[1] == MoveType) dmg = Damage * 1.5f; else dmg = Damage; } else { if (mon.PokemonTypes[0] == MoveType) dmg = Damage * 1.5f; else dmg = Damage; }
+
+            var p = dmg / 100;
             float d = -1;
             if (!Special)
             {
@@ -71,7 +79,15 @@ namespace Terramon.Pokemon.Moves
                 }
             }
 
-            Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Damage1").WithVolume(.8f));
+            // critical hit chance
+            if (_mrand.NextFloat() < .0625f)
+            {
+                critical = true;
+                d *= 2;
+            }
+
+            if (!critical) Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Damage1").WithVolume(.8f));
+            else Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Damage2").WithVolume(.8f));
             d = deffender.Damage((int)Math.Abs(d));
             target.damageReceived = true;
             PostTextLoc.Args = new object[] { attacker.PokemonName, deffender.PokemonName, MoveName, (int)d };

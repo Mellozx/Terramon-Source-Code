@@ -23,6 +23,7 @@ namespace Terramon.Pokemon.Moves
         public override int MaxPP => 25;
         public override int MaxBoostPP => 40;
         public override bool Special => true;
+        public virtual bool MakesContact => false;
         public override Target Target => Target.Opponent;
         public override int Cooldown => 60 * 1; //Once per second
         public override PokemonType MoveType => PokemonType.Grass;

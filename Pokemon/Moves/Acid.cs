@@ -19,6 +19,7 @@ namespace Terramon.Pokemon.Moves
         public override int Accuracy => 100;
         public override int MaxPP => 30;
         public override int MaxBoostPP => 48;
+        public virtual bool MakesContact => false;
         public override bool Special => true;
         public override Target Target => Target.Opponent;
         public override int Cooldown => 60 * 1; //Once per second
@@ -118,7 +119,7 @@ namespace Terramon.Pokemon.Moves
                 endMoveTimer++;
 
                 // Acid deals damage and has a 10% chance of lowering the target's Special Defense by one stage.
-                if (endMoveTimer == 1 && Main.rand.Next(1, 10) != 0)
+                if (endMoveTimer == 1 && Main.rand.NextFloat() > .1323f)
                 {
                     endMoveTimer = 0;
                     AnimationFrame = 0;
