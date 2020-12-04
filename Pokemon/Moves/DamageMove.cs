@@ -117,6 +117,87 @@ namespace Terramon.Pokemon.Moves
             if (modifier == 2) adjustment = "sharply rose!";
             if (modifier == 3) adjustment = "drastically rose!";
 
+            if (stat == GetStat.Defense)
+            {
+                statname = "Defense";
+                if (pokemon.CustomData.ContainsKey("PhysDefModifier"))
+                {
+                    if (int.Parse(pokemon.CustomData["PhysDefModifier"]) == 6 && modifier > 0)
+                    {
+                        pokemon.CustomData["PhysDefModifier"] = "6";
+                        adjustment = "won't go higher!";
+                        text.Args = new object[]
+                        {
+                            pokemon.PokemonName,
+                            statname,
+                            adjustment
+                        };
+                        return text; // Cant go any higher!
+                    }
+                    else if (int.Parse(pokemon.CustomData["PhysDefModifier"]) == -6 && modifier < 0)
+                    {
+                        pokemon.CustomData["PhysDefModifier"] = "-6";
+                        adjustment = "won't go lower!";
+                        text.Args = new object[]
+                        {
+                            pokemon.PokemonName,
+                            statname,
+                            adjustment
+                        };
+                        return text; // Cant go any lower!
+                    }
+                }
+
+                if (pokemon.CustomData.ContainsKey("PhysDefModifier"))
+                {
+                    int a = int.Parse(pokemon.CustomData["PhysDefModifier"]);
+                    int b = modifier;
+                    pokemon.CustomData["PhysDefModifier"] = (a + b).ToString();
+                    if (modifier > 0)
+                    {
+                        Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/StatRise").WithVolume(.8f));
+                        target.statModifiedUp = true;
+                    }
+                    else
+                    {
+                        Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/StatFall").WithVolume(.8f));
+                        target.statModifiedDown = true;
+                    }
+                }
+                else
+                {
+                    pokemon.CustomData.Add("PhysDefModifier", modifier.ToString());
+                    if (modifier > 0)
+                    {
+                        Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/StatRise").WithVolume(.8f));
+                        target.statModifiedUp = true;
+                    }
+                    else
+                    {
+                        Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/StatFall").WithVolume(.8f));
+                        target.statModifiedDown = true;
+                    }
+                }
+
+                if (int.Parse(pokemon.CustomData["PhysDefModifier"]) > 6)
+                {
+                    pokemon.CustomData["PhysDefModifier"] = "6";
+                }
+
+                if (int.Parse(pokemon.CustomData["PhysDefModifier"]) < -6)
+                {
+                    pokemon.CustomData["PhysDefModifier"] = "-6";
+                }
+
+                text.Args = new object[]
+                {
+                    pokemon.PokemonName,
+                    statname,
+                    adjustment
+                };
+                return text;
+            }
+
             if (stat == GetStat.SpDef)
             {
                 statname = "Special Defense";

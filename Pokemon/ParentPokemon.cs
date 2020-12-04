@@ -119,7 +119,11 @@ namespace Terramon.Pokemon
             SpriteEffects effects =
                 projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Texture2D pkmnTexture = mod.GetTexture(path);
+
             int frameHeight = pkmnTexture.Height / Main.projFrames[projectile.type];
+
+            if (acidArmor) drawColor = Color.White.MultiplyRGB(new Color(181, 80, 136));
+
             spriteBatch.Draw(pkmnTexture, projectile.position - Main.screenPosition + new Vector2(14, 0),
                 new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, projectile.rotation,
                 new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), scale, effects, 0f);
@@ -170,6 +174,11 @@ namespace Terramon.Pokemon
         /// </summary>
         public bool statModifiedDown = false;
         private int statModifiedDownTimer;
+
+        /// <summary>
+        /// Activates when this Pokemon uses the move Acid Armor
+        /// </summary>
+        public bool acidArmor = false;
 
         // End battling properties
 
@@ -310,6 +319,28 @@ namespace Terramon.Pokemon
                 }
             }
 
+            // Stat modified up
+
+            if (statModifiedUp)
+            {
+                statModifiedUpTimer++;
+                if (statModifiedUpTimer < 90)
+                {
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Dust dust1 = Dust.NewDustDirect(projectile.position + new Vector2(Main.rand.Next(-7, 7), Main.rand.Next(-7, 7)), projectile.width, projectile.height, 182, 0f, 0f, 0, Color.White, 0.75f);
+                        dust1.alpha = 100;
+                        dust1.velocity.Y = -1.7f;
+                        dust1.noGravity = true;
+                    }
+                }
+                else
+                {
+                    statModifiedUpTimer = 0;
+                    statModifiedUp = false;
+                }
+            }
+
             // Stat modified down
 
             if (statModifiedDown)
@@ -319,9 +350,9 @@ namespace Terramon.Pokemon
                 {
                     for (int i = 0; i < 1; i++)
                     {
-                        Dust dust1 = Dust.NewDustDirect(projectile.position + new Vector2(Main.rand.Next(-7, 7), Main.rand.Next(-7, 7)), projectile.width, projectile.height, 182, 0f, 0f, 0, Color.White, 0.75f);
+                        Dust dust1 = Dust.NewDustDirect(projectile.position + new Vector2(Main.rand.Next(-7, 7), Main.rand.Next(-7, 7)), projectile.width, projectile.height, 81, 0f, 0f, 0, Color.White, 0.75f);
                         dust1.alpha = 100;
-                        dust1.velocity.Y = 1f;
+                        dust1.velocity.Y = 1.25f;
                         dust1.noGravity = true;
                     }
                 }

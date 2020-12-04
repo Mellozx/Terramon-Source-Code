@@ -21,6 +21,7 @@ namespace Terramon.Pokemon.Moves
         public override int Damage => 20;
         public override int Accuracy => 100;
         public override int MaxPP => 25;
+        public override int MaxBoostPP => 40;
         public override Target Target => Target.Opponent;
         public override int Cooldown => 60 * 1; //Once per second
         public override PokemonType MoveType => PokemonType.Grass;

@@ -18,6 +18,7 @@ namespace Terramon.Pokemon.Moves
         public override int Damage => 40;
         public override int Accuracy => 100;
         public override int MaxPP => 30;
+        public override int MaxBoostPP => 48;
         public override Target Target => Target.Opponent;
         public override int Cooldown => 60 * 1; //Once per second
         public override PokemonType MoveType => PokemonType.Poison;
@@ -124,14 +125,14 @@ namespace Terramon.Pokemon.Moves
                     return false;
                 }
 
-                if (endMoveTimer == 50)
+                if (endMoveTimer == 1)
                 {
                     s = ModifyStat(deffender, target, GetStat.SpDef, -1, state, opponent).ToString();
 
                     TerramonMod.ZoomAnimator.ScreenPosX(target.projectile.position.X + 12, 500, Easing.OutExpo);
                     TerramonMod.ZoomAnimator.ScreenPosY(target.projectile.position.Y, 500, Easing.OutExpo);
                 }
-                if (endMoveTimer == 190)
+                if (endMoveTimer == 130)
                 {
                     BattleMode.UI.splashText.SetText(s);
                 }

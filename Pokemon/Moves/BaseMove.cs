@@ -15,6 +15,7 @@ namespace Terramon.Pokemon.Moves
         public virtual int Cooldown { get; } = 5 * 60; //5 seconds by default
         public virtual int Speed { get; } = 80;
         public virtual int MaxPP { get; } = 20;
+        public virtual int MaxBoostPP { get; } = 20;
 
         public static UnifiedRandom _mrand;
         public static int _seed;
