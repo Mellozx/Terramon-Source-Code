@@ -15,6 +15,7 @@ namespace Terramon.Pokemon.Moves
         public override string MoveName => "Shoot";
         public override string MoveDescription => "A powerful move. Launches a firebird projectile at the target.";
         public override int Damage => 80;
+        public override int Accuracy => 100;
         public override Target Target => Target.Opponent;
         public override int Cooldown => 60 * 1; //Once per second
         public override PokemonType MoveType => PokemonType.Normal;
@@ -45,7 +46,7 @@ namespace Terramon.Pokemon.Moves
 
         public const string PROJID_KEY = "move.projID";
         public override bool AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
-            PokemonData deffender)
+            PokemonData deffender, BattleState state, bool opponent)
         {
             if (AnimationFrame == 1) //At initial frame we pan camera to attacker
             {

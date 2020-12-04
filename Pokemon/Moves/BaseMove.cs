@@ -87,7 +87,7 @@ namespace Terramon.Pokemon.Moves
         /// <param name="deffender">Defender mon data</param>
         /// <returns>Return true if animation continues</returns>
         public virtual bool AnimateTurn(ParentPokemon mon, ParentPokemon target,
-            TerramonPlayer player, PokemonData attacker, PokemonData deffender)
+            TerramonPlayer player, PokemonData attacker, PokemonData deffender, BattleState state, bool opponent)
         {
             return false;
         }

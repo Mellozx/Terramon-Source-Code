@@ -159,6 +159,18 @@ namespace Terramon.Pokemon
         public bool healedHealth = false;
         private int healedHealthTimer;
 
+        /// <summary>
+        /// Activates when this Pokemon has one of their stats increased by any source. Plays a power-up animation.
+        /// </summary>
+        public bool statModifiedUp = false;
+        private int statModifiedUpTimer;
+
+        /// <summary>
+        /// Activates when this Pokemon has one of their stats decreased by any source. Plays a power-down animation.
+        /// </summary>
+        public bool statModifiedDown = false;
+        private int statModifiedDownTimer;
+
         // End battling properties
 
         public override void AI()
@@ -295,6 +307,28 @@ namespace Terramon.Pokemon
                 {
                     healedHealthTimer = 0;
                     healedHealth = false;
+                }
+            }
+
+            // Stat modified down
+
+            if (statModifiedDown)
+            {
+                statModifiedDownTimer++;
+                if (statModifiedDownTimer < 90)
+                {
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Dust dust1 = Dust.NewDustDirect(projectile.position + new Vector2(Main.rand.Next(-7, 7), Main.rand.Next(-7, 7)), projectile.width, projectile.height, 182, 0f, 0f, 0, Color.White, 0.75f);
+                        dust1.alpha = 100;
+                        dust1.velocity.Y = 1f;
+                        dust1.noGravity = true;
+                    }
+                }
+                else
+                {
+                    statModifiedDownTimer = 0;
+                    statModifiedDown = false;
                 }
             }
 

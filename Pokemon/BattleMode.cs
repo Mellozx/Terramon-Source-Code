@@ -155,7 +155,7 @@ namespace Terramon.Pokemon
                         UI.MovesPanel.PokeData = new PokemonData()
                         {
                             Pokemon = npc.HomeClass().Name,
-                            Moves = new BaseMove[] { new Absorb(), new ShootMove(), new ShootMove(), new ShootMove() }
+                            Moves = new BaseMove[] { new Absorb(), new Acid(), new ShootMove(), new ShootMove() }
                         };
                         wildChallenge.Args = new object[] { second?.Pokemon };
                         //Text(wildChallenge.Value);
@@ -358,7 +358,10 @@ namespace Terramon.Pokemon
             if (State != BattleState.BattleWithPlayer && oMove == null) // If this is single player
             {
                 //Need an advanced AI for trainers
-                oMove = new ShootMove();
+                int d = Main.rand.Next(1, 3);
+                if (d == 0) oMove = new ShootMove();
+                if (d == 1) oMove = new Absorb();
+                if (d == 2) oMove = new Acid();
             }
 
             if (animInProggress == 2)
@@ -394,10 +397,10 @@ namespace Terramon.Pokemon
                         switch (State)
                         {
                             case BattleState.BattleWithWild:
-                                animInProggress = (byte)(pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild) ? 1 : 2);
+                                animInProggress = (byte)(pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC, player1, player1.ActivePet, Wild, State, false) ? 1 : 2);
                                 break;
                             case BattleState.BattleWithPlayer:
-                                animInProggress = (byte)(pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player1, player1.ActivePet, player2.ActivePet) ? 1 : 2);
+                                animInProggress = (byte)(pMove.AnimateTurn((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile, player1, player1.ActivePet, player2.ActivePet, State, false) ? 1 : 2);
                                 break;
                         }
                     }
@@ -412,7 +415,7 @@ namespace Terramon.Pokemon
                             {
                                 case BattleState.BattleWithWild:
                                     animInProggress = (byte)(oMove.AnimateTurn(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
-                                        player1.ActivePet) ? 1 : 2);
+                                        player1.ActivePet, State, true) ? 1 : 2);
                                     break;
                                 case BattleState.BattleWithPlayer:
                                     //oMove.AnimateTurn((ParentPokemon)(Main.projectile[player2.ActivePetId].modProjectile), (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), player2, player2.ActivePet,

@@ -19,6 +19,8 @@ namespace Terramon.Pokemon.Moves
         public override string MoveName => "Absorb";
         public override string MoveDescription => "A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.";
         public override int Damage => 20;
+        public override int Accuracy => 100;
+        public override int MaxPP => 25;
         public override Target Target => Target.Opponent;
         public override int Cooldown => 60 * 1; //Once per second
         public override PokemonType MoveType => PokemonType.Grass;
@@ -56,7 +58,7 @@ namespace Terramon.Pokemon.Moves
 
         private float damageDealt;
         public override bool AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
-            PokemonData deffender)
+            PokemonData deffender, BattleState state, bool opponent)
         {
             if (AnimationFrame == 1) //At initial frame we pan camera to attacker
             {
@@ -198,7 +200,22 @@ namespace Terramon.Pokemon.Moves
                 endMoveTimer++;
                 if (endMoveTimer >= 50 && endMoveTimer < 190)
                 {
-                    if (player?.Battle.State == BattleState.BattleWithWild) BattleMode.UI.splashText.SetText($"Sucked life from the wild {deffender.PokemonName}!");
+                    if (opponent)
+                    {
+                        BattleMode.UI.splashText.SetText($"{deffender.PokemonName} had its energy drained!");
+                    } 
+                    else
+                    {
+                        if (state == BattleState.BattleWithWild)
+                        {
+                            BattleMode.UI.splashText.SetText($"The wild {deffender.PokemonName} had its energy drained!");
+                        }
+                        else
+                        if (state == BattleState.BattleWithTrainer)
+                        {
+                            BattleMode.UI.splashText.SetText($"The foe's {deffender.PokemonName} had its energy drained!");
+                        }
+                    }
                     //TerramonMod.ZoomAnimator.ScreenPos(mon.projectile.position + new Vector2(12, 0), 500, Easing.OutExpo);
                     TerramonMod.ZoomAnimator.ScreenPosX(mon.projectile.position.X + 12, 500, Easing.OutExpo);
                     TerramonMod.ZoomAnimator.ScreenPosY(mon.projectile.position.Y, 500, Easing.OutExpo);
@@ -243,7 +260,7 @@ namespace Terramon.Pokemon.Moves
             projectile.penetrate = -1;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            projectile.timeLeft = 10000;
+            projectile.timeLeft = 20000;
         }
 
         private int spawntimer;
