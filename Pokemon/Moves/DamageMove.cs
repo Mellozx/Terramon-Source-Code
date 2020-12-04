@@ -41,16 +41,22 @@ namespace Terramon.Pokemon.Moves
         public float InflictDamage(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
             PokemonData deffender)
         {
+            int deffenderphysDefModifier = 0;
+            int deffenderspDefModifier = 0;
+
+            if (deffender.CustomData.ContainsKey("PhysDefModifier")) deffenderphysDefModifier = int.Parse(deffender.CustomData["PhysDefModifier"]);
+            if (deffender.CustomData.ContainsKey("SpDefModifier")) deffenderspDefModifier = int.Parse(deffender.CustomData["SpDefModifier"]);
+
             var p = (float)Damage / 100;
             float d = -1;
             if (!Special)
             {
-                d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.PhysDmg / deffender.PhysDef + int.Parse(deffender.CustomData["PhysDefModifier"] ?? "0")))
+                d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.PhysDmg / deffender.PhysDef + deffenderphysDefModifier))
                      / 50) + 2;
             }
             else
             {
-                d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.SpDmg / deffender.SpDef + int.Parse(deffender.CustomData["SpDefModifier"] ?? "0")))
+                d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.SpDmg / deffender.SpDef + deffenderspDefModifier))
                      / 50) + 2;
             }
             //float d = !Special ? (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.PhysDmg / deffender.PhysDef)) / 50) + 2:

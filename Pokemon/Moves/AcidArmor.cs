@@ -91,7 +91,7 @@ namespace Terramon.Pokemon.Moves
 
             if (AnimationFrame > 140 && AnimationFrame < 280)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     Dust dust1 = Dust.NewDustDirect(mon.projectile.position, mon.projectile.width, mon.projectile.height, 86, 0f, 0f, 0);
                     dust1.alpha = 0;
@@ -109,12 +109,16 @@ namespace Terramon.Pokemon.Moves
                 if (endMoveTimer == 1)
                 {
                     s = ModifyStat(attacker, mon, GetStat.Defense, 2, state, !opponent).ToString();
+                    if (s.Contains("won't go"))
+                    {
+                        endMoveTimer = 140;
+                    }
                 }
-                if (endMoveTimer == 130)
+                if (endMoveTimer == 140)
                 {
                     BattleMode.UI.splashText.SetText(s);
                 }
-                if (endMoveTimer >= 330)
+                if (endMoveTimer >= 280)
                 {
                     endMoveTimer = 0;
                     AnimationFrame = 0;
