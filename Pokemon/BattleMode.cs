@@ -672,6 +672,10 @@ namespace Terramon.Pokemon
 
             ModContent.GetInstance<TerramonMod>().battleCamera = Vector2.Zero;
 
+            // reset modifiers
+            if (player1.ActivePet.CustomData.ContainsKey("PhysDefModifier")) player1.ActivePet.CustomData.Remove("PhysDefModifier");
+            if (player1.ActivePet.CustomData.ContainsKey("SpDefModifier")) player1.ActivePet.CustomData.Remove("SpDefModifier");
+
             State = BattleState.None;
         }
 

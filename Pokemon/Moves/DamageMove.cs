@@ -45,7 +45,7 @@ namespace Terramon.Pokemon.Moves
             float d = -1;
             if (!Special)
             {
-                d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.PhysDmg / deffender.PhysDef))
+                d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.PhysDmg / deffender.PhysDef + int.Parse(deffender.CustomData["PhysDefModifier"] ?? "0")))
                      / 50) + 2;
             }
             else
