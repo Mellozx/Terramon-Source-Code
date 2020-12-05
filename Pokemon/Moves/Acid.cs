@@ -86,7 +86,7 @@ namespace Terramon.Pokemon.Moves
             }
             else if(AnimationFrame == 300)//At Last frame we destroy new proj
             {
-                InflictDamage(mon, target, player, attacker, deffender);
+                InflictDamage(mon, target, player, attacker, deffender, state, opponent);
 
                 // create some particles
 

@@ -123,7 +123,7 @@ namespace Terramon.Pokemon.Moves
             {
                 TerramonMod.ZoomAnimator.ScreenPosX(target.projectile.position.X + 12, 500, Easing.OutExpo);
                 TerramonMod.ZoomAnimator.ScreenPosY(target.projectile.position.Y, 500, Easing.OutExpo);
-                damageDealt = InflictDamage(mon, target, player, attacker, deffender);
+                damageDealt = InflictDamage(mon, target, player, attacker, deffender, state, opponent);
                 if (PostTextLoc.Args.Length >= 4)//If we can extract damage number
                     CombatText.NewText(target.projectile.Hitbox, CombatText.DamagedHostile, (int)PostTextLoc.Args[3]);//Print combat text at attacked mon position
                 Main.projectile[spore1].timeLeft = 0;

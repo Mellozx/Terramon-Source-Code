@@ -229,9 +229,12 @@ namespace Terramon.Pokemon
             if (hp - delta < 0)
             {
                 var d = HP;
-                HP = 0;//This makes mon automatically fainted
+                HP = 0; //This makes mon automatically fainted
                 return d;
             }
+
+            // Impossible to deal 0 damage
+            if (delta == 0) delta = 1;
 
             HP -= delta;
             return delta;

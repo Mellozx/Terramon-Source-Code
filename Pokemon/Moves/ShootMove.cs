@@ -77,7 +77,7 @@ namespace Terramon.Pokemon.Moves
             }
             else if(AnimationFrame == 260)//At Last frame we destroy new proj
             {
-                InflictDamage(mon, target, player, attacker, deffender);
+                InflictDamage(mon, target, player, attacker, deffender, state, opponent);
                 var id = int.Parse(attacker.CustomData[PROJID_KEY]);
                 if(PostTextLoc.Args.Length >= 4)//If we can extract damage number
                     CombatText.NewText(target.projectile.Hitbox, CombatText.DamagedHostile, (int)PostTextLoc.Args[3]);//Print combat text at attacked mon position

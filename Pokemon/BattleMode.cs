@@ -185,7 +185,7 @@ namespace Terramon.Pokemon
         public static bool moveEnd = false;
         private byte animMode = 0;//0 Idle, 1 playerMonAnim, 2 enemyMonAnim, 3 enemyMonContinue, 4 playerMonContinue
         private int wildTimer = 0;
-        private int endMoveTimer;
+        public static int endMoveTimer;
 
         // camera control
         private Vector2 OffsetModifier;

@@ -40,8 +40,32 @@ namespace Terramon.Pokemon.Moves
         }
 
         public float InflictDamage(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
-            PokemonData deffender)
+            PokemonData deffender, BattleState state, bool opponent, bool checkZeroResist = true)
         {
+            // Check if move can even inflict damage. For example, normal type moves cannot damage ghost type Pokemon.
+            // Call InflictDamage() with checkZeroResist = false to skip this check
+            if (checkZeroResist && 
+            target.PokemonTypes.Contains(PokemonType.Ghost) && MoveType == PokemonType.Normal || 
+            target.PokemonTypes.Contains(PokemonType.Ghost) && MoveType == PokemonType.Fighting || 
+            target.PokemonTypes.Contains(PokemonType.Steel) && MoveType == PokemonType.Poison || 
+            target.PokemonTypes.Contains(PokemonType.Flying) && MoveType == PokemonType.Ground || 
+            target.PokemonTypes.Contains(PokemonType.Normal) && MoveType == PokemonType.Ghost || 
+            target.PokemonTypes.Contains(PokemonType.Ground) && MoveType == PokemonType.Electric || 
+            target.PokemonTypes.Contains(PokemonType.Dark) && MoveType == PokemonType.Psychic || 
+            target.PokemonTypes.Contains(PokemonType.Fairy) && MoveType == PokemonType.Dragon)
+            {
+                if (opponent) BattleMode.UI.splashText.SetText($"It doesn't affect {deffender.PokemonName}!");
+                else if (state == BattleState.BattleWithWild)
+                {
+                    BattleMode.UI.splashText.SetText($"It doesn't affect the wild {deffender.PokemonName}...");
+                } else if (state == BattleState.BattleWithPlayer)
+                {
+                    BattleMode.UI.splashText.SetText($"It doesn't affect the foe's {deffender.PokemonName}...");
+                }
+                BattleMode.endMoveTimer = -120;
+                return 0f;
+            }
+
             float dmg;
 
             int deffenderphysDefModifier = 0;
@@ -67,17 +91,12 @@ namespace Terramon.Pokemon.Moves
                 d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.SpDmg / deffender.SpDef + deffenderspDefModifier))
                      / 50) + 2;
             }
-            //float d = !Special ? (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.PhysDmg / deffender.PhysDef)) / 50) + 2:
-            //    (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.SpDmg / deffender.SpDef)) / 50) + 2;
-            foreach (var it in deffender.Types)
-            {
-                var r = it.GetResist(MoveType);
-                if (r != 1f)
-                {
-                    d *= r;
-                    break;
-                }
-            }
+
+            // Move resist
+            float r1 = 1f, r2 = 1f;
+            r1 = deffender.Types[0].GetResist(MoveType);
+            if (deffender.Types.Length > 1) r2 = deffender.Types[1].GetResist(MoveType);
+            d *= r1 * r2;
 
             // critical hit chance
             if (_mrand.NextFloat() < .0625f)
