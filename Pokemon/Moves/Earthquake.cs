@@ -14,16 +14,16 @@ namespace Terramon.Pokemon.Moves
     public class Earthquake : DamageMove
     {
         public override string MoveName => "Earthquake";
-        public override string MoveDescription => "The user alters its cellular structure to liquefy itself, sharply raising its Defense stat.";
-        public override int Damage => 0;
-        public override int Accuracy => -1;
-        public override int MaxPP => 20;
-        public override int MaxBoostPP => 32;
+        public override string MoveDescription => "The user sets off an earthquake that strikes every Pokémon around it.";
+        public override int Damage => 100;
+        public override int Accuracy => 100;
+        public override int MaxPP => 10;
+        public override int MaxBoostPP => 16;
         public virtual bool MakesContact => false;
         public override bool Special => false;
         public override Target Target => Target.Opponent;
         public override int Cooldown => 60 * 1; //Once per second
-        public override PokemonType MoveType => PokemonType.Poison;
+        public override PokemonType MoveType => PokemonType.Ground;
 
         public override int AutoUseWeight(ParentPokemon mon, Vector2 pos, TerramonPlayer player)
         {
@@ -50,7 +50,10 @@ namespace Terramon.Pokemon.Moves
         }
 
         private int endMoveTimer;
+        private int shakeTimer;
         private string s;
+        private bool focusCamTarget = false;
+        private bool inflictedDmg = false;
         public override bool AnimateTurn(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
             PokemonData deffender, BattleState state, bool opponent)
         {
@@ -65,68 +68,54 @@ namespace Terramon.Pokemon.Moves
 
                 Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/" + MoveName).WithVolume(.75f));
 
-                mon.acidArmor = true;
-
-                Dust bubbleDust = Dust.NewDustDirect(mon.projectile.position + new Vector2(Main.rand.Next(-12, 12), Main.rand.Next(-12, 12)), mon.projectile.width, mon.projectile.height, ModContent.GetInstance<TerramonMod>().DustType("AcidBubbleDust"), 0f, 0f, 0);
-            }
-            else if (AnimationFrame == 150)
-            {
-                Dust bubbleDust = Dust.NewDustDirect(mon.projectile.position + new Vector2(Main.rand.Next(-12, 12), Main.rand.Next(-12, 12)), mon.projectile.width, mon.projectile.height, ModContent.GetInstance<TerramonMod>().DustType("AcidBubbleDust"), 0f, 0f, 0);
-            }
-            else if (AnimationFrame == 160)
-            {
-                Dust bubbleDust = Dust.NewDustDirect(mon.projectile.position + new Vector2(Main.rand.Next(-12, 12), Main.rand.Next(-12, 12)), mon.projectile.width, mon.projectile.height, ModContent.GetInstance<TerramonMod>().DustType("AcidBubbleDust"), 0f, 0f, 0);
-            }
-            else if (AnimationFrame == 195)
-            {
-                Dust bubbleDust = Dust.NewDustDirect(mon.projectile.position + new Vector2(Main.rand.Next(-12, 12), Main.rand.Next(-12, 12)), mon.projectile.width, mon.projectile.height, ModContent.GetInstance<TerramonMod>().DustType("AcidBubbleDust"), 0f, 0f, 0);
-            }
-            else if (AnimationFrame == 205)
-            {
-                Dust bubbleDust = Dust.NewDustDirect(mon.projectile.position + new Vector2(Main.rand.Next(-12, 12), Main.rand.Next(-12, 12)), mon.projectile.width, mon.projectile.height, ModContent.GetInstance<TerramonMod>().DustType("AcidBubbleDust"), 0f, 0f, 0);
-            }
-            else if (AnimationFrame == 280)
-            {
-                mon.acidArmor = false;
-                BattleMode.queueEndMove = true;
+                TerramonMod.ZoomAnimator.ScreenPosX(target.projectile.position.X + 12, 500, Easing.OutExpo);
+                TerramonMod.ZoomAnimator.ScreenPosY(target.projectile.position.Y, 500, Easing.OutExpo);
             }
 
-            if (AnimationFrame > 140 && AnimationFrame < 280)
+            if (AnimationFrame > 155 && AnimationFrame < 260)
             {
-                for (int i = 0; i < 2; i++)
+                shakeTimer++;
+                if (shakeTimer <= 4)
                 {
-                    Dust dust1 = Dust.NewDustDirect(mon.projectile.position, mon.projectile.width, mon.projectile.height, 86, 0f, 0f, 0);
-                    dust1.alpha = 0;
-                    dust1.noGravity = true;
+                    TerramonMod.ZoomAnimator.ScreenPosX(target.projectile.position.X + 12, 1, Easing.None);
+                    TerramonMod.ZoomAnimator.ScreenPosY(target.projectile.position.Y + 3, 1, Easing.None);
+                } else if (shakeTimer > 4)
+                {
+                    TerramonMod.ZoomAnimator.ScreenPosX(target.projectile.position.X + 12, 1, Easing.None);
+                    TerramonMod.ZoomAnimator.ScreenPosY(target.projectile.position.Y - 3, 1, Easing.None);
                 }
+                if (shakeTimer >= 8)
+                {
+                    shakeTimer = 0;
+                }
+
+                if (!inflictedDmg)
+                {
+                    Dust bubbleDust = Dust.NewDustDirect(target.projectile.position + new Vector2(0, 20), target.projectile.width, target.projectile.height, ModContent.GetInstance<TerramonMod>().DustType("SmokeTransformDust"), 0f, 0f, 0, new Color(189, 165, 100));
+                }
+            }
+
+            if (AnimationFrame == 190)
+            {
+                focusCamTarget = true;
+            }
+
+            if (AnimationFrame == 240)
+            {
+                InflictDamage(mon, target, player, attacker, deffender, state, opponent);
+                inflictedDmg = true;
+                BattleMode.queueEndMove = true;
             }
 
             // This should be at the very bottom of AnimateTurn() in every move.
             if (BattleMode.moveEnd)
             {
-                endMoveTimer++;
-
-                // Acid Armor raises the user's Defense by two stages.
-
-                if (endMoveTimer == 1)
-                {
-                    s = ModifyStat(attacker, mon, GetStat.Defense, 2, state, !opponent).ToString();
-                    if (s.Contains("won't go"))
-                    {
-                        endMoveTimer = 140;
-                    }
-                }
-                if (endMoveTimer == 140)
-                {
-                    BattleMode.UI.splashText.SetText(s);
-                }
-                if (endMoveTimer >= 280)
-                {
-                    endMoveTimer = 0;
-                    AnimationFrame = 0;
-                    BattleMode.moveEnd = false;
-                    return false;
-                }
+                AnimationFrame = 0;
+                focusCamTarget = false;
+                inflictedDmg = false;
+                shakeTimer = 0;
+                BattleMode.moveEnd = false;
+                return false;
             }
 
             return true;
