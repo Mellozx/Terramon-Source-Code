@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Metapod
 {
@@ -15,6 +16,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Metapod
         public override Type EvolveTo => typeof(Butterfree.Butterfree);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Bug };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
 
         public override void SetDefaults()
         {

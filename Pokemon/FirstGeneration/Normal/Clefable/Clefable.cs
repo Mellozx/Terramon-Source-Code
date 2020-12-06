@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Clefable
 {
@@ -15,6 +16,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Clefable
         
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Fairy };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.Fast;
 
         public override void SetDefaults()
         {

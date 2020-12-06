@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Gloom
 {
@@ -17,6 +18,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gloom
         public override Type EvolveTo => typeof(Vileplume.Vileplume);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass, PokemonType.Poison };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
 
         public override void SetDefaults()
         {

@@ -16,6 +16,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Mrmime
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Psychic, PokemonType.Fairy };
 
+	public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+
         public override void SetDefaults()
         {
             base.SetDefaults();

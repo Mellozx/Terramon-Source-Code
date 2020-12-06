@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Scyther
 {
@@ -15,6 +16,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Scyther
         
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Bug, PokemonType.Flying };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
 
         public override void SetDefaults()
         {

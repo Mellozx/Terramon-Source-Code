@@ -16,6 +16,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.NidoranF
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Poison };
 
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
+
         public override void SetDefaults()
         {
             base.SetDefaults();

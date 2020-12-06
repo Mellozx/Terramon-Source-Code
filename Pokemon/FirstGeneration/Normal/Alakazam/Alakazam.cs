@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Alakazam
 {
@@ -15,6 +16,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Alakazam
         
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Psychic };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
 
         public override void SetDefaults()
         {

@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Kadabra
 {
@@ -17,6 +18,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Kadabra
         public override Type EvolveTo => typeof(Alakazam.Alakazam);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Psychic };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
 
         public override void SetDefaults()
         {

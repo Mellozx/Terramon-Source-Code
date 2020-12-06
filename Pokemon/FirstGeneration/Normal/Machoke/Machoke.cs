@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Machoke
 {
@@ -17,6 +18,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Machoke
         public override Type EvolveTo => typeof(Machamp.Machamp);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Fighting };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
 
         public override void SetDefaults()
         {

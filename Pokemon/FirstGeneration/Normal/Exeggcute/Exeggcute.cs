@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Exeggcute
 {
@@ -17,6 +18,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Exeggcute
         public override Type EvolveTo => typeof(Exeggutor.Exeggutor);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass, PokemonType.Psychic };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.Slow;
 
         public override void SetDefaults()
         {

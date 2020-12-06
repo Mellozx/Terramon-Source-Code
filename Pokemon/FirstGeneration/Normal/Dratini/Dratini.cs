@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Dratini
 {
@@ -15,6 +16,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Dratini
         public override Type EvolveTo => typeof(Dragonair.Dragonair);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Dragon };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.Slow;
 
         public override void SetDefaults()
         {

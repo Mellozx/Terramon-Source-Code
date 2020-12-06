@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Magikarp
 {
@@ -15,6 +16,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Magikarp
         public override Type EvolveTo => typeof(Gyarados.Gyarados);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.Slow;
 
         public override void SetDefaults()
         {

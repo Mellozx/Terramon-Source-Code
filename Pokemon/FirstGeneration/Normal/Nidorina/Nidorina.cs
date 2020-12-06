@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Nidorina
 {
@@ -17,6 +18,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Nidorina
         public override Type EvolveTo => typeof(Nidoqueen.Nidoqueen);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Poison };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
 
         public override void SetDefaults()
         {

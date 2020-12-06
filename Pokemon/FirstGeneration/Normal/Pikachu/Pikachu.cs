@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Pikachu
 {
@@ -17,6 +18,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Pikachu
         public override Type EvolveTo => typeof(Raichu.Raichu);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Electric };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
 
         public override void SetDefaults()
         {

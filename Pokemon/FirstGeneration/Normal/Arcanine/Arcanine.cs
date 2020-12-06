@@ -4,6 +4,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Arcanine
     {
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire };
 
+        public virtual ExpGroup ExpGroup => ExpGroup.Slow;
+
         public override void SetDefaults()
         {
             base.SetDefaults();

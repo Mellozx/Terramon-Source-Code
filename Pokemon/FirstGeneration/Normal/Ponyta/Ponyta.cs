@@ -10,6 +10,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Ponyta
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire };
 
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+
         public override void SetDefaults()
         {
             base.SetDefaults();

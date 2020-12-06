@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Lickitung
 {
@@ -15,6 +16,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Lickitung
         
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Normal };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
 
         public override void SetDefaults()
         {

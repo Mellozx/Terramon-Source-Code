@@ -5,6 +5,7 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon.FirstGeneration.Normal.Doduo
 {
@@ -15,6 +16,8 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Doduo
         public override Type EvolveTo => typeof(Dodrio.Dodrio);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Normal, PokemonType.Flying };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
 
         public override void SetDefaults()
         {
