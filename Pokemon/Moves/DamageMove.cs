@@ -27,7 +27,7 @@ namespace Terramon.Pokemon.Moves
         }
 
         public override bool PerformInBattle(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
-            PokemonData deffender)
+            PokemonData deffender, BaseMove move)
         {
             if (player == null)
             {
@@ -68,11 +68,19 @@ namespace Terramon.Pokemon.Moves
 
             float dmg;
 
+            int attackerphysDefModifier = 0;
+            int attackerspDefModifier = 0;
+            int attackercritRatioModifier = 0;
+
             int deffenderphysDefModifier = 0;
             int deffenderspDefModifier = 0;
 
             bool critical = false;
 
+            if (attacker.CustomData.ContainsKey("PhysDefModifier")) attackerphysDefModifier = int.Parse(attacker.CustomData["PhysDefModifier"]);
+            if (attacker.CustomData.ContainsKey("SpDefModifier")) attackerspDefModifier = int.Parse(attacker.CustomData["SpDefModifier"]);
+            if (attacker.CustomData.ContainsKey("CritRatioModifier")) attackercritRatioModifier = int.Parse(attacker.CustomData["CritRatioModifier"]);
+            
             if (deffender.CustomData.ContainsKey("PhysDefModifier")) deffenderphysDefModifier = int.Parse(deffender.CustomData["PhysDefModifier"]);
             if (deffender.CustomData.ContainsKey("SpDefModifier")) deffenderspDefModifier = int.Parse(deffender.CustomData["SpDefModifier"]);
 
@@ -81,6 +89,19 @@ namespace Terramon.Pokemon.Moves
 
             var p = dmg / 100;
             float d = -1;
+
+            // critical hit chance
+            if (_mrand.Next(1, GetCritChance(attackercritRatioModifier)) == 1)
+            {
+                critical = true;
+                // ignore attackers negative stat stages
+                if (attackerphysDefModifier < 0) attackerphysDefModifier = 0;
+                if (attackerspDefModifier < 0) attackerspDefModifier = 0;
+                // ignore defenders positive stat stages
+                if (deffenderphysDefModifier > 0) deffenderphysDefModifier = 0;
+                if (deffenderspDefModifier > 0) deffenderspDefModifier = 0;
+            }
+
             if (!Special)
             {
                 d = (((((float)attacker.Level * 2) / 5 + 2) * p * ((float)attacker.PhysDmg / deffender.PhysDef + deffenderphysDefModifier))
@@ -98,15 +119,16 @@ namespace Terramon.Pokemon.Moves
             if (deffender.Types.Length > 1) r2 = deffender.Types[1].GetResist(MoveType);
             d *= r1 * r2;
 
-            // critical hit chance
-            if (_mrand.NextFloat() < .0625f)
+            if (!critical)
             {
-                critical = true;
-                d *= 2;
+                if (r1 * r2 < 0.6f) Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Damage0").WithVolume(.8f));
+                else Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Damage1").WithVolume(.8f));
             }
-
-            if (!critical) Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Damage1").WithVolume(.8f));
-            else Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Damage2").WithVolume(.8f));
+            else
+            {
+                d *= 2;
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Damage2").WithVolume(.8f));
+            }
             d = deffender.Damage((int)Math.Abs(d));
             target.damageReceived = true;
             PostTextLoc.Args = new object[] { attacker.PokemonName, deffender.PokemonName, MoveName, (int)d };
@@ -148,7 +170,7 @@ namespace Terramon.Pokemon.Moves
                text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("moves.modifyStatText", "{0}'s {1} {2}")));
             } else
             {
-               text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("moves.modifyStatText", "Enemy {0}'s {1} {2}")));
+               text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("moves.modifyStatText", "Wild {0}'s {1} {2}")));
             }
 
             if (modifier == -3) adjustment = "severely fell!";
@@ -320,7 +342,57 @@ namespace Terramon.Pokemon.Moves
                 return text;
             }
 
+            // Pseudo-statistic
+            if (stat == GetStat.CritRatio)
+            {
+                if (opponent) text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("moves.modifyStatText", "{0} is getting pumped!")));
+                else text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("moves.modifyStatText", "The wild {0} is getting pumped!")));
+
+                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/StatRise").WithVolume(.8f));
+                
+                if (pokemon.CustomData.ContainsKey("CritRatioModifier"))
+                {
+                    if (int.Parse(pokemon.CustomData["CritRatioModifier"]) + modifier > 5) // Going past maximum
+                    {
+                        if (opponent) text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("moves.modifyStatText", "{0} is overflowing with energy!")));
+                        else text = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("moves.modifyStatText", "The wild {0} is overflowing with energy!")));
+                        text.Args = new object[]
+                        {
+                            pokemon.PokemonName
+                        };
+                        target.gettingPumped = true;
+                        return text;
+                    }
+                    pokemon.CustomData["CritRatioModifier"] = (int.Parse(pokemon.CustomData["CritRatioModifier"]) + modifier).ToString();
+                    text.Args = new object[]
+                    {
+                        pokemon.PokemonName
+                    };
+                    target.gettingPumped = true;
+                    return text;
+                } else
+                {
+                    pokemon.CustomData.Add("CritRatioModifier", modifier.ToString());
+                    text.Args = new object[]
+                    {
+                        pokemon.PokemonName
+                    };
+                    target.gettingPumped = true;
+                    return text;
+                }
+            }
+
             return text;
+        }
+
+        // https://bulbapedia.bulbagarden.net/wiki/Critical_hit#Probability
+        public int GetCritChance(int stage)
+        {
+            if (stage == 0) return 16; // 6.25%
+            if (stage == 1) return 8; // 12.5%
+            if (stage == 2) return 2; // 50%
+            if (stage >= 3) return 1; // 100%
+            return 16;
         }
         public enum GetStat
         {
@@ -328,7 +400,8 @@ namespace Terramon.Pokemon.Moves
             Defense,
             SpAtk,
             SpDef,
-            Speed
+            Speed,
+            CritRatio
         }
     }
 }

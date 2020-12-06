@@ -155,7 +155,7 @@ namespace Terramon.Pokemon
                         UI.MovesPanel.PokeData = new PokemonData()
                         {
                             Pokemon = npc.HomeClass().Name,
-                            Moves = new BaseMove[] { new Absorb(), new Acid(), new AcidArmor(), new Earthquake() }
+                            Moves = new BaseMove[] { new FocusEnergy(), new Acid(), new AcidArmor(), new Earthquake() }
                         };
                         wildChallenge.Args = new object[] { second?.Pokemon };
                         //Text(wildChallenge.Value);
@@ -445,7 +445,7 @@ namespace Terramon.Pokemon
                                     {
                                         oMove.AnimationFrame = 0;
                                         oMove.PerformInBattle(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), null, Wild,
-                                            player1.ActivePet);
+                                            player1.ActivePet, oMove);
                                     }                                    
                                 }
                                 break;
@@ -474,11 +474,11 @@ namespace Terramon.Pokemon
                                 {
                                     case BattleState.BattleWithWild:
                                         pMove?.PerformInBattle((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC,
-                                            player1, player1.ActivePet, Wild);
+                                            player1, player1.ActivePet, Wild, pMove);
                                         break;
                                     case BattleState.BattleWithPlayer:
                                         pMove?.PerformInBattle((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile,
-                                            player1, player1.ActivePet, player2.ActivePet);
+                                            player1, player1.ActivePet, player2.ActivePet, pMove);
                                         break;
                                 }
                             }
@@ -508,11 +508,11 @@ namespace Terramon.Pokemon
                     {
                         case BattleState.BattleWithWild:
                             pMove?.PerformInBattle((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, WildNPC,
-                                player1, player1.ActivePet, Wild);
+                                player1, player1.ActivePet, Wild, pMove);
                             break;
                         case BattleState.BattleWithPlayer:
                             pMove?.PerformInBattle((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile, (ParentPokemon)Main.projectile[player2.ActivePetId].modProjectile,
-                                player1, player1.ActivePet, player2.ActivePet);
+                                player1, player1.ActivePet, player2.ActivePet, pMove);
                             break;
                     }
 
@@ -525,11 +525,11 @@ namespace Terramon.Pokemon
                     {
                         case BattleState.BattleWithWild:
                             oMove?.PerformInBattle(WildNPC, (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile),
-                                null, Wild, player1.ActivePet);
+                                null, Wild, player1.ActivePet, oMove);
                             break;
                         case BattleState.BattleWithPlayer:
                             oMove?.PerformInBattle((ParentPokemon)(Main.projectile[player2.ActivePetId].modProjectile), (ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile),
-                                player2, player2.ActivePet, player1.ActivePet);
+                                player2, player2.ActivePet, player1.ActivePet, oMove);
                             break;
                     }
 
@@ -675,6 +675,7 @@ namespace Terramon.Pokemon
             // reset modifiers
             if (player1.ActivePet.CustomData.ContainsKey("PhysDefModifier")) player1.ActivePet.CustomData.Remove("PhysDefModifier");
             if (player1.ActivePet.CustomData.ContainsKey("SpDefModifier")) player1.ActivePet.CustomData.Remove("SpDefModifier");
+            if (player1.ActivePet.CustomData.ContainsKey("CritRatioModifier")) player1.ActivePet.CustomData.Remove("CritRatioModifier");
 
             State = BattleState.None;
         }

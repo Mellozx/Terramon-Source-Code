@@ -104,6 +104,8 @@ namespace Terramon.Pokemon.Moves
             {
                 InflictDamage(mon, target, player, attacker, deffender, state, opponent);
                 inflictedDmg = true;
+                if (PostTextLoc.Args.Length >= 4)//If we can extract damage number
+                    CombatText.NewText(target.projectile.Hitbox, CombatText.DamagedHostile, (int)PostTextLoc.Args[3]);//Print combat text at attacked mon position
                 BattleMode.queueEndMove = true;
             }
 

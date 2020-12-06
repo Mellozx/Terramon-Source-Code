@@ -176,9 +176,20 @@ namespace Terramon.Pokemon
         private int statModifiedDownTimer;
 
         /// <summary>
+        /// Activates when this Pokemon has their critical ratio stage increased by a move like Focus Energy
+        /// </summary>
+        public bool gettingPumped = false;
+        private int gettingPumpedTimer;
+
+        /// <summary>
         /// Activates when this Pokemon uses the move Acid Armor
         /// </summary>
         public bool acidArmor = false;
+
+        /// <summary>
+        /// Activates when this Pokemon uses the move Focus Energy
+        /// </summary>
+        public bool focusEnergy = true;
 
         // End battling properties
 
@@ -350,7 +361,7 @@ namespace Terramon.Pokemon
                 {
                     for (int i = 0; i < 1; i++)
                     {
-                        Dust dust1 = Dust.NewDustDirect(projectile.position + new Vector2(Main.rand.Next(-7, 7), Main.rand.Next(-7, 7)), projectile.width, projectile.height, 81, 0f, 0f, 0, Color.White, 0.75f);
+                        Dust dust1 = Dust.NewDustDirect(projectile.position + new Vector2(Main.rand.Next(-7, 7), Main.rand.Next(-7, 7)), projectile.width, projectile.height, 56, 0f, 0f, 0, Color.White, 0.75f);
                         dust1.alpha = 100;
                         dust1.velocity.Y = 1.25f;
                         dust1.noGravity = true;
@@ -361,6 +372,13 @@ namespace Terramon.Pokemon
                     statModifiedDownTimer = 0;
                     statModifiedDown = false;
                 }
+            }
+
+            // Getting pumped (Currently obsolete)
+
+            if (gettingPumped)
+            {
+                gettingPumped = false;
             }
 
             /// <summary>

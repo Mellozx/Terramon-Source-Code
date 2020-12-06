@@ -45,7 +45,7 @@ namespace Terramon.Pokemon.Moves
         }
 
         public override bool PerformInBattle(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
-            PokemonData deffender)
+            PokemonData deffender, BaseMove move)
         {
             var heal = (int) (attacker.MaxHP * 0.35f);
             var d = attacker.HP;

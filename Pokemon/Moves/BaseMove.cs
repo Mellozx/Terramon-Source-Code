@@ -59,7 +59,7 @@ namespace Terramon.Pokemon.Moves
         /// <param name="deffender">Defender mon data</param>
         /// <returns>return true if move was performed</returns>
         public virtual bool PerformInBattle(ParentPokemon mon, ParentPokemon target,
-            TerramonPlayer player, PokemonData attacker, PokemonData deffender)
+            TerramonPlayer player, PokemonData attacker, PokemonData deffender, BaseMove move)
         {
             return false;
         }
