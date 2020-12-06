@@ -8,6 +8,7 @@ using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 // ReSharper disable CompareOfFloatsByEqualityOperator
 // ReSharper disable PossibleLossOfFraction
 
@@ -38,10 +39,12 @@ namespace Terramon.Pokemon
         /// </summary>
         public bool CanEvolve => EvolveTo != null && EvolveCost != 0;
 
-        public virtual PokemonType[] PokemonTypes => new[] {PokemonType.Normal};
+        public virtual PokemonType[] PokemonTypes => new[] { PokemonType.Normal };
+
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
 
 #if DEBUG
-        public virtual string[] DefaultMove => new[] {nameof(ShootMove), nameof(HealMove), "", ""};
+        public virtual string[] DefaultMove => new[] { nameof(ShootMove), nameof(HealMove), "", "" };
 #else
         public virtual string[] DefaultMove => new[] {"", "", "", ""};
 #endif

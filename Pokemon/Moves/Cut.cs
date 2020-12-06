@@ -11,7 +11,7 @@ namespace Terramon.Pokemon.Moves
 	public class Cut : DamageMove
 	{
 		public override string MoveName => "Cut";
-		public override string MoveDescription => "Cut deals damage with no additional effect in battle.";
+		public override string MoveDescription => "The target is cut with a scythe or claw.";
 		public override int Damage => 50;
 		public override int Accuracy => 95;
 		public override int MaxPP => 30;
@@ -61,21 +61,23 @@ namespace Terramon.Pokemon.Moves
 
 				TerramonMod.ZoomAnimator.ScreenPosX(target.projectile.position.X + 12, 500, Easing.OutExpo);
 				TerramonMod.ZoomAnimator.ScreenPosY(target.projectile.position.Y, 500, Easing.OutExpo);
-
+			}
+			else if (AnimationFrame == 165)
+			{
+				Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/" + MoveName).WithVolume(.75f));
 				cutID = Projectile.NewProjectile(target.projectile.Center, new Vector2(0, 0), ModContent.ProjectileType<CutProjectile>(), 0, 0);
 				Main.projectile[cutID].maxPenetrate = 99;
 				Main.projectile[cutID].penetrate = 99;
 				Main.projectile[cutID].direction = mon.projectile.Center.X > target.projectile.Center.X ? -1 : 1;
 				Main.projectile[cutID].spriteDirection = mon.projectile.Center.X > target.projectile.Center.X ? -1 : 1;
 			}
-			else if (AnimationFrame == 260)
+			else if (AnimationFrame == 200)
 			{
 				InflictDamage(mon, target, player, attacker, deffender, state, opponent);
 				if (PostTextLoc.Args.Length >= 4) //If we can extract damage number
 					CombatText.NewText(target.projectile.Hitbox, CombatText.DamagedHostile, (int)PostTextLoc.Args[3]); //Print combat text at attacked mon position
 				BattleMode.queueEndMove = true;
 			}
-
 
 			// This should be at the very bottom of AnimateTurn() in every move.
 			if (BattleMode.moveEnd)
@@ -92,8 +94,6 @@ namespace Terramon.Pokemon.Moves
 
 	public class CutProjectile : ModProjectile
 	{
-		public override string Texture => "Terraria/Projectile_929";
-
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[projectile.type] = 8;
@@ -111,7 +111,7 @@ namespace Terramon.Pokemon.Moves
 
 		public override void AI()
 		{
-			if (++projectile.frameCounter >= 15)
+			if (++projectile.frameCounter >= 3)
 			{
 				projectile.frameCounter = 0;
 				if (projectile.frame == Main.projFrames[projectile.type] - 1)

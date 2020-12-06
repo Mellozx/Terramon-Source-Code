@@ -94,42 +94,4 @@ namespace Terramon.Pokemon.Moves
             return true;
         }
     }
-    public class FocusDust : ModDust
-    {
-        public override void OnSpawn(Dust dust)
-        {
-            Dust.CloneDust(174);
-            dust.alpha = 50;
-            dust.velocity.Y = -1.5f;
-            dust.noGravity = true;
-        }
-
-        public int color = 0;
-
-        public override bool Update(Dust dust)
-        {
-            if (color == 0)
-            {
-                color = 1;
-                int rnd = Main.rand.Next(1, 3);
-                if (rnd == 0) {
-                    dust.color = new Color(255, 50, 50);
-                }
-                else if (rnd == 1) {
-                    dust.color = new Color(255, 150, 58);
-                }
-                else dust.color = new Color(255, 251, 48);
-            }
-
-
-            dust.scale -= 0.01f;
-            float num59 = dust.scale * 1f;
-            if (num59 > 0.6f)
-            {
-                num59 = 0.6f;
-            }
-            Lighting.AddLight((int)(dust.position.X / 16f), (int)(dust.position.Y / 16f), num59, num59 * 0.4f, 0f);
-            return false;
-        }
-    }
 }

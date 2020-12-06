@@ -155,7 +155,7 @@ namespace Terramon.Pokemon
                         UI.MovesPanel.PokeData = new PokemonData()
                         {
                             Pokemon = npc.HomeClass().Name,
-                            Moves = new BaseMove[] { new FocusEnergy(), new Acid(), new AcidArmor(), new Earthquake() }
+                            Moves = new BaseMove[] { new FocusEnergy(), new Acid(), new Cut(), new Earthquake() }
                         };
                         wildChallenge.Args = new object[] { second?.Pokemon };
                         //Text(wildChallenge.Value);
