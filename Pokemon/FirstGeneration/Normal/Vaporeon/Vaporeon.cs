@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Vaporeon
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 130; public override int PhysicalDamage => 65; public override int PhysicalDefence => 60; public override int SpecialDamage => 110; public override int SpecialDefence => 95; public override int Speed => 65;
 
         public override void SetDefaults()
         {

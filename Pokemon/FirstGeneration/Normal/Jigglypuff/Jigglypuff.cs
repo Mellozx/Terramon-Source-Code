@@ -19,7 +19,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Jigglypuff
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Normal, PokemonType.Fairy };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.Fast;
+        public virtual ExpGroup ExpGroup => ExpGroup.Fast;public override int MaxHP => 115; public override int PhysicalDamage => 45; public override int PhysicalDefence => 20; public override int SpecialDamage => 45; public override int SpecialDefence => 25; public override int Speed => 20;
 
         public override void SetDefaults()
         {

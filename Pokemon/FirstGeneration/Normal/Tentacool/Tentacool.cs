@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Tentacool
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water, PokemonType.Poison };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.Slow;
+        public virtual ExpGroup ExpGroup => ExpGroup.Slow;public override int MaxHP => 40; public override int PhysicalDamage => 40; public override int PhysicalDefence => 35; public override int SpecialDamage => 50; public override int SpecialDefence => 100; public override int Speed => 70;
 
         public override void SetDefaults()
         {

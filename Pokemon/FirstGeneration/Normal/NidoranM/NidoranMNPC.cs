@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal.NidoranM
+namespace Terramon.Pokemon.FirstGeneration.Normal.Nidoranm
 {
     public class NidoranmNPC : ParentPokemonNPC
     {

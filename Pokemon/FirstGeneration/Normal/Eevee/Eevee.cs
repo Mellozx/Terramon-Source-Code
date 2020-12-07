@@ -19,7 +19,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Eevee
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 55; public override int PhysicalDamage => 55; public override int PhysicalDefence => 50; public override int SpecialDamage => 45; public override int SpecialDefence => 65; public override int Speed => 55;
 
         public override void SetDefaults()
         {

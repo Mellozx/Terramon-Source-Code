@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Sandslash
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Ground };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 75; public override int PhysicalDamage => 100; public override int PhysicalDefence => 110; public override int SpecialDamage => 45; public override int SpecialDefence => 55; public override int Speed => 65;
 
         public override void SetDefaults()
         {

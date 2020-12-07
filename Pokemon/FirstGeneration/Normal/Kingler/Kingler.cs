@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Kingler
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 55; public override int PhysicalDamage => 130; public override int PhysicalDefence => 115; public override int SpecialDamage => 50; public override int SpecialDefence => 50; public override int Speed => 75;
 
         public override void SetDefaults()
         {

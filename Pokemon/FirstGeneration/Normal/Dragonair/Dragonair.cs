@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Dragonair
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Dragon };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.Slow;
+        public virtual ExpGroup ExpGroup => ExpGroup.Slow;public override int MaxHP => 61; public override int PhysicalDamage => 84; public override int PhysicalDefence => 65; public override int SpecialDamage => 70; public override int SpecialDefence => 70; public override int Speed => 70;
 
         public override void SetDefaults()
         {

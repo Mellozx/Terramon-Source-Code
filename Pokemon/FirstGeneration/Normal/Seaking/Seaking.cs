@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Seaking
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 80; public override int PhysicalDamage => 92; public override int PhysicalDefence => 65; public override int SpecialDamage => 65; public override int SpecialDefence => 80; public override int Speed => 68;
 
         public override void SetDefaults()
         {

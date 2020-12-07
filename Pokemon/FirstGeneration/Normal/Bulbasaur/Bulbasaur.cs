@@ -11,20 +11,13 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Bulbasaur
 {
     public class Bulbasaur : ParentPokemon
     {
-        public override int MaxHP => 45;
-        public override int PhysicalDamage => 49;
-        public override int PhysicalDefence => 49;
-        public override int SpecialDamage => 65;
-        public override int SpecialDefence => 65;
-        public override int Speed => 45;
-
         public override int EvolveCost => 11;
 
         public override Type EvolveTo => typeof(Ivysaur.Ivysaur);
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass, PokemonType.Poison };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;public override int MaxHP => 45; public override int PhysicalDamage => 49; public override int PhysicalDefence => 49; public override int SpecialDamage => 65; public override int SpecialDefence => 65; public override int Speed => 45;
 
         public override void SetDefaults()
         {

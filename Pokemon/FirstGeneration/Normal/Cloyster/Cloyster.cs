@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Cloyster
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water, PokemonType.Ice };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.Slow;
+        public virtual ExpGroup ExpGroup => ExpGroup.Slow;public override int MaxHP => 50; public override int PhysicalDamage => 95; public override int PhysicalDefence => 180; public override int SpecialDamage => 85; public override int SpecialDefence => 45; public override int Speed => 70;
 
         public override void SetDefaults()
         {

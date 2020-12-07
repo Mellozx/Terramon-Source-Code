@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gastly
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Ghost, PokemonType.Poison };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;public override int MaxHP => 30; public override int PhysicalDamage => 35; public override int PhysicalDefence => 30; public override int SpecialDamage => 100; public override int SpecialDefence => 35; public override int Speed => 80;
 
         public override void SetDefaults()
         {

@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Magnemite
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Electric, PokemonType.Steel };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 25; public override int PhysicalDamage => 35; public override int PhysicalDefence => 70; public override int SpecialDamage => 95; public override int SpecialDefence => 55; public override int Speed => 45;
 
         public override void SetDefaults()
         {

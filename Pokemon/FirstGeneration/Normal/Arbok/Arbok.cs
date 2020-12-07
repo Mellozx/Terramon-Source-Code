@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Arbok
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Poison };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 60; public override int PhysicalDamage => 95; public override int PhysicalDefence => 69; public override int SpecialDamage => 65; public override int SpecialDefence => 79; public override int Speed => 80;
 
         public override void SetDefaults()
         {

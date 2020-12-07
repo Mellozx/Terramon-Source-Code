@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Lapras
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water, PokemonType.Ice };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.Slow;
+        public virtual ExpGroup ExpGroup => ExpGroup.Slow;public override int MaxHP => 130; public override int PhysicalDamage => 85; public override int PhysicalDefence => 80; public override int SpecialDamage => 85; public override int SpecialDefence => 95; public override int Speed => 60;
 
         public override void SetDefaults()
         {

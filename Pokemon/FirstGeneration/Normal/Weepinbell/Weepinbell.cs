@@ -19,7 +19,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Weepinbell
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass, PokemonType.Poison };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;public override int MaxHP => 65; public override int PhysicalDamage => 90; public override int PhysicalDefence => 50; public override int SpecialDamage => 85; public override int SpecialDefence => 45; public override int Speed => 55;
 
         public override void SetDefaults()
         {

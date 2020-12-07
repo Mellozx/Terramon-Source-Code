@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Magmar
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 65; public override int PhysicalDamage => 95; public override int PhysicalDefence => 57; public override int SpecialDamage => 100; public override int SpecialDefence => 85; public override int Speed => 93;
 
         public override void SetDefaults()
         {

@@ -19,7 +19,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Gloom
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass, PokemonType.Poison };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;public override int MaxHP => 60; public override int PhysicalDamage => 65; public override int PhysicalDefence => 70; public override int SpecialDamage => 85; public override int SpecialDefence => 75; public override int Speed => 40;
 
         public override void SetDefaults()
         {

@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Magikarp
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.Slow;
+        public virtual ExpGroup ExpGroup => ExpGroup.Slow;public override int MaxHP => 20; public override int PhysicalDamage => 10; public override int PhysicalDefence => 55; public override int SpecialDamage => 15; public override int SpecialDefence => 20; public override int Speed => 80;
 
         public override void SetDefaults()
         {

@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Raticate
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Normal };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 55; public override int PhysicalDamage => 81; public override int PhysicalDefence => 60; public override int SpecialDamage => 50; public override int SpecialDefence => 70; public override int Speed => 97;
 
         public override void SetDefaults()
         {

@@ -5,8 +5,9 @@ using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader;
+using static Terramon.Pokemon.ExpGroups;
 
-namespace Terramon.Pokemon.FirstGeneration.Normal.NidoranM
+namespace Terramon.Pokemon.FirstGeneration.Normal.Nidoranm
 {
     public class Nidoranm : ParentPokemon
     {
@@ -16,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.NidoranM
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Poison };
 
-	public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;
+	public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;public override int MaxHP => 46; public override int PhysicalDamage => 57; public override int PhysicalDefence => 40; public override int SpecialDamage => 40; public override int SpecialDefence => 40; public override int Speed => 50;
 
         public override void SetDefaults()
         {

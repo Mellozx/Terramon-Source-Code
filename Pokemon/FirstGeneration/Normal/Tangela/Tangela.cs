@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Tangela
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 65; public override int PhysicalDamage => 55; public override int PhysicalDefence => 115; public override int SpecialDamage => 100; public override int SpecialDefence => 40; public override int Speed => 60;
 
         public override void SetDefaults()
         {

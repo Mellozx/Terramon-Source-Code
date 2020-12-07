@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Koffing
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Poison };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 40; public override int PhysicalDamage => 65; public override int PhysicalDefence => 95; public override int SpecialDamage => 60; public override int SpecialDefence => 45; public override int Speed => 35;
 
         public override void SetDefaults()
         {

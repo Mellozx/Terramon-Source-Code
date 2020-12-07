@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Weedle
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Bug, PokemonType.Poison };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 40; public override int PhysicalDamage => 35; public override int PhysicalDefence => 30; public override int SpecialDamage => 20; public override int SpecialDefence => 20; public override int Speed => 50;
 
         public override void SetDefaults()
         {

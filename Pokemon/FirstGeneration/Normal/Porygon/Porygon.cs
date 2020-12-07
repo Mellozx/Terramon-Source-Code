@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Porygon
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Normal };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 65; public override int PhysicalDamage => 60; public override int PhysicalDefence => 70; public override int SpecialDamage => 85; public override int SpecialDefence => 75; public override int Speed => 40;
 
         public override void SetDefaults()
         {

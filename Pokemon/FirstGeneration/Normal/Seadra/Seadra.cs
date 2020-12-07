@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Seadra
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Water };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 55; public override int PhysicalDamage => 65; public override int PhysicalDefence => 95; public override int SpecialDamage => 95; public override int SpecialDefence => 45; public override int Speed => 85;
 
         public override void SetDefaults()
         {

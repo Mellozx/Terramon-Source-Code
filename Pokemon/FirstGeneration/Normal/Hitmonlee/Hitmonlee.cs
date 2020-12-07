@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Hitmonlee
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Fighting };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;
+        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 50; public override int PhysicalDamage => 120; public override int PhysicalDefence => 53; public override int SpecialDamage => 35; public override int SpecialDefence => 110; public override int Speed => 87;
 
         public override void SetDefaults()
         {

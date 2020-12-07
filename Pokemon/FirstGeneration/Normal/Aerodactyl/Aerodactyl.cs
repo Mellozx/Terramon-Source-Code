@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Aerodactyl
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Rock, PokemonType.Flying };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.Slow;
+        public virtual ExpGroup ExpGroup => ExpGroup.Slow;public override int MaxHP => 80; public override int PhysicalDamage => 105; public override int PhysicalDefence => 65; public override int SpecialDamage => 60; public override int SpecialDefence => 75; public override int Speed => 130;
 
         public override void SetDefaults()
         {
