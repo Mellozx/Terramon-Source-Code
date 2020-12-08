@@ -14,11 +14,13 @@ createDBEntry(id) // Create DB entry for the specified mon
 function createDBEntry(id) {
   var pokemon = {
     name: "",
+    baseExp: 0,
     learnAtLevel: []
   }
   pokemon.name = capitalizeFirstLetter(pokedex.pokemon(id).name) // Get Pokemon name
 
   getJSON('https://pokeapi.co/api/v2/pokemon/' + id.toString(), function(error, res) {
+    pokemon.baseExp = res.base_experience;
     for (var i = 0; i < res.moves.length; i++) {
       for (var j = 0; j < res.moves[i].version_group_details.length; j++) {
         if (res.moves[i].version_group_details[j].version_group.name == "red-blue") { // Gen 1 moves only for now

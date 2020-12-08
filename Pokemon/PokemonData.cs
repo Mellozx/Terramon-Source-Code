@@ -11,6 +11,7 @@ using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader.IO;
+using static Terramon.Pokemon.ExpGroups;
 
 namespace Terramon.Pokemon
 {
@@ -238,6 +239,31 @@ namespace Terramon.Pokemon
 
             HP -= delta;
             return delta;
+        }
+
+        public int GiveEXP(PokemonData pokemon, PokemonData opponent, BattleState state, int participated)
+        {
+            float a; // *a* is equal to 1 if the fainted Pokémon is wild, or 1.5 if the fainted Pokémon is owned by a Trainer
+            int b = BaseMove.GetBaseExperienceYield(opponent); // *b* is the base experience yield of the fainted Pokémon's species
+            int e = 1; // *e* is equal to 1.5 if the winning Pokémon is holding a Lucky Egg, or 1 otherwise (UNIMPLEMENTED)
+            int f = 1; // *f* is equal to 1.2 if the Pokémon has an Affection of two hearts or more (UNIMPLEMENTED)
+            int l = opponent.Level; // *l* is the level of the fainted/caught Pokémon
+            int lp = pokemon.Level; // *lp* is the level of the victorious Pokémon
+            int p = 1; // *p* is equal to 1 if no Exp. Point Power (Pass Power, O-Power, Rotom Power) is active (UNIMPLEMENTED)
+            int s = participated; // *s* is equal to the number of Pokémon that participated in the battle and have not fainted
+            int t = 1; // *t* is equal to 1 if the winning Pokémon's current owner is its Original Trainer, always 1 since no trading is implemented yet
+            int v = 1; // *v* is equal to 1.2 if the winning Pokémon is at or past the level where it would be able to evolve, but it has not, 1 otherwise
+
+            int exp;
+
+            if (state == BattleState.BattleWithWild) a = 1;
+            else a = 1.5f;
+
+            exp = (int)(a * t * b * e * l * p * f * v)/(7 * s);
+
+            pokemon.Exp += exp;
+
+            return exp;
         }
 
 

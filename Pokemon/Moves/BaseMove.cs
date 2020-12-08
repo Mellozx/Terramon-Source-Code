@@ -345,12 +345,28 @@ namespace Terramon.Pokemon.Moves
             }
             return null;
         }
+
+        public static int GetBaseExperienceYield(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.BaseExp;
+                }
+            }
+            return 64; // Default value if for some reason none found
+        }
     }
 
     public partial class MoveDb
     {
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("baseExp")]
+        public long BaseExp { get; set; }
 
         [JsonProperty("learnAtLevel")]
         public Dictionary<string, long>[] LearnAtLevel { get; set; }

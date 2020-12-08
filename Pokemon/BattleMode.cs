@@ -579,10 +579,9 @@ namespace Terramon.Pokemon
             {
                 case BattleState.BattleWithWild:
                     if (Wild.Fainted && animInProggress != 1)
-                    { 
-                        if(Text($"Wild {Wild.PokemonName} was fainted! [PH] Your {player1.ActivePet?.PokemonName} received 50 XP!", true))
-                            player1.ActivePet.Exp += 50;
-                        EndBattle();
+                    {
+                        int received = player1.ActivePet.GiveEXP(player1.ActivePet, Wild, BattleState.BattleWithWild, 1);
+                        if(Text($"The wild {Wild.PokemonName} fainted! {player1.ActivePet?.PokemonName} gained {received.ToString()} EXP!", true)) EndBattle(); ;
                     }
                     break;
                 case BattleState.BattleWithPlayer:
