@@ -28,6 +28,7 @@ namespace Terramon.Pokemon
         internal byte pokeballType;
         private int level;
         private int exp;
+        private int expToNext;
         private int maxHp;
         private int hp;
         public string pokemon;
@@ -46,6 +47,8 @@ namespace Terramon.Pokemon
                 pokemon = value;
                 localised = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(pokemon));
                 Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
+                ExperienceGroup = TerramonMod.GetPokemon(Pokemon).ExpGroup;
+                ExpToNext = EXPToNextYield(Level + 1, ExperienceGroup);
             }
         }
 
@@ -53,6 +56,7 @@ namespace Terramon.Pokemon
         public BaseMove[] Moves { get; set; }
         public int[] MovesPP { get; set; }
         public PokemonType[] Types { get; private set; }// Auto filled
+        public ExpGroup ExperienceGroup { get; private set; }// Auto filled
         public bool Fainted { get; set; }//TODO: Add saving HP, MaxHP and Fainted to pokeball TagCompound.
 
         /// <summary>
@@ -130,6 +134,17 @@ namespace Terramon.Pokemon
                     exp -= 100;
                     Level += 1;
                 }
+                needUpdate = true;
+            }
+        }
+        public int ExpToNext
+        {
+            get => expToNext;
+            set
+            {
+                if (expToNext == value)
+                    return;
+                expToNext = value;
                 needUpdate = true;
             }
         }
@@ -286,6 +301,7 @@ namespace Terramon.Pokemon
         {
             Moves = new BaseMove[] {null, null, null, null};
             Types = new [] {PokemonType.Normal};
+            ExperienceGroup = ExpGroup.MediumFast;
             MaxHP = 45 + Main.rand?.Next(20) ?? 0;
             HP = 45 + Main.rand?.Next(20) ?? 0;
             Level = 1 + Main.rand?.Next(8) ?? 0;
@@ -303,9 +319,11 @@ namespace Terramon.Pokemon
             //v2
             pokemon = tag.CapturedPokemon;
             Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
+            ExperienceGroup = TerramonMod.GetPokemon(Pokemon).ExpGroup;
 
             level = tag.Level;//Assign to field here to avoid leveling up
             exp = tag.Exp;
+            //expToNext = tag.ExpToNext;
 
             if (Moves == null)
                 Moves = new BaseMove[4];
@@ -400,9 +418,11 @@ namespace Terramon.Pokemon
             if (!string.IsNullOrEmpty(pokemon))
             {
                 Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
+                ExperienceGroup = TerramonMod.GetPokemon(Pokemon).ExpGroup;
 
                 level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
                 exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
+                //expToNext = tag.ContainsKey(nameof(ExpToNext)) ? tag.GetInt(nameof(ExpToNext)) : 0;
 
                 //Average values from bulbasaur
                 MaxHP = tag.ContainsKey(nameof(MaxHP)) ? tag.GetInt(nameof(MaxHP)) : 45;

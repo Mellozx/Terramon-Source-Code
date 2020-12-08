@@ -50,9 +50,15 @@ namespace Terramon.Items.Pokeballs.Inventory
         }
         public int Exp
         {
-            get => PokeData.Level;
-            set => PokeData.Level = value;
+            get => PokeData.Exp;
+            set => PokeData.Exp = value;
         }
+        public int ExpToNext
+        {
+            get => PokeData.ExpToNext;
+            set => PokeData.ExpToNext = value;
+        }
+
         public bool isShiny
         {
             get => PokeData.IsShiny;
