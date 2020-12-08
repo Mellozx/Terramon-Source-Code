@@ -266,6 +266,21 @@ namespace Terramon.Pokemon
             return exp;
         }
 
+        public int EXPToNextYield(int level, ExpGroup group)
+        {
+            if (group == ExpGroup.Fast) return 4 * (int)Math.Pow(level, 3) / 5; 
+            if (group == ExpGroup.MediumFast) return (int)Math.Pow(level, 3);
+            if (group == ExpGroup.MediumSlow)
+            {
+                int a = 6 / 5 * (int)Math.Pow(level, 3);
+                int b = 15 * (int)Math.Pow(level, 2);
+                int c = 100 * level;
+
+                return a - b + c - 140;
+            }
+            if (group == ExpGroup.Slow) return 5 * (int)Math.Pow(level, 3) / 4;
+            return 100;
+        }
 
         public PokemonData()
         {
