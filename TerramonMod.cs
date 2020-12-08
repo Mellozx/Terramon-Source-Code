@@ -25,6 +25,7 @@ using Terramon.UI;
 using Terramon.UI.Moveset;
 using Terramon.UI.SidebarParty;
 using Terramon.UI.Starter;
+using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -347,6 +348,10 @@ namespace Terramon
             CompressSidebar = RegisterHotKey("Compress Sidebar", Keys.RightShift.ToString());
 
             PartyCycle = RegisterHotKey("Quick Spawn First Party Pokémon", Keys.RightAlt.ToString());
+
+            // Load movedb
+
+            BaseMove.LoadMoveDb();
         }
 
         public override void Unload()

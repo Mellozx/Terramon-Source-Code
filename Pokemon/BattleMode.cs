@@ -152,6 +152,7 @@ namespace Terramon.Pokemon
                         pokeName2 = TerramonMod.Localisation.GetLocalisedString(second?.Pokemon);
                         UI.HP1.PokeData = fpl.ActivePet;
                         UI.HP2.PokeData = Wild;
+                        //string[] m = BaseMove.DefaultMoves((ParentPokemon)Main.projectile[player1.ActivePetId].modProjectile);
                         UI.MovesPanel.PokeData = new PokemonData()
                         {
                             Pokemon = npc.HomeClass().Name,
