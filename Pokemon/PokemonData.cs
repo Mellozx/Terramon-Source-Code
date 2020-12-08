@@ -305,6 +305,7 @@ namespace Terramon.Pokemon
             MaxHP = 45 + Main.rand?.Next(20) ?? 0;
             HP = 45 + Main.rand?.Next(20) ?? 0;
             Level = 1 + Main.rand?.Next(8) ?? 0;
+            ExpToNext = EXPToNextYield(level+1, ExperienceGroup);
             Fainted = false;
         }
 
@@ -320,6 +321,7 @@ namespace Terramon.Pokemon
             pokemon = tag.CapturedPokemon;
             Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
             ExperienceGroup = TerramonMod.GetPokemon(Pokemon).ExpGroup;
+            ExpToNext = EXPToNextYield(level + 1, ExperienceGroup);
 
             level = tag.Level;//Assign to field here to avoid leveling up
             exp = tag.Exp;
@@ -419,9 +421,11 @@ namespace Terramon.Pokemon
             {
                 Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
                 ExperienceGroup = TerramonMod.GetPokemon(Pokemon).ExpGroup;
+                ExpToNext = BaseMove.GetBaseExperienceYield(this);
 
                 level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
                 exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
+
                 //expToNext = tag.ContainsKey(nameof(ExpToNext)) ? tag.GetInt(nameof(ExpToNext)) : 0;
 
                 //Average values from bulbasaur
