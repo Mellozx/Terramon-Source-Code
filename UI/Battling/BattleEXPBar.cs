@@ -13,7 +13,7 @@ namespace Terramon.UI.Battling
     // Inheriting is a great tool for UI design. 
     // By inheriting, we get the Image drawing, MouseOver sound, and fading for free from UIImageButton
     // We've added some code to allow the Button to show a text tooltip while hovered. 
-    public class BattleHPBar : Drawable
+    public class BattleEXPBar : Drawable
     {
 		//private Texture2D _texture;
         private Bar Health;
@@ -43,17 +43,16 @@ namespace Terramon.UI.Battling
 
         public float ActuallScale => Health.Scale.X;
 
-		public BattleHPBar(Color color, bool l)
+		public BattleEXPBar()
         {
             Append(Health = new Bar()
             {
-                TextureName = "Terramon/UI/Battling/HPBarFill",
+                TextureName = "Terramon/UI/Battling/EXPBarFill",
                 Parent = this,
             });
-			_texture = ModContent.GetTexture("Terramon/UI/Battling/HPBarFill");
-			_textureBack = ModContent.GetTexture("Terramon/UI/Battling/HPBarBack");
-			_textureOutline = ModContent.GetTexture("Terramon/UI/Battling/HPBar");
-			local = l;
+			_texture = ModContent.GetTexture("Terramon/UI/Battling/EXPBarFill");
+			_textureBack = ModContent.GetTexture("Terramon/UI/Battling/EXPBarBack");
+			_textureOutline = ModContent.GetTexture("Terramon/UI/Battling/EXPBar");
 		}
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -72,26 +71,7 @@ namespace Terramon.UI.Battling
 			base.Update(gameTime);
 			//Health.Update(gameTime);//Manual update
 
-			if (ContainsPoint(Main.MouseScreen))
-			{
-				Main.LocalPlayer.mouseInterface = true;
-			}
-
-			if (fill >= 0.5f)
-			{
-				lowHPSoundInstance?.Stop();
-				drawcolor = Color.LightGreen;
-			}
-			else if (fill <= 0.2f)
-			{
-				if (local) lowHPSoundInstance = Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/lowhp").WithVolume(.7f));
-				drawcolor = new Color(247, 74, 74); // Red
-			}
-			else if (fill <= 0.5f)
-			{
-				lowHPSoundInstance?.Stop();
-				drawcolor = new Color(255, 235, 84); // Yellow
-			}
+			if (ContainsPoint(Main.MouseScreen)) Main.LocalPlayer.mouseInterface = true;
 		}
 
         protected override void DrawChildren(SpriteBatch spriteBatch)
