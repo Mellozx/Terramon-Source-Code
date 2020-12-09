@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Sandshrew
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Ground };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 50; public override int PhysicalDamage => 75; public override int PhysicalDefence => 85; public override int SpecialDamage => 20; public override int SpecialDefence => 30; public override int Speed => 40;
+        public override ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 50; public override int PhysicalDamage => 75; public override int PhysicalDefence => 85; public override int SpecialDamage => 20; public override int SpecialDefence => 30; public override int Speed => 40;
 
         public override void SetDefaults()
         {

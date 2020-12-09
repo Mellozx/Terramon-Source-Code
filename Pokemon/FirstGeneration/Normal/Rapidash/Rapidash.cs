@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Rapidash
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Fire };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 65; public override int PhysicalDamage => 100; public override int PhysicalDefence => 70; public override int SpecialDamage => 80; public override int SpecialDefence => 80; public override int Speed => 105;
+        public override ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 65; public override int PhysicalDamage => 100; public override int PhysicalDefence => 70; public override int SpecialDamage => 80; public override int SpecialDefence => 80; public override int Speed => 105;
 
         public override void SetDefaults()
         {

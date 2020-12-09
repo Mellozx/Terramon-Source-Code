@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Scyther
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Bug, PokemonType.Flying };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 70; public override int PhysicalDamage => 110; public override int PhysicalDefence => 80; public override int SpecialDamage => 55; public override int SpecialDefence => 80; public override int Speed => 105;
+        public override ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 70; public override int PhysicalDamage => 110; public override int PhysicalDefence => 80; public override int SpecialDamage => 55; public override int SpecialDefence => 80; public override int Speed => 105;
 
         public override void SetDefaults()
         {

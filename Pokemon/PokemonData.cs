@@ -281,11 +281,12 @@ namespace Terramon.Pokemon
             return exp;
         }
 
-        public int EXPToNextYield(int level, ExpGroup group)
+        public int EXPToNextYield(int level, ExpGroup obs)
         {
-            if (group == ExpGroup.Fast) return 4 * (int)Math.Pow(level, 3) / 5; 
-            if (group == ExpGroup.MediumFast) return (int)Math.Pow(level, 3);
-            if (group == ExpGroup.MediumSlow)
+            ParentPokemon mon = TerramonMod.GetPokemon(Pokemon);
+            if (mon.ExpGroup == ExpGroup.Fast) return 4 * (int)Math.Pow(level, 3) / 5; 
+            if (mon.ExpGroup == ExpGroup.MediumFast) return (int)Math.Pow(level, 3);
+            if (mon.ExpGroup == ExpGroup.MediumSlow)
             {
                 int a = 6 / 5 * (int)Math.Pow(level, 3);
                 int b = 15 * (int)Math.Pow(level, 2);
@@ -293,7 +294,7 @@ namespace Terramon.Pokemon
 
                 return a - b + c - 140;
             }
-            if (group == ExpGroup.Slow) return 5 * (int)Math.Pow(level, 3) / 4;
+            if (mon.ExpGroup == ExpGroup.Slow) return 5 * (int)Math.Pow(level, 3) / 4;
             return 100;
         }
 
@@ -305,7 +306,7 @@ namespace Terramon.Pokemon
             MaxHP = 45 + Main.rand?.Next(20) ?? 0;
             HP = 45 + Main.rand?.Next(20) ?? 0;
             Level = 1 + Main.rand?.Next(8) ?? 0;
-            ExpToNext = EXPToNextYield(level+1, ExperienceGroup);
+            ExpToNext = 0; // EXPToNextYield(level + 1, ExperienceGroup);
             Fainted = false;
         }
 
@@ -421,10 +422,10 @@ namespace Terramon.Pokemon
             {
                 Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
                 ExperienceGroup = TerramonMod.GetPokemon(Pokemon).ExpGroup;
-                ExpToNext = BaseMove.GetBaseExperienceYield(this);
 
                 level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
                 exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
+                ExpToNext = EXPToNextYield(level + 1, ExperienceGroup);
 
                 //expToNext = tag.ContainsKey(nameof(ExpToNext)) ? tag.GetInt(nameof(ExpToNext)) : 0;
 

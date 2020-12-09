@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Snorlax
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Normal };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.Slow;public override int MaxHP => 160; public override int PhysicalDamage => 110; public override int PhysicalDefence => 65; public override int SpecialDamage => 65; public override int SpecialDefence => 110; public override int Speed => 30;
+        public override ExpGroup ExpGroup => ExpGroup.Slow;public override int MaxHP => 160; public override int PhysicalDamage => 110; public override int PhysicalDefence => 65; public override int SpecialDamage => 65; public override int SpecialDefence => 110; public override int Speed => 30;
 
         public override void SetDefaults()
         {

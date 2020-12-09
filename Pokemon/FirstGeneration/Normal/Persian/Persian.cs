@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Persian
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Normal };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 65; public override int PhysicalDamage => 70; public override int PhysicalDefence => 60; public override int SpecialDamage => 65; public override int SpecialDefence => 65; public override int Speed => 115;
+        public override ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 65; public override int PhysicalDamage => 70; public override int PhysicalDefence => 60; public override int SpecialDamage => 65; public override int SpecialDefence => 65; public override int Speed => 115;
 
         public override void SetDefaults()
         {

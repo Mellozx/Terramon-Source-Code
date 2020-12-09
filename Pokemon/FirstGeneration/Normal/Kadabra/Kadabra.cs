@@ -19,7 +19,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Kadabra
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Psychic };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;public override int MaxHP => 40; public override int PhysicalDamage => 35; public override int PhysicalDefence => 30; public override int SpecialDamage => 120; public override int SpecialDefence => 70; public override int Speed => 105;
+        public override ExpGroup ExpGroup => ExpGroup.MediumSlow;public override int MaxHP => 40; public override int PhysicalDamage => 35; public override int PhysicalDefence => 30; public override int SpecialDamage => 120; public override int SpecialDefence => 70; public override int Speed => 105;
 
         public override void SetDefaults()
         {
