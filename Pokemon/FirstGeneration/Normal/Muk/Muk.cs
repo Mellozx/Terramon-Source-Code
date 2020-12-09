@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Muk
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Poison };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 105; public override int PhysicalDamage => 105; public override int PhysicalDefence => 75; public override int SpecialDamage => 65; public override int SpecialDefence => 100; public override int Speed => 50;
+        public override ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 105; public override int PhysicalDamage => 105; public override int PhysicalDefence => 75; public override int SpecialDamage => 65; public override int SpecialDefence => 100; public override int Speed => 50;
 
         public override void SetDefaults()
         {

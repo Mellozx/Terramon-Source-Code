@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Vileplume
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Grass, PokemonType.Poison };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumSlow;public override int MaxHP => 75; public override int PhysicalDamage => 80; public override int PhysicalDefence => 85; public override int SpecialDamage => 110; public override int SpecialDefence => 90; public override int Speed => 50;
+        public override ExpGroup ExpGroup => ExpGroup.MediumSlow;public override int MaxHP => 75; public override int PhysicalDamage => 80; public override int PhysicalDefence => 85; public override int SpecialDamage => 110; public override int SpecialDefence => 90; public override int Speed => 50;
 
         public override void SetDefaults()
         {

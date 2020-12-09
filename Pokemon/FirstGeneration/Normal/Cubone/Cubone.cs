@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Cubone
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Ground };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 50; public override int PhysicalDamage => 50; public override int PhysicalDefence => 95; public override int SpecialDamage => 40; public override int SpecialDefence => 50; public override int Speed => 35;
+        public override ExpGroup ExpGroup => ExpGroup.MediumFast;public override int MaxHP => 50; public override int PhysicalDamage => 50; public override int PhysicalDefence => 95; public override int SpecialDamage => 40; public override int SpecialDefence => 50; public override int Speed => 35;
 
         public override void SetDefaults()
         {

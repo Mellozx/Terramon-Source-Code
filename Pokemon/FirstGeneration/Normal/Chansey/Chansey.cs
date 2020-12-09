@@ -17,7 +17,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Chansey
 
         public override PokemonType[] PokemonTypes => new[] { PokemonType.Normal };
 
-        public virtual ExpGroup ExpGroup => ExpGroup.Fast;public override int MaxHP => 250; public override int PhysicalDamage => 5; public override int PhysicalDefence => 5; public override int SpecialDamage => 35; public override int SpecialDefence => 105; public override int Speed => 50;
+        public override ExpGroup ExpGroup => ExpGroup.Fast;public override int MaxHP => 250; public override int PhysicalDamage => 5; public override int PhysicalDefence => 5; public override int SpecialDamage => 35; public override int SpecialDefence => 105; public override int Speed => 50;
 
         public override void SetDefaults()
         {
