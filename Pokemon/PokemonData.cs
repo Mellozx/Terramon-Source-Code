@@ -46,8 +46,9 @@ namespace Terramon.Pokemon
 
                 pokemon = value;
                 localised = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(pokemon));
-                Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
-                ExperienceGroup = TerramonMod.GetPokemon(Pokemon).ExpGroup;
+                var mon = TerramonMod.GetPokemon(Pokemon);
+                Types = mon.PokemonTypes;
+                ExperienceGroup = mon.ExpGroup;
                 ExpToNext = EXPToNextYield(Level + 1, ExperienceGroup);
             }
         }
@@ -320,11 +321,12 @@ namespace Terramon.Pokemon
             IsShiny = tag.isShiny;
             //v2
             pokemon = tag.CapturedPokemon;
-            Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
-            ExperienceGroup = TerramonMod.GetPokemon(Pokemon).ExpGroup;
-            ExpToNext = EXPToNextYield(level + 1, ExperienceGroup);
+            var mon = TerramonMod.GetPokemon(Pokemon);
+            Types = mon.PokemonTypes;
+            ExperienceGroup = mon.ExpGroup;
 
             level = tag.Level;//Assign to field here to avoid leveling up
+            ExpToNext = EXPToNextYield(level + 1, ExperienceGroup);
             exp = tag.Exp;
             //expToNext = tag.ExpToNext;
 
@@ -420,10 +422,12 @@ namespace Terramon.Pokemon
 
             if (!string.IsNullOrEmpty(pokemon))
             {
-                Types = TerramonMod.GetPokemon(Pokemon).PokemonTypes;
-                ExperienceGroup = TerramonMod.GetPokemon(Pokemon).ExpGroup;
+                var mon = TerramonMod.GetPokemon(Pokemon);
+                Types = mon.PokemonTypes;
+                ExperienceGroup = mon.ExpGroup;
 
                 level = tag.ContainsKey(nameof(Level)) ? tag.GetInt(nameof(Level)) : 1;
+                ExpToNext = EXPToNextYield(Level + 1, ExperienceGroup);
                 exp = tag.ContainsKey(nameof(Exp)) ? tag.GetInt(nameof(Exp)) : 0;
                 ExpToNext = EXPToNextYield(level + 1, ExperienceGroup);
 
