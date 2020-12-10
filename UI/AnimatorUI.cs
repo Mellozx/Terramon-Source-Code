@@ -18,7 +18,7 @@ namespace Terramon.UI
 {
     public class AnimatorUI : UIState
     {
-        public static bool Visible = true;
+        public static bool Visible = false;
 
         public UIPanel headingPanel, mainPanel, spriteContainer;
         public UIImage caughtBall, gender;
