@@ -279,8 +279,6 @@ namespace Terramon.Pokemon
                 if (n == "Nidoran ♀") n = "Nidoranf";
                 if (n == "Mr. Mime") n = "Mrmime";
 
-                Main.NewText(n);
-
                 if (!Main.dedServ)
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>()
                         .GetLegacySoundSlot(SoundType.Custom, "Sounds/Cries/cry" + n).WithVolume(0.55f));
