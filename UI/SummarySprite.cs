@@ -56,7 +56,7 @@ namespace Terramon.UI
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - ImageScale) / 2f, texture: _texture, sourceRectangle: frame, color: Color.White * _visibilityActive, rotation: 0f, origin: Vector2.Zero, scale: ImageScale, effects: SpriteEffects.FlipHorizontally, layerDepth: 0f);
+			spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - ImageScale) / 2f, texture: _texture, sourceRectangle: frame, color: Color.White * _visibilityActive, rotation: 0f, origin: Vector2.Zero, scale: ImageScale, effects: SpriteEffects.None, layerDepth: 0f);
 		}
 
 		public void SetVisibility(float visibility)
