@@ -1157,7 +1157,7 @@ namespace Terramon.Pokemon
             HPText.Left.Set(5, 0f);
             Append(HPText);
 
-	    EXPText = new UIText("EXP", 0.6f, false);
+	        EXPText = new UIText("EXP", 0.6f, false);
             EXPText.Top.Set(50, 0f);
             EXPText.Left.Set(5, 0f);
             if (local) Append(EXPText);
@@ -1172,8 +1172,8 @@ namespace Terramon.Pokemon
                 EXPBar = new BattleEXPBar();
                 EXPBar.Top.Set(50, 0f);
                 EXPBar.Left.Set(-119, 1f);
-		EXPBar.Height.Set(8, 0f);
-		EXPBar.Width.Set(110, 0f);
+		        EXPBar.Height.Set(8, 0f);
+		        EXPBar.Width.Set(110, 0f);
                 Append(EXPBar);
             }
 

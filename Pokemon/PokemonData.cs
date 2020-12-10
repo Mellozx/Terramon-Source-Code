@@ -12,6 +12,7 @@ using Terramon.Pokemon.Moves;
 using Terraria;
 using Terraria.ModLoader.IO;
 using static Terramon.Pokemon.ExpGroups;
+using static Terramon.Pokemon.Moves.DamageMove;
 
 namespace Terramon.Pokemon
 {
@@ -180,22 +181,35 @@ namespace Terramon.Pokemon
         }
 
         /// <summary>
+        /// Health (HP)
+        /// </summary>
+        public int MaxHPIV { get; set; } = 0;
+
+        /// <summary>
         /// Physical damage 
         /// </summary>
         public int PhysDmg { get; set; } = 50 + Main.rand?.Next(20) ?? 0;
+        public int PhysDmgIV { get; set; } = 0;
         /// <summary>
         /// Physical defense
         /// </summary>
         public int PhysDef { get; set; } = 60 + Main.rand?.Next(20) ?? 0;
+        public int PhysDefIV { get; set; } = 0;
         /// <summary>
         /// Special damage
         /// </summary>
         public int SpDmg { get; set; } = 65 + Main.rand?.Next(20) ?? 0;
+        public int SpDmgIV { get; set; } = 0;
         /// <summary>
         /// Special defense
         /// </summary>
-        public int SpDef { get; set; } = 50+Main.rand?.Next(20)??0;
+        public int SpDef { get; set; } = 50 + Main.rand?.Next(20)??0;
+        public int SpDefIV { get; set; } = 0;
+        /// <summary>
+        /// Speed
+        /// </summary>
         public int Speed { get; set; } = 45 + Main.rand?.Next(20) ?? 0;
+        public int SpeedIV { get; set; } = 0;
 
         /// <summary>
         /// Increase mon HP by <see cref="amout"/> and return actually healed value;
@@ -299,6 +313,11 @@ namespace Terramon.Pokemon
             return 100;
         }
 
+        public int GenerateIVs()
+        {
+            return Main.rand?.Next(1, 32) ?? 0; // IVs range from 0-31
+        }
+
         public PokemonData()
         {
             Moves = new BaseMove[] {null, null, null, null};
@@ -306,6 +325,14 @@ namespace Terramon.Pokemon
             ExperienceGroup = ExpGroup.MediumFast;
             MaxHP = 45 + Main.rand?.Next(20) ?? 0;
             HP = 45 + Main.rand?.Next(20) ?? 0;
+
+            MaxHPIV = GenerateIVs();
+            PhysDmgIV = GenerateIVs();
+            PhysDefIV = GenerateIVs();
+            SpDmgIV = GenerateIVs();
+            SpDefIV = GenerateIVs();
+            SpeedIV = GenerateIVs();
+
             Level = 1 + Main.rand?.Next(8) ?? 0;
             ExpToNext = 0; // EXPToNextYield(level + 1, ExperienceGroup);
             Fainted = false;

@@ -49,6 +49,9 @@ namespace Terramon
         internal ChooseStarterCharmander ChooseStarterCharmander;
         internal ChooseStarterSquirtle ChooseStarterSquirtle;
 
+        internal AnimatorUI summaryUI;
+        public UserInterface summaryUIInterface;
+
         public static bool PartyUITheme = true;
         public static bool PartyUIAutoMode = false;
         public static bool PartyUIReverseAutoMode = false;
@@ -332,6 +335,11 @@ namespace Terramon
                 _partySlots.SetState(PartySlots);
                 _battle.SetState(BattleMode.UI = new BattleUI());// Automatically assign shortcut
 
+                summaryUI = new AnimatorUI();
+                summaryUI.Activate();
+
+                summaryUIInterface = new UserInterface();
+                summaryUIInterface.SetState(summaryUI);
             }
 
 
@@ -363,6 +371,7 @@ namespace Terramon
             _exampleUserInterfaceNew.SetState(null); // Pokegear Main Menu
             PokegearUserInterfaceNew.SetState(null); // Pokegear Events Menu
             evolveUserInterfaceNew.SetState(null);
+            summaryUIInterface.SetState(null);
             _uiSidebar.SetState(null);
             _partySlots.SetState(null);
             _moves.SetState(null);
@@ -400,6 +409,9 @@ namespace Terramon
             UISidebar = null;
             Moves.Deactivate();
             Moves = null;
+
+            summaryUI.Deactivate();
+            summaryUI = null;
 
             PartyCycle = null;
             FirstPKMAbility = null;
@@ -453,6 +465,7 @@ namespace Terramon
             if (Moves.Visible) _moves?.Update(gameTime);
             if (PartySlots.Visible && !BattleUI.Visible) _partySlots?.Update(gameTime);
             if (BattleUI.Visible) _battle.Update(gameTime);
+            if (AnimatorUI.Visible) summaryUI.Update(gameTime);
 #if DEBUG
             if (TestState.Visible) _exampleUserInterface?.Update(gameTime);
 #endif
@@ -481,6 +494,8 @@ namespace Terramon
                         if (Moves.Visible) _moves.Draw(Main.spriteBatch, new GameTime());
                         if (PartySlots.Visible && !BattleUI.Visible) _partySlots.Draw(Main.spriteBatch, GameClock?.GameTime);
                         if (BattleUI.Visible) _battle.Draw(Main.spriteBatch, GameClock?.GameTime);
+                        if (AnimatorUI.Visible) summaryUIInterface.Draw(Main.spriteBatch, GameClock?.GameTime);
+
 #if DEBUG
                         if (TestState.Visible) _exampleUserInterface?.Draw(Main.spriteBatch, GameClock?.GameTime);
 #endif
