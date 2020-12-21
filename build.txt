@@ -1,6 +1,6 @@
 author = Terramon Team
 version = 0.5
-displayName = Terramon Mod
-homepage = https://terramonmod.com/wiki/#/
+displayName = Terramon Mod - Christmas Update
+homepage = https://discord.gg/U8skDEA
 buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*, Items\Eggs\*, *.exe, Pokemon\NodeUtils\*
 dllReferences = DiscordRPC
