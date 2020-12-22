@@ -359,13 +359,13 @@ namespace Terramon
             client?.Dispose();
             client = null;
             Instance = null;
-            _exampleUserInterface.SetState(null); // Choose Starter
-            _exampleUserInterfaceNew.SetState(null); // Pokegear Main Menu
-            PokegearUserInterfaceNew.SetState(null); // Pokegear Events Menu
-            evolveUserInterfaceNew.SetState(null);
-            _uiSidebar.SetState(null);
-            _partySlots.SetState(null);
-            _moves.SetState(null);
+            _exampleUserInterface?.SetState(null); // Choose Starter
+            _exampleUserInterfaceNew?.SetState(null); // Pokegear Main Menu
+            PokegearUserInterfaceNew?.SetState(null); // Pokegear Events Menu
+            evolveUserInterfaceNew?.SetState(null);
+            _uiSidebar?.SetState(null);
+            _partySlots?.SetState(null);
+            _moves?.SetState(null);
             _battle?.SetState(null);
             BattleMode.UI = null;
             PartySlots = null;
