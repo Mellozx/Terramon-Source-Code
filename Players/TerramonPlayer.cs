@@ -535,6 +535,7 @@ namespace Terramon.Players
 
             if (StarterChosen == false)
             {
+                ChooseStarter.movieFinished = false;
                 GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarter());
                 ChooseStarter.Visible = true;
                 PartySlots.Visible = false;
@@ -566,15 +567,24 @@ namespace Terramon.Players
         }
         public string Get(string uri)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
+            try
             {
-                return reader.ReadToEnd();
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
+
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return "";
+            }
+
         }
 
         //fishing for pokemon
