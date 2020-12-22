@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terramon.Pokemon.ExpGroups;
+using System.Text.RegularExpressions;
 // ReSharper disable CompareOfFloatsByEqualityOperator
 // ReSharper disable PossibleLossOfFraction
 
@@ -48,6 +49,7 @@ namespace Terramon.Pokemon
 #else
         public virtual string[] DefaultMove => new[] {"", "", "", ""};
 #endif
+
         public virtual int MaxHP => 45;
         public virtual int PhysicalDamage => 50;
         public virtual int PhysicalDefence => 50;
@@ -63,6 +65,7 @@ namespace Terramon.Pokemon
 
         public int SpawnTime = 0;
         public virtual string IconName => iconName ?? (iconName = $"Terramon/Minisprites/Regular/mini{GetType().Name}");
+	    private readonly string nameMatcher = "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))";
 
         public int AttackDuration;
 
@@ -103,7 +106,13 @@ namespace Terramon.Pokemon
                 path += path.Length > 0 ? $"/{arr[i]}" : arr[i];
             }
 
-            path += $"/{projectile.Name}/{projectile.Name}";
+	        string n = Regex.Replace(projectile.Name, nameMatcher, "$1 ");
+
+            if (n == "Nidoran ♂") n = "Nidoranm";
+            if (n == "Nidoran ♀") n = "Nidoranf";
+            if (n == "Mr. Mime") n = "Mrmime";
+
+            path += $"/{n}/{n}";
             if (shiny)
             {
                 path += "_Shiny";
@@ -264,9 +273,15 @@ namespace Terramon.Pokemon
                     projectile.direction = 1;
                 }
 
+                string n = Regex.Replace(projectile.Name, nameMatcher, "$1 ");
+
+                if (n == "Nidoran ♂") n = "Nidoranm";
+                if (n == "Nidoran ♀") n = "Nidoranf";
+                if (n == "Mr. Mime") n = "Mrmime";
+
                 if (!Main.dedServ)
                     Main.PlaySound(ModContent.GetInstance<TerramonMod>()
-                        .GetLegacySoundSlot(SoundType.Custom, "Sounds/Cries/cry" + projectile.Name).WithVolume(0.55f));
+                        .GetLegacySoundSlot(SoundType.Custom, "Sounds/Cries/cry" + n).WithVolume(0.55f));
 
                 for (int i = 0; i < 18; i++)
                 {

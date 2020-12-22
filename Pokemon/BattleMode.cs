@@ -1053,9 +1053,11 @@ namespace Terramon.Pokemon
 
     public class HPPanel : UIPanel
     {
-        private UIText LevelText, HPText, HPLocal, PokeName;
-        private UIImage HP, HPBack, Party, PartyExh;
+        private UIText LevelText, HPText, EXPText, HPLocal, PokeName;
+        private UIImage HP, HPBack, Party, PartyExh, Fart;
+        
         public BattleHPBar HPBar;
+        public BattleEXPBar EXPBar;
 
         private ILocalisedBindableString LocPokemon;
 
@@ -1096,7 +1098,17 @@ namespace Terramon.Pokemon
                     }
                 }
 
-                if (pokeData != null) HPBar.fill = (float)pokeData?.HP / (float)pokeData?.MaxHP;
+                if (pokeData != null)
+                {
+                    HPBar.fill = (float)pokeData?.HP / (float)pokeData?.MaxHP;
+                    if (local)
+                    {
+                        if (EXPBar.fill > 1f) EXPBar.fill = 1f;
+                        else EXPBar.fill = (float)pokeData?.Exp / (float)pokeData?.ExpToNext;
+                        EXPBar.HoverText = $"{pokeData?.Exp}/{pokeData?.ExpToNext}";
+                    }
+                }
+
                 LocPokemon = TerramonMod.Localisation.GetLocalisedString(pokeData?.Pokemon ?? "MissingNO");
                 PokeName?.SetText(LocPokemon.Value);
             }
@@ -1126,10 +1138,10 @@ namespace Terramon.Pokemon
         public override void OnInitialize()
         {
             this.BackgroundColor = new Color(76, 78, 79);
-            this.Width.Set(174, 0f);
+            this.Width.Set(178, 0f);
             if (local)
             {
-                this.Height.Set(94, 0f);
+                this.Height.Set(84, 0f);
             } else
             {
                 this.Height.Set(75, 0f);
@@ -1145,18 +1157,30 @@ namespace Terramon.Pokemon
             HPText.Left.Set(5, 0f);
             Append(HPText);
 
+	        EXPText = new UIText("EXP", 0.6f, false);
+            EXPText.Top.Set(50, 0f);
+            EXPText.Left.Set(5, 0f);
+            if (local) Append(EXPText);
+
             if (local)
             {
                 HPLocal = new UIText("", 0.9f, false);
-                HPLocal.Top.Set(54, 0f);
+                HPLocal.Top.Set(52, 0f);
                 HPLocal.Left.Set(5, 0f);
-                Append(HPLocal);
+                //Append(HPLocal);
+
+                EXPBar = new BattleEXPBar();
+                EXPBar.Top.Set(50, 0f);
+                EXPBar.Left.Set(-119, 1f);
+		        EXPBar.Height.Set(8, 0f);
+		        EXPBar.Width.Set(110, 0f);
+                Append(EXPBar);
             }
 
             if (local) HPBar = new BattleHPBar(Color.LightGreen, true);
             else HPBar = new BattleHPBar(Color.LightGreen, false);
             HPBar.Top.Set(30, 0f);
-            HPBar.Left.Set(24, 0f);
+            HPBar.Left.Set(25, 0f);
             HPBar.Height.Set(14, 0f);
             HPBar.Width.Set(124, 0f);
             Append(HPBar);
@@ -1187,6 +1211,11 @@ namespace Terramon.Pokemon
             if (local)
             {
                 HPLocal?.SetText($"{displayHpNumberLerp}/{pokeData?.MaxHP ?? 0}");
+                EXPBar.HoverText = $"{pokeData?.Exp}/{pokeData?.ExpToNext}";
+                HPBar.HoverText = $"{displayHpNumberLerp}/{pokeData?.MaxHP}";
+            } else
+            {
+                HPBar.HoverText = $"{displayHpNumberLerp}/{pokeData?.MaxHP}";
             }
 
             // if display and actual hp are not equal...

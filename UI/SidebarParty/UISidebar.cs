@@ -536,7 +536,7 @@ namespace Terramon.UI.SidebarParty
             side.HoverText = name + $"[i:{ModContent.ItemType<SidebarPKBALL>()}]" +
                              $"\nLVL: {slot.Level}" +
                              $"\nEXP: {slot.Exp}" +
-                             $"\nEXP to next level: {slot.ExpToNext}" +
+                             $"\nEXP Lv Up: {slot.ExpToNext}" +
                              $"\nHP: {slot.HP}/{slot.MaxHP}" +
                              $"\n{sendOutText.Value}";
             side.Recalculate();

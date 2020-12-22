@@ -396,12 +396,13 @@ namespace Terramon.Pokemon.Moves
         }
         public enum GetStat
         {
+            HP,
             Attack,
             Defense,
             SpAtk,
             SpDef,
             Speed,
-            CritRatio
+            CritRatio // pseudo-statistic
         }
     }
 }

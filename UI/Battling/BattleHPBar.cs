@@ -18,6 +18,8 @@ namespace Terramon.UI.Battling
 		//private Texture2D _texture;
         private Bar Health;
 
+		public string HoverText;
+
 		private Texture2D _texture;
 		private Texture2D _textureBack;
 
@@ -59,6 +61,10 @@ namespace Terramon.UI.Battling
 			spriteBatch.Draw(position: GetDimensions().Position() + _textureBack.Size() * (1f - ImageScale) / 2f, texture: _textureBack, sourceRectangle: null, color: Color.White, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(1f, 1f), effects: SpriteEffects.None, layerDepth: 0f);
 			spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - ImageScale) / 2f, texture: _texture, sourceRectangle: null, color: drawcolor, rotation: 0f, origin: Vector2.Zero, scale: new Vector2(fill, 1f), effects: SpriteEffects.None, layerDepth: 0f);
 			spriteBatch.Draw(position: GetDimensions().Position() + _textureOutline.Size() * (1f - ImageScale) / 2f, texture: _textureOutline, sourceRectangle: null, color: Color.White, rotation: 0f, origin: Vector2.Zero, scale: ImageScale, effects: SpriteEffects.None, layerDepth: 0f);
+			if (IsMouseHovering)
+			{
+				Main.hoverItemName = HoverText;
+			}
 		}
 
 		public override void Update(GameTime gameTime)
@@ -66,7 +72,10 @@ namespace Terramon.UI.Battling
 			base.Update(gameTime);
 			//Health.Update(gameTime);//Manual update
 
-			if (ContainsPoint(Main.MouseScreen)) Main.LocalPlayer.mouseInterface = true;
+			if (ContainsPoint(Main.MouseScreen))
+			{
+				Main.LocalPlayer.mouseInterface = true;
+			}
 
 			if (fill >= 0.5f)
 			{
