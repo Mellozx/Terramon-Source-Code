@@ -181,7 +181,7 @@ namespace Terramon.UI.SidebarParty
                 }
 
             };
-            Append(battle);
+            //Append(battle);
 
 //#endif
 

@@ -155,11 +155,11 @@ namespace Terramon
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
-                    State = "Playing v0.4.1",
+                    State = "Playing v0.4.2",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod",
+                        LargeImageText = "Merry Christmas!",
                         SmallImageKey = "pokeball",
                         SmallImageText = "No Pokémon Selected"
                     },
@@ -179,11 +179,11 @@ namespace Terramon
             client?.SetPresence(new RichPresence()
             {
                 Details = "In-Game",
-                State = "Playing v0.4.1",
+                State = "Playing v0.4.2",
                 Assets = new Assets()
                 {
                     LargeImageKey = "largeimage2",
-                    LargeImageText = "Terramon Mod",
+                    LargeImageText = "Merry Christmas!",
                     SmallImageKey = "pokeball",
                     SmallImageText = "Using " + name
                 },
@@ -199,11 +199,11 @@ namespace Terramon
             client?.SetPresence(new RichPresence()
                 {
                     Details = "In-Game",
-                    State = "Playing v0.4.1",
+                    State = "Playing v0.4.2",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod",
+                        LargeImageText = "Merry Christmas!",
                         SmallImageKey = "pokeball",
                         SmallImageText = "No Pokémon Selected"
                     },
@@ -218,11 +218,11 @@ namespace Terramon
             client?.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
-                    State = "Playing v0.4.1",
+                    State = "Playing v0.4.2",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod"
+                        LargeImageText = "Merry Christmas!"
                     }
                 });
         }
@@ -233,17 +233,20 @@ namespace Terramon
         public override void Load()
         {
             //Disable loading rich presence while debugging 
-#if !DEBUG
+
             // Initalize Discord RP on Mod Load
             if (!Main.dedServ)
             {
-                client = new DiscordRpcClient("749707767203233792");
+                client = new DiscordRpcClient("790364236554829824");
                 client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
                 //
+
+                Logger.Info("Attempting to establish Discord RP connection");
 
                 // Subscribe to events
                 client.OnReady += (sender, e) =>
                 {
+                    Logger.Info("Established connection");
                     Console.WriteLine("Received Ready from user {0}", e.User.Username);
                 };
 
@@ -252,21 +255,26 @@ namespace Terramon
                     Console.WriteLine("Received Update! {0}", e.Presence);
                 };
 
+                client.OnError += (sender, e) =>
+                {
+                    Logger.Error("Could not start Discord RP. Reason: " + e.Message);
+                };
+
                 //Connect to the RPC
                 client.Initialize();
 
                 client.SetPresence(new RichPresence()
                 {
                     Details = "In Menu",
-                    State = "Playing v0.4.1",
+                    State = "Playing v0.4.2",
                     Assets = new Assets()
                     {
                         LargeImageKey = "largeimage2",
-                        LargeImageText = "Terramon Mod"
+                        LargeImageText = "Merry Christmas!"
                     }
                 });
             }
-#endif
+
             BaseMove._mrand = new UnifiedRandom(BaseMove._seed = new Random().Next());
             //Load all mons to a store
             LoadPokemons();
@@ -518,21 +526,25 @@ namespace Terramon
 
             if (player.Battle != null)
             {
+                priority = MusicPriority.BossHigh;
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/Battling/wildbattle");
                 return;
             }
 
             if (MyUIStateActive(Main.LocalPlayer) && !ChooseStarter.movieFinished)
             {
+                priority = MusicPriority.BossHigh;
                 music = GetSoundSlot(SoundType.Music, null);
             }
 
             if (player.healingAtHealerBed)
             {
+                priority = MusicPriority.BossHigh;
                 music = GetSoundSlot(SoundType.Music, null);
             }
             if (MyUIStateActive(Main.LocalPlayer) && ChooseStarter.movieFinished)
             {
+                priority = MusicPriority.BossHigh;
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/wifi");
             }
         }

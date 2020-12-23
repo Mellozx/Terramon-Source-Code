@@ -9,6 +9,7 @@ using Razorwing.Framework.Localisation;
 using Steamworks;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Pokemon.Moves;
+using Terramon.Pokemon.Utilities;
 using Terraria;
 using Terraria.ModLoader.IO;
 using static Terramon.Pokemon.ExpGroups;
@@ -296,21 +297,15 @@ namespace Terramon.Pokemon
             return exp;
         }
 
-        public int EXPToNextYield(int level, ExpGroup obs)
+        public int EXPToNextYield(int level, ExpGroup obs, string name = "")
         {
-            ParentPokemon mon = TerramonMod.GetPokemon(Pokemon);
-            if (mon.ExpGroup == ExpGroup.Fast) return 4 * (int)Math.Pow(level, 3) / 5; 
-            if (mon.ExpGroup == ExpGroup.MediumFast) return (int)Math.Pow(level, 3);
-            if (mon.ExpGroup == ExpGroup.MediumSlow)
-            {
-                int a = 6 / 5 * (int)Math.Pow(level, 3);
-                int b = 15 * (int)Math.Pow(level, 2);
-                int c = 100 * level;
+            ParentPokemon mon;
+            if (name == "") mon = TerramonMod.GetPokemon(Pokemon);
+            else mon = TerramonMod.GetPokemon(name);
 
-                return a - b + c - 140;
-            }
-            if (mon.ExpGroup == ExpGroup.Slow) return 5 * (int)Math.Pow(level, 3) / 4;
-            return 100;
+            level -= 1;
+
+            return ExpLookupTable.ToNextLevel(level, mon.ExpGroup);
         }
 
         public int GenerateIVs()
@@ -334,7 +329,7 @@ namespace Terramon.Pokemon
             SpeedIV = GenerateIVs();
 
             Level = 1 + Main.rand?.Next(8) ?? 0;
-            ExpToNext = 0; // EXPToNextYield(level + 1, ExperienceGroup);
+            ExpToNext = 0;
             Fainted = false;
         }
 

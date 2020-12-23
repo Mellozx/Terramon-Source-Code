@@ -101,6 +101,7 @@ namespace Terramon.Pokemon
             {
                 if (Main.mouseRightRelease)
                 {
+                    return; // Disable until after christmas update
                     var player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
                     if (player.ActivePet == null || player.Battle != null) return;
                     if (player.ActivePet.Fainted || player.ActivePet.HP == 0)
@@ -234,9 +235,12 @@ namespace Terramon.Pokemon
             knockback = 0;
             crit = false;
 
+            Main.NewText("Hit with a projectile!");
+
             for (int i = 0; i < ballProjectiles.Length; i++)
                 if (projectile.type == mod.ProjectileType(ballProjectiles[i]) && projectile.ai[1] == 1)
                 {
+                    Main.NewText("Hit with a Pokeball!");
                     if (ballProjectiles[i] == "MasterBallProjectile") // Master Ball never fails
                     {
                         Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<MasterBallCaught>());

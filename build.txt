@@ -1,6 +1,6 @@
 author = Terramon Team
-version = 0.4.2
-displayName = Terramon Mod - Christmas Update
+version = 0.4.2.01
+displayName = Terramon - Pokemon in Terraria!
 homepage = https://discord.gg/U8skDEA
 buildIgnore = *.csproj, *.zip, *.user, obj\*, bin\*, .vs\*, .git\*, *.gitignore, *.psd, Items\Apricorns\Cooked\*, Items\Food\*, Items\Eggs\*, *.exe, Pokemon\NodeUtils\*
 dllReferences = DiscordRPC
