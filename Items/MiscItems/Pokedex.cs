@@ -27,7 +27,7 @@ namespace Terramon.Items.MiscItems
             item.knockBack = 0;
             item.value = 0;
             item.rare = -12;
-            item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/pokedexon");
+            item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/pc");
             item.autoReuse = false;
         }
 
