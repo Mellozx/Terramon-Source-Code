@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using Microsoft.Xna.Framework.Graphics;
 using Razorwing.Framework.Configuration;
 using Razorwing.Framework.IO.Stores;
 using Razorwing.Framework.Localisation;
@@ -322,6 +323,7 @@ namespace Terramon
                 _moves = new UserInterface();
                 _partySlots = new UserInterface();
                 _battle = new UserInterface();
+                ParentPokemonNPC.HighlightTexture = new Dictionary<string, Texture2D>();
 
                 //_exampleUserInterface.SetState(ChooseStarter); // Choose Starter
 #if DEBUG
@@ -428,6 +430,7 @@ namespace Terramon
             Scheduler?.CancelDelayedTasks();
             Scheduler = null;
             schedulerClock = null;
+            ParentPokemonNPC.HighlightTexture = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)

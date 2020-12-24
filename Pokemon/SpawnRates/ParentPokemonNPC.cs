@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Items.Pokeballs.Thrown;
@@ -13,6 +14,7 @@ using Terramon.Tiles.ShelfBlocks;
 using Terramon.Players;
 using Terramon.Pokemon.Moves;
 using Terramon.Network.Sync.Battle;
+using Terraria.UI.Chat;
 
 namespace Terramon.Pokemon
 {
@@ -25,6 +27,8 @@ namespace Terramon.Pokemon
         private readonly string[] ballProjectiles = TerramonMod.GetBallProjectiles();
         private readonly float[][] catchChances = TerramonMod.GetCatchChances();
         private readonly string nameMatcher = "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))";
+        public static Dictionary<string, Texture2D> HighlightTexture;
+
 
         public int frame;
         public int frameCounter;
@@ -81,6 +85,32 @@ namespace Terramon.Pokemon
             SpriteEffects effects = npc.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Texture2D pkmnTexture = mod.GetTexture(path);
             int frameHeight = pkmnTexture.Height / Main.npcFrameCount[npc.type];
+            if (highlighted && HighlightTexture != null)
+            {
+                if (!HighlightTexture.ContainsKey(n))
+                {
+                    var data = new Color[pkmnTexture.Width * pkmnTexture.Height];
+                    pkmnTexture.GetData(data);
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        if (data[i].A > 0)
+                        {
+                            byte a = data[i].A;
+                            data[i] = Color.Gold;
+                            data[i].A = a;
+                        }
+                    }
+                    HighlightTexture.Add(n, new Texture2D(Main.graphics.GraphicsDevice, pkmnTexture.Width, pkmnTexture.Height));
+                    HighlightTexture[n].SetData(data);
+                }
+
+                foreach (Vector2 of in ChatManager.ShadowDirections)
+                {
+                    spriteBatch.Draw(HighlightTexture[n], npc.position - Main.screenPosition + new Vector2(0, -6)+of,
+                        new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), Color.White, npc.rotation,
+                        new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, -0f);
+                }
+            }
             spriteBatch.Draw(pkmnTexture, npc.position - Main.screenPosition + new Vector2(0, -6),
                 new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, npc.rotation,
                 new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
@@ -92,12 +122,21 @@ namespace Terramon.Pokemon
             return false;
         }
 
+        private bool highlighted = false;
         public override void AI()
         {
             npc.scale = 1f;
+            //Fix shifted hitbox
+            var rect = npc.Hitbox;
+            rect.X -= rect.Width;
+            rect.Y -= rect.Height;
+            rect.Width *= 2;
+            rect.Height *= 2;
+            //Set flag if hovered
+            highlighted = rect.Contains(Main.MouseWorld.ToPoint());
 
             //Detect right click on pokemon
-            if (npc.Hitbox.Contains(Main.MouseWorld.ToPoint()) && Main.mouseRight)
+            if (rect.Contains(Main.MouseWorld.ToPoint()) && Main.mouseRight)
             {
                 if (Main.mouseRightRelease)
                 {
