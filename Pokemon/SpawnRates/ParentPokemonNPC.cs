@@ -85,32 +85,35 @@ namespace Terramon.Pokemon
             SpriteEffects effects = npc.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             Texture2D pkmnTexture = mod.GetTexture(path);
             int frameHeight = pkmnTexture.Height / Main.npcFrameCount[npc.type];
+
             if (highlighted && HighlightTexture != null)
             {
-                if (!HighlightTexture.ContainsKey(n))
+                if (!HighlightTexture.ContainsKey(n))//If we don't have one color texture
                 {
-                    var data = new Color[pkmnTexture.Width * pkmnTexture.Height];
-                    pkmnTexture.GetData(data);
-                    for (int i = 0; i < data.Length; i++)
+                    var data = new Color[pkmnTexture.Width * pkmnTexture.Height];//New array with size equal texture total pixels
+                    pkmnTexture.GetData(data);//Get all pixel color values
+                    for (int i = 0; i < data.Length; i++)//For each pixel
                     {
-                        if (data[i].A > 0)
+                        if (data[i].A > 0)//What actually visible
                         {
-                            byte a = data[i].A;
-                            data[i] = Color.Gold;
-                            data[i].A = a;
+                            byte a = data[i].A;//Save alpha channel
+                            data[i] = Color.Gold;//Override color
+                            data[i].A = a;//Restore alpha channel
                         }
                     }
-                    HighlightTexture.Add(n, new Texture2D(Main.graphics.GraphicsDevice, pkmnTexture.Width, pkmnTexture.Height));
-                    HighlightTexture[n].SetData(data);
+                    HighlightTexture.Add(n, new Texture2D(Main.graphics.GraphicsDevice, pkmnTexture.Width, pkmnTexture.Height));// Store modified texture
+                    HighlightTexture[n].SetData(data);//And load pixel data
                 }
 
-                foreach (Vector2 of in ChatManager.ShadowDirections)
+                foreach (Vector2 of in ChatManager.ShadowDirections)//For each shadow direction
                 {
+                    //Draw texture with shadow offset 'of'
                     spriteBatch.Draw(HighlightTexture[n], npc.position - Main.screenPosition + new Vector2(0, -6)+of,
                         new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), Color.White, npc.rotation,
                         new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, -0f);
                 }
             }
+
             spriteBatch.Draw(pkmnTexture, npc.position - Main.screenPosition + new Vector2(0, -6),
                 new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, npc.rotation,
                 new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
@@ -127,7 +130,7 @@ namespace Terramon.Pokemon
         {
             npc.scale = 1f;
             //Fix shifted hitbox
-            var rect = npc.Hitbox;
+            var rect = new Rectangle(npc.Hitbox.X, npc.Hitbox.Y, npc.Hitbox.Width, npc.Hitbox.Height);
             rect.X -= rect.Width;
             rect.Y -= rect.Height;
             rect.Width *= 2;
