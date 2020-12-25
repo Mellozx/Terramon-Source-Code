@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using Razorwing.Framework.Extensions;
 using Terramon.Items.MiscItems;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Network.Sync;
@@ -42,7 +43,7 @@ namespace Terramon.Players
 
         private Dictionary<string, bool> ActivePets = new Dictionary<string, bool>();
         private List<PokemonData> pokemonStorage = new List<PokemonData>();
-        public IEnumerable<PokemonData> PokemonStorage => pokemonStorage; 
+        public List<PokemonData> PokemonStore => pokemonStorage; 
         public int ActivePetId = -1;
         public bool ActivePetShiny;
         public string ActivePetName = string.Empty;
@@ -943,6 +944,8 @@ namespace Terramon.Players
 
             SavePokeballs(tag);
 
+            tag.Add(nameof(PokemonStore), PokemonStore.SaveToTag());
+
             return tag;
         }
 
@@ -982,9 +985,81 @@ namespace Terramon.Players
 
             LoadPokeballs(tag);
 
+            if (tag.ContainsKey(nameof(PokemonStore)))
+                pokemonStorage = tag.GetCompound(nameof(PokemonStore)).LoadFromTag<PokemonData>().ToList();
+
             loading = false;
             sidebarSync = false;
         }
+
+
+        /// <summary>
+        /// Add PokeData to storage (PC)
+        /// </summary>
+        /// <param name="tag">PokeData to store in storage</param>
+        /// <param name="maxPages">Maximum boxes count</param>
+        /// <param name="pageSize">One box size</param>
+        /// <returns>Return true if actually added. Returns false if out of space</returns>
+        public bool AddToStorage(PokemonData tag, int maxPages = 8, int pageSize = 30)
+        {
+            if (pokemonStorage.Count < maxPages * pageSize)
+            {
+                pokemonStorage.Add(tag);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Remove PokeData from PC by its instance
+        /// </summary>
+        /// <param name="tag">Instance what should be deleted</param>
+        /// <returns>Return true if actually remove. Return false if storage don't contain provided instance</returns>
+        public bool RemoveFromStorage(PokemonData tag)
+        {
+            if (pokemonStorage.Contains(tag))
+            {
+                pokemonStorage.Remove(tag);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Remove PokeData from PC by its id
+        /// </summary>
+        /// <param name="id">List ID</param>
+        /// <returns>Return true if actually remove. Return false if storage don't contain provided instance</returns>
+        public bool RemoveFromStorage(int id)
+        {
+            if (id < pokemonStorage.Count)
+            {
+                pokemonStorage.RemoveAt(id);
+                return true;
+            }
+            return false;
+        }
+
+        public PokemonData[] GetPage(int page, int pageSize = 30)
+        {
+            var arr = new PokemonData[pageSize];
+            int offset = page * pageSize;
+            for (int i = 0; i < pageSize; i++)
+            {
+                if (offset + i < pokemonStorage.Count)
+                {
+                    arr[i] = pokemonStorage[offset + i];
+                }
+                else
+                {
+                    arr[i] = null;
+                }
+            }
+
+            return arr;
+        }
+
+
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
