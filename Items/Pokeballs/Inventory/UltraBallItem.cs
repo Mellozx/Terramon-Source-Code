@@ -45,7 +45,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             ModRecipe recipe2 = new ModRecipe(mod);
             recipe2.AddIngredient(mod.ItemType("BlackApricorn"), 3);
             recipe2.AddIngredient(mod.ItemType("YellowApricorn"), 1);
-            recipe2.AddIngredient(ItemID.IronBar, 6);
+            recipe2.AddRecipeGroup("IronBar", 6);
             recipe2.AddTile(TileID.Anvils);
             recipe2.SetResult(this);
             recipe2.AddRecipe();
