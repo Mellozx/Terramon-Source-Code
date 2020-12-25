@@ -21,18 +21,18 @@ namespace Terramon.UI
         public static bool Visible = false;
 
         public UIPanel headingPanel, mainPanel, spriteContainer;
-        public UIImage caughtBall, gender;
         public SummarySprite overworldSprite;
+        public SummaryImage gender, caughtBall, shiny, status;
 
-        public UIText lv, name;
+        public UIText lv, name, trainerMemoHeader, memo1, memo2, memo3;
 
-        private string target = "Bulbasaur";
+        private string target = "Charmeleon";
 
         public override void OnInitialize()
         {
             mainPanel = new UIPanel();
             mainPanel.BackgroundColor = new Color(28, 36, 66) * 0.95f;
-            mainPanel.Width.Set(540, 0f);
+            mainPanel.Width.Set(440, 0f);
             mainPanel.Height.Set(310, 0f);
             mainPanel.HAlign = 0.5f;
             mainPanel.VAlign = 0.5f;
@@ -44,7 +44,19 @@ namespace Terramon.UI
             spriteContainer.Width.Set(148, 0f);
             spriteContainer.Height.Set(110, 0f);
             spriteContainer.HAlign = 0.1f;
-            spriteContainer.VAlign = 0.475f;
+            spriteContainer.VAlign = 0.46f;
+
+            gender = new SummaryImage(ModContent.GetTexture("Terramon/UI/Summary/" + "Male"), "Male");
+            gender.Top.Set(-4, 0f);
+            gender.Left.Set(-14, 1f);
+
+            spriteContainer.Append(gender);
+
+            caughtBall = new SummaryImage(ModContent.GetTexture("Terramon/Minisprites/Ball1"), "Caught in a Poké Ball");
+            caughtBall.Top.Set(-12, 1f);
+            caughtBall.Left.Set(-14, 1f);
+
+            spriteContainer.Append(caughtBall);
 
             Texture2D overworldTexture = ModContent.GetTexture($"Terramon/Pokemon/FirstGeneration/Normal/{target}/{target}");
             overworldSprite = new SummarySprite(overworldTexture);
@@ -54,13 +66,33 @@ namespace Terramon.UI
             spriteContainer.Append(overworldSprite);
 
             name = new UIText("Charmeleon", 0.55f, true);
-            name.Top.Set(-40, 0f);
+            name.Top.Set(-41, 0f);
             name.Left.Set(-2, 0f);
 
             lv = new UIText("Lv 16", 0.75f, false);
 
             spriteContainer.Append(name);
             spriteContainer.Append(lv);
+
+            trainerMemoHeader = new UIText("Trainer Memo", 0.35f, true);
+            trainerMemoHeader.HAlign = 0.5f;
+            trainerMemoHeader.Top.Set(34, 1f);
+            spriteContainer.Append(trainerMemoHeader);
+
+            memo1 = new UIText("Adamant nature.", 0.3f, true);
+            memo1.HAlign = 0.5f;
+            memo1.Top.Set(54, 1f);
+            spriteContainer.Append(memo1);
+
+            memo2 = new UIText("Caught in the cavern layer", 0.3f, true);
+            memo2.HAlign = 0.5f;
+            memo2.Top.Set(68, 1f);
+            spriteContainer.Append(memo2);
+
+            memo3 = new UIText("at Lv 5.", 0.3f, true);
+            memo3.HAlign = 0.5f;
+            memo3.Top.Set(82, 1f);
+            spriteContainer.Append(memo3);
 
             mainPanel.Append(spriteContainer);
 
@@ -69,7 +101,7 @@ namespace Terramon.UI
             headingPanel.Width.Set(340, 0f);
             headingPanel.Height.Set(64, 0f);
             headingPanel.HAlign = 0.5f;
-            headingPanel.Top.Set(-36, 0f);
+            headingPanel.Top.Set(-38, 0f);
 
             UIText text = new UIText("Pokémon Summary", 0.8f, true);
             text.HAlign = 0.5f;

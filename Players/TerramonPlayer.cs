@@ -390,7 +390,7 @@ namespace Terramon.Players
 
         public override void Initialize()
         {
-	    healingAtHealerBed = false;
+	        healingAtHealerBed = false;
             InitializePokeballs();
             //Initialise active pets bools
             // ReSharper disable once LocalVariableHidesMember
@@ -544,6 +544,7 @@ namespace Terramon.Players
                 ChooseStarter.movieFinished = false;
                 GetInstance<TerramonMod>()._exampleUserInterface.SetState(new ChooseStarter());
                 ChooseStarter.Visible = true;
+                ChooseStarter.movieFinished = false;
                 PartySlots.Visible = false;
                 UISidebar.Visible = false;
                 player.frozen = true;
@@ -562,13 +563,15 @@ namespace Terramon.Players
 
             // Check if update is available!
 
-            var mod_version = Get("https://api.terramonmod.com/mod/ver");
+            var mod_version = Get("https://pokeparser.projectagon.repl.co/mod/ver");
             var current_version = $"v{mod.Version}";
 
             if (current_version != mod_version)
             {
-                //Main.NewText($"[c/f3cc61:Terramon >] A new update is available to download ({mod_version})");
-                //Main.NewText($"Go the the Mod Browser to update!");
+                var msg = Get("https://pokeparser.projectagon.repl.co/update/message");
+                if (msg != "Bye") Main.NewText($"[c/f3cc61:Terramon >] A new update is available to download ({mod_version}). " + msg);
+                else Main.NewText($"[c/f3cc61:Terramon >] A new update is available to download ({mod_version})"); 
+                Main.NewText($"Go the the Mod Browser to update!");
             }
         }
         public string Get(string uri)

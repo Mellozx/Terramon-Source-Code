@@ -13,6 +13,8 @@ using Terramon.Network.Starter;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Players;
 using Terramon.Pokemon;
+using static Terramon.Pokemon.ExpGroups;
+using Terramon.Pokemon.Utilities;
 
 namespace Terramon.UI.Starter
 {
@@ -1156,7 +1158,9 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             p.PartySlot1 = new PokemonData
             {
                 pokemon = "Bulbasaur",
-                pokeballType = 1
+                pokeballType = 1,
+                Level = 5,
+                ExpToNext = ExpLookupTable.ToNextLevel(5, ExpGroup.MediumSlow)
             };
             Visible = false;
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
@@ -1178,7 +1182,9 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             p.PartySlot1 = new PokemonData
             {
                 pokemon = "Charmander",
-                pokeballType = 1
+                pokeballType = 1,
+                Level = 5,
+                ExpToNext = ExpLookupTable.ToNextLevel(5, ExpGroup.MediumSlow)
             };
 
             Visible = false;
@@ -1201,7 +1207,9 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
             p.PartySlot1 = new PokemonData
             {
                 pokemon = "Squirtle",
-                pokeballType = 1
+                pokeballType = 1,
+                Level = 5,
+                ExpToNext = ExpLookupTable.ToNextLevel(5, ExpGroup.MediumSlow)
             };
 
             Visible = false;
