@@ -478,7 +478,9 @@ namespace Terramon.Players
         private void LoadPartySlot(Item modItem, TagCompound value)
         {
             //var modItem = ((TerramonMod)mod).PartySlots.partyslot1.Item.modItem;
-            var en = (TerramonMod.PokeballFactory.Pokebals) value.GetByte(BaseCaughtClass.POKEBAL_PROPERTY);
+            TerramonMod.PokeballFactory.Pokebals en = TerramonMod.PokeballFactory.Pokebals.Nothing;
+            if(value != null)
+                en = (TerramonMod.PokeballFactory.Pokebals) value.GetByte(BaseCaughtClass.POKEBAL_PROPERTY);
             if (en == 0)
             {
                 modItem.TurnToAir();
@@ -516,19 +518,23 @@ namespace Terramon.Players
                     "Terramon is not compatible with the 'Terraria Overhaul' mod, which is currently enabled. To prevent mod-breaking bugs, please disable one or the other.",
                     245, 46, 24);
 
+            if (StarterChosen == false)
+            {
+                PartySlot1 = null;
+                PartySlot2 = null;
+                PartySlot3 = null;
+                PartySlot4 = null;
+                PartySlot5 = null;
+                PartySlot6 = null;
+            }
+
             //TODO: Override sidebarUI here
-            if (PartySlot1 != null)
-                LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot1.Item, PartySlot1);
-            if (PartySlot2 != null)
-                LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot2.Item, PartySlot2);
-            if (PartySlot3 != null)
-                LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot3.Item, PartySlot3);
-            if (PartySlot4 != null)
-                LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot4.Item, PartySlot4);
-            if (PartySlot5 != null)
-                LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot5.Item, PartySlot5);
-            if (PartySlot6 != null)
-                LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot6.Item, PartySlot6);
+            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot1.Item, PartySlot1);
+            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot2.Item, PartySlot2);
+            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot3.Item, PartySlot3);
+            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot4.Item, PartySlot4);
+            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot5.Item, PartySlot5);
+            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot6.Item, PartySlot6);
 
             //Running one update to load sidebar without requiring to open inv
             ((TerramonMod) mod).PartySlots.UpdateUI(null);

@@ -403,6 +403,8 @@ namespace Terramon.Pokemon
 
         public static implicit operator TagCompound(PokemonData tag)
         {
+            if (tag == null)
+                return null;
             return new TagCompound()
             {
                 [nameof(BaseCaughtClass.PokemonName)] = tag.Pokemon,
