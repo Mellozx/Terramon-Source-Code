@@ -37,7 +37,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("DuskBallCap"));
             recipe.AddIngredient(mod.ItemType("Button"));
-            recipe.AddIngredient(mod.ItemType("PokeballBase"));
+            recipe.AddIngredient(mod.ItemType("DuskBallBase"));
             recipe.SetResult(this);
             recipe.AddRecipe();
 
@@ -45,7 +45,7 @@ namespace Terramon.Items.Pokeballs.Inventory
             recipe2.AddIngredient(mod.ItemType("BlackApricorn"), 2);
             recipe2.AddIngredient(mod.ItemType("GreenApricorn"), 2);
             recipe2.AddIngredient(ItemID.SoulofNight);
-            recipe2.AddIngredient(ItemID.IronBar, 6);
+            recipe2.AddRecipeGroup("IronBar", 6);
             recipe2.AddTile(TileID.Anvils);
             recipe2.SetResult(this);
             recipe2.AddRecipe();
