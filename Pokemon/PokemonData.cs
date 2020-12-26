@@ -132,10 +132,12 @@ namespace Terramon.Pokemon
                 if(exp == value)
                     return;
                 exp = value;
-                if (exp > 100)
+                while (exp >= expToNext)
                 {
-                    exp -= 100;
                     Level += 1;
+                    int leftover = exp - expToNext;
+                    expToNext = ExpLookupTable.ToNextLevel(Level, ExperienceGroup);
+                    exp = leftover;
                 }
                 needUpdate = true;
             }

@@ -39,6 +39,9 @@ namespace Terramon.Pokemon
         protected bool shiny = false;
         protected int timer;
 
+        // distance from player
+        private float d;
+
         public static bool PlayerIsInForest(Player player)
         {
             return !player.ZoneJungle
@@ -97,7 +100,7 @@ namespace Terramon.Pokemon
                         {
                             byte a = data[i].A;
                             data[i] = Color.Gold;
-                            data[i].A = a;
+                            data[i].A = drawColor.A;
                         }
                     }
                     HighlightTexture.Add(n, new Texture2D(Main.graphics.GraphicsDevice, pkmnTexture.Width, pkmnTexture.Height));
@@ -106,23 +109,34 @@ namespace Terramon.Pokemon
 
                 foreach (Vector2 of in ChatManager.ShadowDirections)
                 {
-                    spriteBatch.Draw(HighlightTexture[n], npc.position - Main.screenPosition + new Vector2(0, -6)+of,
+                    var offset = of;
+                    offset *= 2;
+                    if (Main.LocalPlayer.GetModPlayer<TerramonPlayer>().Battle == null && d < 60000)
+                    {
+                        if (!justHighlighted)
+                        {
+                            justHighlighted = true;
+                            Main.PlaySound(SoundID.MenuTick, Main.LocalPlayer.position, 0);
+                        }
+                        spriteBatch.Draw(HighlightTexture[n], npc.position - Main.screenPosition + new Vector2(0, -6) + offset,
                         new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), Color.White, npc.rotation,
                         new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, -0f);
+                    }
                 }
             }
+            if (highlighted && Main.LocalPlayer.GetModPlayer<TerramonPlayer>().Battle == null && d < 60000) drawColor = Color.White;
             spriteBatch.Draw(pkmnTexture, npc.position - Main.screenPosition + new Vector2(0, -6),
                 new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, npc.rotation,
                 new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), npc.scale, effects, 0f);
-
-            // I dint like the look of this much
-            //Utils.DrawBorderString(spriteBatch, npc.TypeName, npc.position - Main.screenPosition + new Vector2(-54, -48), drawColor, 1f);
-            //Utils.DrawBorderString(spriteBatch, "Lvl: 5", npc.position - Main.screenPosition + new Vector2(-54, -32), drawColor, 0.9f);
-
+            if (highlighted)
+            {
+                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, "Lv. 5", npc.position - Main.screenPosition + new Vector2(-32, -28), Color.White, 0f, Vector2.Zero, new Vector2(0.8f));
+            }
             return false;
         }
 
         private bool highlighted = false;
+        private bool justHighlighted = false;
         public override void AI()
         {
             npc.scale = 1f;
@@ -135,14 +149,27 @@ namespace Terramon.Pokemon
             //Set flag if hovered
             highlighted = rect.Contains(Main.MouseWorld.ToPoint());
 
+            if (!highlighted) justHighlighted = false;
+
+            // distance
+            d = (Main.LocalPlayer.position.X - npc.position.X) * (Main.LocalPlayer.position.X - npc.position.X) + (Main.LocalPlayer.position.Y - npc.position.Y) * (Main.LocalPlayer.position.Y - npc.position.Y);
+
             //Detect right click on pokemon
-            if (rect.Contains(Main.MouseWorld.ToPoint()) && Main.mouseRight)
+            if (highlighted && Main.mouseRight)
             {
                 if (Main.mouseRightRelease)
                 {
-                    return; // Disable until after christmas update
                     var player = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-                    if (player.ActivePet == null || player.Battle != null) return;
+                    if (d < 60000 && player.ActivePet == null) {
+                        Main.NewText("Please send out a Pokémon before starting a battle!", new Color(200, 50, 70));
+                        return;
+                    };
+                    if (d > 60000)
+                    {
+                        //Main.NewText("You are not close enough to this Pokémon.", Color.LightGray);
+                        return;
+                    }
+                    if (player.Battle != null) return;
                     if (player.ActivePet.Fainted || player.ActivePet.HP == 0)
                     {
                         Main.NewText($"Your {player.ActivePet.Pokemon} is fainted and can't fight!");
@@ -274,12 +301,9 @@ namespace Terramon.Pokemon
             knockback = 0;
             crit = false;
 
-            Main.NewText("Hit with a projectile!");
-
             for (int i = 0; i < ballProjectiles.Length; i++)
                 if (projectile.type == mod.ProjectileType(ballProjectiles[i]) && projectile.ai[1] == 1)
                 {
-                    Main.NewText("Hit with a Pokeball!");
                     if (ballProjectiles[i] == "MasterBallProjectile") // Master Ball never fails
                     {
                         Catch(ref projectile, ref crit, ref damage, ModContent.ItemType<MasterBallCaught>());

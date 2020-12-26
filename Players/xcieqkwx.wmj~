@@ -530,10 +530,10 @@ namespace Terramon.Players
             }
 
             //TODO: Override sidebarUI here
-            if (PartySlot1 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot1.Item, PartySlot1);
-            if (PartySlot2 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot2.Item, PartySlot2);
-            if (PartySlot3 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot3.Item, PartySlot3);
-            if (PartySlot4 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot4.Item, PartySlot4);
+            LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot1.Item, PartySlot1);
+            LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot2.Item, PartySlot2);
+            LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot3.Item, PartySlot3);
+            LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot4.Item, PartySlot4);
             if (PartySlot5 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot5.Item, PartySlot5);
             if (PartySlot6 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot6.Item, PartySlot6);
 
