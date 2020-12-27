@@ -638,11 +638,7 @@ namespace Terramon.Players
         string lastmon = "";
         public override void PreUpdate()
         {
-            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.Potion>())
-            {
-                player.showItemIcon = true;
-                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.Potion>();
-            }
+            ShowItemIconForUsableItems(); // Appropriately sets item icon when holding an item that is usable by right-clicking a Pokémon in the overworld
 
             var monName = ActivePets.FirstOrDefault(x => x.Value).Key;
             if (lastmon != monName)
@@ -812,6 +808,35 @@ namespace Terramon.Players
                         Battle = null;
                     }
                 }
+            }
+        }
+
+        public void ShowItemIconForUsableItems()
+        {
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.Potion>())
+            {
+                player.showItemIcon = true;
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.Potion>();
+            }
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.SuperPotion>())
+            {
+                player.showItemIcon = true;
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.SuperPotion>();
+            }
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.HyperPotion>())
+            {
+                player.showItemIcon = true;
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.HyperPotion>();
+            }
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.MaxPotion>())
+            {
+                player.showItemIcon = true;
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.MaxPotion>();
+            }
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.FullRestore>())
+            {
+                player.showItemIcon = true;
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.FullRestore>();
             }
         }
 

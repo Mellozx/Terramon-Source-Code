@@ -5,15 +5,15 @@ using Terraria.ModLoader;
 
 namespace Terramon.Items.MiscItems.Medication
 {
-    public class Potion : ModItem
+    public class HyperPotion : ModItem
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Potion");
+            DisplayName.SetDefault("Hyper Potion");
             Tooltip.SetDefault("A spray-type medicine for treating wounds."
                                + "\nHold it and right click your Pokémon to use."
-                               + "\nRestores up to 20 HP.");
+                               + "\nRestores up to 120 HP.");
         }
 
         public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace Terramon.Items.MiscItems.Medication
             item.width = 24;
             item.height = 32;
             item.maxStack = 99;
-            item.value = 200;
+            item.value = 1200;
             item.rare = 0;
             // Set other item.X values here
         }
@@ -32,7 +32,7 @@ namespace Terramon.Items.MiscItems.Medication
 
             foreach (TooltipLine line2 in tooltips)
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                    line2.overrideColor = new Color(165, 132, 206);
+                    line2.overrideColor = new Color(255, 132, 206);
         }
 
         public override bool CanBurnInLava()

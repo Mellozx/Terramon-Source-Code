@@ -163,7 +163,7 @@ namespace Terramon.Pokemon
                 {
                     var offset = of;
                     offset *= 2;
-                    if (HoldingApricorn() || HoldingPotion())
+                    if (HoldingUsableItem())
                     {
                         if (!justHighlighted)
                         {
@@ -176,7 +176,7 @@ namespace Terramon.Pokemon
                     }
                 }
             }
-            if (highlighted && Main.LocalPlayer.GetModPlayer<TerramonPlayer>().Battle == null && HoldingPotion()) drawColor = Color.White;
+            if (highlighted && Main.LocalPlayer.GetModPlayer<TerramonPlayer>().Battle == null && HoldingUsableItem()) drawColor = Color.White;
             spriteBatch.Draw(pkmnTexture, projectile.position - Main.screenPosition + new Vector2(14, 0),
                 new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, projectile.rotation,
                 new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), scale, effects, 0f);
@@ -287,10 +287,11 @@ namespace Terramon.Pokemon
                 {
                     if (Main.mouseRightRelease)
                     {
-                        if (HoldingPotion())
-                        {
-                            UsePotion();
-                        }
+                        if (HoldingPotion()) UsePotion();
+                        if (HoldingSuperPotion()) UseSuperPotion();
+                        if (HoldingHyperPotion()) UseHyperPotion();
+                        if (HoldingMaxPotion()) UseMaxPotion();
+                        if (HoldingFullRestore()) UseFullRestore();
                     }
                 }
             }
@@ -583,11 +584,20 @@ namespace Terramon.Pokemon
         }
 
         /// <summary>
-        /// Unused, was just made to test Feeding pokemon
+        /// Unused, was just created to test item usage on pokemon
         /// </summary>
         /// <returns>Always returns false</returns>
         public bool HoldingApricorn()
         {
+            return false;
+        }
+
+        public bool HoldingUsableItem() {
+            if (HoldingPotion() ||
+                HoldingSuperPotion() ||
+                HoldingHyperPotion() ||
+                HoldingMaxPotion() ||
+                HoldingFullRestore()) return true;
             return false;
         }
 
@@ -598,6 +608,46 @@ namespace Terramon.Pokemon
             if (!highlighted) return false;
             if (modPlayer.Battle != null) return false;
             if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<Items.MiscItems.Medication.Potion>()) return true;
+            return false;
+        }
+
+        public bool HoldingSuperPotion()
+        {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (!highlighted) return false;
+            if (modPlayer.Battle != null) return false;
+            if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<Items.MiscItems.Medication.SuperPotion>()) return true;
+            return false;
+        }
+
+        public bool HoldingHyperPotion()
+        {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (!highlighted) return false;
+            if (modPlayer.Battle != null) return false;
+            if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<Items.MiscItems.Medication.HyperPotion>()) return true;
+            return false;
+        }
+
+        public bool HoldingMaxPotion()
+        {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (!highlighted) return false;
+            if (modPlayer.Battle != null) return false;
+            if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<Items.MiscItems.Medication.MaxPotion>()) return true;
+            return false;
+        }
+
+        public bool HoldingFullRestore()
+        {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (!highlighted) return false;
+            if (modPlayer.Battle != null) return false;
+            if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<Items.MiscItems.Medication.FullRestore>()) return true;
             return false;
         }
 
@@ -1125,6 +1175,86 @@ namespace Terramon.Pokemon
             Main.PlaySound(SoundID.Item, Main.LocalPlayer.position, 13);
             Main.LocalPlayer.HeldItem.stack--;
             CombatText.NewText(projectile.Hitbox, CombatText.HealLife, modPlayer.ActivePet.Heal(20));
+            for (int i = 0; i < 24; i++)
+            {
+                var d = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height,
+                    156, 0, 0, 0, new Color(165, 132, 206));
+                d.noGravity = true;
+            }
+        }
+
+        public void UseSuperPotion()
+        {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (modPlayer.ActivePet.HP == modPlayer.ActivePet.MaxHP)
+            {
+                Main.NewText($"It'll have no effect on {TerramonMod.Localisation.GetLocalisedString(new LocalisedString(modPlayer.ActivePetName))}.", Color.LightGray);
+                return;
+            }
+            Main.PlaySound(SoundID.Item, Main.LocalPlayer.position, 13);
+            Main.LocalPlayer.HeldItem.stack--;
+            CombatText.NewText(projectile.Hitbox, CombatText.HealLife, modPlayer.ActivePet.Heal(50));
+            for (int i = 0; i < 24; i++)
+            {
+                var d = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height,
+                    156, 0, 0, 0, new Color(165, 132, 206));
+                d.noGravity = true;
+            }
+        }
+
+        public void UseHyperPotion()
+        {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (modPlayer.ActivePet.HP == modPlayer.ActivePet.MaxHP)
+            {
+                Main.NewText($"It'll have no effect on {TerramonMod.Localisation.GetLocalisedString(new LocalisedString(modPlayer.ActivePetName))}.", Color.LightGray);
+                return;
+            }
+            Main.PlaySound(SoundID.Item, Main.LocalPlayer.position, 13);
+            Main.LocalPlayer.HeldItem.stack--;
+            CombatText.NewText(projectile.Hitbox, CombatText.HealLife, modPlayer.ActivePet.Heal(120));
+            for (int i = 0; i < 24; i++)
+            {
+                var d = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height,
+                    156, 0, 0, 0, new Color(165, 132, 206));
+                d.noGravity = true;
+            }
+        }
+        public void UseMaxPotion()
+        {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (modPlayer.ActivePet.HP == modPlayer.ActivePet.MaxHP)
+            {
+                Main.NewText($"It'll have no effect on {TerramonMod.Localisation.GetLocalisedString(new LocalisedString(modPlayer.ActivePetName))}.", Color.LightGray);
+                return;
+            }
+            Main.PlaySound(SoundID.Item, Main.LocalPlayer.position, 13);
+            Main.LocalPlayer.HeldItem.stack--;
+            CombatText.NewText(projectile.Hitbox, CombatText.HealLife, modPlayer.ActivePet.Heal(modPlayer.ActivePet.MaxHP));
+            for (int i = 0; i < 24; i++)
+            {
+                var d = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height,
+                    156, 0, 0, 0, new Color(165, 132, 206));
+                d.noGravity = true;
+            }
+        }
+
+        // TO-DO: Make full restore cure status conditions once they are implemented
+        public void UseFullRestore()
+        {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (modPlayer.ActivePet.HP == modPlayer.ActivePet.MaxHP)
+            {
+                Main.NewText($"It'll have no effect on {TerramonMod.Localisation.GetLocalisedString(new LocalisedString(modPlayer.ActivePetName))}.", Color.LightGray);
+                return;
+            }
+            Main.PlaySound(SoundID.Item, Main.LocalPlayer.position, 13);
+            Main.LocalPlayer.HeldItem.stack--;
+            CombatText.NewText(projectile.Hitbox, CombatText.HealLife, modPlayer.ActivePet.Heal(modPlayer.ActivePet.MaxHP));
             for (int i = 0; i < 24; i++)
             {
                 var d = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height,
