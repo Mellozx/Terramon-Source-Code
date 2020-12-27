@@ -12,6 +12,7 @@ using static Terramon.Pokemon.ExpGroups;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using Terraria.UI.Chat;
+using Razorwing.Framework.Localisation;
 // ReSharper disable CompareOfFloatsByEqualityOperator
 // ReSharper disable PossibleLossOfFraction
 
@@ -150,7 +151,7 @@ namespace Terramon.Pokemon
                         if (data[i].A > 0)
                         {
                             byte a = data[i].A;
-                            data[i] = Color.LightGreen;
+                            data[i] = Color.Gold;
                             data[i].A = a;
                         }
                     }
@@ -162,7 +163,7 @@ namespace Terramon.Pokemon
                 {
                     var offset = of;
                     offset *= 2;
-                    if (HoldingApricorn())
+                    if (HoldingApricorn() || HoldingPotion())
                     {
                         if (!justHighlighted)
                         {
@@ -175,7 +176,7 @@ namespace Terramon.Pokemon
                     }
                 }
             }
-            if (highlighted && Main.LocalPlayer.GetModPlayer<TerramonPlayer>().Battle == null && HoldingApricorn()) drawColor = Color.White;
+            if (highlighted && Main.LocalPlayer.GetModPlayer<TerramonPlayer>().Battle == null && HoldingPotion()) drawColor = Color.White;
             spriteBatch.Draw(pkmnTexture, projectile.position - Main.screenPosition + new Vector2(14, 0),
                 new Rectangle(0, frameHeight * frame, pkmnTexture.Width, frameHeight), drawColor, projectile.rotation,
                 new Vector2(pkmnTexture.Width / 2f, frameHeight / 2), scale, effects, 0f);
@@ -247,6 +248,8 @@ namespace Terramon.Pokemon
 
         private bool highlighted = false;
         private bool justHighlighted = false;
+
+        public bool flying = false;
         public override void AI()
         {
             //Fix shifted hitbox
@@ -260,7 +263,7 @@ namespace Terramon.Pokemon
 
             if (!highlighted) justHighlighted = false;
 
-            if (!Wild) PuppyAI();
+            if (!Wild && !flying) PuppyAI();
 
             Player player = Main.player[projectile.owner];
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
@@ -284,12 +287,9 @@ namespace Terramon.Pokemon
                 {
                     if (Main.mouseRightRelease)
                     {
-                        if (HoldingApricorn())
+                        if (HoldingPotion())
                         {
-                            Main.PlaySound(SoundID.Item, Main.LocalPlayer.position, 2);
-                            CombatText.NewText(projectile.Hitbox, CombatText.HealLife, 3);
-                            Main.LocalPlayer.HeldItem.stack--;
-                            modPlayer.ActivePet.HP += 3;
+                            UsePotion();
                         }
                     }
                 }
@@ -582,22 +582,22 @@ namespace Terramon.Pokemon
             return true;
         }
 
+        /// <summary>
+        /// Unused, was just made to test Feeding pokemon
+        /// </summary>
+        /// <returns>Always returns false</returns>
         public bool HoldingApricorn()
+        {
+            return false;
+        }
+
+        public bool HoldingPotion()
         {
             Player player = Main.player[projectile.owner];
             TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (!highlighted) return false;
             if (modPlayer.Battle != null) return false;
-            var i = Main.LocalPlayer.HeldItem.type;
-            if (i == ModContent.ItemType<Items.Apricorns.BlackApricorn>() ||
-                i == ModContent.ItemType<Items.Apricorns.BlueApricorn>() ||
-                i == ModContent.ItemType<Items.Apricorns.GreenApricorn>() ||
-                i == ModContent.ItemType<Items.Apricorns.PinkApricorn>() ||
-                i == ModContent.ItemType<Items.Apricorns.RedApricorn>() ||
-                i == ModContent.ItemType<Items.Apricorns.WhiteApricorn>() ||
-                i == ModContent.ItemType<Items.Apricorns.YellowApricorn>())
-            {
-                if (projectile.owner == Main.LocalPlayer.whoAmI) return true;
-            }
+            if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<Items.MiscItems.Medication.Potion>()) return true;
             return false;
         }
 
@@ -1111,6 +1111,26 @@ namespace Terramon.Pokemon
             }
 
 
+        }
+
+        public void UsePotion()
+        {
+            Player player = Main.player[projectile.owner];
+            TerramonPlayer modPlayer = player.GetModPlayer<TerramonPlayer>();
+            if (modPlayer.ActivePet.HP == modPlayer.ActivePet.MaxHP)
+            {
+                Main.NewText($"It'll have no effect on {TerramonMod.Localisation.GetLocalisedString(new LocalisedString(modPlayer.ActivePetName))}.", Color.LightGray);
+                return;
+            }
+            Main.PlaySound(SoundID.Item, Main.LocalPlayer.position, 13);
+            Main.LocalPlayer.HeldItem.stack--;
+            CombatText.NewText(projectile.Hitbox, CombatText.HealLife, modPlayer.ActivePet.Heal(20));
+            for (int i = 0; i < 24; i++)
+            {
+                var d = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height,
+                    156, 0, 0, 0, new Color(165, 132, 206));
+                d.noGravity = true;
+            }
         }
     }
 

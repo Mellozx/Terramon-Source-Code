@@ -36,7 +36,14 @@ namespace Terramon.Pokemon
         public string pokemon;
 
         private ILocalisedBindableString localised;
-        public string PokemonName => localised?.Value ?? Pokemon;
+        public string PokemonName
+        {
+            get
+            {
+                var l = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(Pokemon));
+                return l?.Value ?? Pokemon;
+            }
+        }
 
         public string Pokemon
         {

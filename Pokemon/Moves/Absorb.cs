@@ -72,7 +72,7 @@ namespace Terramon.Pokemon.Moves
             {
                 BattleMode.UI.splashText.SetText("");
 
-                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/" + MoveName).WithVolume(.75f));
+                MoveSound = Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/" + MoveName).WithVolume(.75f));
 
                 TerramonMod.ZoomAnimator.ScreenPosX(target.projectile.position.X + 12, 500, Easing.OutExpo);
                 TerramonMod.ZoomAnimator.ScreenPosY(target.projectile.position.Y, 500, Easing.OutExpo);
@@ -230,13 +230,11 @@ namespace Terramon.Pokemon.Moves
                     // If this attack deals 1 HP of damage, 1 HP will be restored to the user.
                     if ((int)damageDealt == 1)
                     {
-                        SelfHeal(attacker, mon, 1);
-                        CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, 1);
+                        CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, SelfHeal(attacker, mon, 1));
                     }
                     else
                     {
-                        SelfHeal(attacker, mon, (int)damageDealt / 2);
-                        CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, (int)damageDealt / 2);
+                        CombatText.NewText(mon.projectile.Hitbox, CombatText.HealLife, SelfHeal(attacker, mon, (int)damageDealt / 2));
                     }
                 }
                 if (endMoveTimer >= 330)
@@ -247,6 +245,9 @@ namespace Terramon.Pokemon.Moves
                     return false;
                 }
             }
+
+            // IGNORE EVERYTHING BELOW WHEN MAKING YOUR OWN MOVES.
+            if (AnimationFrame > 1810) return false;
 
             return true;
         }

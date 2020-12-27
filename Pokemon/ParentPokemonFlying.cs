@@ -15,6 +15,7 @@ namespace Terramon.Pokemon
         {
             projectile.CloneDefaults(ProjectileID.BabyHornet);
             aiType = ProjectileID.BabyHornet;
+            flying = true;
         }
 
         public override bool PreAI()

@@ -213,7 +213,15 @@ namespace Terramon.Pokemon
                 inMainMenu = true;
             }
 
+            if (pMove?.AnimationFrame == 140 && pMove.Target != Target.Self)
+            {
+                pMove?.CheckIfAffects(WildNPC, Wild, State, false);
+            }
 
+            if (oMove?.AnimationFrame == 140 && oMove.Target != Target.Self)
+            {
+                oMove?.CheckIfAffects((ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), player1.ActivePet, State, false);
+            }
 
             // CAMERA & ZOOM CONTROL //
             if (Main.keyState.IsKeyDown(Keys.D) && doneWildIntro && UI.Turn)
@@ -1208,7 +1216,7 @@ namespace Terramon.Pokemon
         {
             hpLerpTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            LocPokemon = TerramonMod.Localisation.GetLocalisedString(pokeData?.Pokemon ?? "MissingNO");
+            LocPokemon = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(pokeData?.Pokemon));
             PokeName.SetText(LocPokemon.Value);
 
             if (local)

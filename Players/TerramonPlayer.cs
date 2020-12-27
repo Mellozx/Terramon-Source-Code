@@ -270,6 +270,7 @@ namespace Terramon.Players
                 {
                     if (value == null)
                     {
+                        mod.Logger.Info("null on set, returning");
                         ((TerramonMod)mod).PartySlots.partyslot4.Item.TurnToAir();
                         return;
                     }
@@ -298,9 +299,9 @@ namespace Terramon.Players
             get => _partySlot5;
             set
             {
+                _partySlot5 = value;
                 if (player == Main.LocalPlayer)
                 {
-                    _partySlot5 = value;
                     if (value == null)
                     {
                         ((TerramonMod)mod).PartySlots.partyslot5.Item.TurnToAir();
@@ -531,11 +532,17 @@ namespace Terramon.Players
 
             //TODO: Override sidebarUI here
             if (PartySlot1 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot1.Item, PartySlot1);
+            else PartySlot1 = null;
             if (PartySlot2 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot2.Item, PartySlot2);
+            else PartySlot2 = null;
             if (PartySlot3 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot3.Item, PartySlot3);
+            else PartySlot3 = null;
             if (PartySlot4 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot4.Item, PartySlot4);
+            else PartySlot4 = null;
             if (PartySlot5 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot5.Item, PartySlot5);
+            else PartySlot5 = null;
             if (PartySlot6 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot6.Item, PartySlot6);
+            else PartySlot6 = null;
 
             //Running one update to load sidebar without requiring to open inv
             ((TerramonMod)mod).PartySlots.UpdateUI(null);
@@ -631,40 +638,10 @@ namespace Terramon.Players
         string lastmon = "";
         public override void PreUpdate()
         {
-            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.Apricorns.BlackApricorn>())
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.Potion>())
             {
                 player.showItemIcon = true;
-                player.showItemIcon2 = ItemType<Items.Apricorns.BlackApricorn>();
-            }
-            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.Apricorns.BlueApricorn>())
-            {
-                player.showItemIcon = true;
-                player.showItemIcon2 = ItemType<Items.Apricorns.BlueApricorn>();
-            }
-            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.Apricorns.GreenApricorn>())
-            {
-                player.showItemIcon = true;
-                player.showItemIcon2 = ItemType<Items.Apricorns.GreenApricorn>();
-            }
-            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.Apricorns.PinkApricorn>())
-            {
-                player.showItemIcon = true;
-                player.showItemIcon2 = ItemType<Items.Apricorns.PinkApricorn>();
-            }
-            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.Apricorns.RedApricorn>())
-            {
-                player.showItemIcon = true;
-                player.showItemIcon2 = ItemType<Items.Apricorns.RedApricorn>();
-            }
-            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.Apricorns.WhiteApricorn>())
-            {
-                player.showItemIcon = true;
-                player.showItemIcon2 = ItemType<Items.Apricorns.WhiteApricorn>();
-            }
-            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.Apricorns.YellowApricorn>())
-            {
-                player.showItemIcon = true;
-                player.showItemIcon2 = ItemType<Items.Apricorns.YellowApricorn>();
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.Potion>();
             }
 
             var monName = ActivePets.FirstOrDefault(x => x.Value).Key;
