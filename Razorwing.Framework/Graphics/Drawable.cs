@@ -162,6 +162,7 @@ namespace Razorwing.Framework.Graphics
             {
                 Vector2 position = GetDimensions().Position();
                 position += texture.Size() * (new Vector2(1) - Scale) / 2f;
+                position += OriginPoint;
                 spriteBatch.Draw(texture, position, textureRect, Colour, rotation, OriginPoint, Scale, SpriteEffects.None, 0f);
             }
         }

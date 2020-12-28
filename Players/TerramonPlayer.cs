@@ -44,7 +44,7 @@ namespace Terramon.Players
 
         private Dictionary<string, bool> ActivePets = new Dictionary<string, bool>();
         private List<PokemonData> pokemonStorage = new List<PokemonData>();
-        public List<PokemonData> PokemonStore => pokemonStorage;
+        public List<PokemonData> PokemonStore => pokemonStorage; 
         public int ActivePetId = -1;
         public bool ActivePetShiny;
         public string ActivePetName = string.Empty;
@@ -490,8 +490,8 @@ namespace Terramon.Players
         {
             //var modItem = ((TerramonMod)mod).PartySlots.partyslot1.Item.modItem;
             TerramonMod.PokeballFactory.Pokebals en = TerramonMod.PokeballFactory.Pokebals.Nothing;
-            if (value != null)
-                en = (TerramonMod.PokeballFactory.Pokebals)value.GetByte(BaseCaughtClass.POKEBAL_PROPERTY);
+            if(value != null)
+                en = (TerramonMod.PokeballFactory.Pokebals) value.GetByte(BaseCaughtClass.POKEBAL_PROPERTY);
             if (en == 0)
             {
                 modItem.TurnToAir();
@@ -647,7 +647,7 @@ namespace Terramon.Players
         string lastmon = "";
         public override void PreUpdate()
         {
-            ShowItemIconForUsableItems(); // Appropriately sets item icon when holding an item that is usable by right-clicking a Pokémon in the overworld
+            ShowItemIconForUsableItems(); // Appropriately sets item icon when holding an item that is usable by right-clicking a Pokï¿½mon in the overworld
 
             var monName = ActivePets.FirstOrDefault(x => x.Value).Key;
             if (lastmon != monName)
