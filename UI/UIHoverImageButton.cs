@@ -20,9 +20,15 @@ namespace Terramon.UI
             Texture = texture;
         }
 
+        public void SetHoverText(string hoverText)
+        {
+            HoverText = hoverText;
+        }
+
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             base.DrawSelf(spriteBatch);
+            if (ContainsPoint(Main.MouseScreen)) Main.LocalPlayer.mouseInterface = true;
 
             //SetVisibility(_visibilityActive, _visibilityActive);
 

@@ -25,6 +25,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
+using Terraria.DataStructures;
 // ReSharper disable ParameterHidesMember
 // ReSharper disable LocalVariableHidesMember
 
@@ -385,6 +386,14 @@ namespace Terramon.Players
         public static TerramonPlayer Get(Player player)
         {
             return player.GetModPlayer<TerramonPlayer>();
+        }
+
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            base.Kill(damage, hitDirection, pvp, damageSource);
+
+            ActivePetName = string.Empty;
+            ActivePartySlot = -1;
         }
 
         public int CatchIndex { get; internal set; }
