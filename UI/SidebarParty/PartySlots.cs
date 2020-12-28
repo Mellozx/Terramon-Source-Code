@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using Terramon.Items.Pokeballs.Inventory;
 using Terramon.Players;
 using Terramon.Pokemon;
@@ -6,6 +7,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using System;
+using Terramon.Tiles.ShelfBlocks;
+using Razorwing.Framework.Utils;
+using Razorwing.Framework.Graphics;
 
 namespace Terramon.UI.SidebarParty
 {
@@ -16,8 +21,23 @@ namespace Terramon.UI.SidebarParty
         private DragableUIPanel mainPanel;
         public static bool Visible;
         public bool lightmode = true;
+        public static bool hoveringAnySlot = false;
+        public bool isCompressed = false;
+
+        public static PokemonData toSwap;
+        public static int toSwapSlotNumber;
+        public static PokemonData swapWith;
+        public static int swapWithSlotNumber;
 
         public Texture2D test;
+
+        private UIHoverImageButton toggleslots;
+        public CustomPartyItemSlot customslot1;
+        public CustomPartyItemSlot customslot2;
+        public CustomPartyItemSlot customslot3;
+        public CustomPartyItemSlot customslot4;
+        public CustomPartyItemSlot customslot5;
+        public CustomPartyItemSlot customslot6;
 
         public VanillaItemSlotWrapper partyslot1;
         public VanillaItemSlotWrapper partyslot2;
@@ -25,6 +45,11 @@ namespace Terramon.UI.SidebarParty
         public VanillaItemSlotWrapper partyslot4;
         public VanillaItemSlotWrapper partyslot5;
         public VanillaItemSlotWrapper partyslot6;
+
+        private UIImagez customCursor;
+
+        // To detect when it needs to update slots
+        public PokemonData lastSlot1, lastSlot2, lastSlot3, lastSlot4, lastSlot5, lastSlot6;
 
         // In OnInitialize, we place various UIElements onto our UIState (this class).
         // UIState classes have width and height equal to the full screen, because of this, usually we first define a UIElement that will act as the container for our UI.
@@ -48,6 +73,45 @@ namespace Terramon.UI.SidebarParty
             mainPanel.VAlign = 0.65f;
             mainPanel.Width.Set(210, 0f);
             mainPanel.Height.Set(150f, 0f);
+
+            toggleslots = new UIHoverImageButton(ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBall"), "Hide Party");
+            toggleslots.Top.Set(265 + 16, 0f);
+            toggleslots.Left.Set(121 + 16, 0f);
+            toggleslots.OnClick += toggleSlotsFunc;
+            Append(toggleslots);
+
+            customslot1 = new CustomPartyItemSlot(1);
+            customslot1.Top.Set(254, 0f);
+            customslot1.Left.Set(158, 0f);
+            Append(customslot1);
+
+            customslot2 = new CustomPartyItemSlot(2);
+            customslot2.Top.Set(254, 0f);
+            customslot2.Left.Set(206, 0f);
+            Append(customslot2);
+
+            customslot3 = new CustomPartyItemSlot(3);
+            customslot3.Top.Set(254, 0f);
+            customslot3.Left.Set(254, 0f);
+            Append(customslot3);
+
+            customslot4 = new CustomPartyItemSlot(4);
+            customslot4.Top.Set(254, 0f);
+            customslot4.Left.Set(301, 0f);
+            Append(customslot4);
+
+            customslot5 = new CustomPartyItemSlot(5);
+            customslot5.Top.Set(254, 0f);
+            customslot5.Left.Set(349, 0f);
+            Append(customslot5);
+
+            customslot6 = new CustomPartyItemSlot(6);
+            customslot6.Top.Set(254, 0f);
+            customslot6.Left.Set(396, 0f);
+            Append(customslot6);
+
+            customCursor = new UIImagez(ModContent.GetTexture("Terramon/Pokemon/Empty"));
+            Append(customCursor);
 
             partyslot1 = new VanillaItemSlotWrapper(ItemSlot.Context.BankItem);
             partyslot1.SetPadding(0);
@@ -109,7 +173,7 @@ namespace Terramon.UI.SidebarParty
                                                TerramonMod.PokeballFactory.Pokebals.Nothing;
             mainPanel.Append(partyslot6);
 
-            Append(mainPanel);
+            //Append(mainPanel);
 
             partyslot1.OnItemPlaced += UpdateUI;
             partyslot2.OnItemPlaced += UpdateUI;
@@ -119,9 +183,160 @@ namespace Terramon.UI.SidebarParty
             partyslot6.OnItemPlaced += UpdateUI;
         }
 
+        private byte compressAnimation;
+
+        public bool compressing;
+        public bool isReallyCompressed;
+
+        private double startCompressAnimation;
+        private double endCompressAnimation;
+
+        private bool finishedIn;
+
+        private void toggleSlotsFunc(UIMouseEvent evt, UIElement listeningElement)
+        {
+            if (compressing) return;
+            isCompressed = !isCompressed;
+
+            toggleslots.SetHoverText("");
+
+            customslot1.wasJustClicked = false;
+            customslot2.wasJustClicked = false;
+            customslot3.wasJustClicked = false;
+            customslot4.wasJustClicked = false;
+            customslot5.wasJustClicked = false;
+            customslot6.wasJustClicked = false;
+            toSwap = null;
+            toSwapSlotNumber = 0;
+            swapWithSlotNumber = 0;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+
+            if (toggleslots.IsMouseHovering && finishedIn) toggleslots.Texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBall");
+            else if (isCompressed) toggleslots.Texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBallGreyed");
+
+            toggleslots.OriginPoint = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBall").Size() / 2;
+
+            UpdateSwap();
+
+            if (isCompressed && !finishedIn)
+            {
+                if (compressAnimation == 0)
+                {
+                    Main.PlaySound(SoundID.MenuClose, Main.LocalPlayer.position);
+                    toggleslots.Texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBallGreyed");
+                    startCompressAnimation = gameTime.TotalGameTime.TotalSeconds;
+                    endCompressAnimation = startCompressAnimation + 0.35;
+                    compressing = true;
+                    compressAnimation = 1;
+                }
+
+                if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation)
+                {
+                    customslot1._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                    customslot2._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                    customslot3._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                    customslot4._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                    customslot5._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                    customslot6._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 1f, 0f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                }
+
+                if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation + 0.25)
+                {
+                    toggleslots.Left.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 121 + 16, 406 + 16,
+                        startCompressAnimation, endCompressAnimation + 0.25, Easing.OutExpo);
+                    toggleslots.Rotation = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0, (float)(Math.PI / 180) * 360,
+                        startCompressAnimation, endCompressAnimation + 0.25, Easing.OutExpo);
+                }
+
+                if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds > endCompressAnimation + 0.25)
+                {
+                    compressing = false;
+                    compressAnimation = 0;
+                    startCompressAnimation = 0;
+                    endCompressAnimation = 0;
+                    finishedIn = true;
+                    toggleslots.SetHoverText("Show Party");
+                }
+            }
+
+            if (!isCompressed && finishedIn)
+            {
+                if (compressAnimation == 0)
+                {
+                    Main.PlaySound(SoundID.MenuOpen, Main.LocalPlayer.position);
+                    toggleslots.Texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBall");
+                    startCompressAnimation = gameTime.TotalGameTime.TotalSeconds;
+                    endCompressAnimation = startCompressAnimation + 0.35;
+                    compressing = true;
+                    compressAnimation = 1;
+                }
+
+                if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation)
+                {
+                    customslot1._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0f, 1f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                    customslot2._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0f, 1f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                    customslot3._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0f, 1f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                    customslot4._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0f, 1f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                    customslot5._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0f, 1f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                    customslot6._visibilityActive = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0f, 1f,
+                        startCompressAnimation, endCompressAnimation, Easing.None);
+                }
+
+                if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds < endCompressAnimation + 0.25)
+                {
+                    toggleslots.Left.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 406 + 16, 121 + 16,
+                        startCompressAnimation, endCompressAnimation + 0.25, Easing.OutExpo);
+                    toggleslots.Rotation = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, (float)(Math.PI / 180) * 360, 0,
+                        startCompressAnimation, endCompressAnimation + 0.25, Easing.OutExpo);
+                }
+
+                if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds > endCompressAnimation + 0.25)
+                {
+                    compressing = false;
+                    compressAnimation = 0;
+                    startCompressAnimation = 0;
+                    endCompressAnimation = 0;
+                    finishedIn = false;
+                    toggleslots.SetHoverText("Hide Party");
+                }
+            }
+        }
+
         internal void UpdateUI(Item item)
         {
             SaveButtonClicked();
+            customslot1.UpdatePokemonContent();
+            customslot2.UpdatePokemonContent();
+            customslot3.UpdatePokemonContent();
+            customslot4.UpdatePokemonContent();
+            customslot5.UpdatePokemonContent();
+            customslot6.UpdatePokemonContent();
+        }
+
+        public void UpdateSwap()
+        {
+            customslot1.UpdatePokemonContent(true);
+            customslot2.UpdatePokemonContent(true);
+            customslot3.UpdatePokemonContent(true);
+            customslot4.UpdatePokemonContent(true);
+            customslot5.UpdatePokemonContent(true);
+            customslot6.UpdatePokemonContent(true);
         }
 
         //private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
@@ -355,6 +570,230 @@ namespace Terramon.UI.SidebarParty
             }
 
             //Main.NewText("Party Saved!");
+        }
+    }
+    public class CustomPartyItemSlot : UIElement
+    {
+        private Texture2D _texture;
+
+        private int _slot;
+
+        private PokemonData stored;
+
+        public float _visibilityActive = 1f;
+
+        public Color drawcolor = Color.White;
+
+        private UIImagez minisprite;
+
+        public bool wasJustClicked = false;
+
+        private string HoverText;
+
+        public CustomPartyItemSlot(int slot)
+        {
+            _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBg");
+            _slot = slot;
+            Width.Set(_texture.Width, 0f);
+            Height.Set(_texture.Height, 0f);
+        }
+
+        public override void OnInitialize()
+        {
+            Texture2D minispriteTexture = ModContent.GetTexture("Terramon/Pokemon/Empty");
+            minisprite = new UIImagez(minispriteTexture);
+            minisprite.Left.Set(-8, 0f);
+            minisprite.Top.Set(-14, 0f);
+            Append(minisprite);
+        }
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (ContainsPoint(Main.MouseScreen)) Main.LocalPlayer.mouseInterface = true;
+
+            minisprite._visibilityActive = _visibilityActive;
+
+            if (stored == null) return;
+
+            if (wasJustClicked)
+            {
+                _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked");
+            }
+            else
+            {
+                _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBg");
+            }
+        }
+
+        public void UpdatePokemonContent(bool afterSwap = false)
+        {
+            TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+            if (_slot == 1) stored = modPlayer.PartySlot1;
+            if (_slot == 2) stored = modPlayer.PartySlot2;
+            if (_slot == 3) stored = modPlayer.PartySlot3;
+            if (_slot == 4) stored = modPlayer.PartySlot4;
+            if (_slot == 5) stored = modPlayer.PartySlot5;
+            if (_slot == 6) stored = modPlayer.PartySlot6;
+
+            if (stored == null)
+            {
+                HoverText = "";
+                minisprite.SetImage(ModContent.GetTexture("Terramon/Pokemon/Empty"));
+                _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgInactive");
+                return;
+            }
+
+            HoverText = 
+                $"[c/a1a1a1:{stored.PokemonName} (Lv. {stored.Level})]" +
+                $" \nHP: {stored.HP}/{stored.MaxHP}" +
+                $" \nEXP: {stored.Exp}/{stored.ExpToNext}";
+
+            string minispritePath;
+            if (!stored.IsShiny) minispritePath = "Terramon/Minisprites/Regular/mini" + stored.Pokemon;
+            else minispritePath = "Terramon/Minisprites/Regular/mini" + stored.Pokemon + "_Shiny";
+
+            minisprite.SetImage(ModContent.GetTexture(minispritePath));
+        }
+
+        protected override void DrawSelf(SpriteBatch spriteBatch)
+        {
+            if (IsMouseHovering && !ModContent.GetInstance<TerramonMod>().PartySlots.isCompressed) Main.hoverItemName = HoverText;
+            if (IsMouseHovering && Main.mouseLeft && !ModContent.GetInstance<TerramonMod>().PartySlots.isCompressed)
+            {
+                if (Main.mouseLeftRelease)
+                {
+                    // Swap pokemon
+                    if (PartySlots.toSwap != null)
+                    {
+                        PartySlots.swapWith = stored;
+                        PartySlots.swapWithSlotNumber = _slot;
+
+                        if (PartySlots.swapWith == null)
+                        {
+                            ModContent.GetInstance<TerramonMod>().PartySlots.customslot1.wasJustClicked = false;
+                            ModContent.GetInstance<TerramonMod>().PartySlots.customslot2.wasJustClicked = false;
+                            ModContent.GetInstance<TerramonMod>().PartySlots.customslot3.wasJustClicked = false;
+                            ModContent.GetInstance<TerramonMod>().PartySlots.customslot4.wasJustClicked = false;
+                            ModContent.GetInstance<TerramonMod>().PartySlots.customslot5.wasJustClicked = false;
+                            ModContent.GetInstance<TerramonMod>().PartySlots.customslot6.wasJustClicked = false;
+                            PartySlots.toSwap = null;
+                            PartySlots.toSwapSlotNumber = 0;
+                            PartySlots.swapWithSlotNumber = 0;
+                            spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - 0.85f) / 2f, texture: _texture, sourceRectangle: null, color: Color.White * _visibilityActive, rotation: 0f, origin: Vector2.Zero, scale: 0.85f, effects: SpriteEffects.FlipHorizontally, layerDepth: 0f);
+                            return;
+                        }
+
+                        if (PartySlots.swapWithSlotNumber == PartySlots.toSwapSlotNumber)
+                        {
+                            wasJustClicked = false;
+                            PartySlots.toSwap = null;
+                            PartySlots.toSwapSlotNumber = 0;
+                            spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - 0.85f) / 2f, texture: _texture, sourceRectangle: null, color: Color.White * _visibilityActive, rotation: 0f, origin: Vector2.Zero, scale: 0.85f, effects: SpriteEffects.FlipHorizontally, layerDepth: 0f);
+                            return;
+                        }
+
+                        ModContent.GetInstance<TerramonMod>().PartySlots.customslot1.wasJustClicked = false;
+                        ModContent.GetInstance<TerramonMod>().PartySlots.customslot2.wasJustClicked = false;
+                        ModContent.GetInstance<TerramonMod>().PartySlots.customslot3.wasJustClicked = false;
+                        ModContent.GetInstance<TerramonMod>().PartySlots.customslot4.wasJustClicked = false;
+                        ModContent.GetInstance<TerramonMod>().PartySlots.customslot5.wasJustClicked = false;
+                        ModContent.GetInstance<TerramonMod>().PartySlots.customslot6.wasJustClicked = false;
+
+                        PokemonData a;
+                        PokemonData b;
+
+                        a = PartySlots.toSwap;
+                        b = PartySlots.swapWith;
+
+                        PartySlots.toSwap = b;
+                        PartySlots.swapWith = a;
+
+                        TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+                        if (PartySlots.toSwapSlotNumber == 1)
+                        {
+                            modPlayer.PartySlot1 = b;
+                            modPlayer.firstslotname = b.Pokemon;
+                        }
+                        if (PartySlots.toSwapSlotNumber == 2)
+                        {
+                            modPlayer.PartySlot2 = b;
+                            modPlayer.secondslotname = b.Pokemon;
+                        }
+                        if (PartySlots.toSwapSlotNumber == 3)
+                        {
+                            modPlayer.PartySlot3 = b;
+                            modPlayer.thirdslotname = b.Pokemon;
+                        }
+                        if (PartySlots.toSwapSlotNumber == 4)
+                        {
+                            modPlayer.PartySlot4 = b;
+                            modPlayer.fourthslotname = b.Pokemon;
+                        }
+                        if (PartySlots.toSwapSlotNumber == 5)
+                        {
+                            modPlayer.PartySlot5 = b;
+                            modPlayer.fifthslotname = b.Pokemon;
+                        }
+                        if (PartySlots.toSwapSlotNumber == 6)
+                        {
+                            modPlayer.PartySlot6 = b;
+                            modPlayer.sixthslotname = b.Pokemon;
+                        }
+                        if (PartySlots.swapWithSlotNumber == 1)
+                        {
+                            modPlayer.PartySlot1 = a;
+                            modPlayer.firstslotname = a.Pokemon;
+                        }
+                        if (PartySlots.swapWithSlotNumber == 2)
+                        {
+                            modPlayer.PartySlot2 = a;
+                            modPlayer.secondslotname = a.Pokemon;
+                        }
+                        if (PartySlots.swapWithSlotNumber == 3)
+                        {
+                            modPlayer.PartySlot3 = a;
+                            modPlayer.thirdslotname = a.Pokemon;
+                        }
+                        if (PartySlots.swapWithSlotNumber == 4)
+                        {
+                            modPlayer.PartySlot4 = a;
+                            modPlayer.fourthslotname = a.Pokemon;
+                        }
+                        if (PartySlots.swapWithSlotNumber == 5)
+                        {
+                            modPlayer.PartySlot5 = a;
+                            modPlayer.fifthslotname = a.Pokemon;
+                        }
+                        if (PartySlots.swapWithSlotNumber == 6)
+                        {
+                            modPlayer.PartySlot6 = a;
+                            modPlayer.sixthslotname = a.Pokemon;
+                        }
+
+                        Main.PlaySound(SoundID.Tink, Main.LocalPlayer.position);
+
+                        ModContent.GetInstance<TerramonMod>().PartySlots.UpdateSwap();
+
+                        PartySlots.toSwap = null;
+                        PartySlots.toSwapSlotNumber = 0;
+                        PartySlots.swapWith = null;
+                        PartySlots.swapWithSlotNumber = 0;
+                    } else
+                    {
+                        if (stored == null)
+                        {
+                            spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - 0.85f) / 2f, texture: _texture, sourceRectangle: null, color: Color.White * _visibilityActive, rotation: 0f, origin: Vector2.Zero, scale: 0.85f, effects: SpriteEffects.FlipHorizontally, layerDepth: 0f);
+                            return;
+                        }
+                        if (!wasJustClicked) wasJustClicked = true;
+                        PartySlots.toSwap = stored;
+                        PartySlots.toSwapSlotNumber = _slot;
+                        Main.PlaySound(SoundID.MenuTick, Main.LocalPlayer.position);
+                    }
+                }
+            }
+
+            spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - 0.85f) / 2f, texture: _texture, sourceRectangle: null, color: Color.White * _visibilityActive, rotation: 0f, origin: Vector2.Zero, scale: 0.85f, effects: SpriteEffects.FlipHorizontally, layerDepth: 0f);
         }
     }
 }
