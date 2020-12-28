@@ -56,7 +56,7 @@ namespace Terramon
         public static bool PartyUITheme = true;
         public static bool PartyUIAutoMode = false;
         public static bool PartyUIReverseAutoMode = false;
-        public static bool ShowHelpButton = true;
+        public static bool ShowHelpButton = false;
         public static bool HelpButtonInitialize = true;
         public int PartyUIThemeChanged = 0;
 
@@ -332,6 +332,7 @@ namespace Terramon
                 _partySlots = new UserInterface();
                 _battle = new UserInterface();
                 ParentPokemonNPC.HighlightTexture = new Dictionary<string, Texture2D>();
+                ParentPokemon.HighlightTexture = new Dictionary<string, Texture2D>();
 
                 //_exampleUserInterface.SetState(ChooseStarter); // Choose Starter
 #if DEBUG
@@ -439,6 +440,7 @@ namespace Terramon
             Scheduler = null;
             schedulerClock = null;
             ParentPokemonNPC.HighlightTexture = null;
+            ParentPokemon.HighlightTexture = null;
         }
 
         //ModContent.GetInstance<TerramonMod>(). (grab instance)

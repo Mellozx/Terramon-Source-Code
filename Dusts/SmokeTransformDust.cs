@@ -14,7 +14,7 @@ namespace Terramon.Dusts
         public override void OnSpawn(Dust dust)
         {
             //dust.noGravity = false;
-            dust.noLight = true;
+            dust.noLight = false;
             dust.scale *= 3f;
 
             dust.velocity *= 0.5f;

@@ -64,7 +64,7 @@ namespace Terramon.Pokemon.Moves
 			}
 			else if (AnimationFrame == 165)
 			{
-				Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/" + MoveName).WithVolume(.75f));
+				MoveSound = Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/" + MoveName).WithVolume(.75f));
 				cutID = Projectile.NewProjectile(target.projectile.Center, new Vector2(0, 0), ModContent.ProjectileType<CutProjectile>(), 0, 0);
 				Main.projectile[cutID].maxPenetrate = 99;
 				Main.projectile[cutID].penetrate = 99;
@@ -86,6 +86,9 @@ namespace Terramon.Pokemon.Moves
 				BattleMode.moveEnd = false;
 				return false;
 			}
+
+			// IGNORE EVERYTHING BELOW WHEN MAKING YOUR OWN MOVES.
+			if (AnimationFrame > 1810) return false;
 
 			return true;
 		}

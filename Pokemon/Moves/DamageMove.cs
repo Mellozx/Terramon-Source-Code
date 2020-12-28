@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Audio;
 using Razorwing.Framework.Localisation;
 using Terramon.Players;
 using Terraria;
@@ -17,7 +18,10 @@ namespace Terramon.Pokemon.Moves
         public virtual int Accuracy => 100;
         public bool Miss => _mrand.Next(100) > Accuracy;
         public virtual bool Special => false;
+        //Does this move affect status? If true, move will not fail when checking if the move affects the opponent.
         public virtual bool MakesContact => false;
+
+        public SoundEffectInstance MoveSound;
 
         public DamageMove()
         {
@@ -37,6 +41,32 @@ namespace Terramon.Pokemon.Moves
                 BattleMode.UI.splashText.SetText($"{attacker.PokemonName} used {MoveName}!");
             }
             return true;
+        }
+
+        public override void CheckIfAffects(ParentPokemon target, PokemonData deffender, BattleState state, bool opponent)
+        {
+            if (target.PokemonTypes.Contains(PokemonType.Ghost) && MoveType == PokemonType.Normal ||
+            target.PokemonTypes.Contains(PokemonType.Ghost) && MoveType == PokemonType.Fighting ||
+            target.PokemonTypes.Contains(PokemonType.Steel) && MoveType == PokemonType.Poison ||
+            target.PokemonTypes.Contains(PokemonType.Flying) && MoveType == PokemonType.Ground ||
+            target.PokemonTypes.Contains(PokemonType.Normal) && MoveType == PokemonType.Ghost ||
+            target.PokemonTypes.Contains(PokemonType.Ground) && MoveType == PokemonType.Electric ||
+            target.PokemonTypes.Contains(PokemonType.Dark) && MoveType == PokemonType.Psychic ||
+            target.PokemonTypes.Contains(PokemonType.Fairy) && MoveType == PokemonType.Dragon)
+            {
+                if (opponent) BattleMode.UI.splashText.SetText($"It doesn't affect {deffender.PokemonName}!");
+                else if (state == BattleState.BattleWithWild)
+                {
+                    BattleMode.UI.splashText.SetText($"It doesn't affect the wild {deffender.PokemonName}...");
+                }
+                else if (state == BattleState.BattleWithPlayer)
+                {
+                    BattleMode.UI.splashText.SetText($"It doesn't affect the foe's {deffender.PokemonName}...");
+                }
+                BattleMode.endMoveTimer = -120;
+                BattleMode.animWindow = 1600;
+                MoveSound?.Stop();
+            }
         }
 
         public float InflictDamage(ParentPokemon mon, ParentPokemon target, TerramonPlayer player, PokemonData attacker,
@@ -141,11 +171,16 @@ namespace Terramon.Pokemon.Moves
         /// <param name="pokemon">The Pokemon data of the target</param>
         /// <param name="target">The Pokemon projectile of the target</param>
         /// <param name="amount">The integer amount to heal</param>
-        public void SelfHeal(PokemonData pokemon, ParentPokemon target, int amount)
+        public int SelfHeal(PokemonData pokemon, ParentPokemon target, int amount)
         {
             Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/Heal0").WithVolume(.8f));
+            if (pokemon.HP + amount > pokemon.MaxHP)
+            {
+                amount = pokemon.HP + amount - pokemon.MaxHP;
+            }
             pokemon.HP += amount;
             target.healedHealth = true;
+            return amount;
         }
 
         /// <summary>

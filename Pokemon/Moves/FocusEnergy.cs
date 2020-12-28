@@ -22,7 +22,7 @@ namespace Terramon.Pokemon.Moves
         public override int MaxBoostPP => 48;
         public virtual bool MakesContact => false;
         public override bool Special => false;
-        public override Target Target => Target.Opponent;
+        public override Target Target => Target.Self;
         public override int Cooldown => 60 * 1; //Once per second
         public override PokemonType MoveType => PokemonType.Normal;
 
@@ -63,7 +63,7 @@ namespace Terramon.Pokemon.Moves
             {
                 BattleMode.UI.splashText.SetText("");
 
-                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/" + MoveName).WithVolume(.75f));
+                MoveSound = Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/" + MoveName).WithVolume(.75f));
             }
             
             if (AnimationFrame > 140 && AnimationFrame < 195)
@@ -90,6 +90,9 @@ namespace Terramon.Pokemon.Moves
                 BattleMode.moveEnd = false;
                 return false;
             }
+
+            // IGNORE EVERYTHING BELOW WHEN MAKING YOUR OWN MOVES.
+            if (AnimationFrame > 1810) return false;
 
             return true;
         }

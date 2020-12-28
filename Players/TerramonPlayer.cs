@@ -50,13 +50,13 @@ namespace Terramon.Players
         public bool CombatReady;
         public bool AutoUse;
         public bool sidebarSync = false;
-        private bool loading = true; 
+        private bool loading = true;
 
         public bool healingAtHealerBed = false;
 
         // This bool save/load in TagCompound and determine whether this is the first battle the player has
         public bool firstBattle = true;
-            
+
         public ILocalisedBindableString pokeName = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(("*")));
 
         public bool Attacking;
@@ -68,7 +68,7 @@ namespace Terramon.Players
             {
                 _activePartySlot = value;
 
-                MoveSet = new BaseMove[] {null, null, null, null};
+                MoveSet = new BaseMove[] { null, null, null, null };
 
                 PokemonData tag;
                 switch (value)
@@ -182,9 +182,9 @@ namespace Terramon.Players
                     }
                     else
                     {
-                        LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot1.Item, value);
+                        LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot1.Item, value);
                     }
-       
+
                 }
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -204,14 +204,14 @@ namespace Terramon.Players
                 {
                     if (value == null)
                     {
-                        ((TerramonMod) mod).PartySlots.partyslot2.Item.TurnToAir();
+                        ((TerramonMod)mod).PartySlots.partyslot2.Item.TurnToAir();
                         return;
                     }
 
-                    if (!((TerramonMod) mod).PartySlots?.partyslot2?.Item?.IsAir ?? false)
+                    if (!((TerramonMod)mod).PartySlots?.partyslot2?.Item?.IsAir ?? false)
                     {
                         //We need to update data inside item
-                        var modItem = ((TerramonMod) mod).PartySlots.partyslot2.Item.modItem;
+                        var modItem = ((TerramonMod)mod).PartySlots.partyslot2.Item.modItem;
                         if (modItem?.item != null && modItem.item.active) modItem.Load(value);
                     }
                     else
@@ -237,14 +237,14 @@ namespace Terramon.Players
                 {
                     if (value == null)
                     {
-                        ((TerramonMod) mod).PartySlots.partyslot3.Item.TurnToAir();
+                        ((TerramonMod)mod).PartySlots.partyslot3.Item.TurnToAir();
                         return;
                     }
 
-                    if (!((TerramonMod) mod).PartySlots?.partyslot3?.Item?.IsAir ?? false)
+                    if (!((TerramonMod)mod).PartySlots?.partyslot3?.Item?.IsAir ?? false)
                     {
                         //We need to update data inside item
-                        var modItem = ((TerramonMod) mod).PartySlots.partyslot3.Item.modItem;
+                        var modItem = ((TerramonMod)mod).PartySlots.partyslot3.Item.modItem;
                         if (modItem?.item != null && modItem.item.active) modItem.Load(value);
                     }
                     else
@@ -270,14 +270,15 @@ namespace Terramon.Players
                 {
                     if (value == null)
                     {
-                        ((TerramonMod) mod).PartySlots.partyslot4.Item.TurnToAir();
+                        mod.Logger.Info("null on set, returning");
+                        ((TerramonMod)mod).PartySlots.partyslot4.Item.TurnToAir();
                         return;
                     }
 
-                    if (!((TerramonMod) mod).PartySlots?.partyslot4?.Item?.IsAir ?? false)
+                    if (!((TerramonMod)mod).PartySlots?.partyslot4?.Item?.IsAir ?? false)
                     {
                         //We need to update data inside item
-                        var modItem = ((TerramonMod) mod).PartySlots.partyslot4.Item.modItem;
+                        var modItem = ((TerramonMod)mod).PartySlots.partyslot4.Item.modItem;
                         if (modItem?.item != null && modItem.item.active) modItem.Load(value);
                     }
                     else
@@ -298,19 +299,19 @@ namespace Terramon.Players
             get => _partySlot5;
             set
             {
+                _partySlot5 = value;
                 if (player == Main.LocalPlayer)
                 {
-                    _partySlot5 = value;
                     if (value == null)
                     {
-                        ((TerramonMod) mod).PartySlots.partyslot5.Item.TurnToAir();
+                        ((TerramonMod)mod).PartySlots.partyslot5.Item.TurnToAir();
                         return;
                     }
 
-                    if (!((TerramonMod) mod).PartySlots?.partyslot5?.Item?.IsAir ?? false)
+                    if (!((TerramonMod)mod).PartySlots?.partyslot5?.Item?.IsAir ?? false)
                     {
                         //We need to update data inside item
-                        var modItem = ((TerramonMod) mod).PartySlots.partyslot5.Item.modItem;
+                        var modItem = ((TerramonMod)mod).PartySlots.partyslot5.Item.modItem;
                         if (modItem?.item != null && modItem.item.active) modItem.Load(value);
                     }
                     else
@@ -336,14 +337,14 @@ namespace Terramon.Players
                 {
                     if (value == null)
                     {
-                        ((TerramonMod) mod).PartySlots.partyslot6.Item.TurnToAir();
+                        ((TerramonMod)mod).PartySlots.partyslot6.Item.TurnToAir();
                         return;
                     }
 
-                    if (!((TerramonMod) mod).PartySlots?.partyslot6?.Item?.IsAir ?? false)
+                    if (!((TerramonMod)mod).PartySlots?.partyslot6?.Item?.IsAir ?? false)
                     {
                         //We need to update data inside item
-                        var modItem = ((TerramonMod) mod).PartySlots.partyslot6.Item.modItem;
+                        var modItem = ((TerramonMod)mod).PartySlots.partyslot6.Item.modItem;
                         if (modItem?.item != null && modItem.item.active) modItem.Load(value);
                     }
                     else
@@ -351,7 +352,7 @@ namespace Terramon.Players
                         LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot6.Item, value);
                     }
                 }
-                
+
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     sidebarSync = true;
@@ -391,7 +392,7 @@ namespace Terramon.Players
 
         public override void Initialize()
         {
-	        healingAtHealerBed = false;
+            healingAtHealerBed = false;
             InitializePokeballs();
             //Initialise active pets bools
             // ReSharper disable once LocalVariableHidesMember
@@ -418,7 +419,7 @@ namespace Terramon.Players
         {
             ResetEffects();
 
-            if(ActivePet != null)
+            if (ActivePet != null)
             {
                 ActivePetShiny = ActivePet.IsShiny;
             }
@@ -431,7 +432,7 @@ namespace Terramon.Players
                 ActivePetName = "";
                 CombatReady = false;
                 return;
-            } 
+            }
             else
             {
                 if (lastactivename != name)
@@ -530,15 +531,21 @@ namespace Terramon.Players
             }
 
             //TODO: Override sidebarUI here
-            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot1.Item, PartySlot1);
-            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot2.Item, PartySlot2);
-            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot3.Item, PartySlot3);
-            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot4.Item, PartySlot4);
-            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot5.Item, PartySlot5);
-            LoadPartySlot(((TerramonMod) mod).PartySlots.partyslot6.Item, PartySlot6);
+            if (PartySlot1 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot1.Item, PartySlot1);
+            else PartySlot1 = null;
+            if (PartySlot2 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot2.Item, PartySlot2);
+            else PartySlot2 = null;
+            if (PartySlot3 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot3.Item, PartySlot3);
+            else PartySlot3 = null;
+            if (PartySlot4 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot4.Item, PartySlot4);
+            else PartySlot4 = null;
+            if (PartySlot5 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot5.Item, PartySlot5);
+            else PartySlot5 = null;
+            if (PartySlot6 != null) LoadPartySlot(((TerramonMod)mod).PartySlots.partyslot6.Item, PartySlot6);
+            else PartySlot6 = null;
 
             //Running one update to load sidebar without requiring to open inv
-            ((TerramonMod) mod).PartySlots.UpdateUI(null);
+            ((TerramonMod)mod).PartySlots.UpdateUI(null);
 
             if (StarterChosen == false)
             {
@@ -559,7 +566,7 @@ namespace Terramon.Players
 
             loading = false;
 
-            if(Main.netMode == NetmodeID.MultiplayerClient)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
                 new RequestSyncPacket().Send();
 
             // Check if update is available!
@@ -571,7 +578,7 @@ namespace Terramon.Players
             {
                 var msg = Get("https://pokeparser.projectagon.repl.co/update/message");
                 if (msg != "Bye") Main.NewText($"[c/f3cc61:Terramon >] A new update is available to download ({mod_version}). " + msg);
-                else Main.NewText($"[c/f3cc61:Terramon >] A new update is available to download ({mod_version})"); 
+                else Main.NewText($"[c/f3cc61:Terramon >] A new update is available to download ({mod_version})");
                 Main.NewText($"Go the the Mod Browser to update!");
             }
         }
@@ -605,7 +612,7 @@ namespace Terramon.Players
             if (liquidType == 0 && player.ZoneBeach && Main.rand.NextBool(6)) //16.7% chance from fishing
                 caughtType = ItemType<MagikarpFish>();
             if (liquidType == 0 && player.ZoneBeach && Main.rand.NextBool(12)) //8.3% chance from fishing
-                caughtType = Main.rand.Next(new[] {ItemType<GoldeenFish>(), ItemType<HorseaFish>(), ItemType<TentacoolFish>()});
+                caughtType = Main.rand.Next(new[] { ItemType<GoldeenFish>(), ItemType<HorseaFish>(), ItemType<TentacoolFish>() });
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
@@ -631,6 +638,8 @@ namespace Terramon.Players
         string lastmon = "";
         public override void PreUpdate()
         {
+            ShowItemIconForUsableItems(); // Appropriately sets item icon when holding an item that is usable by right-clicking a Pok�mon in the overworld
+
             var monName = ActivePets.FirstOrDefault(x => x.Value).Key;
             if (lastmon != monName)
             {
@@ -647,7 +656,7 @@ namespace Terramon.Players
                     if (player.chest != -1 || Main.npcShop != 0 || EvolveUI.Visible)
                         PartySlots.Visible = false;
                     else
-                        if(Battle == null) PartySlots.Visible = true;
+                        if (Battle == null) PartySlots.Visible = true;
                     UISidebar.Visible = false;
                 }
                 else
@@ -696,7 +705,7 @@ namespace Terramon.Players
                 if (Battle != null)
                 {
                     Battle.Update();
-                    if(Battle.State == BattleState.None)
+                    if (Battle.State == BattleState.None)
                     {
                         Battle.Cleanup();
                         Battle = null;
@@ -704,15 +713,15 @@ namespace Terramon.Players
                 }
                 else if (ActiveMove != null)
                 {
-                    if (!ActiveMove.Update((ParentPokemon) Main.projectile[ActivePetId].modProjectile, this))
+                    if (!ActiveMove.Update((ParentPokemon)Main.projectile[ActivePetId].modProjectile, this))
                         ActiveMove = null;
                 }
                 else if (Cooldown <= 0)
                 {
-                    var mod = (TerramonMod) this.mod;
+                    var mod = (TerramonMod)this.mod;
                     if (AutoUse)
                     {
-                        var f1 = MoveSet[0]?.AutoUseWeight((ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
+                        var f1 = MoveSet[0]?.AutoUseWeight((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
                         var f2 = MoveSet[1]?.AutoUseWeight((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
                         var f3 = MoveSet[2]?.AutoUseWeight((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
                         var f4 = MoveSet[3]?.AutoUseWeight((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this) ?? 0;
@@ -726,7 +735,7 @@ namespace Terramon.Players
                             else
                                 ActiveMove = null;
                         }
-                        else if(w < f1 + f2)
+                        else if (w < f1 + f2)
                         {
                             ActiveMove = MoveSet[1];
                             if (ActiveMove.PerformInWorld((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
@@ -741,7 +750,8 @@ namespace Terramon.Players
                                 Cooldown = ActiveMove.Cooldown;
                             else
                                 ActiveMove = null;
-                        }else if (w < f1 + f2 + f3 + f4)
+                        }
+                        else if (w < f1 + f2 + f3 + f4)
                         {
                             ActiveMove = MoveSet[3];
                             if (ActiveMove.PerformInWorld((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
@@ -754,7 +764,7 @@ namespace Terramon.Players
                     if (mod.FirstPKMAbility.JustPressed && MoveSet[0] != null && ActiveMove == null)
                     {
                         ActiveMove = MoveSet[0];
-                        if (ActiveMove.PerformInWorld((ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                        if (ActiveMove.PerformInWorld((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                             Cooldown = ActiveMove.Cooldown;
                         else
                             ActiveMove = null;
@@ -762,7 +772,7 @@ namespace Terramon.Players
                     else if (mod.SecondPKMAbility.JustPressed && MoveSet[1] != null && ActiveMove == null)
                     {
                         ActiveMove = MoveSet[1];
-                        if (ActiveMove.PerformInWorld((ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                        if (ActiveMove.PerformInWorld((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                             Cooldown = ActiveMove.Cooldown;
                         else
                             ActiveMove = null;
@@ -770,7 +780,7 @@ namespace Terramon.Players
                     else if (mod.ThirdPKMAbility.JustPressed && MoveSet[2] != null && ActiveMove == null)
                     {
                         ActiveMove = MoveSet[2];
-                        if (ActiveMove.PerformInWorld((ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                        if (ActiveMove.PerformInWorld((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                             Cooldown = ActiveMove.Cooldown;
                         else
                             ActiveMove = null;
@@ -778,7 +788,7 @@ namespace Terramon.Players
                     else if (mod.FourthPKMAbility.JustPressed && MoveSet[3] != null && ActiveMove == null)
                     {
                         ActiveMove = MoveSet[3];
-                        if (ActiveMove.PerformInWorld((ParentPokemon) Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
+                        if (ActiveMove.PerformInWorld((ParentPokemon)Main.projectile[ActivePetId].modProjectile, Main.MouseWorld, this))
                             Cooldown = ActiveMove.Cooldown;
                         else
                             ActiveMove = null;
@@ -786,11 +796,11 @@ namespace Terramon.Players
 
                 }
             }
-            else if(Main.LocalPlayer != player)
+            else if (Main.LocalPlayer != player)
             {
                 if (Battle != null)
                 {
-                    if(!Main.dedServ)
+                    if (!Main.dedServ)
                         Battle.Update();
                     if (Battle.State == BattleState.None)
                     {
@@ -798,6 +808,35 @@ namespace Terramon.Players
                         Battle = null;
                     }
                 }
+            }
+        }
+
+        public void ShowItemIconForUsableItems()
+        {
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.Potion>())
+            {
+                player.showItemIcon = true;
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.Potion>();
+            }
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.SuperPotion>())
+            {
+                player.showItemIcon = true;
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.SuperPotion>();
+            }
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.HyperPotion>())
+            {
+                player.showItemIcon = true;
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.HyperPotion>();
+            }
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.MaxPotion>())
+            {
+                player.showItemIcon = true;
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.MaxPotion>();
+            }
+            if (Main.LocalPlayer.HeldItem.type == ItemType<Items.MiscItems.Medication.FullRestore>())
+            {
+                player.showItemIcon = true;
+                player.showItemIcon2 = ItemType<Items.MiscItems.Medication.FullRestore>();
             }
         }
 
@@ -1080,7 +1119,8 @@ namespace Terramon.Players
                 if (player.mount.Active)
                 {
                     player.velocity.Y = 0;
-                } else
+                }
+                else
                 {
                     player.velocity.Y = 5f;
                 }

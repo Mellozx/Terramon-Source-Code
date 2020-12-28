@@ -37,6 +37,7 @@ namespace Terramon.Pokemon
     {
         internal static BattleUI UI;// We will have a singleton battle UI. Move it to TerramonMod later...
         public BattleState State;
+        public BattleStyle Style;
         public TerramonPlayer player1, player2;
         public PokemonData Wild;
         public ParentPokemon WildNPC;
@@ -62,7 +63,7 @@ namespace Terramon.Pokemon
         public static bool queueRunAway = false;
         public static bool queueEndMove = false;
 
-        public BattleMode(TerramonPlayer fpl, BattleState state, PokemonData second = null, ParentPokemonNPC npc = null, TerramonPlayer spl = null, bool lazy = false)
+        public BattleMode(TerramonPlayer fpl, BattleState state, PokemonData second = null, ParentPokemonNPC npc = null, TerramonPlayer spl = null, bool lazy = false, BattleStyle bs = BattleStyle.Default)
         {
 
             if (fpl.player == Main.LocalPlayer) //If this is client player
@@ -81,6 +82,7 @@ namespace Terramon.Pokemon
             }
 
             State = state;
+            Style = bs;
             player1 = fpl;
             player2 = spl;
             Wild = second;
@@ -211,7 +213,15 @@ namespace Terramon.Pokemon
                 inMainMenu = true;
             }
 
+            if (pMove?.AnimationFrame == 140 && pMove.Target != Target.Self)
+            {
+                pMove?.CheckIfAffects(WildNPC, Wild, State, false);
+            }
 
+            if (oMove?.AnimationFrame == 140 && oMove.Target != Target.Self)
+            {
+                oMove?.CheckIfAffects((ParentPokemon)(Main.projectile[player1.ActivePetId].modProjectile), player1.ActivePet, State, false);
+            }
 
             // CAMERA & ZOOM CONTROL //
             if (Main.keyState.IsKeyDown(Keys.D) && doneWildIntro && UI.Turn)
@@ -813,6 +823,7 @@ namespace Terramon.Pokemon
             {
                 WildNPC.Wild = false;
                 WildNPC.projectile.timeLeft = 0;
+                WildNPC.projectile.Kill();
             }
 
         }
@@ -1205,7 +1216,7 @@ namespace Terramon.Pokemon
         {
             hpLerpTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            LocPokemon = TerramonMod.Localisation.GetLocalisedString(pokeData?.Pokemon ?? "MissingNO");
+            LocPokemon = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(pokeData?.Pokemon));
             PokeName.SetText(LocPokemon.Value);
 
             if (local)
@@ -1334,5 +1345,12 @@ namespace Terramon.Pokemon
         BattleWithWild,
         BattleWithTrainer,
         BattleWithPlayer,//Should use networking
+    }
+    public enum BattleStyle
+    {
+        Default = 0,
+        VsWildLegendaryBirds,
+        VsWildMewtwo,
+        VsWildMew
     }
 }

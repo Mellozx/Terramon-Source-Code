@@ -36,7 +36,14 @@ namespace Terramon.Pokemon
         public string pokemon;
 
         private ILocalisedBindableString localised;
-        public string PokemonName => localised?.Value ?? Pokemon;
+        public string PokemonName
+        {
+            get
+            {
+                var l = TerramonMod.Localisation.GetLocalisedString(new LocalisedString(Pokemon));
+                return l?.Value ?? Pokemon;
+            }
+        }
 
         public string Pokemon
         {
@@ -132,10 +139,12 @@ namespace Terramon.Pokemon
                 if(exp == value)
                     return;
                 exp = value;
-                if (exp > 100)
+                while (exp >= expToNext)
                 {
-                    exp -= 100;
                     Level += 1;
+                    int leftover = exp - expToNext;
+                    expToNext = ExpLookupTable.ToNextLevel(Level, ExperienceGroup);
+                    exp = leftover;
                 }
                 needUpdate = true;
             }

@@ -8,6 +8,8 @@ using Terraria.ObjectData;
 using Terraria.DataStructures;
 using Razorwing.Framework.Graphics;
 using Terramon.UI;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Terramon.Tiles
 {
@@ -137,6 +139,14 @@ namespace Terramon.Tiles
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine nameLine = tooltips.FirstOrDefault(t => t.Name == "ItemName" && t.mod == "Terraria");
+
+            foreach (TooltipLine line2 in tooltips)
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                    line2.overrideColor = new Color(190, 49, 49);
         }
     }
 }

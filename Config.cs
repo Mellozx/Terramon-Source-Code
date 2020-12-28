@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using Terramon.UI.SidebarParty;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 
@@ -9,33 +11,25 @@ namespace Terramon
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
-        [DefaultValue(true)]
-        [Label("Party UI - Dark Mode")]
-        [Tooltip("Set to true for Dark Mode, or false for Light Mode.")]
-        public bool PartyUITheme;
+        [Header("Customize Starters")]
 
-        [DefaultValue(false)]
-        [Label("Party UI - Auto Mode")]
-        [Tooltip("When set to true, the sidebar will\nbecome Light Mode by day and Dark Mode by\nnight automatically.")]
-        public bool PartyUIAutoMode;
+        [DefaultValue("Bulbasaur")]
+        [Label("Kanto Starter Pokémon #1")]
+        [Tooltip("You can change this to any Pokémon in the mod. Make sure the name is written exactly how it appears in-game!\nIf it isn't spelled correctly or not yet implemented in the mod, it will resort to default (Bulbasaur).")]
+        public string kantoStarterPokemon1;
 
-        [DefaultValue(false)]
-        [Label("Party UI - Reverse Auto Mode")]
-        [Tooltip("When set to true, the sidebar will\nbecome Dark Mode by day and Light Mode by\nnight automatically.")]
-        public bool PartyUIReverseAutoMode;
+        [DefaultValue("Charmander")]
+        [Label("Kanto Starter Pokémon #2")]
+        [Tooltip("You can change this to any Pokémon in the mod. Make sure the name is written exactly how it appears in-game!\nIf it isn't spelled correctly or not yet implemented in the mod, it will resort to default (Charmander).")]
+        public string kantoStarterPokemon2;
 
-        [DefaultValue(true)]
-        [Label("Show Help Button")]
-        [Tooltip("When set to true, the help button will appear in the bottom left corner of the screen.")]
-        public bool ShowHelpButton;
+        [DefaultValue("Squirtle")]
+        [Label("Kanto Starter Pokémon #3")]
+        [Tooltip("You can change this to any Pokémon in the mod. Make sure the name is written exactly how it appears in-game!\nIf it isn't spelled correctly or not yet implemented in the mod, it will resort to default (Squirtle).")]
+        public string kantoStarterPokemon3;
 
         public override void OnChanged()
         {
-            TerramonMod.PartyUITheme = PartyUITheme;
-            TerramonMod.PartyUIAutoMode = PartyUIAutoMode;
-            TerramonMod.PartyUIReverseAutoMode = PartyUIReverseAutoMode;
-            TerramonMod.ShowHelpButton = ShowHelpButton;
-
             UISidebar uISidebar = ModContent.GetInstance<TerramonMod>().UISidebar;
             if (uISidebar != null)
             {

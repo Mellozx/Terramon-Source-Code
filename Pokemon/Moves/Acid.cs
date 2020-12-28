@@ -67,7 +67,7 @@ namespace Terramon.Pokemon.Moves
             {
                 BattleMode.UI.splashText.SetText("");
 
-                Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/" + MoveName).WithVolume(.75f));
+                MoveSound = Main.PlaySound(ModContent.GetInstance<TerramonMod>().GetLegacySoundSlot(SoundType.Custom, "Sounds/UI/BattleSFX/" + MoveName).WithVolume(.75f));
 
                 TerramonMod.ZoomAnimator.ScreenPosX(mon.projectile.Center.X, 300, Easing.OutExpo);
                 TerramonMod.ZoomAnimator.ScreenPosY(mon.projectile.Center.Y - 60, 300, Easing.OutExpo);
@@ -150,6 +150,9 @@ namespace Terramon.Pokemon.Moves
                     return false;
                 }
             }
+
+            // IGNORE EVERYTHING BELOW WHEN MAKING YOUR OWN MOVES.
+            if (AnimationFrame > 1810) return false;
 
             return true;
         }

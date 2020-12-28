@@ -103,6 +103,11 @@ namespace Terramon.Pokemon.Moves
             return false;
         }
 
+        public virtual void CheckIfAffects(ParentPokemon target, PokemonData deffender, BattleState state, bool opponent)
+        {
+
+        }
+
         /// <summary>
         /// First called when move was casted. If returned true this continue calls each update
         /// until false was returned.
