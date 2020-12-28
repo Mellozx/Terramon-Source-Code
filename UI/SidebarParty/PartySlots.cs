@@ -75,8 +75,8 @@ namespace Terramon.UI.SidebarParty
             mainPanel.Height.Set(150f, 0f);
 
             toggleslots = new UIHoverImageButton(ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBall"), "Hide Party");
-            toggleslots.Top.Set(265 + 16, 0f);
-            toggleslots.Left.Set(121 + 16, 0f);
+            toggleslots.Top.Set(265, 0f);
+            toggleslots.Left.Set(121, 0f);
             toggleslots.OnClick += toggleSlotsFunc;
             Append(toggleslots);
 
@@ -198,6 +198,9 @@ namespace Terramon.UI.SidebarParty
             if (compressing) return;
             isCompressed = !isCompressed;
 
+            toggleslots.RotateTo(0)
+                .RotateTo((float)Math.PI * 2f, 350f);
+
             toggleslots.SetHoverText("");
 
             customslot1.wasJustClicked = false;
@@ -255,8 +258,8 @@ namespace Terramon.UI.SidebarParty
                 {
                     toggleslots.Left.Pixels = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 121 + 16, 406 + 16,
                         startCompressAnimation, endCompressAnimation + 0.25, Easing.OutExpo);
-                    toggleslots.Rotation = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0, (float)(Math.PI / 180) * 360,
-                        startCompressAnimation, endCompressAnimation + 0.25, Easing.OutExpo);
+                    //toggleslots.Rotation = Interpolation.ValueAt(gameTime.TotalGameTime.TotalSeconds, 0, (float)(Math.PI / 180) * 360,
+                    //    startCompressAnimation, endCompressAnimation + 0.25, Easing.OutExpo);
                 }
 
                 if (compressAnimation == 1 && gameTime.TotalGameTime.TotalSeconds > endCompressAnimation + 0.25)
