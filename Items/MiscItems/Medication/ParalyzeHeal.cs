@@ -5,23 +5,23 @@ using Terraria.ModLoader;
 
 namespace Terramon.Items.MiscItems.Medication
 {
-    public class HyperPotion : ModItem
+    public class ParalyzeHeal : ModItem
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Hyper Potion");
-            Tooltip.SetDefault("A spray-type medicine for treating wounds."
-                               + "\nHold it and left click a Pokémon in your party to use."
-                               + "\nRestores up to 120 HP.");
+            DisplayName.SetDefault("Paralyze Heal");
+            Tooltip.SetDefault("A spray-type medicine for treating paralysis."
+                               + "\nIt can be used to free a single Pokémon that has been paralyzed."
+                               + "\nHold it and left click a Pokémon in your party to use.");
         }
 
         public override void SetDefaults()
         {
-            item.width = 24;
-            item.height = 32;
+            item.width = 20;
+            item.height = 34;
             item.maxStack = 99;
-            item.value = 1200;
+            item.value = 225;
             item.rare = 0;
             // Set other item.X values here
         }
@@ -32,7 +32,7 @@ namespace Terramon.Items.MiscItems.Medication
 
             foreach (TooltipLine line2 in tooltips)
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                    line2.overrideColor = new Color(204, 102, 168);
+                    line2.overrideColor = new Color(255, 231, 112);
         }
 
         public override bool CanBurnInLava()

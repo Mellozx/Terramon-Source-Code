@@ -158,7 +158,7 @@ namespace Terramon.Pokemon
                         UI.MovesPanel.PokeData = new PokemonData()
                         {
                             Pokemon = npc.HomeClass().Name,
-                            Moves = new BaseMove[] { new FocusEnergy(), new Acid(), new Cut(), new Earthquake() }
+                            Moves = new BaseMove[] { new QuickAttack(), new Acid(), new Cut(), new Earthquake() }
                         };
                         wildChallenge.Args = new object[] { second?.Pokemon };
                         //Text(wildChallenge.Value);
@@ -505,10 +505,22 @@ namespace Terramon.Pokemon
                 switch (State)
                 {
                     case BattleState.BattleWithWild:
-                        useCheck = ((pMove.Speed / 100f) * player1.ActivePet.Speed) < ((oMove.Speed / 100f) * Wild.Speed);
+                        if (pMove.Priority != oMove.Priority) // Priority checks
+                        {
+                            if (pMove.Priority > oMove.Priority) useCheck = false;
+                            else useCheck = true;
+                            break;
+                        }
+                        useCheck = (player1.ActivePet.Speed) < (Wild.Speed);
                         break;
                     case BattleState.BattleWithPlayer:
-                        useCheck = ((pMove.Speed / 100f) * player1.ActivePet.Speed) < ((oMove.Speed / 100f) * player2.ActivePet.Speed);
+                        if (pMove.Priority != oMove.Priority) // Priority checks
+                        {
+                            if (pMove.Priority > oMove.Priority) useCheck = false;
+                            else useCheck = true;
+                            break;
+                        }
+                        useCheck = (player1.ActivePet.Speed) < (player2.ActivePet.Speed);
                         break;
                 }
 

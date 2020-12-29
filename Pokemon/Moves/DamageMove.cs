@@ -18,7 +18,6 @@ namespace Terramon.Pokemon.Moves
         public virtual int Accuracy => 100;
         public bool Miss => _mrand.Next(100) > Accuracy;
         public virtual bool Special => false;
-        //Does this move affect status? If true, move will not fail when checking if the move affects the opponent.
         public virtual bool MakesContact => false;
 
         public SoundEffectInstance MoveSound;

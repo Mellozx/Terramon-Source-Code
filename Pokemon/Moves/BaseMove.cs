@@ -24,6 +24,7 @@ namespace Terramon.Pokemon.Moves
         public virtual int Speed { get; } = 80;
         public virtual int MaxPP { get; } = 20;
         public virtual int MaxBoostPP { get; } = 20;
+        public virtual int Priority => 0;
 
         public static UnifiedRandom _mrand;
         public static int _seed;

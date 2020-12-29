@@ -21,6 +21,7 @@ namespace Terramon.Pokemon.Moves
 		public override Target Target => Target.Opponent;
 		public override int Cooldown => 60 * 1; 
 		public override PokemonType MoveType => PokemonType.Normal;
+		public override int Priority => 1;
 
 		public override int AutoUseWeight(ParentPokemon mon, Vector2 pos, TerramonPlayer player)
 		{

@@ -667,6 +667,12 @@ namespace Terramon.UI.SidebarParty
                 PartySlots.swapWithSlotNumber = 0;
             }
 
+            if (HoldingUsableItem() && IsMouseHovering)
+            {
+                _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked");
+                return;
+            }
+
             if (wasJustClicked)
             {
                 _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked");
@@ -682,6 +688,8 @@ namespace Terramon.UI.SidebarParty
         public bool CanUseHyperPotion(PokemonData mon) { if (HoldingHyperPotion() && mon.HP != mon.MaxHP && mon.HP != 0) return true; else return false; }
         public bool CanUseMaxPotion(PokemonData mon) { if (HoldingMaxPotion() && mon.HP != mon.MaxHP && mon.HP != 0) return true; else return false; }
         public bool CanUseFullRestore(PokemonData mon) { if (HoldingFullRestore() && mon.HP != mon.MaxHP && mon.HP != 0) return true; else return false; }
+        public bool CanUseRevive(PokemonData mon) { if (HoldingRevive() && mon.HP == 0) return true; else return false; }
+        public bool CanUseMaxRevive(PokemonData mon) { if (HoldingRevive() && mon.HP == 0) return true; else return false; }
 
         public bool HoldingUsableItem()
         {
@@ -689,7 +697,9 @@ namespace Terramon.UI.SidebarParty
                 HoldingSuperPotion() ||
                 HoldingHyperPotion() ||
                 HoldingMaxPotion() ||
-                HoldingFullRestore()) return true;
+                HoldingFullRestore() ||
+                HoldingRevive() ||
+                HoldingMaxRevive()) return true;
             return false;
         }
 
@@ -730,6 +740,20 @@ namespace Terramon.UI.SidebarParty
             TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
             if (modPlayer.Battle != null) return false;
             if (Main.mouseItem.type == ModContent.ItemType<Items.MiscItems.Medication.FullRestore>()) return true;
+            return false;
+        }
+        public bool HoldingRevive()
+        {
+            TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+            if (modPlayer.Battle != null) return false;
+            if (Main.mouseItem.type == ModContent.ItemType<Items.MiscItems.Medication.Revive>()) return true;
+            return false;
+        }
+        public bool HoldingMaxRevive()
+        {
+            TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+            if (modPlayer.Battle != null) return false;
+            if (Main.mouseItem.type == ModContent.ItemType<Items.MiscItems.Medication.MaxRevive>()) return true;
             return false;
         }
 
@@ -974,6 +998,34 @@ namespace Terramon.UI.SidebarParty
                         Main.mouseItem.stack--;
                         stored.Heal(ModContent.GetInstance<TerramonMod>().PartySlots.GetMpPartyDataInstance(_slot).MaxHP);
                         Main.NewText($"Fully restored {stored.PokemonName}'s HP and cured all status conditions!", Color.LightGreen);
+                    }
+                    if (HoldingRevive())
+                    {
+                        if (!CanUseRevive(stored))
+                        {
+                            Main.NewText($"It'll have no effect on {stored.PokemonName}.", Color.LightGray);
+                            spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - 0.85f) / 2f, texture: _texture, sourceRectangle: null, color: Color.White * _visibilityActive, rotation: 0f, origin: Vector2.Zero, scale: 0.85f, effects: SpriteEffects.FlipHorizontally, layerDepth: 0f);
+                            return;
+                        }
+                        Main.PlaySound(SoundID.Item, Main.LocalPlayer.position, 4);
+                        Main.mouseItem.stack--;
+                        stored.Heal(ModContent.GetInstance<TerramonMod>().PartySlots.GetMpPartyDataInstance(_slot).MaxHP / 2);
+                        stored.Fainted = false;
+                        Main.NewText($"{stored.PokemonName} was revived and healed to half of its Max HP!", new Color(250, 210, 110));
+                    }
+                    if (HoldingMaxRevive())
+                    {
+                        if (!CanUseMaxRevive(stored))
+                        {
+                            Main.NewText($"It'll have no effect on {stored.PokemonName}.", Color.LightGray);
+                            spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - 0.85f) / 2f, texture: _texture, sourceRectangle: null, color: Color.White * _visibilityActive, rotation: 0f, origin: Vector2.Zero, scale: 0.85f, effects: SpriteEffects.FlipHorizontally, layerDepth: 0f);
+                            return;
+                        }
+                        Main.PlaySound(SoundID.Item, Main.LocalPlayer.position, 4);
+                        Main.mouseItem.stack--;
+                        stored.Heal(ModContent.GetInstance<TerramonMod>().PartySlots.GetMpPartyDataInstance(_slot).MaxHP);
+                        stored.Fainted = false;
+                        Main.NewText($"{stored.PokemonName} was revived and healed to its Max HP!", new Color(250, 210, 110));
                     }
                 }
             }

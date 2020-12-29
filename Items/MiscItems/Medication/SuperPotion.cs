@@ -21,7 +21,7 @@ namespace Terramon.Items.MiscItems.Medication
             item.width = 24;
             item.height = 32;
             item.maxStack = 99;
-            item.value = 400;
+            item.value = 500;
             item.rare = 0;
             // Set other item.X values here
         }
@@ -32,7 +32,7 @@ namespace Terramon.Items.MiscItems.Medication
 
             foreach (TooltipLine line2 in tooltips)
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                    line2.overrideColor = new Color(255, 173, 148);
+                    line2.overrideColor = new Color(204, 110, 118);
         }
 
         public override bool CanBurnInLava()

@@ -33,7 +33,7 @@ namespace Terramon.Items.MiscItems.Medication
 
             foreach (TooltipLine line2 in tooltips)
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                    line2.overrideColor = new Color(156, 230, 66);
+                    line2.overrideColor = new Color(105, 207, 112);
         }
 
         public override bool CanBurnInLava()

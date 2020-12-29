@@ -541,6 +541,51 @@ namespace Terramon.Pokemon
             [BaseCaughtClass.POKEBAL_PROPERTY] = this.pokeballType
         };
 
+        public enum NonVolatileStatus
+        {
+            Burn,
+            Freeze,
+            Paralysis,
+            Poison,
+            Sleep
+        }
 
+        public enum VolatileStatus
+        {
+            Bound,
+            NoEscape,
+            Confusion,
+            Curse,
+            Embargo,
+            Encore,
+            Flinch,
+            HealBlock,
+            Identified,
+            Infatuation,
+            LeechSeed,
+            Nightmare,
+            PerishSong,
+            Taunt,
+            Telekinesis,
+            Torment
+        }
+
+        public enum VolatileBattleStatus
+        {
+            AquaRing,
+            Bracing,
+            ChargingTurn,
+            CenterOfAttention,
+            DefenseCurl,
+            Rooting,
+            MagicCoat,
+            Minimize,
+            Protection,
+            Recharging,
+            SemiInvulnerableTurn,
+            Substitute,
+            TakingAim,
+            Withdrawing
+        }
     }
 }
