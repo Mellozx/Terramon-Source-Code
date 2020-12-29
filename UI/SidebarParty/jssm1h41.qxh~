@@ -962,19 +962,6 @@ namespace Terramon.UI.SidebarParty
                         stored.Heal(ModContent.GetInstance<TerramonMod>().PartySlots.GetMpPartyDataInstance(_slot).MaxHP);
                         Main.NewText($"Fully restored {stored.PokemonName}'s HP!", Color.LightGreen);
                     }
-                    if (HoldingFullRestore())
-                    {
-                        if (!CanUseFullRestore(stored))
-                        {
-                            Main.NewText($"It'll have no effect on {stored.PokemonName}.", Color.LightGray);
-                            spriteBatch.Draw(position: GetDimensions().Position() + _texture.Size() * (1f - 0.85f) / 2f, texture: _texture, sourceRectangle: null, color: Color.White * _visibilityActive, rotation: 0f, origin: Vector2.Zero, scale: 0.85f, effects: SpriteEffects.FlipHorizontally, layerDepth: 0f);
-                            return;
-                        }
-                        Main.PlaySound(SoundID.Item, Main.LocalPlayer.position, 13);
-                        Main.mouseItem.stack--;
-                        stored.Heal(ModContent.GetInstance<TerramonMod>().PartySlots.GetMpPartyDataInstance(_slot).MaxHP);
-                        Main.NewText($"Fully restored {stored.PokemonName}'s HP and cured all status conditions!", Color.LightGreen);
-                    }
                 }
             }
 

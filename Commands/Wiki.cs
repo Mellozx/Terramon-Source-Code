@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using Terramon.Players;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace Terramon.Commands
@@ -17,8 +19,10 @@ namespace Terramon.Commands
         {
             if (args.Length == 0)
             {
+                TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+                modPlayer.PartySlot1.HP = 2;
                 caller.Reply("Opened Wiki...");
-                Process.Start("https://terrariamods.gamepedia.com/Terramon");
+                //Process.Start("https://terrariamods.gamepedia.com/Terramon");
             }
         }
     }

@@ -12,7 +12,7 @@ namespace Terramon.Items.MiscItems.Medication
             base.SetStaticDefaults();
             DisplayName.SetDefault("Max Potion");
             Tooltip.SetDefault("A spray-type medicine for treating wounds."
-                               + "\nHold it and right click your Pokémon to use."
+                               + "\nHold it and left click a Pokémon in your party to use."
                                + "\nCompletely restores Max HP.");
         }
 
