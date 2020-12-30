@@ -911,6 +911,16 @@ namespace Terramon.UI.SidebarParty
 
                         Main.PlaySound(SoundID.Tink, Main.LocalPlayer.position);
 
+                        // swap pets in world
+
+                        if (a.Pokemon == modPlayer.ActivePetName)
+                        {
+                            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+                            Main.LocalPlayer.ClearBuff(pokeBuff);
+                            modPlayer.ActivePetName = b.Pokemon;
+                            Main.LocalPlayer.AddBuff(pokeBuff, 2);
+                        }
+
                         ModContent.GetInstance<TerramonMod>().PartySlots.UpdateSwap();
                         if (a.HP == 0) minisprite._visibilityActive = _visibilityActive * 0.4f;
                         if (b.HP == 0) ModContent.GetInstance<TerramonMod>().PartySlots.GetSlott(PartySlots.toSwapSlotNumber).minisprite._visibilityActive = _visibilityActive * 0.4f;

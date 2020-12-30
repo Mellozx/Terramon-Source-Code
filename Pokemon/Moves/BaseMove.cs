@@ -374,6 +374,30 @@ namespace Terramon.Pokemon.Moves
         [JsonProperty("baseExp")]
         public long BaseExp { get; set; }
 
+        [JsonProperty("baseHp")]
+        public long BaseHP { get; set; }
+
+        [JsonProperty("baseAtk")]
+        public long BaseAttack { get; set; }
+
+        [JsonProperty("baseDef")]
+        public long BaseDefense { get; set; }
+
+        [JsonProperty("baseSpAtk")]
+        public long BaseSpAtk { get; set; }
+
+        [JsonProperty("baseSpDef")]
+        public long BaseSpDef { get; set; }
+
+        [JsonProperty("baseSpeed")]
+        public long BaseSpeed { get; set; }
+
+        [JsonProperty("evYieldStat")]
+        public string EVYieldStat { get; set; }
+
+        [JsonProperty("evYield")]
+        public long EVYield { get; set; }
+
         [JsonProperty("learnAtLevel")]
         public Dictionary<string, long>[] LearnAtLevel { get; set; }
     }

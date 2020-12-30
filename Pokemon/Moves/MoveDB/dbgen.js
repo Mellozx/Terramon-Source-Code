@@ -15,12 +15,57 @@ function createDBEntry(id) {
   var pokemon = {
     name: "",
     baseExp: 0,
+    baseHp: 0,
+    baseAtk: 0,
+    baseDef: 0,
+    baseSpAtk: 0,
+    baseSpDef: 0,
+    baseSpeed: 0,
+    evYieldStat: "",
+    evYield: 0,
     learnAtLevel: []
   }
   pokemon.name = capitalizeFirstLetter(pokedex.pokemon(id).name) // Get Pokemon name
 
   getJSON('https://pokeapi.co/api/v2/pokemon/' + id.toString(), function(error, res) {
     pokemon.baseExp = res.base_experience;
+
+    pokemon.baseHp = res.stats[0].base_stat;
+    if (res.stats[0].effort != 0) {
+        pokemon.evYield = res.stats[0].effort;
+        pokemon.evYieldStat = res.stats[0].stat.name;
+    }
+
+    pokemon.baseAtk = res.stats[1].base_stat;
+    if (res.stats[1].effort != 0) {
+        pokemon.evYield = res.stats[1].effort;
+        pokemon.evYieldStat = res.stats[1].stat.name;
+    }
+
+    pokemon.baseDef = res.stats[2].base_stat;
+    if (res.stats[2].effort != 0) {
+        pokemon.evYield = res.stats[2].effort;
+        pokemon.evYieldStat = res.stats[2].stat.name;
+    }
+
+    pokemon.baseSpAtk = res.stats[3].base_stat;
+    if (res.stats[3].effort != 0) {
+        pokemon.evYield = res.stats[3].effort;
+        pokemon.evYieldStat = res.stats[3].stat.name;
+    }
+
+    pokemon.baseSpDef = res.stats[4].base_stat;
+    if (res.stats[4].effort != 0) {
+        pokemon.evYield = res.stats[4].effort;
+        pokemon.evYieldStat = res.stats[4].stat.name;
+    }
+
+    pokemon.baseSpeed = res.stats[5].base_stat;
+    if (res.stats[5].effort != 0) {
+        pokemon.evYield = res.stats[5].effort;
+        pokemon.evYieldStat = res.stats[5].stat.name;
+    }
+
     for (var i = 0; i < res.moves.length; i++) {
       for (var j = 0; j < res.moves[i].version_group_details.length; j++) {
         if (res.moves[i].version_group_details[j].version_group.name == "red-blue") { // Gen 1 moves only for now
