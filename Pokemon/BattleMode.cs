@@ -883,7 +883,7 @@ namespace Terramon.Pokemon
 
     public class BattleUI : UIState
     {
-        public UIText splashText;
+        public UITypewriterText splashText;
         public UIText tipText;
         public ButtonMenuPanel ButtonMenuPanel;
         public MovesPanel MovesPanel;
@@ -897,7 +897,7 @@ namespace Terramon.Pokemon
         public override void OnInitialize()
         {
             // Splash text to replace Main.NewText() calls
-            splashText = new UIText("", 1.1f);
+            splashText = new UITypewriterText("", 1.1f);
             splashText.HAlign = 0.5f;
             splashText.Top.Set(-246, 1f);
             Append(splashText);
@@ -1039,10 +1039,13 @@ namespace Terramon.Pokemon
         public bool viewable = false;
         public override void Update(GameTime gameTime)
         {
+            var player1 = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+            if (BattleMode.inMainMenu && BattleMode.UI.Turn && BattleMode.doneWildIntro && BattleMode.UI.splashText._textTarget != $"What will {player1.ActivePet.PokemonName} do?")
+            {
+                BattleMode.UI.splashText.SetText($"What will {player1.ActivePet.PokemonName} do?");
+            }
             if (BattleMode.inMainMenu && BattleMode.UI.Turn && BattleMode.doneWildIntro)
             {
-                var player1 = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-                BattleMode.UI.splashText.SetText($"What will {player1.ActivePet.PokemonName} do?");
                 if (!viewable)
                 {
                     TerramonMod.ZoomAnimator.ScreenPosX((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X + 12), 500, Easing.OutExpo);
