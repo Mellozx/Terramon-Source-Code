@@ -913,6 +913,13 @@ namespace Terramon.UI.SidebarParty
 
                         // swap pets in world
 
+                        if (b.Pokemon == modPlayer.ActivePetName)
+                        {
+                            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+                            Main.LocalPlayer.ClearBuff(pokeBuff);
+                            modPlayer.ActivePetName = a.Pokemon;
+                            Main.LocalPlayer.AddBuff(pokeBuff, 2);
+                        } else
                         if (a.Pokemon == modPlayer.ActivePetName)
                         {
                             var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
