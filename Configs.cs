@@ -17,6 +17,7 @@ namespace Terramon
 
         [Label("Battle Text Speed")]
         [Tooltip("Change the speed of text in battles.")]
+        [DefaultValue(BattleTextSpeed.Fast)]
         // Using StringEnumConverter, Enums are read and written as strings rather than the numerical value of the Enum. This makes the config file more readable, but prone to errors if a player manually modifies the config file.
         [JsonConverter(typeof(StringEnumConverter))]
         public BattleTextSpeed textSpeed { get; set; }
@@ -35,9 +36,10 @@ namespace Terramon
         }
         public enum BattleTextSpeed
         {
-            Fast,
+            Slow,
             Regular,
-            Slow
+            Fast,
+            Instant
         }
     }
 }

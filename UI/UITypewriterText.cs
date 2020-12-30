@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.Localization;
 using Terraria.UI;
+using Terraria.UI.Chat;
 
 namespace Terramon.UI
 {
@@ -159,7 +160,8 @@ namespace Terramon.UI
 			}
 			else
 			{
-				Utils.DrawBorderString(spriteBatch, Text, pos, _color, _textScale);
+				//Utils.DrawBorderString(spriteBatch, Text, pos, _color, _textScale);
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, Text, pos, _color, 0f, Vector2.Zero, new Vector2(_textScale));
 			}
 		}
 	}

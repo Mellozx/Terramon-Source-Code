@@ -667,11 +667,13 @@ namespace Terramon.UI.SidebarParty
                 PartySlots.swapWithSlotNumber = 0;
             }
 
-            if (HoldingUsableItem() && IsMouseHovering)
-            {
-                _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked");
-                return;
-            }
+            if (HoldingPotion() && CanUsePotion(stored)) { _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked"); return; }
+            if (HoldingSuperPotion() && CanUseSuperPotion(stored)) { _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked"); return; }
+            if (HoldingHyperPotion() && CanUseHyperPotion(stored)) { _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked"); return; }
+            if (HoldingMaxPotion() && CanUseMaxPotion(stored)) { _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked"); return; }
+            if (HoldingFullRestore() && CanUseFullRestore(stored)) { _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked"); return; }
+            if (HoldingRevive() && CanUseRevive(stored)) { _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked"); return; }
+            if (HoldingMaxRevive() && CanUseMaxRevive(stored)) { _texture = ModContent.GetTexture("Terramon/UI/SidebarParty/PartySlotBgClicked"); return; }
 
             if (wasJustClicked)
             {
@@ -689,7 +691,7 @@ namespace Terramon.UI.SidebarParty
         public bool CanUseMaxPotion(PokemonData mon) { if (HoldingMaxPotion() && mon.HP != mon.MaxHP && mon.HP != 0) return true; else return false; }
         public bool CanUseFullRestore(PokemonData mon) { if (HoldingFullRestore() && mon.HP != mon.MaxHP && mon.HP != 0) return true; else return false; }
         public bool CanUseRevive(PokemonData mon) { if (HoldingRevive() && mon.HP == 0) return true; else return false; }
-        public bool CanUseMaxRevive(PokemonData mon) { if (HoldingRevive() && mon.HP == 0) return true; else return false; }
+        public bool CanUseMaxRevive(PokemonData mon) { if (HoldingMaxRevive() && mon.HP == 0) return true; else return false; }
 
         public bool HoldingUsableItem()
         {
