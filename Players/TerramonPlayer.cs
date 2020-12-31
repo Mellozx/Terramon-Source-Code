@@ -931,7 +931,7 @@ namespace Terramon.Players
                 GetInstance<TerramonMod>().UISidebar.firstpkmn.Recalculate();
             }
 
-            if (partySlots.partyslot2.Item.IsAir)
+            if (PartySlot2 == null)
             {
                 secondslotname = "*";
                 GetInstance<TerramonMod>().UISidebar.secondpkmn.TextureName = "Terramon/UI/SidebarParty/Empty";

@@ -68,6 +68,9 @@ namespace Terramon.Pokemon.Moves
 				return false;
 			}
 
+			// IGNORE EVERYTHING BELOW WHEN MAKING YOUR OWN MOVES.
+			if (AnimationFrame > 1810) return false;
+
 			return true;
 		}
 

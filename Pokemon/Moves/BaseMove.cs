@@ -11,6 +11,7 @@ using System.Globalization;
 using Newtonsoft.Json.Converters;
 using Terraria.ModLoader;
 using System.Text;
+using static Terramon.Pokemon.Moves.DamageMove;
 
 namespace Terramon.Pokemon.Moves
 {
@@ -363,6 +364,109 @@ namespace Terramon.Pokemon.Moves
                 }
             }
             return 64; // Default value if for some reason none found
+        }
+
+        public static int GetBaseHP(PokemonData p)
+        {
+            if (moveDb == null) return 10;
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.BaseHP;
+                }
+            }
+            return 45; // Default value if for some reason none found
+        }
+        public static int GetBaseAttack(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.BaseAttack;
+                }
+            }
+            return 49; // Default value if for some reason none found
+        }
+        public static int GetBaseDefense(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.BaseDefense;
+                }
+            }
+            return 49; // Default value if for some reason none found
+        }
+        public static int GetBaseSpAtk(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.BaseSpAtk;
+                }
+            }
+            return 65; // Default value if for some reason none found
+        }
+        public static int GetBaseSpDef(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.BaseSpDef;
+                }
+            }
+            return 65; // Default value if for some reason none found
+        }
+        public static int GetBaseSpeed(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.BaseSpeed;
+                }
+            }
+            return 45; // Default value if for some reason none found
+        }
+        public static GetStat EVYieldStat(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    if (pokemon.EVYieldStat == "hp") return GetStat.HP;
+                    if (pokemon.EVYieldStat == "attack") return GetStat.Attack;
+                    if (pokemon.EVYieldStat == "defense") return GetStat.Defense;
+                    if (pokemon.EVYieldStat == "special-attack") return GetStat.SpAtk;
+                    if (pokemon.EVYieldStat == "special-defense") return GetStat.SpDef;
+                    if (pokemon.EVYieldStat == "speed") return GetStat.Speed;
+                }
+            }
+            return GetStat.HP; // Default value if for some reason none found
+        }
+        public static int EVYieldAmount(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.EVYield;
+                }
+            }
+            return 1; // Default value if for some reason none found
         }
     }
 

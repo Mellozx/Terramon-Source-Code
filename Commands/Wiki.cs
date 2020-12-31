@@ -20,8 +20,9 @@ namespace Terramon.Commands
             if (args.Length == 0)
             {
                 TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
-                modPlayer.PartySlot1.HP = 2;
-                caller.Reply("Opened Wiki...");
+                //modPlayer.PartySlot1.HP = 2;
+                caller.Reply(modPlayer.PartySlot1.PhysDmgIV.ToString());
+                caller.Reply(modPlayer.PartySlot1.PhysDmg.ToString());
                 //Process.Start("https://terrariamods.gamepedia.com/Terramon");
             }
         }

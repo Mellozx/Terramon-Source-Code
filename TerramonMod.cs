@@ -233,7 +233,9 @@ namespace Terramon
 
         public override void Load()
         {
-            //Disable loading rich presence while debugging 
+            // Load movedb
+
+            BaseMove.LoadMoveDb();
 
             // Initalize Discord RP on Mod Load
             if (!Main.dedServ)
@@ -367,10 +369,6 @@ namespace Terramon
             CompressSidebar = RegisterHotKey("Compress Sidebar", Keys.RightShift.ToString());
 
             PartyCycle = RegisterHotKey("Quick Spawn First Party Pokémon", Keys.RightAlt.ToString());
-
-            // Load movedb
-
-            BaseMove.LoadMoveDb();
         }
 
         public override void Unload()

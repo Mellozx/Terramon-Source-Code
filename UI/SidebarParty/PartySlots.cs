@@ -911,21 +911,18 @@ namespace Terramon.UI.SidebarParty
 
                         Main.PlaySound(SoundID.Tink, Main.LocalPlayer.position);
 
-                        // swap pets in world
-
-                        if (b.Pokemon == modPlayer.ActivePetName)
+                        // Clear pokemon
+                        var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+                        if (Main.LocalPlayer.HasBuff(pokeBuff))
                         {
-                            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
+                            for (int i = 0; i < 18; i++)
+                            {
+                                Dust.NewDust(Main.projectile[modPlayer.ActivePetId].modProjectile.projectile.position, Main.projectile[modPlayer.ActivePetId].modProjectile.projectile.width, Main.projectile[modPlayer.ActivePetId].modProjectile.projectile.height,
+                                    ModContent.GetInstance<TerramonMod>().DustType("SmokeTransformDust"));
+                            }
                             Main.LocalPlayer.ClearBuff(pokeBuff);
-                            modPlayer.ActivePetName = a.Pokemon;
-                            Main.LocalPlayer.AddBuff(pokeBuff, 2);
-                        } else
-                        if (a.Pokemon == modPlayer.ActivePetName)
-                        {
-                            var pokeBuff = ModContent.GetInstance<TerramonMod>().BuffType(nameof(PokemonBuff));
-                            Main.LocalPlayer.ClearBuff(pokeBuff);
-                            modPlayer.ActivePetName = b.Pokemon;
-                            Main.LocalPlayer.AddBuff(pokeBuff, 2);
+                            modPlayer.ActivePetName = string.Empty;
+                            modPlayer.ActivePartySlot = -1;
                         }
 
                         ModContent.GetInstance<TerramonMod>().PartySlots.UpdateSwap();

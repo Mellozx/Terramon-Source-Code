@@ -81,51 +81,6 @@ namespace Terramon.Pokemon
             {
                 if(value == level)
                     return;
-                var d = value - level;
-                if (d > 0 && !string.IsNullOrEmpty(pokemon))
-                {
-                    var parent = TerramonMod.GetPokemon(pokemon);
-                    //Get sum of base stats of pokemon
-                    var sum = parent.MaxHP + parent.PhysicalDamage + parent.PhysicalDefence +
-                              parent.Speed + parent.SpecialDamage + parent.SpecialDefence;
-                    // Divide it by 50
-                    // https://bulbapedia.bulbagarden.net/wiki/Statistic#Level
-                    sum /= 50;
-
-                    do
-                    {
-                        d--;
-
-                        // And randomly add stats by one point
-                        while (sum > 0)
-                        {
-                            sum--;
-                            //TODO: Make usage of MoveRandom here if needed
-                            Random rand = new Random();//We don't want desync Main.random by this;
-                            switch (rand.Next(6))
-                            {
-                                case 0:
-                                    MaxHP++;
-                                    break;
-                                case 1:
-                                    Speed++;
-                                    break;
-                                case 2:
-                                    PhysDmg++;
-                                    break;
-                                case 3:
-                                    PhysDef++;
-                                    break;
-                                case 4:
-                                    SpDmg++;
-                                    break;
-                                case 5:
-                                    SpDef++;
-                                    break;
-                            }
-                        }
-                    } while (d > 0);
-                }
                 level = value;
                 needUpdate = true;
             }
@@ -163,7 +118,7 @@ namespace Terramon.Pokemon
 
         public int MaxHP
         {
-            get => maxHp;
+            get => TotalStatValue(GetStat.HP);
             set
             {
                 if(maxHp == value)
@@ -198,28 +153,102 @@ namespace Terramon.Pokemon
         /// <summary>
         /// Physical damage 
         /// </summary>
-        public int PhysDmg { get; set; } = 50 + Main.rand?.Next(20) ?? 0;
+        public int PhysDmg
+        {
+            get => TotalStatValue(GetStat.Attack);
+            set
+            {
+                return;
+            }
+        }
         public int PhysDmgIV { get; set; } = 0;
         /// <summary>
         /// Physical defense
         /// </summary>
-        public int PhysDef { get; set; } = 60 + Main.rand?.Next(20) ?? 0;
+        public int PhysDef
+        {
+            get => TotalStatValue(GetStat.Defense);
+            set
+            {
+                return;
+            }
+        }
         public int PhysDefIV { get; set; } = 0;
         /// <summary>
         /// Special damage
         /// </summary>
-        public int SpDmg { get; set; } = 65 + Main.rand?.Next(20) ?? 0;
+        public int SpDmg { get => TotalStatValue(GetStat.SpAtk); set { return; } }
         public int SpDmgIV { get; set; } = 0;
         /// <summary>
         /// Special defense
         /// </summary>
-        public int SpDef { get; set; } = 50 + Main.rand?.Next(20)??0;
+        public int SpDef { get => TotalStatValue(GetStat.SpDef); set { return; } }
         public int SpDefIV { get; set; } = 0;
         /// <summary>
         /// Speed
         /// </summary>
-        public int Speed { get; set; } = 45 + Main.rand?.Next(20) ?? 0;
+        public int Speed { get => TotalStatValue(GetStat.Speed); set { return; } }
         public int SpeedIV { get; set; } = 0;
+
+        public int TotalStatValue(GetStat stat)
+        {
+            if (stat == GetStat.HP)
+            {
+                float hpStat = 0;
+                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseHP(this) + MaxHPIV + a);
+                float c = (float)Math.Floor(b * Level / 100);
+                hpStat = c + Level + 10;
+                return (int)hpStat;
+            }
+
+            float otherStat = 0;
+            if (stat == GetStat.Attack) {
+                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseAttack(this) + PhysDmgIV + a);
+                float c = (float)Math.Floor(b * Level / 100);
+                float d = c + 5;
+                float e = (float)Math.Floor(d * 1f); // Add nature here later
+                otherStat = e;
+            }
+            if (stat == GetStat.Defense)
+            {
+                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseDefense(this) + PhysDefIV + a);
+                float c = (float)Math.Floor(b * Level / 100);
+                float d = c + 5;
+                float e = (float)Math.Floor(d * 1f); // Add nature here later
+                otherStat = e;
+            }
+            if (stat == GetStat.SpAtk)
+            {
+                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseSpAtk(this) + SpDmgIV + a);
+                float c = (float)Math.Floor(b * Level / 100);
+                float d = c + 5;
+                float e = (float)Math.Floor(d * 1f); // Add nature here later
+                otherStat = e;
+            }
+            if (stat == GetStat.SpDef)
+            {
+                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseSpDef(this) + SpDefIV + a);
+                float c = (float)Math.Floor(b * Level / 100);
+                float d = c + 5;
+                float e = (float)Math.Floor(d * 1f); // Add nature here later
+                otherStat = e;
+            }
+            if (stat == GetStat.Speed)
+            {
+                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseSpeed(this) + SpeedIV + a);
+                float c = (float)Math.Floor(b * Level / 100);
+                float d = c + 5;
+                float e = (float)Math.Floor(d * 1f); // Add nature here later
+                otherStat = e;
+            }
+            return (int)otherStat;
+        }
 
         /// <summary>
         /// Increase mon HP by <see cref="amout"/> and return actually healed value;
@@ -377,6 +406,12 @@ namespace Terramon.Pokemon
             SpDmg = tag.PokeData.SpDmg;
             SpDef = tag.PokeData.SpDef;
 
+            MaxHPIV = GenerateIVs();
+            PhysDmgIV = GenerateIVs();
+            PhysDefIV = GenerateIVs();
+            SpDmgIV = GenerateIVs();
+            SpDefIV = GenerateIVs();
+            SpeedIV = GenerateIVs();
 
             //Update all old pokebals
             bool retrofit = true;
@@ -422,12 +457,13 @@ namespace Terramon.Pokemon
                 [nameof(BaseCaughtClass.Level)] = tag.Level,
                 [nameof(BaseCaughtClass.Exp)] = tag.Exp,
 
-                [nameof(MaxHP)] = tag.MaxHP,
+                [nameof(MaxHPIV)] = tag.MaxHPIV,
                 [nameof(HP)] = tag.HP,
-                [nameof(PhysDmg)] = tag.PhysDmg,
-                [nameof(PhysDef)] = tag.PhysDef,
-                [nameof(SpDmg)] = tag.SpDmg,
-                [nameof(SpDef)] = tag.SpDef,
+                [nameof(PhysDmgIV)] = tag.PhysDmgIV,
+                [nameof(PhysDefIV)] = tag.PhysDefIV,
+                [nameof(SpDmgIV)] = tag.SpDmgIV,
+                [nameof(SpDefIV)] = tag.SpDefIV,
+                [nameof(SpeedIV)] = tag.SpeedIV,
 
                 //Store move name
                 [BaseCaughtClass.MOVE1] = tag.Moves?[0]?.GetType().Name ?? "",
@@ -467,13 +503,14 @@ namespace Terramon.Pokemon
                 //expToNext = tag.ContainsKey(nameof(ExpToNext)) ? tag.GetInt(nameof(ExpToNext)) : 0;
 
                 //Average values from bulbasaur
-                MaxHP = tag.ContainsKey(nameof(MaxHP)) ? tag.GetInt(nameof(MaxHP)) : 45;
-                HP = tag.ContainsKey(nameof(HP)) ? tag.GetInt(nameof(HP)) : 45;
+                MaxHPIV = tag.ContainsKey(nameof(MaxHPIV)) ? tag.GetInt(nameof(MaxHPIV)) : GenerateIVs();
+                HP = tag.ContainsKey(nameof(HP)) ? tag.GetInt(nameof(HP)) : 5;
                 Fainted = tag.ContainsKey(nameof(Fainted)) && tag.GetBool(nameof(Fainted));//ReSharper changes
-                PhysDef = tag.ContainsKey(nameof(PhysDef)) ? tag.GetInt(nameof(PhysDef)) : 50;
-                PhysDmg = tag.ContainsKey(nameof(PhysDmg)) ? tag.GetInt(nameof(PhysDmg)) : 50;
-                SpDef = tag.ContainsKey(nameof(SpDef)) ? tag.GetInt(nameof(SpDef)) : 50;
-                SpDmg = tag.ContainsKey(nameof(SpDmg)) ? tag.GetInt(nameof(SpDmg)) : 65;
+                PhysDefIV = tag.ContainsKey(nameof(PhysDefIV)) ? tag.GetInt(nameof(PhysDefIV)) : GenerateIVs();
+                PhysDmgIV = tag.ContainsKey(nameof(PhysDmgIV)) ? tag.GetInt(nameof(PhysDmgIV)) : GenerateIVs();
+                SpDefIV = tag.ContainsKey(nameof(SpDefIV)) ? tag.GetInt(nameof(SpDefIV)) : GenerateIVs();
+                SpDmgIV = tag.ContainsKey(nameof(SpDmgIV)) ? tag.GetInt(nameof(SpDmgIV)) : GenerateIVs();
+                SpeedIV = tag.ContainsKey(nameof(SpeedIV)) ? tag.GetInt(nameof(SpeedIV)) : GenerateIVs();
 
                 if (Moves == null)
                     Moves = new BaseMove[4];
@@ -524,12 +561,13 @@ namespace Terramon.Pokemon
             [nameof(BaseCaughtClass.Level)] = this.Level,
             [nameof(BaseCaughtClass.Exp)] = this.Exp,
 
-            [nameof(MaxHP)] = this.MaxHP,
+            [nameof(MaxHPIV)] = this.MaxHPIV,
             [nameof(HP)] = this.HP,
-            [nameof(PhysDmg)] = this.PhysDmg,
-            [nameof(PhysDef)] = this.PhysDef,
-            [nameof(SpDmg)] = this.SpDmg,
-            [nameof(SpDef)] = this.SpDef,
+            [nameof(PhysDmgIV)] = this.PhysDmgIV,
+            [nameof(PhysDefIV)] = this.PhysDefIV,
+            [nameof(SpDmgIV)] = this.SpDmgIV,
+            [nameof(SpDefIV)] = this.SpDefIV,
+            [nameof(SpeedIV)] = this.SpeedIV,
 
             //Store move name
             [BaseCaughtClass.MOVE1] = this.Moves?[0]?.GetType().Name ?? "",

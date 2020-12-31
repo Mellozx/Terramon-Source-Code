@@ -95,10 +95,9 @@ namespace Terramon.Pokemon
                 {
                     Wild = new PokemonData()
                     {
-                        Pokemon = npc.HomeClass().Name,
-                        HP  = 10,
-                        MaxHP = 10
+                        Pokemon = npc.HomeClass().Name
                     };
+                    Wild.HP = Wild.MaxHP;
                     //Replace NPC with projectile
                     if (Main.netMode == NetmodeID.SinglePlayer || player1.player == Main.LocalPlayer)
                     {
@@ -1250,12 +1249,12 @@ namespace Terramon.Pokemon
                 // ... we need to update the hp bar fill + display number.
                 if (local)
                 {
-                    TerramonMod.ZoomAnimator.HPBar1Fill((float)pokeData.HP / pokeData.MaxHP, 1000, Easing.None);
-                    TerramonMod.ZoomAnimator.HPBar1DisplayNumber(pokeData.HP, 1000, Easing.None);
+                    TerramonMod.ZoomAnimator.HPBar1Fill((float)pokeData.HP / pokeData.MaxHP, 400, Easing.None);
+                    TerramonMod.ZoomAnimator.HPBar1DisplayNumber(pokeData.HP, 400, Easing.None);
                 } else
                 {
-                    TerramonMod.ZoomAnimator.HPBar2Fill((float)pokeData.HP / pokeData.MaxHP, 1000, Easing.None);
-                    TerramonMod.ZoomAnimator.HPBar2DisplayNumber(pokeData.HP, 1000, Easing.None);
+                    TerramonMod.ZoomAnimator.HPBar2Fill((float)pokeData.HP / pokeData.MaxHP, 400, Easing.None);
+                    TerramonMod.ZoomAnimator.HPBar2DisplayNumber(pokeData.HP, 400, Easing.None);
                 }
             }
 

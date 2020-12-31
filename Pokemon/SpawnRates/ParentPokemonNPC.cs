@@ -582,6 +582,16 @@ namespace Terramon.Pokemon
             CreateDust(4);
             CombatText.NewText(npc.Hitbox, Color.Orange, $"{pokeName.Value} was caught!", true);
 
+            TerramonPlayer modPlayer = Main.LocalPlayer.GetModPlayer<TerramonPlayer>();
+            modPlayer.PartySlot2 = new PokemonData()
+            {
+                Pokemon = HomeClass().Name,
+                pokeballType = 1
+            };
+            modPlayer.secondslotname = modPlayer.PartySlot2.PokemonName;
+
+            return;
+
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 var packet = new BaseCatchPacket();
