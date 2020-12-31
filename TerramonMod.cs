@@ -36,6 +36,8 @@ using Terramon.Sounds.Custom;
 using Terramon.Players;
 using Terramon.UI.Test;
 using Terraria.Utilities;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 
 namespace Terramon
 {
@@ -304,6 +306,9 @@ namespace Terramon
                 var ss = Localisation.GetLocalisedString(new LocalisedString(("title","Powered by broken code")));//It's terrible checking in ui from phone, so i can ensure everything works from version string
                 //Main.versionNumber = ss.Value + "\n" + Main.versionNumber;
 #endif
+                Ref<Effect> screenRef = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect")); // The path to the compiled shader file.
+                Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef, "Shockwave"), EffectPriority.VeryHigh);
+                Filters.Scene["Shockwave"].Load();
 
                 ChooseStarter = new ChooseStarter();
                 ChooseStarter.Activate();
