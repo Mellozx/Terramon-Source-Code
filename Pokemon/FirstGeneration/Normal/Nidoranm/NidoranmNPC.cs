@@ -8,7 +8,7 @@ namespace Terramon.Pokemon.FirstGeneration.Normal.Nidoranm
 {
     public class NidoranmNPC : ParentPokemonNPC
     {
-        public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/NidoranM/NidoranM";
+        public override string Texture => "Terramon/Pokemon/FirstGeneration/Normal/Nidoranm/Nidoranm"; 
         public override Type HomeClass()
         {
             return typeof(Nidoranm);
