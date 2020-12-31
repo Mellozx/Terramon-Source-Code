@@ -439,31 +439,87 @@ namespace Terramon.Pokemon.Moves
             }
             return 45; // Default value if for some reason none found
         }
-        public static GetStat EVYieldStat(PokemonData p)
+
+        public static int EVYieldTotal(PokemonData p)
         {
             string match = p.PokemonName;
             foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
             {
                 if (pokemon.Name == match)
                 {
-                    if (pokemon.EVYieldStat == "hp") return GetStat.HP;
-                    if (pokemon.EVYieldStat == "attack") return GetStat.Attack;
-                    if (pokemon.EVYieldStat == "defense") return GetStat.Defense;
-                    if (pokemon.EVYieldStat == "special-attack") return GetStat.SpAtk;
-                    if (pokemon.EVYieldStat == "special-defense") return GetStat.SpDef;
-                    if (pokemon.EVYieldStat == "speed") return GetStat.Speed;
+                    return (int)(pokemon.EVYieldHP + pokemon.EVYieldAttack + pokemon.EVYieldDefense + pokemon.EVYieldSpAtk + pokemon.EVYieldSpDef + pokemon.EVYieldSpeed);
                 }
             }
-            return GetStat.HP; // Default value if for some reason none found
+            return 1; // Default value if for some reason none found
         }
-        public static int EVYieldAmount(PokemonData p)
+        public static int EVYieldHP(PokemonData p)
         {
             string match = p.PokemonName;
             foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
             {
                 if (pokemon.Name == match)
                 {
-                    return (int)pokemon.EVYield;
+                    return (int)pokemon.EVYieldHP;
+                }
+            }
+            return 1; // Default value if for some reason none found
+        }
+        public static int EVYieldAttack(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.EVYieldAttack;
+                }
+            }
+            return 1; // Default value if for some reason none found
+        }
+        public static int EVYieldDefense(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.EVYieldDefense;
+                }
+            }
+            return 1; // Default value if for some reason none found
+        }
+        public static int EVYieldSpAtk(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.EVYieldSpAtk;
+                }
+            }
+            return 1; // Default value if for some reason none found
+        }
+        public static int EVYieldSpDef(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.EVYieldSpDef;
+                }
+            }
+            return 1; // Default value if for some reason none found
+        }
+        public static int EVYieldSpeed(PokemonData p)
+        {
+            string match = p.PokemonName;
+            foreach (MoveDb pokemon in moveDb) // Loop through MoveDb
+            {
+                if (pokemon.Name == match)
+                {
+                    return (int)pokemon.EVYieldSpeed;
                 }
             }
             return 1; // Default value if for some reason none found
@@ -496,11 +552,23 @@ namespace Terramon.Pokemon.Moves
         [JsonProperty("baseSpeed")]
         public long BaseSpeed { get; set; }
 
-        [JsonProperty("evYieldStat")]
-        public string EVYieldStat { get; set; }
+        [JsonProperty("evYieldHp")]
+        public long EVYieldHP { get; set; }
 
-        [JsonProperty("evYield")]
-        public long EVYield { get; set; }
+        [JsonProperty("evYieldAtk")]
+        public long EVYieldAttack { get; set; }
+
+        [JsonProperty("evYieldDef")]
+        public long EVYieldDefense { get; set; }
+
+        [JsonProperty("evYieldSpAtk")]
+        public long EVYieldSpAtk { get; set; }
+
+        [JsonProperty("evYieldSpDef")]
+        public long EVYieldSpDef { get; set; }
+
+        [JsonProperty("evYieldSpeed")]
+        public long EVYieldSpeed { get; set; }
 
         [JsonProperty("learnAtLevel")]
         public Dictionary<string, long>[] LearnAtLevel { get; set; }

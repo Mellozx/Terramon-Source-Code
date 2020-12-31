@@ -21,8 +21,12 @@ function createDBEntry(id) {
     baseSpAtk: 0,
     baseSpDef: 0,
     baseSpeed: 0,
-    evYieldStat: "",
-    evYield: 0,
+    evYieldHp: 0,
+    evYieldAtk: 0,
+    evYieldDef: 0,
+    evYieldSpAtk: 0,
+    evYieldSpDef: 0,
+    evYieldSpeed: 0,
     learnAtLevel: []
   }
   pokemon.name = capitalizeFirstLetter(pokedex.pokemon(id).name) // Get Pokemon name
@@ -32,38 +36,32 @@ function createDBEntry(id) {
 
     pokemon.baseHp = res.stats[0].base_stat;
     if (res.stats[0].effort != 0) {
-        pokemon.evYield = res.stats[0].effort;
-        pokemon.evYieldStat = res.stats[0].stat.name;
+        pokemon.evYieldHp = res.stats[0].effort;
     }
 
     pokemon.baseAtk = res.stats[1].base_stat;
     if (res.stats[1].effort != 0) {
-        pokemon.evYield = res.stats[1].effort;
-        pokemon.evYieldStat = res.stats[1].stat.name;
+        pokemon.evYieldAtk = res.stats[1].effort;
     }
 
     pokemon.baseDef = res.stats[2].base_stat;
     if (res.stats[2].effort != 0) {
-        pokemon.evYield = res.stats[2].effort;
-        pokemon.evYieldStat = res.stats[2].stat.name;
+        pokemon.evYieldDef = res.stats[2].effort;
     }
 
     pokemon.baseSpAtk = res.stats[3].base_stat;
     if (res.stats[3].effort != 0) {
-        pokemon.evYield = res.stats[3].effort;
-        pokemon.evYieldStat = res.stats[3].stat.name;
+        pokemon.evYieldSpAtk = res.stats[3].effort;
     }
 
     pokemon.baseSpDef = res.stats[4].base_stat;
     if (res.stats[4].effort != 0) {
-        pokemon.evYield = res.stats[4].effort;
-        pokemon.evYieldStat = res.stats[4].stat.name;
+        pokemon.evYieldSpDef = res.stats[4].effort;
     }
 
     pokemon.baseSpeed = res.stats[5].base_stat;
     if (res.stats[5].effort != 0) {
-        pokemon.evYield = res.stats[5].effort;
-        pokemon.evYieldStat = res.stats[5].stat.name;
+        pokemon.evYieldSpeed = res.stats[5].effort;
     }
 
     for (var i = 0; i < res.moves.length; i++) {

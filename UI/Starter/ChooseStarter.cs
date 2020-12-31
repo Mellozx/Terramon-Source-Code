@@ -1162,6 +1162,8 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
                 Level = 5,
                 ExpToNext = ExpLookupTable.ToNextLevel(5, ExpGroup.MediumSlow)
             };
+            p.PartySlot1.HP = p.PartySlot1.MaxHP;
+
             Visible = false;
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
         }
@@ -1186,6 +1188,7 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
                 Level = 5,
                 ExpToNext = ExpLookupTable.ToNextLevel(5, ExpGroup.MediumSlow)
             };
+            p.PartySlot1.HP = p.PartySlot1.MaxHP;
 
             Visible = false;
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);
@@ -1211,6 +1214,7 @@ Texture2D smallbushtexture = ModContent.GetTexture("Terramon/UI/IntroMovie/Small
                 Level = 5,
                 ExpToNext = ExpLookupTable.ToNextLevel(5, ExpGroup.MediumSlow)
             };
+            p.PartySlot1.HP = p.PartySlot1.MaxHP;
 
             Visible = false;
             ModContent.GetInstance<TerramonMod>()._exampleUserInterface.SetState(null);

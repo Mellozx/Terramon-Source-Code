@@ -225,43 +225,43 @@ namespace Terramon.Pokemon
             // CAMERA & ZOOM CONTROL //
             if (Main.keyState.IsKeyDown(Keys.D) && doneWildIntro && UI.Turn)
             {
-                if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
+                //if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
                 OffsetModifier.X += 4;
                 TerramonMod.ZoomAnimator.ScreenPosX((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X + 12) + OffsetModifier.X, 1, Easing.None);
             }
             if (Main.keyState.IsKeyDown(Keys.A) && doneWildIntro && UI.Turn)
             {
-                if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
+                //if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
                 OffsetModifier.X -= 4;
                 TerramonMod.ZoomAnimator.ScreenPosX((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X + 12) + OffsetModifier.X, 1, Easing.None);
             }
             if (Main.keyState.IsKeyDown(Keys.W) && doneWildIntro && UI.Turn)
             {
-                if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
+                //if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
                 OffsetModifier.Y -= 4;
                 TerramonMod.ZoomAnimator.ScreenPosY((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.Y) + OffsetModifier.Y, 1, Easing.None);
             }
             if (Main.keyState.IsKeyDown(Keys.S) && doneWildIntro && UI.Turn)
             {
-                if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
+                //if (UI.tipText.Text == "Use WASD to move the camera around.") UI.tipText.SetText("Press SPACE to reset the camera.");
                 OffsetModifier.Y += 4;
                 TerramonMod.ZoomAnimator.ScreenPosY((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.Y) + OffsetModifier.Y, 1, Easing.None);
             }
             if (Main.keyState.IsKeyDown(Keys.Space) && doneWildIntro && UI.Turn && OffsetModifier != Vector2.Zero)
             {
-                if (UI.tipText.Text == "Press SPACE to reset the camera.") UI.tipText.SetText("Use UP and DOWN arrows to zoom in/out.");
+                //if (UI.tipText.Text == "Press SPACE to reset the camera.") UI.tipText.SetText("Use UP and DOWN arrows to zoom in/out.");
                 OffsetModifier = Vector2.Zero;
                 TerramonMod.ZoomAnimator.ScreenPosX((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.X + 12), 500, Easing.OutExpo);
                 TerramonMod.ZoomAnimator.ScreenPosY((Main.projectile[player1.ActivePetId].modProjectile.projectile.position.Y), 500, Easing.OutExpo);
             }
             if (Main.keyState.IsKeyDown(Keys.Up) && doneWildIntro && UI.Turn && Main.GameZoomTarget < 2f)
             {
-                if (UI.tipText.Text == "Use UP and DOWN arrows to zoom in/out.") UI.tipText.SetText("");
+                //if (UI.tipText.Text == "Use UP and DOWN arrows to zoom in/out.") UI.tipText.SetText("");
                 TerramonMod.ZoomAnimator.GameZoom(Main.GameZoomTarget + 0.03f, 1, Easing.None);
             }
             if (Main.keyState.IsKeyDown(Keys.Down) && doneWildIntro && UI.Turn && Main.GameZoomTarget > 1f)
             {
-                if (UI.tipText.Text == "Use UP and DOWN arrows to zoom in/out.") UI.tipText.SetText("");
+                //if (UI.tipText.Text == "Use UP and DOWN arrows to zoom in/out.") UI.tipText.SetText("");
                 TerramonMod.ZoomAnimator.GameZoom(Main.GameZoomTarget - 0.03f, 1, Easing.None);
             }
             // END CAMERA & ZOOm CONTROL //
@@ -954,7 +954,7 @@ namespace Terramon.Pokemon
 
                 if (player1.firstBattle)
                 {
-                    tipText.SetText("Use WASD to move the camera around.");
+                    //tipText.SetText("Use WASD to move the camera around.");
                     player1.firstBattle = false;
                 }
 

@@ -149,6 +149,7 @@ namespace Terramon.Pokemon
         /// Health (HP)
         /// </summary>
         public int MaxHPIV { get; set; } = 0;
+        public int MaxHPEV { get; set; } = 0;
 
         /// <summary>
         /// Physical damage 
@@ -162,6 +163,7 @@ namespace Terramon.Pokemon
             }
         }
         public int PhysDmgIV { get; set; } = 0;
+        public int PhysDmgEV { get; set; } = 0;
         /// <summary>
         /// Physical defense
         /// </summary>
@@ -174,28 +176,32 @@ namespace Terramon.Pokemon
             }
         }
         public int PhysDefIV { get; set; } = 0;
+        public int PhysDefEV { get; set; } = 0;
         /// <summary>
         /// Special damage
         /// </summary>
         public int SpDmg { get => TotalStatValue(GetStat.SpAtk); set { return; } }
         public int SpDmgIV { get; set; } = 0;
+        public int SpDmgEV { get; set; } = 0;
         /// <summary>
         /// Special defense
         /// </summary>
         public int SpDef { get => TotalStatValue(GetStat.SpDef); set { return; } }
         public int SpDefIV { get; set; } = 0;
+        public int SpDefEV { get; set; } = 0;
         /// <summary>
         /// Speed
         /// </summary>
         public int Speed { get => TotalStatValue(GetStat.Speed); set { return; } }
         public int SpeedIV { get; set; } = 0;
+        public int SpeedEV { get; set; } = 0;
 
         public int TotalStatValue(GetStat stat)
         {
             if (stat == GetStat.HP)
             {
                 float hpStat = 0;
-                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float a = (float)Math.Floor((float)MaxHPEV / 4f); // Add EVs division here later
                 float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseHP(this) + MaxHPIV + a);
                 float c = (float)Math.Floor(b * Level / 100);
                 hpStat = c + Level + 10;
@@ -204,7 +210,7 @@ namespace Terramon.Pokemon
 
             float otherStat = 0;
             if (stat == GetStat.Attack) {
-                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float a = (float)Math.Floor((float)PhysDmgEV / 4f); // Add EVs division here later
                 float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseAttack(this) + PhysDmgIV + a);
                 float c = (float)Math.Floor(b * Level / 100);
                 float d = c + 5;
@@ -213,7 +219,7 @@ namespace Terramon.Pokemon
             }
             if (stat == GetStat.Defense)
             {
-                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float a = (float)Math.Floor((float)PhysDefEV / 4f); // Add EVs division here later
                 float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseDefense(this) + PhysDefIV + a);
                 float c = (float)Math.Floor(b * Level / 100);
                 float d = c + 5;
@@ -222,7 +228,7 @@ namespace Terramon.Pokemon
             }
             if (stat == GetStat.SpAtk)
             {
-                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float a = (float)Math.Floor((float)SpDmgEV / 4f); // Add EVs division here later
                 float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseSpAtk(this) + SpDmgIV + a);
                 float c = (float)Math.Floor(b * Level / 100);
                 float d = c + 5;
@@ -231,7 +237,7 @@ namespace Terramon.Pokemon
             }
             if (stat == GetStat.SpDef)
             {
-                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float a = (float)Math.Floor((float)SpDefEV / 4f); // Add EVs division here later
                 float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseSpDef(this) + SpDefIV + a);
                 float c = (float)Math.Floor(b * Level / 100);
                 float d = c + 5;
@@ -240,7 +246,7 @@ namespace Terramon.Pokemon
             }
             if (stat == GetStat.Speed)
             {
-                float a = (float)Math.Floor((float)0f / 4f); // Add EVs division here later
+                float a = (float)Math.Floor((float)SpeedEV / 4f); // Add EVs division here later
                 float b = (float)Math.Floor(2 * (float)BaseMove.GetBaseSpeed(this) + SpeedIV + a);
                 float c = (float)Math.Floor(b * Level / 100);
                 float d = c + 5;
@@ -257,7 +263,7 @@ namespace Terramon.Pokemon
         /// <returns>Applied healing (same as <see cref="delta"/> if <see cref="MaxHP"/> not reached)</returns>
         public int Heal(int delta)
         {
-            if (hp + delta > maxHp)
+            if (hp + delta > MaxHP)
             {
                 var d = MaxHP - HP;
                 HP = MaxHP;
@@ -323,16 +329,56 @@ namespace Terramon.Pokemon
             int t = 1; // *t* is equal to 1 if the winning Pokémon's current owner is its Original Trainer, always 1 since no trading is implemented yet
             int v = 1; // *v* is equal to 1.2 if the winning Pokémon is at or past the level where it would be able to evolve, but it has not, 1 otherwise
 
-            int exp;
+            int gain;
 
             if (state == BattleState.BattleWithWild) a = 1;
             else a = 1.5f;
 
-            exp = (int)(a * t * b * e * l * p * f * v)/(7 * s);
+            gain = (int)(a * t * b * e * l * p * f * v)/(7 * s);
 
-            pokemon.Exp += exp;
+            pokemon.Exp += gain;
 
-            return exp;
+            // Give out effort value points.
+            if (!ReachedEVMax())
+            {
+                GainEVs(opponent);
+            }
+
+            return gain;
+        }
+
+        public void GainEVs(PokemonData opponent)
+        {
+            if (EVTotal() + BaseMove.EVYieldHP(opponent) > 510) MaxHPEV += EVTotal() + BaseMove.EVYieldHP(opponent) - 510;
+            else MaxHPEV += BaseMove.EVYieldHP(opponent);
+            if (MaxHPEV > 252) MaxHPEV = 252;
+            if (ReachedEVMax()) return;
+            if (EVTotal() + BaseMove.EVYieldAttack(opponent) > 510) PhysDmgEV += EVTotal() + BaseMove.EVYieldAttack(opponent) - 510;
+            else PhysDmgEV += BaseMove.EVYieldAttack(opponent);
+            if (PhysDmgEV > 252) PhysDmgEV = 252;
+            if (ReachedEVMax()) return;
+            if (EVTotal() + BaseMove.EVYieldDefense(opponent) > 510) PhysDefEV += EVTotal() + BaseMove.EVYieldDefense(opponent) - 510;
+            else PhysDefEV += BaseMove.EVYieldDefense(opponent);
+            if (PhysDefEV > 252) PhysDefEV = 252;
+            if (ReachedEVMax()) return;
+            if (EVTotal() + BaseMove.EVYieldSpAtk(opponent) > 510) SpDmgEV += EVTotal() + BaseMove.EVYieldSpAtk(opponent) - 510;
+            else SpDmgEV += BaseMove.EVYieldSpAtk(opponent);
+            if (SpDmgEV > 252) SpDmgEV = 252;
+            if (ReachedEVMax()) return;
+            if (EVTotal() + BaseMove.EVYieldSpDef(opponent) > 510) SpDefEV += EVTotal() + BaseMove.EVYieldSpDef(opponent) - 510;
+            else SpDefEV += BaseMove.EVYieldSpDef(opponent);
+            if (SpDefEV > 252) SpDefEV = 252;
+            if (ReachedEVMax()) return;
+            if (EVTotal() + BaseMove.EVYieldSpeed(opponent) > 510) SpeedEV += EVTotal() + BaseMove.EVYieldSpeed(opponent) - 510;
+            else SpeedEV += BaseMove.EVYieldSpeed(opponent);
+            if (SpeedEV > 252) SpeedEV = 252;
+        }
+
+        public int EVTotal() { return MaxHPEV + PhysDmgEV + PhysDefEV + SpDmgEV + SpDefEV + SpeedEV; }
+        public bool ReachedEVMax()
+        {
+            if (EVTotal() >= 510) return true;
+            return false;
         }
 
         public int EXPToNextYield(int level, ExpGroup obs, string name = "")
@@ -464,6 +510,11 @@ namespace Terramon.Pokemon
                 [nameof(SpDmgIV)] = tag.SpDmgIV,
                 [nameof(SpDefIV)] = tag.SpDefIV,
                 [nameof(SpeedIV)] = tag.SpeedIV,
+                [nameof(PhysDmgEV)] = tag.PhysDmgEV,
+                [nameof(PhysDefEV)] = tag.PhysDefEV,
+                [nameof(SpDmgEV)] = tag.SpDmgEV,
+                [nameof(SpDefEV)] = tag.SpDefEV,
+                [nameof(SpeedEV)] = tag.SpeedEV,
 
                 //Store move name
                 [BaseCaughtClass.MOVE1] = tag.Moves?[0]?.GetType().Name ?? "",
@@ -511,6 +562,12 @@ namespace Terramon.Pokemon
                 SpDefIV = tag.ContainsKey(nameof(SpDefIV)) ? tag.GetInt(nameof(SpDefIV)) : GenerateIVs();
                 SpDmgIV = tag.ContainsKey(nameof(SpDmgIV)) ? tag.GetInt(nameof(SpDmgIV)) : GenerateIVs();
                 SpeedIV = tag.ContainsKey(nameof(SpeedIV)) ? tag.GetInt(nameof(SpeedIV)) : GenerateIVs();
+                MaxHPEV = tag.ContainsKey(nameof(MaxHPEV)) ? tag.GetInt(nameof(MaxHPEV)) : 0;
+                PhysDefEV = tag.ContainsKey(nameof(PhysDefEV)) ? tag.GetInt(nameof(PhysDefEV)) : 0;
+                PhysDmgEV = tag.ContainsKey(nameof(PhysDmgEV)) ? tag.GetInt(nameof(PhysDmgEV)) : 0;
+                SpDefEV = tag.ContainsKey(nameof(SpDefEV)) ? tag.GetInt(nameof(SpDefEV)) : 0;
+                SpDmgEV = tag.ContainsKey(nameof(SpDmgEV)) ? tag.GetInt(nameof(SpDmgEV)) : 0;
+                SpeedEV = tag.ContainsKey(nameof(SpeedEV)) ? tag.GetInt(nameof(SpeedEV)) : 0;
 
                 if (Moves == null)
                     Moves = new BaseMove[4];
@@ -568,6 +625,12 @@ namespace Terramon.Pokemon
             [nameof(SpDmgIV)] = this.SpDmgIV,
             [nameof(SpDefIV)] = this.SpDefIV,
             [nameof(SpeedIV)] = this.SpeedIV,
+            [nameof(MaxHPEV)] = this.MaxHPEV,
+            [nameof(PhysDmgEV)] = this.PhysDmgEV,
+            [nameof(PhysDefEV)] = this.PhysDefEV,
+            [nameof(SpDmgEV)] = this.SpDmgEV,
+            [nameof(SpDefEV)] = this.SpDefEV,
+            [nameof(SpeedEV)] = this.SpeedEV,
 
             //Store move name
             [BaseCaughtClass.MOVE1] = this.Moves?[0]?.GetType().Name ?? "",
